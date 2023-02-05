@@ -1,8 +1,9 @@
 ---
+import { Course } from "../components/Course";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Qdemy" />
+<Layout title="Qdemy"><Course client:load /></Layout>
 
 <style>
   main {
