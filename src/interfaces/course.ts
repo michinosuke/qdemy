@@ -1,3 +1,12 @@
+export type Question = {
+  question: string | string[];
+  // choices: string[] | string[][];
+  choices: string[];
+  corrects: number[];
+  explanation?: string | string[];
+  clicked: boolean;
+};
+
 export type Course = {
   meta?: {
     title?: string;
@@ -15,10 +24,5 @@ export type Course = {
       };
     };
   };
-  questions: {
-    question: string | string[];
-    choices: string | string[];
-    corrects: number[];
-    explanation?: string | string[];
-  }[];
+  questions: Question[];
 };
