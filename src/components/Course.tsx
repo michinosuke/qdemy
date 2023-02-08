@@ -34,11 +34,33 @@ const ABC = [
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const [course, setCourse] = useState<Course | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
     const source = search.get("source");
     setSourceUrl(source);
+    // getFileInLocalStorage();
   }, []);
+
+  // const getFileInLocalStorage = () => {
+  //   const str = localStorage.getItem("localFile");
+  //   if (!str) return;
+  //   const file = JSON.parse(str);
+
+  //   const fileReader = new FileReader();
+  //   fileReader.addEventListener("load", (e) => {
+  //     const result = e.target?.result;
+  //     if (typeof result !== "string") return;
+  //     console.log(result);
+  //     try {
+  //       const json = JSON.parse(result);
+  //       setCourse(json);
+  //     } catch (e) {
+  //       console.log("パースエラー");
+  //     }
+  //   });
+  //   fileReader.readAsText(file);
+  // };
 
   const fetchCourse = async () => {
     if (!sourceUrl) return;
@@ -51,13 +73,77 @@ export const CourseComponent = () => {
     fetchCourse();
   }, [sourceUrl]);
 
-  if (!sourceUrl) {
-    return <p>パラメータ source を指定してください</p>;
+  const watchFileModify = (file: File) => {
+    const fileReader = new FileReader();
+    fileReader.addEventListener("error", () => {
+      location.reload();
+    });
+    fileReader.readAsText(file);
+  };
+
+  const importFromFile = (file: File) => {
+    const fileReader = new FileReader();
+    fileReader.addEventListener("load", (e) => {
+      const result = e.target?.result;
+      if (typeof result !== "string") return;
+      try {
+        const json = JSON.parse(result);
+        setCourse(json);
+      } catch (e) {
+        console.log("パースエラー");
+      }
+    });
+    fileReader.addEventListener("error", () => {
+      location.reload();
+    });
+    fileReader.readAsText(file);
+  };
+
+  useEffect(() => {
+    if (!file) return;
+    importFromFile(file);
+    setInterval(() => {
+      watchFileModify(file);
+    }, 1000);
+  }, [file]);
+
+  if (!course && !sourceUrl) {
+    return (
+      <input
+        type="file"
+        className="m-5"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          setFile(file);
+          // localStorage.setItem("localFile", JSON.stringify(file));
+        }}
+      />
+    );
   }
+
   if (!course) return <></>;
+
   return (
-    <div className="w-full max-w-xl mx-auto py-20">
-      <ul className="flex flex-col gap-10">
+    <div className="w-full max-w-xl mx-auto py-5 px-5">
+      <div className="flex flex-col gap-5">
+        {course.meta?.title && (
+          <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
+        )}
+        {course.meta?.description && <p>{course.meta?.description}</p>}
+        <div className="flex gap-3 items-center">
+          {course.meta?.author?.icon_url && (
+            <div
+              className="rounded-full bg-cover bg-center w-20 h-20"
+              style={{ backgroundImage: `url(${course.meta.author.icon_url})` }}
+            />
+          )}
+          {course.meta?.author?.name && (
+            <span className="">{course.meta.author.name}</span>
+          )}
+        </div>
+      </div>
+      <ul className="flex flex-col gap-10 mt-20">
         {course.questions.map((question, i) => (
           <li
             key={i}
@@ -70,7 +156,7 @@ export const CourseComponent = () => {
             }}
           >
             <h2 className="text-lg font-bold">Q. {i + 1}</h2>
-            <p>{question.question}</p>
+            <p>{question.question.ja ?? question.question.en}</p>
             <ul className="flex flex-col gap-3 mt-3">
               {question.choices.map((choice, j) => (
                 <li
@@ -86,7 +172,7 @@ export const CourseComponent = () => {
                   }`}
                 >
                   <span>{ABC[j]}</span>
-                  {choice}
+                  {choice.ja ?? choice.en}
                 </li>
               ))}
             </ul>
