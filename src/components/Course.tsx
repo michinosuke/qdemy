@@ -35,12 +35,28 @@ export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const [course, setCourse] = useState<Course | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [initialized, setInitialized] = useState(false);
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
     const source = search.get("source");
     setSourceUrl(source);
     // getFileInLocalStorage();
   }, []);
+
+  const saveMouseEnterQuestion = (questionId: string) => {
+    localStorage.setItem("focusedQuestionId", questionId);
+  };
+
+  const restoreScroll = () => {
+    const questionId = localStorage.getItem("focusedQuestionId");
+    if (!questionId) return;
+    const question = document.getElementById(questionId);
+    if (question) {
+      question.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
 
   // const getFileInLocalStorage = () => {
   //   const str = localStorage.getItem("localFile");
@@ -65,13 +81,22 @@ export const CourseComponent = () => {
   const fetchCourse = async () => {
     if (!sourceUrl) return;
     const json = await axios.get(sourceUrl);
-    console.log(json.data);
     setCourse(json.data);
   };
 
   useEffect(() => {
     fetchCourse();
   }, [sourceUrl]);
+
+  useEffect(() => {
+    if (!file) return;
+    importFromFile(file);
+    setInterval(() => {
+      watchFileModify(file);
+    }, 1000);
+    setTimeout(restoreScroll, 100);
+    setTimeout(() => setInitialized(true), 3000);
+  }, [file]);
 
   const watchFileModify = (file: File) => {
     const fileReader = new FileReader();
@@ -99,14 +124,6 @@ export const CourseComponent = () => {
     fileReader.readAsText(file);
   };
 
-  useEffect(() => {
-    if (!file) return;
-    importFromFile(file);
-    setInterval(() => {
-      watchFileModify(file);
-    }, 1000);
-  }, [file]);
-
   if (!course && !sourceUrl) {
     return (
       <input
@@ -125,7 +142,7 @@ export const CourseComponent = () => {
   if (!course) return <></>;
 
   return (
-    <div className="w-full max-w-xl mx-auto py-5 px-5">
+    <div className="w-full max-w-3xl mx-auto py-5 px-5">
       <div className="flex flex-col gap-5">
         {course.meta?.title && (
           <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
@@ -147,6 +164,10 @@ export const CourseComponent = () => {
         {course.questions.map((question, i) => (
           <li
             key={i}
+            id={`question-${i + 1}`}
+            onMouseEnter={() =>
+              initialized && saveMouseEnterQuestion(`question-${i + 1}`)
+            }
             onClick={() => {
               const courseClone = JSON.parse(JSON.stringify(course)) as Course;
               const q = courseClone.questions[i];
@@ -157,11 +178,11 @@ export const CourseComponent = () => {
           >
             <h2 className="text-lg font-bold">Q. {i + 1}</h2>
             <p>{question.question.ja ?? question.question.en}</p>
-            <ul className="flex flex-col gap-3 mt-3">
+            <ul className="flex flex-col gap-2 mt-3">
               {question.choices.map((choice, j) => (
                 <li
                   key={j}
-                  className={`flex gap-5 py-2 px-3 ${
+                  className={`flex gap-5 py-2 px-3 border border-black ${
                     question.corrects.includes(j + 1) && question.clicked
                       ? "bg-blue-100"
                       : ""

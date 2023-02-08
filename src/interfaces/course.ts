@@ -1,5 +1,6 @@
 // export type Question = {
 //   question: string | string[];
+//   summary?: string;
 //   // choices: string[] | string[][];
 //   choices: string[];
 //   corrects: number[];
