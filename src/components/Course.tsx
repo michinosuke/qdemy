@@ -94,9 +94,12 @@ export const CourseComponent = () => {
     setInterval(() => {
       watchFileModify(file);
     }, 1000);
+  }, [file]);
+
+  useEffect(() => {
     setTimeout(restoreScroll, 100);
     setTimeout(() => setInitialized(true), 3000);
-  }, [file]);
+  }, [course]);
 
   const watchFileModify = (file: File) => {
     const fileReader = new FileReader();
