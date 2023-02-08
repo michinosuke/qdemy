@@ -97,8 +97,10 @@ export const CourseComponent = () => {
   }, [file]);
 
   useEffect(() => {
-    setTimeout(restoreScroll, 100);
-    setTimeout(() => setInitialized(true), 3000);
+    if (!initialized) {
+      setTimeout(restoreScroll, 100);
+      setTimeout(() => setInitialized(true), 3000);
+    }
   }, [course]);
 
   const watchFileModify = (file: File) => {
@@ -200,6 +202,9 @@ export const CourseComponent = () => {
                 </li>
               ))}
             </ul>
+            {question.clicked && question.explanation && (
+              <p className="mt-5 border-l-4 pl-5">{question.explanation.ja}</p>
+            )}
           </li>
         ))}
       </ul>
