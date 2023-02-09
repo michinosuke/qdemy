@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import type { Course, Question } from "../interfaces/course";
+import CourseTestData from "../test-data/pas-01.json";
 
 const ABC = [
   "A",
@@ -41,6 +42,8 @@ export const CourseComponent = () => {
     const source = search.get("source");
     setSourceUrl(source);
     // getFileInLocalStorage();
+    // forDebug
+    setCourse(CourseTestData as Course);
   }, []);
 
   const saveMouseEnterQuestion = (questionId: string) => {
@@ -129,6 +132,13 @@ export const CourseComponent = () => {
     fileReader.readAsText(file);
   };
 
+  const replaceBr = (str: string | string[]) => {
+    if (Array.isArray(str)) {
+      return str.map((s) => (s === "" ? <br /> : <p>{s}</p>));
+    }
+    return str;
+  };
+
   if (!course && !sourceUrl) {
     return (
       <input
@@ -165,7 +175,7 @@ export const CourseComponent = () => {
           )}
         </div>
       </div>
-      <ul className="flex flex-col gap-10 mt-20">
+      <ul className="flex flex-col gap-10 mt-10 pt-10 border-t-4">
         {course.questions.map((question, i) => (
           <li
             key={i}
@@ -173,21 +183,18 @@ export const CourseComponent = () => {
             onMouseEnter={() =>
               initialized && saveMouseEnterQuestion(`question-${i + 1}`)
             }
-            onClick={() => {
-              const courseClone = JSON.parse(JSON.stringify(course)) as Course;
-              const q = courseClone.questions[i];
-              if (!q) return;
-              q.clicked = !q.clicked;
-              setCourse(courseClone);
-            }}
           >
             <h2 className="text-lg font-bold">Q. {i + 1}</h2>
-            <p>{question.question.ja ?? question.question.en}</p>
+            <p>
+              {question.question.ja
+                ? replaceBr(question.question.ja)
+                : replaceBr(question.question.en as string)}
+            </p>
             <ul className="flex flex-col gap-2 mt-3">
               {question.choices.map((choice, j) => (
                 <li
                   key={j}
-                  className={`flex gap-5 py-2 px-3 border border-black ${
+                  className={`flex gap-5 py-2 px-3 border border-black cursor-pointer ${
                     question.corrects.includes(j + 1) && question.clicked
                       ? "bg-blue-100"
                       : ""
@@ -196,14 +203,25 @@ export const CourseComponent = () => {
                       ? "bg-red-100"
                       : ""
                   }`}
+                  onClick={() => {
+                    const courseClone = JSON.parse(
+                      JSON.stringify(course)
+                    ) as Course;
+                    const q = courseClone.questions[i];
+                    if (!q) return;
+                    q.clicked = !q.clicked;
+                    setCourse(courseClone);
+                  }}
                 >
                   <span>{ABC[j]}</span>
                   {choice.ja ?? choice.en}
                 </li>
               ))}
             </ul>
-            {question.clicked && question.explanation && (
-              <p className="mt-5 border-l-4 pl-5">{question.explanation.ja}</p>
+            {question.clicked && question.explanation?.ja && (
+              <p className="mt-5 border-l-4 pl-5">
+                {replaceBr(question.explanation.ja)}
+              </p>
             )}
           </li>
         ))}
