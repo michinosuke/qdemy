@@ -83,7 +83,11 @@ export const CourseComponent = () => {
 
   const fetchCourse = async () => {
     if (!sourceUrl) return;
-    const json = await axios.get(sourceUrl);
+    const json = await axios.get(sourceUrl, {
+      params: {
+        timestamp: Date.now(),
+      },
+    });
     setCourse(json.data);
   };
 
