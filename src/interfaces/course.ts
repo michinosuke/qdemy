@@ -28,6 +28,8 @@
 //   questions: Question[];
 // };
 
+export type TextType = "plain" | "html" | "markdown";
+
 export type Question = {
   question: JaEn;
   choices: JaEn[];
@@ -36,14 +38,16 @@ export type Question = {
   clicked: boolean;
 };
 
+export type Language = "ja" | "en";
+
 export type Meta = {
   title?: string;
   description?: string | string[];
   minutes?: number;
   pass_count?: number;
   pass_percent?: number;
-  text_type?: "plain" | "html" | "markdown";
-  language?: "ja" | "en";
+  text_type?: TextType;
+  language?: Language;
   author?: {
     name?: string;
     icon_url?: string;

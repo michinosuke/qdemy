@@ -1,0 +1,8 @@
+.sentences {
+  * {
+    @apply whitespace-pre-wrap;
+  }
+  a {
+    @apply border-b-4;
+  }
+}
