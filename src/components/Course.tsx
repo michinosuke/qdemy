@@ -41,7 +41,6 @@ export const CourseComponent = () => {
     const questionId = q
       ? `question-${q}`
       : localStorage.getItem("focusedQuestionId");
-    console.log({ questionId });
     if (!questionId) return;
     const question = document.getElementById(questionId);
     if (question) {

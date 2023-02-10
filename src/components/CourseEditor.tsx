@@ -22,40 +22,74 @@ export const CourseEdit: FC<Props> = ({
   setIsEditMode,
 }) => {
   return (
-    <div className="w-full max-w-3xl mx-auto py-5 px-5">
+    <div className="py-5 px-5">
       <div className="flex flex-col gap-5">
         {course.meta?.title && (
           <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
         )}
-        {course.meta?.description &&
-          sentences2Elements({
-            sentences: course.meta.description,
-            textType: course.meta.text_type,
-            preferLang,
-          })}
-        <textarea
-          onChange={(e) =>
-            updateCourse((course) => {
-              if (course.meta?.description === undefined) return null;
-              course.meta.description = e.target.value;
-              return course;
-            })
-          }
-          value={course.meta?.description}
-        ></textarea>
-        <div className="flex gap-3 items-center">
-          {course.meta?.author?.icon_url && (
-            <div
-              className="rounded-full bg-cover bg-center w-20 h-20"
-              style={{ backgroundImage: `url(${course.meta.author.icon_url})` }}
+        <div className="flex">
+          {course.meta?.description &&
+            sentences2Elements({
+              sentences: course.meta.description,
+              textType: course.meta.text_type,
+              language: preferLang,
+              className: "flex-1 p-5",
+            })}
+          <textarea
+            onChange={(e) =>
+              updateCourse((course) => {
+                if (course.meta?.description === undefined) return null;
+                course.meta.description = e.target.value;
+                return course;
+              })
+            }
+            value={course.meta?.description}
+            className="flex-1 p-5"
+          ></textarea>
+        </div>
+        <div className="flex gap-5">
+          <div className="flex gap-3 items-center flex-1">
+            {course.meta?.author?.icon_url && (
+              <div
+                className="rounded-full bg-cover bg-center w-20 h-20"
+                style={{
+                  backgroundImage: `url(${course.meta.author.icon_url})`,
+                }}
+              />
+            )}
+            {course.meta?.author?.name && (
+              <span className="">{course.meta.author.name}</span>
+            )}
+          </div>
+          <div className="flex-1 flex flex-col gap-5">
+            <input
+              onChange={(e) =>
+                updateCourse((course) => {
+                  const author = course.meta?.author;
+                  if (!author) return null;
+                  author.icon_url = e.target.value ?? null;
+                  return course;
+                })
+              }
+              value={course.meta?.author?.icon_url ?? ""}
+              className="w-full"
             />
-          )}
-          {course.meta?.author?.name && (
-            <span className="">{course.meta.author.name}</span>
-          )}
+            <input
+              onChange={(e) =>
+                updateCourse((course) => {
+                  const author = course.meta?.author;
+                  if (!author) return null;
+                  author.name = e.target.value ?? null;
+                  return course;
+                })
+              }
+              value={course.meta?.author?.name ?? ""}
+              className="w-full"
+            />
+          </div>
         </div>
       </div>
-      <ul className="flex flex-col gap-10 mt-10 pt-10 border-t-4">
+      <ul className="flex flex-col gap-28 mt-10 pt-10 border-t-4">
         {course.questions.map((question, questionIndex) => (
           <li
             key={questionIndex}
@@ -66,57 +100,104 @@ export const CourseEdit: FC<Props> = ({
             }
           >
             <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
-            {(["ja", "en"] as Language[]).map((lng, key) => (
-              <div key={key}>
-                <div className="opacity-40">
-                  {sentences2Elements({
-                    sentences: question.question,
-                    textType: course.meta?.text_type,
-                    preferLang: lng,
-                  })}
-                </div>
-                <textarea
-                  onChange={(e) =>
-                    updateCourse((course) => {
-                      const question = course.questions[questionIndex];
-                      if (!question) return null;
-                      question.question[lng] = e.target.value;
-                      return course;
-                    })
-                  }
-                  value={(() => {
-                    const text = course.questions[questionIndex]?.question[lng];
-                    if (Array.isArray(text)) return text.join("\n");
-                    if (typeof text === "string") return text;
-                    return "";
-                  })()}
-                  className="w-full h-64"
-                ></textarea>
-              </div>
-            ))}
-            <ul className="flex flex-col gap-2 mt-3">
-              {question.choices.map((choice, j) => (
-                <li
-                  key={j}
-                  className={`flex gap-5 py-2 px-3 border border-black cursor-pointer`}
-                >
-                  <span>{ABC[j]}</span>
-                  {sentences2Elements({
-                    sentences: choice,
-                    textType: course.meta?.text_type,
-                    preferLang,
-                  })}
+            <ul className="flex gap-3">
+              {(["en", "ja"] as Language[]).map((lng, key) => (
+                <li className="flex-1" key={key}>
+                  <textarea
+                    onChange={(e) =>
+                      updateCourse((course) => {
+                        const question = course.questions[questionIndex];
+                        if (!question) return null;
+                        question.question[lng] = e.target.value;
+                        return course;
+                      })
+                    }
+                    value={(() => {
+                      const text =
+                        course.questions[questionIndex]?.question[lng];
+                      if (Array.isArray(text)) return text.join("\n");
+                      if (typeof text === "string") return text;
+                      return "";
+                    })()}
+                    className="p-5 w-full h-72"
+                  />
                 </li>
               ))}
             </ul>
-            {question.clicked && question.explanation && (
-              <div className="mt-5 border-l-4 pl-5">
-                {sentences2Elements({
-                  sentences: question.explanation,
-                  textType: course.meta?.text_type,
-                  preferLang,
-                })}
-              </div>
+            <ul className="flex flex-col gap-5 mt-3">
+              {question.choices.map((choice, choiceIndex) => (
+                <li key={choiceIndex} className="flex items-center gap-3">
+                  <h3 className="w-7 h-7 rounded-full bg-black text-white grid place-content-center">
+                    <span>{ABC[choiceIndex]}</span>
+                  </h3>
+                  <ul className="flex gap-3 cursor-pointer flex-auto">
+                    {(["en", "ja"] as Language[]).map((lng, key) => (
+                      <li className="flex-1">
+                        <textarea
+                          onChange={(e) =>
+                            updateCourse((course) => {
+                              const choice =
+                                course.questions[questionIndex]?.choices?.[
+                                  choiceIndex
+                                ];
+                              if (!choice) return null;
+                              choice[lng] = e.target.value;
+                              return course;
+                            })
+                          }
+                          value={(() => {
+                            const text =
+                              course.questions[questionIndex]?.choices?.[
+                                choiceIndex
+                              ]?.[lng];
+                            if (Array.isArray(text)) return text.join("\n");
+                            if (typeof text === "string") return text;
+                            return "";
+                          })()}
+                          className="p-5 w-full h-36"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+            {question.explanation && (
+              <>
+                <h3 className="mt-7 border-b-2">解説</h3>
+                <ul className="flex gap-3 mt-4">
+                  <li className="flex-1">
+                    {sentences2Elements({
+                      sentences: question.explanation,
+                      textType: course.meta?.text_type,
+                      language: "ja",
+                      mode: "just",
+                    })}
+                  </li>
+                  <li className="flex-1">
+                    <textarea
+                      onChange={(e) =>
+                        updateCourse((course) => {
+                          const explanation =
+                            course.questions[questionIndex]?.explanation;
+                          if (!explanation) return null;
+                          explanation.ja = e.target.value ?? null;
+                          return course;
+                        })
+                      }
+                      value={(() => {
+                        const text =
+                          course.questions[questionIndex]?.explanation?.ja;
+                        if (Array.isArray(text)) return text.join("\n");
+                        if (typeof text === "string") return text;
+                        return "";
+                      })()}
+                      className="p-5 w-full h-full"
+                      rows={10}
+                    />
+                  </li>
+                </ul>
+              </>
             )}
           </li>
         ))}

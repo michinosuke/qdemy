@@ -25,15 +25,16 @@ const str2Elements = ({
 export const sentences2Elements = ({
   sentences,
   textType = "plain",
-  preferLang,
+  language,
+  mode = "prefer",
   className,
 }: {
   sentences: string | string[] | JaEn;
   textType: TextType | undefined;
-  preferLang: Language;
+  language: Language;
+  mode?: "just" | "prefer";
   className?: string;
 }): ReactNode => {
-  console.log({ className });
   if (Array.isArray(sentences)) {
     return (
       <div className={`sentences ${className}`}>
@@ -50,23 +51,23 @@ export const sentences2Elements = ({
       </div>
     );
   }
-  const firstLang = preferLang;
-  const secondLang = preferLang === "ja" ? "en" : "ja";
-  const firstSentence = sentences[firstLang];
+  const secondLang = language === "ja" ? "en" : "ja";
+  const firstSentence = sentences[language];
   const secondSentence = sentences[secondLang];
 
   if (firstSentence) {
     return sentences2Elements({
       sentences: firstSentence,
       textType,
-      preferLang,
+      language,
     });
   }
+  if (mode === "just") return "NULL";
   if (secondSentence) {
     return sentences2Elements({
       sentences: secondSentence,
       textType,
-      preferLang,
+      language,
     });
   }
   return <></>;
