@@ -55,6 +55,8 @@ export const sentences2Elements = ({
   const firstSentence = sentences[language];
   const secondSentence = sentences[secondLang];
 
+  console.log({ firstSentence });
+
   if (firstSentence) {
     return sentences2Elements({
       sentences: firstSentence,

@@ -165,7 +165,7 @@ export const CourseComponent = () => {
           sentences2Elements({
             sentences: course.meta.description,
             textType: course.meta.text_type,
-            preferLang,
+            language: preferLang,
           })}
         <div className="flex gap-3 items-center">
           {course.meta?.author?.icon_url && (
@@ -205,7 +205,7 @@ export const CourseComponent = () => {
             {sentences2Elements({
               sentences: question.question,
               textType: course.meta?.text_type,
-              preferLang,
+              language: preferLang,
             })}
             <ul className="flex flex-col gap-4 mt-3">
               {question.choices.map((choice, choiceIndex) => (
@@ -237,7 +237,7 @@ export const CourseComponent = () => {
               sentences2Elements({
                 sentences: question.explanation,
                 textType: course.meta?.text_type,
-                preferLang,
+                language: preferLang,
                 className: "mt-5 border-l-4 pl-5",
               })}
           </li>

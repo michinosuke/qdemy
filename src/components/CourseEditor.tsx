@@ -100,7 +100,8 @@ export const CourseEdit: FC<Props> = ({
             }
           >
             <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
-            <ul className="flex gap-3">
+            <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
+            <ul className="flex gap-3 mt-3">
               {(["en", "ja"] as Language[]).map((lng, key) => (
                 <li className="flex-1" key={key}>
                   <textarea
@@ -125,12 +126,13 @@ export const CourseEdit: FC<Props> = ({
               ))}
             </ul>
             <ul className="flex flex-col gap-5 mt-3">
+              <h3 className="mt-7 border-b-2 font-bold text-lg">選択肢</h3>
               {question.choices.map((choice, choiceIndex) => (
                 <li key={choiceIndex} className="flex items-center gap-3">
                   <h3 className="w-7 h-7 rounded-full bg-black text-white grid place-content-center">
                     <span>{ABC[choiceIndex]}</span>
                   </h3>
-                  <ul className="flex gap-3 cursor-pointer flex-auto">
+                  <ul className="flex gap-3 flex-auto">
                     {(["en", "ja"] as Language[]).map((lng, key) => (
                       <li className="flex-1">
                         <textarea
@@ -162,43 +164,41 @@ export const CourseEdit: FC<Props> = ({
                 </li>
               ))}
             </ul>
-            {question.explanation && (
-              <>
-                <h3 className="mt-7 border-b-2">解説</h3>
-                <ul className="flex gap-3 mt-4">
-                  <li className="flex-1">
-                    {sentences2Elements({
+            <h3 className="mt-8 border-b-2 font-bold text-lg">解説</h3>
+            <ul className="flex gap-3 mt-4">
+              <li className="flex-1">
+                {question.explanation
+                  ? sentences2Elements({
                       sentences: question.explanation,
                       textType: course.meta?.text_type,
                       language: "ja",
                       mode: "just",
-                    })}
-                  </li>
-                  <li className="flex-1">
-                    <textarea
-                      onChange={(e) =>
-                        updateCourse((course) => {
-                          const explanation =
-                            course.questions[questionIndex]?.explanation;
-                          if (!explanation) return null;
-                          explanation.ja = e.target.value ?? null;
-                          return course;
-                        })
-                      }
-                      value={(() => {
-                        const text =
-                          course.questions[questionIndex]?.explanation?.ja;
-                        if (Array.isArray(text)) return text.join("\n");
-                        if (typeof text === "string") return text;
-                        return "";
-                      })()}
-                      className="p-5 w-full h-full"
-                      rows={10}
-                    />
-                  </li>
-                </ul>
-              </>
-            )}
+                    })
+                  : "NULL"}
+              </li>
+              <li className="flex-1">
+                <textarea
+                  onChange={(e) =>
+                    updateCourse((course) => {
+                      const explanation =
+                        course.questions[questionIndex]?.explanation;
+                      if (!explanation) return null;
+                      explanation.ja = e.target.value ?? null;
+                      return course;
+                    })
+                  }
+                  value={(() => {
+                    const text =
+                      course.questions[questionIndex]?.explanation?.ja;
+                    if (Array.isArray(text)) return text.join("\n");
+                    if (typeof text === "string") return text;
+                    return "";
+                  })()}
+                  className="p-5 w-full h-full"
+                  rows={10}
+                />
+              </li>
+            </ul>
           </li>
         ))}
       </ul>

@@ -44,7 +44,7 @@ export const Choice: FC<Props> = ({
       {sentences2Elements({
         sentences: choice,
         textType: textType,
-        preferLang,
+        language: preferLang,
       })}
     </li>
   );
