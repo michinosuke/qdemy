@@ -1,6 +1,6 @@
-import { parser } from "./parser";
-import Valid01 from "../test-data/valid-01.json";
 import type { Course } from "../interfaces/course";
+import Valid01 from "../test-data/valid-01.json";
+import { parser } from "./parser";
 
 const invalidFiles: string[] = ["", "{}", "[]", "a", '"a"', "[a"];
 const validFiles: Course[] = [Valid01];

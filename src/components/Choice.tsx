@@ -1,6 +1,7 @@
-import type { FC } from "react";
 import type { JaEn, Language, TextType } from "../interfaces/course";
+
 import { ABC } from "../libs/abc";
+import type { FC } from "react";
 import { sentences2Elements } from "../libs/sentences2Elements";
 
 type Props = {

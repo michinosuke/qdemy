@@ -17,7 +17,8 @@
     "date-fns": "^2.29.3",
     "html-react-parser": "^3.0.8",
     "marked": "^4.2.12",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@astrojs/react": "^2.0.2",

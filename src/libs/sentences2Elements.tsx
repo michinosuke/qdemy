@@ -1,6 +1,7 @@
-import { marked } from "marked";
-import type { ReactElement, ReactFragment, ReactNode } from "react";
 import type { JaEn, Language, TextType } from "../interfaces/course";
+import type { ReactElement, ReactFragment, ReactNode } from "react";
+
+import { marked } from "marked";
 import parse from "html-react-parser";
 
 const str2Elements = ({
@@ -54,8 +55,6 @@ export const sentences2Elements = ({
   const secondLang = language === "ja" ? "en" : "ja";
   const firstSentence = sentences[language];
   const secondSentence = sentences[secondLang];
-
-  console.log({ firstSentence });
 
   if (firstSentence) {
     return sentences2Elements({

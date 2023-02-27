@@ -1,6 +1,7 @@
-import type { FC } from "react";
 import type { Course, Language } from "../interfaces/course";
+
 import { ABC } from "../libs/abc";
+import type { FC } from "react";
 import { dumpCourse } from "../libs/dumpCourse";
 import { sentences2Elements } from "../libs/sentences2Elements";
 

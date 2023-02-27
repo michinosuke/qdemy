@@ -35,7 +35,6 @@ export type Question = {
   choices: JaEn[];
   corrects: number[];
   explanation?: JaEn;
-  clicked: boolean;
 };
 
 export type Language = "ja" | "en";

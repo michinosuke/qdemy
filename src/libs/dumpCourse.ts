@@ -1,5 +1,6 @@
-import type { Course } from "../interfaces/course";
 import {} from "fs/promises";
+
+import type { Course } from "../interfaces/course";
 import { format } from "date-fns";
 
 export const dumpCourse = (course: Course) => {
