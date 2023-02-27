@@ -1,10 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import type { Course, Language } from "../interfaces/course";
-import { sentences2Elements } from "../libs/sentences2Elements";
-import CourseTestData from "../test-data/pas-01.json";
+import {
+  CourseInLocalStorage,
+  isCourseInLocalStorage,
+} from "../interfaces/courseInLocalStorage";
+import { useEffect, useState } from "react";
+
 import { Choice } from "./Choice";
 import { CourseEdit } from "./CourseEditor";
+import axios from "axios";
+import { ls } from "../libs/localStorage";
+import { sentences2Elements } from "../libs/sentences2Elements";
+import { ulid } from "ulid";
+import { useClickedQuestion } from "../hooks/useClickedQuestion";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -13,19 +20,24 @@ export const CourseComponent = () => {
   const [initialized, setInitialized] = useState(false);
   const [preferLang, setPreferLang] = useState<Language>("ja");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isCacheMode, setIsCacheMode] = useState<boolean>(false);
+  const clickedQuestion = useClickedQuestion();
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
     const cacheKey = search.get("cache");
     if (cacheKey) {
-      const cache = localStorage.getItem(cacheKey);
-      if (cache) {
-        const course = JSON.parse(cache);
-        setCourse(course);
-        setIsEditMode(true);
-        return;
-      }
-      console.log(`cache key ${cacheKey} not found.`);
+      try {
+        const cache = localStorage.getItem(cacheKey);
+        if (isCourseInLocalStorage(cache)) {
+          const course = JSON.parse(cache);
+          setCourse(course);
+          setIsCacheMode(true);
+          setIsEditMode(true);
+          return;
+        }
+        console.log(`cache key ${cacheKey} not found.`);
+      } catch (e) {}
     }
     const source = search.get("source");
     setSourceUrl(source);
@@ -79,22 +91,12 @@ export const CourseComponent = () => {
     }, 1000);
   }, [file]);
 
-  const getCourseId = (course: Course): string | null =>
-    course.meta?.title?.trim().replace(/\s/g, "-") ?? null;
-
-  const saveCourseToLocalStorage = async () => {
-    if (!course) return;
-    const str = JSON.stringify(course, null, 4);
-    const key = `course.${getCourseId(course)}`;
-    localStorage.setItem(key, str);
-  };
-
   useEffect(() => {
     if (!initialized) {
       setTimeout(restoreScroll, 100);
       setTimeout(() => setInitialized(true), 3000);
     }
-    saveCourseToLocalStorage();
+    if (course) ls.saveCourse(course);
   }, [course]);
 
   const watchFileModify = (file: File) => {
@@ -212,7 +214,8 @@ export const CourseComponent = () => {
                 <Choice
                   choice={choice}
                   color={(() => {
-                    if (!question.clicked) return "default";
+                    if (!clickedQuestion.isClicked(questionIndex))
+                      return "default";
                     if (question.corrects.includes(choiceIndex + 1))
                       return "correct";
                     return "incorrect";
@@ -221,18 +224,11 @@ export const CourseComponent = () => {
                   index={choiceIndex}
                   preferLang={preferLang}
                   textType={course.meta?.text_type}
-                  onClick={() => {
-                    updateCourse((course) => {
-                      const question = course.questions[questionIndex];
-                      if (!question) return null;
-                      question.clicked = !question.clicked;
-                      return course;
-                    });
-                  }}
+                  onClick={() => clickedQuestion.toggle(questionIndex)}
                 />
               ))}
             </ul>
-            {question.clicked &&
+            {clickedQuestion.isClicked(questionIndex) &&
               question.explanation &&
               sentences2Elements({
                 sentences: question.explanation,
@@ -254,10 +250,20 @@ export const CourseComponent = () => {
         </li>
         <li>
           <button
-            onClick={() => setIsEditMode(!isEditMode)}
             className="bg-white px-3 py-2 rounded-md shadow-lg"
+            onClick={() => {
+              if (isCacheMode) {
+                setIsEditMode(!isEditMode);
+              } else if (
+                window.confirm(`編集する時のための、ブラウザに保存されたコースを表示されたモードです。
+編集後にリロードしても、編集内容が保存されます。
+キャッシュモードを抜ける前には、必ず保存ボタンを押して、変更内容をjson形式で保存してください。`)
+              ) {
+                window.location.href = `?cache=${getCourseId()}`;
+              }
+            }}
           >
-            EDIT MODE
+            編集モード
           </button>
         </li>
       </ul>
