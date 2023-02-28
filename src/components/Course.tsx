@@ -1,8 +1,5 @@
 import type { Course, Language } from "../interfaces/course";
-import {
-  CourseInLocalStorage,
-  isCourseInLocalStorage,
-} from "../interfaces/courseInLocalStorage";
+import { isCourseInLocalStorage } from "../interfaces/courseInLocalStorage";
 import { useEffect, useState } from "react";
 
 import { Choice } from "./Choice";
@@ -10,8 +7,8 @@ import { CourseEdit } from "./CourseEditor";
 import axios from "axios";
 import { ls } from "../libs/localStorage";
 import { sentences2Elements } from "../libs/sentences2Elements";
-import { ulid } from "ulid";
 import { useClickedQuestion } from "../hooks/useClickedQuestion";
+import { ulid } from "ulid";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -25,10 +22,11 @@ export const CourseComponent = () => {
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
-    const cacheKey = search.get("cache");
-    if (cacheKey) {
+    const ulid = search.get("cache");
+    if (ulid) {
       try {
-        const cache = localStorage.getItem(cacheKey);
+        const courseKey = `course.${ulid}`;
+        const cache = localStorage.getItem(courseKey);
         if (isCourseInLocalStorage(cache)) {
           const course = JSON.parse(cache);
           setCourse(course);
@@ -36,7 +34,7 @@ export const CourseComponent = () => {
           setIsEditMode(true);
           return;
         }
-        console.log(`cache key ${cacheKey} not found.`);
+        console.log(`cache key course.${ulid} not found.`);
       } catch (e) {}
     }
     const source = search.get("source");
@@ -259,7 +257,7 @@ export const CourseComponent = () => {
 編集後にリロードしても、編集内容が保存されます。
 キャッシュモードを抜ける前には、必ず保存ボタンを押して、変更内容をjson形式で保存してください。`)
               ) {
-                window.location.href = `?cache=${getCourseId()}`;
+                window.location.href = `?cache=${ls.saveCourse(course)}Ude`;
               }
             }}
           >

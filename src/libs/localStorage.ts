@@ -12,7 +12,7 @@ const saveCourse = (course: Course): string => {
     course: strCourse,
   };
   const courseId = getCourseId();
-  localStorage.setItem(courseId, JSON.stringify(json));
+  localStorage.setItem(`course.${courseId}`, JSON.stringify(json));
   return courseId;
 };
 
