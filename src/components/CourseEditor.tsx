@@ -1,4 +1,4 @@
-import type { Course, Language } from "../interfaces/course";
+import type { Course, Language, TextType } from "../interfaces/course";
 
 import { ABC } from "../libs/abc";
 import type { FC } from "react";
@@ -28,6 +28,22 @@ export const CourseEdit: FC<Props> = ({
         {course.meta?.title && (
           <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
         )}
+        <div className="flex gap-5">
+          <h2>文章のタイプ</h2>
+          <select
+            onChange={(e) => {
+              updateCourse((course) => {
+                if (!course.meta) course.meta = {};
+                course.meta.text_type = e.target.value as TextType;
+                return course;
+              });
+            }}
+          >
+            <option>plain</option>
+            <option>markdown</option>
+            <option>html</option>
+          </select>
+        </div>
         <div className="flex">
           {course.meta?.description &&
             sentences2Elements({
@@ -39,7 +55,7 @@ export const CourseEdit: FC<Props> = ({
           <textarea
             onChange={(e) =>
               updateCourse((course) => {
-                if (course.meta?.description === undefined) return null;
+                if (!course.meta) course.meta = {};
                 course.meta.description = e.target.value;
                 return course;
               })
@@ -66,9 +82,9 @@ export const CourseEdit: FC<Props> = ({
             <input
               onChange={(e) =>
                 updateCourse((course) => {
-                  const author = course.meta?.author;
-                  if (!author) return null;
-                  author.icon_url = e.target.value ?? null;
+                  if (!course.meta) course.meta = {};
+                  if (!course.meta.author) course.meta.author = {};
+                  course.meta.author.icon_url = e.target.value ?? null;
                   return course;
                 })
               }
@@ -79,9 +95,9 @@ export const CourseEdit: FC<Props> = ({
             <input
               onChange={(e) =>
                 updateCourse((course) => {
-                  const author = course.meta?.author;
-                  if (!author) return null;
-                  author.name = e.target.value ?? null;
+                  if (!course.meta) course.meta = {};
+                  if (!course.meta.author) course.meta.author = {};
+                  course.meta.author.name = e.target.value ?? null;
                   return course;
                 })
               }
@@ -137,7 +153,7 @@ export const CourseEdit: FC<Props> = ({
                   </h3>
                   <ul className="flex gap-3 flex-auto">
                     {(["en", "ja"] as Language[]).map((lng, key) => (
-                      <li className="flex-1">
+                      <li className="flex-1" key={key}>
                         <textarea
                           onChange={(e) =>
                             updateCourse((course) => {

@@ -18,16 +18,18 @@ export const CourseComponent = () => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isCacheMode, setIsCacheMode] = useState<boolean>(false);
   const clickedQuestion = useClickedQuestion();
+  const [courseId, setCourseId] = useState<string | null>(null);
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
-    const ulid = search.get("cache");
-    if (ulid) {
+    const courseId = search.get("cache");
+    if (courseId) {
+      setCourseId(courseId);
       try {
-        const courseKey = `course.${ulid}`;
+        const courseKey = `course.${courseId}`;
         const cache = localStorage.getItem(courseKey);
         if (!cache) {
-          console.log(`cache key course.${ulid} not found.`);
+          console.log(`cache key course.${courseId} not found.`);
           return;
         }
         const courseInLocalStorage = JSON.parse(cache);
@@ -100,7 +102,7 @@ export const CourseComponent = () => {
       setTimeout(restoreScroll, 100);
       setTimeout(() => setInitialized(true), 3000);
     }
-    if (course) ls.saveCourse(course);
+    if (course) ls.saveCourse(course, courseId);
   }, [course]);
 
   const watchFileModify = (file: File) => {
@@ -128,6 +130,8 @@ export const CourseComponent = () => {
     });
     fileReader.readAsText(file);
   };
+
+  console.log({ course });
 
   if (!course && !sourceUrl) {
     return (
@@ -283,13 +287,9 @@ export const CourseComponent = () => {
             onClick={() => {
               if (isCacheMode) {
                 setIsEditMode(!isEditMode);
-              } else if (
-                window.confirm(`編集する時のための、ブラウザに保存されたコースを表示されたモードです。
-編集後にリロードしても、編集内容が保存されます。
-キャッシュモードを抜ける前には、必ず保存ボタンを押して、変更内容をjson形式で保存してください。`)
-              ) {
-                window.location.href = `?cache=${ls.saveCourse(course)}`;
+                return;
               }
+              window.location.href = `?cache=${ls.saveCourse(course)}`;
             }}
           >
             編集モード
