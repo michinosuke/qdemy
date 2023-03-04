@@ -2,8 +2,6 @@ import type { Course } from "../interfaces/course";
 import type { CourseInLocalStorage } from "../interfaces/courseInLocalStorage";
 import { ulid } from "ulid";
 
-const getCourseId = (): string => `course.${ulid()}`;
-
 const saveCourse = (course: Course): string => {
   const strCourse = JSON.stringify(course, null, 4);
   const json: CourseInLocalStorage = {
@@ -11,7 +9,7 @@ const saveCourse = (course: Course): string => {
     updatedAt: new Date().toString(),
     course: strCourse,
   };
-  const courseId = getCourseId();
+  const courseId = ulid();
   localStorage.setItem(`course.${courseId}`, JSON.stringify(json));
   return courseId;
 };

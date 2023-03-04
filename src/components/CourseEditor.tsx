@@ -74,6 +74,7 @@ export const CourseEdit: FC<Props> = ({
               }
               value={course.meta?.author?.icon_url ?? ""}
               className="w-full"
+              placeholder="アイコンURL"
             />
             <input
               onChange={(e) =>
@@ -86,6 +87,7 @@ export const CourseEdit: FC<Props> = ({
               }
               value={course.meta?.author?.name ?? ""}
               className="w-full"
+              placeholder="作成者名"
             />
           </div>
         </div>

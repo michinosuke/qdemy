@@ -8,7 +8,6 @@ import axios from "axios";
 import { ls } from "../libs/localStorage";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { useClickedQuestion } from "../hooks/useClickedQuestion";
-import { ulid } from "ulid";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -27,18 +26,25 @@ export const CourseComponent = () => {
       try {
         const courseKey = `course.${ulid}`;
         const cache = localStorage.getItem(courseKey);
-        if (isCourseInLocalStorage(cache)) {
-          const course = JSON.parse(cache);
+        if (!cache) {
+          console.log(`cache key course.${ulid} not found.`);
+          return;
+        }
+        const courseInLocalStorage = JSON.parse(cache);
+        if (isCourseInLocalStorage(courseInLocalStorage)) {
+          const course = JSON.parse(courseInLocalStorage.course);
           setCourse(course);
           setIsCacheMode(true);
           setIsEditMode(true);
-          return;
+        } else {
+          console.log("course in local storage is invalid.");
         }
-        console.log(`cache key course.${ulid} not found.`);
       } catch (e) {}
+    } else {
+      const source = search.get("source");
+      if (!source) return;
+      setSourceUrl(source);
     }
-    const source = search.get("source");
-    setSourceUrl(source);
     // getFileInLocalStorage();
   }, []);
 
@@ -125,16 +131,36 @@ export const CourseComponent = () => {
 
   if (!course && !sourceUrl) {
     return (
-      <input
-        type="file"
-        className="m-5"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (!file) return;
-          setFile(file);
-          // localStorage.setItem("localFile", JSON.stringify(file));
-        }}
-      />
+      <div className="px-5 py-5">
+        <form action="" className="py-3 px-5 border">
+          <h2 className="font-bold">JSONをURLから取得</h2>
+          <div className="flex gap-5 mt-5">
+            <input
+              name="source"
+              placeholder="https://example.com/nazonazo.json"
+              className="px-2 py-1 w-full border rounded"
+            />
+            <input
+              type="submit"
+              className="px-2 py-1 bg-black text-white"
+              value="取得"
+            />
+          </div>
+        </form>
+        <div className="mt-10 py-3 px-5 border">
+          <h2 className="font-bold">JSONをローカルファイルから取得</h2>
+          <input
+            type="file"
+            className="m-5"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              setFile(file);
+              // localStorage.setItem("localFile", JSON.stringify(file));
+            }}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -157,7 +183,12 @@ export const CourseComponent = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto py-5 px-5">
-      <div className="flex flex-col gap-5">
+      <div className="w-full bg-gray-800">
+        <h1 className="text-white font-bold text-lg py-3 text-center">
+          <a href="">Qdemy</a>
+        </h1>
+      </div>
+      <div className="flex flex-col gap-5 mt-10">
         {course.meta?.title && (
           <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
         )}
@@ -257,7 +288,7 @@ export const CourseComponent = () => {
 編集後にリロードしても、編集内容が保存されます。
 キャッシュモードを抜ける前には、必ず保存ボタンを押して、変更内容をjson形式で保存してください。`)
               ) {
-                window.location.href = `?cache=${ls.saveCourse(course)}Ude`;
+                window.location.href = `?cache=${ls.saveCourse(course)}`;
               }
             }}
           >
