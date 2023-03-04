@@ -102,7 +102,7 @@ export const CourseComponent = () => {
       setTimeout(restoreScroll, 100);
       setTimeout(() => setInitialized(true), 3000);
     }
-    if (course) ls.saveCourse(course, courseId);
+    if (course && courseId) ls.saveCourse(course, courseId);
   }, [course]);
 
   const watchFileModify = (file: File) => {

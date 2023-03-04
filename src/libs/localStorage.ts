@@ -11,7 +11,7 @@ const saveCourse = (course: Course, courseId?: string): string => {
   };
   const id = courseId ?? ulid();
   localStorage.setItem(`course.${id}`, JSON.stringify(json));
-  return courseId;
+  return id;
 };
 
 export const ls = { saveCourse };
