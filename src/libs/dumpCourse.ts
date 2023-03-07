@@ -11,7 +11,7 @@ export const dumpCourse = (course: Course) => {
   document.body.appendChild(dummyA);
 
   dummyA.href = window.URL.createObjectURL(blob);
-  dummyA.download = `qdemy${
+  dummyA.download = `exampack_${
     course.meta?.title && "_" + course.meta.title.trim().replace(/\s/g, "-")
   }_${format(new Date(), "yyyyMMdd-HHmmss")}.json`;
   dummyA.click();

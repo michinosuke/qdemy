@@ -189,7 +189,7 @@ export const CourseComponent = () => {
     <div className="w-full max-w-3xl mx-auto py-5 px-5">
       <div className="w-full bg-gray-800">
         <h1 className="text-white font-bold text-lg py-3 text-center">
-          <a href="">Qdemy</a>
+          <a href="">exampack</a>
         </h1>
       </div>
       <div className="flex flex-col gap-5 mt-10">
