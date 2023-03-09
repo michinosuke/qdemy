@@ -34,7 +34,7 @@ export const sentences2Elements = ({
   textType: TextType | undefined;
   language: Language;
   mode?: "just" | "prefer";
-  className?: string;
+  className?: string | undefined;
 }): ReactNode => {
   if (Array.isArray(sentences)) {
     return (
@@ -61,6 +61,8 @@ export const sentences2Elements = ({
       sentences: firstSentence,
       textType,
       language,
+      mode,
+      className,
     });
   }
   if (mode === "just") return "NULL";
@@ -69,6 +71,8 @@ export const sentences2Elements = ({
       sentences: secondSentence,
       textType,
       language,
+      mode,
+      className,
     });
   }
   return <></>;

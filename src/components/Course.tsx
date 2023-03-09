@@ -9,6 +9,7 @@ import { ls } from "../libs/localStorage";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { useClickedQuestion } from "../hooks/useClickedQuestion";
 import { Header } from "./header";
+import { Heading } from "./Heading";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -38,7 +39,6 @@ export const CourseComponent = () => {
           const course = JSON.parse(courseInLocalStorage.course);
           setCourse(course);
           setIsCacheMode(true);
-          setIsEditMode(true);
         } else {
           console.log("course in local storage is invalid.");
         }
@@ -134,34 +134,42 @@ export const CourseComponent = () => {
 
   if (!course && !sourceUrl) {
     return (
-      <div className="px-5 py-5">
-        <form action="" className="py-3 px-5 border">
-          <h2 className="font-bold">JSONをURLから取得</h2>
-          <div className="flex gap-5 mt-5">
+      <div>
+        <Header />
+        <div className="px-5 py-5 mt-10">
+          <form action="" className="py-3 px-5 border">
+            <Heading>JSONをURLから取得</Heading>
+            <div className="flex gap-5 mt-5">
+              <input
+                name="source"
+                placeholder="https://example.com/nazonazo.json"
+                className="px-2 py-1 w-full border rounded"
+              />
+              <input
+                type="submit"
+                className="px-2 py-1 bg-black text-white"
+                value="取得"
+              />
+            </div>
+          </form>
+          <div className="mt-10 py-3 px-5 border">
+            <Heading>JSONをローカルファイルから取得</Heading>
             <input
-              name="source"
-              placeholder="https://example.com/nazonazo.json"
-              className="px-2 py-1 w-full border rounded"
-            />
-            <input
-              type="submit"
-              className="px-2 py-1 bg-black text-white"
-              value="取得"
+              type="file"
+              className="m-5"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                setFile(file);
+                // localStorage.setItem("localFile", JSON.stringify(file));
+              }}
             />
           </div>
-        </form>
-        <div className="mt-10 py-3 px-5 border">
-          <h2 className="font-bold">JSONをローカルファイルから取得</h2>
-          <input
-            type="file"
-            className="m-5"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (!file) return;
-              setFile(file);
-              // localStorage.setItem("localFile", JSON.stringify(file));
-            }}
-          />
+          <a href="/caches">
+            <button className="px-3 py-2 rounded-lg shadow-lg mt-10 bg-white hover:-translate-y-1">
+              編集中のコース一覧
+            </button>
+          </a>
         </div>
       </div>
     );
@@ -185,135 +193,172 @@ export const CourseComponent = () => {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-5 px-5">
+    <div className="w-full max-w-3xl mx-auto">
       <Header />
-      <div className="flex flex-col gap-5 mt-10">
-        {course.meta?.title && (
-          <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
-        )}
-        {course.meta?.description &&
-          sentences2Elements({
-            sentences: course.meta.description,
-            textType: course.meta.text_type,
-            language: preferLang,
-          })}
-        <div className="flex gap-3 items-center">
-          {course.meta?.author?.icon_url && (
-            <div
-              className="rounded-full bg-cover bg-center w-20 h-20"
-              style={{ backgroundImage: `url(${course.meta.author.icon_url})` }}
-            />
+      <div className="px-3 py-3">
+        <div className="flex flex-col gap-5 mt-10">
+          {course.meta?.title && (
+            <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
           )}
-          {course.meta?.author?.name && (
-            <span className="">{course.meta.author.name}</span>
-          )}
-        </div>
-      </div>
-      <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
-        {course.questions.map((question, questionIndex) => (
-          <li
-            key={questionIndex}
-            id={`question-${questionIndex + 1}`}
-            onMouseEnter={() =>
-              initialized &&
-              saveMouseEnterQuestion(`question-${questionIndex + 1}`)
-            }
-          >
-            <h2 className="text-lg font-bold">
-              <a
-                href={
-                  "./?" +
-                  new URLSearchParams([
-                    ...new URLSearchParams(window.location.search).entries(),
-                    ["q", (questionIndex + 1).toString()],
-                  ])
-                }
-              >
-                Q. {questionIndex + 1}
-              </a>
-            </h2>
-            {sentences2Elements({
-              sentences: question.question,
-              textType: course.meta?.text_type,
-              language: preferLang,
-            })}
-            <ul className="flex flex-col gap-4 mt-3">
-              {question.choices.map((choice, choiceIndex) => (
-                <Choice
-                  choice={choice}
-                  color={(() => {
-                    if (!question.selects) question.selects = [];
-                    if (question.selects.length >= question.corrects.length) {
-                      if (question.corrects.includes(choiceIndex + 1)) {
-                        return "correct";
-                      }
-                      return "incorrect";
-                    }
-                    return "default";
-                  })()}
-                  selected={question.selects.includes(choiceIndex)}
-                  key={choiceIndex}
-                  index={choiceIndex}
-                  preferLang={preferLang}
-                  textType={course.meta?.text_type}
-                  onClick={() => {
-                    if (!question.selects) question.selects = [];
-                    if (question.selects.length >= question.corrects.length) {
-                      updateCourse((course) => {
-                        const question = course.questions[questionIndex];
-                        if (!question) return null;
-                        question.selects = [];
-                        return course;
-                      });
-                    } else {
-                      updateCourse((course) => {
-                        const question = course.questions[questionIndex];
-                        if (!question) return null;
-                        if (!question.selects) question.selects = [];
-                        question.selects.push(choiceIndex);
-                        return course;
-                      });
-                    }
+          <div className="mt-2">
+            <Heading>概要</Heading>
+            {course.meta?.description &&
+              sentences2Elements({
+                sentences: course.meta.description,
+                textType: course.meta.text_type,
+                language: preferLang,
+                className: "mt-2",
+              })}
+          </div>
+          <div>
+            <Heading>作者</Heading>
+            <div className="flex gap-3 items-center mt-2">
+              {course.meta?.author?.icon_url && (
+                <div
+                  className="rounded-full bg-cover bg-center w-20 h-20"
+                  style={{
+                    backgroundImage: `url(${course.meta.author.icon_url})`,
                   }}
                 />
-              ))}
-            </ul>
-            {question.selects &&
-              question.selects.length >= question.corrects.length &&
-              question.explanation &&
-              sentences2Elements({
-                sentences: question.explanation,
+              )}
+              {course.meta?.author?.name && (
+                <span className="">{course.meta.author.name}</span>
+              )}
+            </div>
+          </div>
+        </div>
+        <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
+          {course.questions.map((question, questionIndex) => (
+            <li
+              key={questionIndex}
+              id={`question-${questionIndex + 1}`}
+              onMouseEnter={() =>
+                initialized &&
+                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
+              }
+              className="bg-white px-5 py-10 rounded-lg shadow"
+            >
+              <h2 className="text-lg font-bold">
+                {isCacheMode ? (
+                  <>
+                    <span className="text-bold text-main">Q. </span>
+                    {questionIndex + 1}
+                  </>
+                ) : (
+                  <a
+                    href={
+                      "./?" +
+                      new URLSearchParams([
+                        ...new URLSearchParams(
+                          window.location.search
+                        ).entries(),
+                        ["q", (questionIndex + 1).toString()],
+                      ])
+                    }
+                    className="hover:opacity-70"
+                  >
+                    <span className="text-bold text-main">Q. </span>
+                    {questionIndex + 1}
+                  </a>
+                )}
+              </h2>
+              {sentences2Elements({
+                sentences: question.question,
                 textType: course.meta?.text_type,
                 language: preferLang,
-                className: "mt-5 border-l-4 pl-5",
+                className: "mt-2",
               })}
+              <ul className="flex flex-col gap-4 mt-5">
+                {question.choices.map((choice, choiceIndex) => (
+                  <Choice
+                    choice={choice}
+                    color={(() => {
+                      if (!question.selects) question.selects = [];
+                      if (question.selects.length >= question.corrects.length) {
+                        if (question.corrects.includes(choiceIndex + 1)) {
+                          return "correct";
+                        }
+                        return "incorrect";
+                      }
+                      return "default";
+                    })()}
+                    selected={question.selects.includes(choiceIndex)}
+                    key={choiceIndex}
+                    index={choiceIndex}
+                    preferLang={preferLang}
+                    textType={course.meta?.text_type}
+                    onClick={() => {
+                      if (!question.selects) question.selects = [];
+                      if (question.selects.length >= question.corrects.length) {
+                        updateCourse((course) => {
+                          const question = course.questions[questionIndex];
+                          if (!question) return null;
+                          question.selects = [];
+                          return course;
+                        });
+                      } else {
+                        updateCourse((course) => {
+                          const question = course.questions[questionIndex];
+                          if (!question) return null;
+                          if (!question.selects) question.selects = [];
+                          question.selects.push(choiceIndex);
+                          return course;
+                        });
+                      }
+                    }}
+                  />
+                ))}
+              </ul>
+              {question.selects &&
+                question.selects.length >= question.corrects.length &&
+                question.explanation &&
+                sentences2Elements({
+                  sentences: question.explanation,
+                  textType: course.meta?.text_type,
+                  language: preferLang,
+                  className: "mt-5 border-l-4 pl-5",
+                })}
+            </li>
+          ))}
+        </ul>
+        <ul className="fixed bottom-10 left-10 flex gap-3">
+          <li>
+            <button
+              onClick={() => setPreferLang(preferLang === "ja" ? "en" : "ja")}
+              className="bg-white px-3 py-2 rounded-md shadow-lg"
+            >
+              優先言語：{preferLang === "ja" ? "日本語" : "英語"}
+            </button>
           </li>
-        ))}
-      </ul>
-      <ul className="fixed bottom-10 left-10 flex gap-3">
-        <li>
-          <button
-            onClick={() => setPreferLang(preferLang === "ja" ? "en" : "ja")}
-            className="bg-white px-3 py-2 rounded-md shadow-lg"
-          >
-            優先言語：{preferLang === "ja" ? "日本語" : "英語"}
-          </button>
-        </li>
-        <li>
-          <button
-            className="bg-white px-3 py-2 rounded-md shadow-lg"
-            onClick={() => {
-              if (isCacheMode) {
-                setIsEditMode(!isEditMode);
-                return;
-              }
-              window.location.href = `?cache=${ls.saveCourse(course)}`;
-            }}
-          >
-            編集
-          </button>
-        </li>
-      </ul>
+          <li>
+            <button
+              className="bg-white px-3 py-2 rounded-md shadow-lg"
+              onClick={() => {
+                if (isCacheMode) {
+                  setIsEditMode(!isEditMode);
+                  return;
+                }
+                window.location.href = `?cache=${ls.saveCourse(course)}`;
+              }}
+            >
+              編集
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => (location.href = "/caches")}
+              className="bg-white px-3 py-2 rounded-md shadow-lg"
+            >
+              編集中のコース一覧
+            </button>
+          </li>
+        </ul>
+        {isCacheMode && (
+          <div className="bg-red-500 text-white px-3 py-2 rounded-md fixed top-5 left-5 shadow-lg">
+            ローカル編集モード
+          </div>
+        )}
+      </div>
     </div>
   );
 };

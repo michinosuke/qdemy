@@ -3,9 +3,12 @@
     @apply whitespace-pre-wrap;
   }
   a {
-    @apply border-b-4;
+    @apply border-b text-main border-main hover:opacity-80;
   }
   blockquote {
-    @apply ml-2 pl-2 border-l-4 my-2;
+    @apply mx-4 px-6 border-l-4 my-3 h-auto border-[#bbe3e7];
+  }
+  blockquote p {
+    @apply -my-4;
   }
 }

@@ -3,6 +3,7 @@ import type { JaEn, Language, TextType } from "../interfaces/course";
 import { ABC } from "../libs/abc";
 import type { FC } from "react";
 import { sentences2Elements } from "../libs/sentences2Elements";
+import { Checkbox } from "./Checkbox";
 
 type Props = {
   choice: JaEn;
@@ -26,17 +27,17 @@ export const Choice: FC<Props> = ({
   const bgColor = (() => {
     switch (color) {
       case "correct":
-        return "bg-blue-100";
+        return "bg-[#e1f5f7]";
       case "incorrect":
-        return "bg-red-100";
+        return "";
       default:
         return "";
     }
   })();
   return (
     <li
-      className={`flex gap-5 py-5 border px-3 cursor-pointer rounded ${bgColor} ${
-        selected ? "border-2 border-gray-300 shadow-none" : "shadow-lg"
+      className={`flex gap-5 py-5 border px-3 cursor-pointer rounded hover:shadow-[#e1f5f7] ${bgColor} ${
+        selected ? "shadow-none" : "shadow-lg"
       }`}
       // className={`flex gap-5 py-2 px-3 border border-black cursor-pointer ${
       //   question.corrects.includes(j + 1) && question.clicked ? "bg-blue-100" : ""
@@ -45,7 +46,8 @@ export const Choice: FC<Props> = ({
       // }`}
       onClick={onClick}
     >
-      <span>{ABC[index]}</span>
+      <Checkbox checked={selected} />
+      {/* <span>{ABC[index]}</span> */}
       {sentences2Elements({
         sentences: choice,
         textType: textType,
