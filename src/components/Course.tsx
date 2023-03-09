@@ -8,6 +8,7 @@ import axios from "axios";
 import { ls } from "../libs/localStorage";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { useClickedQuestion } from "../hooks/useClickedQuestion";
+import { Header } from "./header";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export const CourseComponent = () => {
   const [preferLang, setPreferLang] = useState<Language>("ja");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isCacheMode, setIsCacheMode] = useState<boolean>(false);
-  const clickedQuestion = useClickedQuestion();
+  // const clickedQuestion = useClickedQuestion();
   const [courseId, setCourseId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -131,8 +132,6 @@ export const CourseComponent = () => {
     fileReader.readAsText(file);
   };
 
-  console.log({ course });
-
   if (!course && !sourceUrl) {
     return (
       <div className="px-5 py-5">
@@ -187,11 +186,7 @@ export const CourseComponent = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto py-5 px-5">
-      <div className="w-full bg-gray-800">
-        <h1 className="text-white font-bold text-lg py-3 text-center">
-          <a href="">exampack</a>
-        </h1>
-      </div>
+      <Header />
       <div className="flex flex-col gap-5 mt-10">
         {course.meta?.title && (
           <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
@@ -247,21 +242,44 @@ export const CourseComponent = () => {
                 <Choice
                   choice={choice}
                   color={(() => {
-                    if (!clickedQuestion.isClicked(questionIndex))
-                      return "default";
-                    if (question.corrects.includes(choiceIndex + 1))
-                      return "correct";
-                    return "incorrect";
+                    if (!question.selects) question.selects = [];
+                    if (question.selects.length >= question.corrects.length) {
+                      if (question.corrects.includes(choiceIndex + 1)) {
+                        return "correct";
+                      }
+                      return "incorrect";
+                    }
+                    return "default";
                   })()}
+                  selected={question.selects.includes(choiceIndex)}
                   key={choiceIndex}
                   index={choiceIndex}
                   preferLang={preferLang}
                   textType={course.meta?.text_type}
-                  onClick={() => clickedQuestion.toggle(questionIndex)}
+                  onClick={() => {
+                    if (!question.selects) question.selects = [];
+                    if (question.selects.length >= question.corrects.length) {
+                      updateCourse((course) => {
+                        const question = course.questions[questionIndex];
+                        if (!question) return null;
+                        question.selects = [];
+                        return course;
+                      });
+                    } else {
+                      updateCourse((course) => {
+                        const question = course.questions[questionIndex];
+                        if (!question) return null;
+                        if (!question.selects) question.selects = [];
+                        question.selects.push(choiceIndex);
+                        return course;
+                      });
+                    }
+                  }}
                 />
               ))}
             </ul>
-            {clickedQuestion.isClicked(questionIndex) &&
+            {question.selects &&
+              question.selects.length >= question.corrects.length &&
               question.explanation &&
               sentences2Elements({
                 sentences: question.explanation,
@@ -278,7 +296,7 @@ export const CourseComponent = () => {
             onClick={() => setPreferLang(preferLang === "ja" ? "en" : "ja")}
             className="bg-white px-3 py-2 rounded-md shadow-lg"
           >
-            {preferLang === "ja" ? "日本語" : "英語"}
+            優先言語：{preferLang === "ja" ? "日本語" : "英語"}
           </button>
         </li>
         <li>
@@ -292,7 +310,7 @@ export const CourseComponent = () => {
               window.location.href = `?cache=${ls.saveCourse(course)}`;
             }}
           >
-            編集モード
+            編集
           </button>
         </li>
       </ul>

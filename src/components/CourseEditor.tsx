@@ -4,6 +4,7 @@ import { ABC } from "../libs/abc";
 import type { FC } from "react";
 import { dumpCourse } from "../libs/dumpCourse";
 import { sentences2Elements } from "../libs/sentences2Elements";
+import { ulid } from "ulid";
 
 type Props = {
   course: Course;
@@ -227,7 +228,7 @@ export const CourseEdit: FC<Props> = ({
             onClick={() => setIsEditMode(false)}
             className="bg-white px-3 py-2 rounded-md shadow-lg"
           >
-            戻る
+            編集を終了
           </button>
         </li>
         <li>
@@ -235,7 +236,15 @@ export const CourseEdit: FC<Props> = ({
             onClick={() => dumpCourse(course)}
             className="bg-white px-3 py-2 rounded-md shadow-lg"
           >
-            保存
+            ダウンロード
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => (location.href = "/caches")}
+            className="bg-white px-3 py-2 rounded-md shadow-lg"
+          >
+            編集中のコース一覧
           </button>
         </li>
       </ul>

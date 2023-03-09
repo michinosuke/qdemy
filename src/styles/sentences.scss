@@ -5,4 +5,7 @@
   a {
     @apply border-b-4;
   }
+  blockquote {
+    @apply ml-2 pl-2 border-l-4 my-2;
+  }
 }
