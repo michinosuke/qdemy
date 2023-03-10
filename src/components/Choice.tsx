@@ -37,7 +37,7 @@ export const Choice: FC<Props> = ({
   return (
     <li
       className={`flex gap-5 py-5 border px-3 cursor-pointer rounded hover:shadow-[#e1f5f7] ${bgColor} ${
-        selected ? "shadow-none" : "shadow-lg"
+        selected ? "shadow-inner" : "shadow-lg"
       }`}
       // className={`flex gap-5 py-2 px-3 border border-black cursor-pointer ${
       //   question.corrects.includes(j + 1) && question.clicked ? "bg-blue-100" : ""

@@ -64,6 +64,6 @@ export type Course = {
 };
 
 export type JaEn =
-  | { ja: string | string[]; en: string | string[] }
-  | { ja: string | string[]; en?: null }
-  | { ja?: null; en: string | string[] };
+  | { ja: string | string[]; en: string | string[]; isTranslating?: boolean }
+  | { ja: string | string[]; en?: null; isTranslating?: boolean }
+  | { ja?: null; en: string | string[]; isTranslating?: boolean };

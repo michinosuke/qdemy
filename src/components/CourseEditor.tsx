@@ -14,6 +14,7 @@ type Props = {
   initialized: boolean;
   saveMouseEnterQuestion: (questionId: string) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  translateQuestion: (questionIndex: number) => Promise<void>;
 };
 
 export const CourseEdit: FC<Props> = ({
@@ -23,6 +24,7 @@ export const CourseEdit: FC<Props> = ({
   initialized,
   saveMouseEnterQuestion,
   setIsEditMode,
+  translateQuestion,
 }) => {
   return (
     <>
@@ -88,7 +90,7 @@ export const CourseEdit: FC<Props> = ({
           </div>
 
           <div>
-            <Heading>概要</Heading>
+            <Heading>作者</Heading>
             <div className="flex gap-5 mt-5">
               <div className="flex gap-3 items-center flex-1">
                 {course.meta?.author?.icon_url && (
@@ -160,28 +162,50 @@ export const CourseEdit: FC<Props> = ({
               <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
               <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
               <ul className="flex gap-3 mt-3">
-                {(["en", "ja"] as Language[]).map((lng, key) => (
-                  <li className="flex-1" key={key}>
-                    <textarea
-                      onChange={(e) =>
-                        updateCourse((course) => {
-                          const question = course.questions[questionIndex];
-                          if (!question) return null;
-                          question.question[lng] = e.target.value;
-                          return course;
-                        })
+                {(() => {
+                  const arr = (["en", "ja"] as Language[]).map((lng, key) => (
+                    <li className="flex-1" key={key}>
+                      <textarea
+                        onChange={(e) =>
+                          updateCourse((course) => {
+                            const question = course.questions[questionIndex];
+                            if (!question) return null;
+                            question.question[lng] = e.target.value;
+                            return course;
+                          })
+                        }
+                        value={(() => {
+                          const text =
+                            course.questions[questionIndex]?.question[lng];
+                          if (Array.isArray(text)) return text.join("\n");
+                          if (typeof text === "string") return text;
+                          return "";
+                        })()}
+                        className="p-5 w-full h-72"
+                      />
+                    </li>
+                  ));
+                  arr.splice(
+                    1,
+                    0,
+                    <button
+                      className={`text-white text-lg font-bold rounded-full w-8 h-8 self-center grid place-content-center relative ${
+                        question.question.isTranslating &&
+                        'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
+                      } ${
+                        question.question.isTranslating ? "bg-black" : "bg-main"
+                      }`}
+                      onClick={() =>
+                        !question.question.isTranslating &&
+                        translateQuestion(questionIndex)
                       }
-                      value={(() => {
-                        const text =
-                          course.questions[questionIndex]?.question[lng];
-                        if (Array.isArray(text)) return text.join("\n");
-                        if (typeof text === "string") return text;
-                        return "";
-                      })()}
-                      className="p-5 w-full h-72"
-                    />
-                  </li>
-                ))}
+                      key={2}
+                    >
+                      →
+                    </button>
+                  );
+                  return arr;
+                })()}
               </ul>
               <ul className="flex flex-col gap-5 mt-3">
                 <h3 className="mt-7 border-b-2 font-bold text-lg">選択肢</h3>

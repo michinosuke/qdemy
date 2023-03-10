@@ -10,6 +10,7 @@ import { sentences2Elements } from "../libs/sentences2Elements";
 import { useClickedQuestion } from "../hooks/useClickedQuestion";
 import { Header } from "./header";
 import { Heading } from "./Heading";
+import { translate } from "../libs/translate";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -36,7 +37,10 @@ export const CourseComponent = () => {
         }
         const courseInLocalStorage = JSON.parse(cache);
         if (isCourseInLocalStorage(courseInLocalStorage)) {
-          const course = JSON.parse(courseInLocalStorage.course);
+          const course: Course = JSON.parse(courseInLocalStorage.course);
+          course.questions.forEach((question) => {
+            question.question.isTranslating = false;
+          });
           setCourse(course);
           setIsCacheMode(true);
         } else {
@@ -50,6 +54,31 @@ export const CourseComponent = () => {
     }
     // getFileInLocalStorage();
   }, []);
+
+  const translateQuestion = async (questionIndex: number) => {
+    await updateCourse((course) => {
+      const question = course.questions[questionIndex]?.question;
+      if (!question) return null;
+      question.isTranslating = true;
+      return course;
+    });
+
+    await updateCourse(async (course) => {
+      const question = course.questions[questionIndex]?.question;
+      console.log({ question });
+      if (!question) return null;
+      console.log({ en: question.en });
+      const en = question.en;
+      if (!en) return null;
+      console.log({ ja: question.ja });
+      if (question.ja) return null;
+      const ja = await translate(typeof en === "string" ? en : en.join("\n"));
+      question.ja = ja;
+      question.isTranslating = false;
+      console.log(course);
+      return course;
+    });
+  };
 
   const saveMouseEnterQuestion = (questionId: string) => {
     localStorage.setItem("focusedQuestionId", questionId);
@@ -69,9 +98,13 @@ export const CourseComponent = () => {
     }
   };
 
-  const updateCourse = (coursePipe: (course: Course) => Course | null) => {
+  const updateCourse = async (
+    coursePipe: (course: Course) => Course | null | Promise<Course | null>
+  ) => {
     const courseClone = JSON.parse(JSON.stringify(course));
-    const updatedCourse = coursePipe(courseClone);
+    console.log({ courseClone });
+    const updatedCourse = await coursePipe(courseClone);
+    console.log({ updatedCourse });
     if (!updateCourse) return;
     setCourse(updatedCourse);
   };
@@ -187,6 +220,7 @@ export const CourseComponent = () => {
           saveMouseEnterQuestion,
           updateCourse,
           setIsEditMode,
+          translateQuestion,
         }}
       />
     );
@@ -196,10 +230,12 @@ export const CourseComponent = () => {
     <div className="w-full max-w-3xl mx-auto">
       <Header />
       <div className="px-3 py-3">
-        <div className="flex flex-col gap-5 mt-10">
-          {course.meta?.title && (
+        {course.meta?.title && (
+          <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow">
             <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
-          )}
+          </div>
+        )}
+        <div className="flex flex-col gap-8 mt-10 bg-white px-5 py-10 rounded-lg shadow">
           <div className="mt-2">
             <Heading>概要</Heading>
             {course.meta?.description &&
@@ -209,6 +245,33 @@ export const CourseComponent = () => {
                 language: preferLang,
                 className: "mt-2",
               })}
+          </div>
+          <div className="mt-2">
+            <Heading>メタデータ</Heading>
+            <ul>
+              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5 pt-3">
+                問題数: {course.questions.length}
+              </li>
+              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
+                解説の数:{" "}
+                {
+                  course.questions.filter(
+                    (question) => question.explanation?.ja
+                  ).length
+                }
+              </li>
+              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
+                解説の充実率:{" "}
+                {Math.floor(
+                  (course.questions.filter(
+                    (question) => question.explanation?.ja
+                  ).length /
+                    course.questions.length) *
+                    1000
+                ) / 10}
+                %
+              </li>
+            </ul>
           </div>
           <div>
             <Heading>作者</Heading>
