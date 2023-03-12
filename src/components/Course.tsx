@@ -1,4 +1,4 @@
-import type { Course, Language } from "../interfaces/course";
+import type { Course, JaEn, Language, Question } from "../interfaces/course";
 import { isCourseInLocalStorage } from "../interfaces/courseInLocalStorage";
 import { useEffect, useState } from "react";
 
@@ -11,6 +11,7 @@ import { useClickedQuestion } from "../hooks/useClickedQuestion";
 import { Header } from "./header";
 import { Heading } from "./Heading";
 import { translate } from "../libs/translate";
+import { compareDocumentPosition } from "domutils";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -22,6 +23,12 @@ export const CourseComponent = () => {
   const [isCacheMode, setIsCacheMode] = useState<boolean>(false);
   // const clickedQuestion = useClickedQuestion();
   const [courseId, setCourseId] = useState<string | null>(null);
+  const [shouldTranslateAll, setShouldTranslateAll] = useState(false);
+  const [isAllTranslating, setIsAllTranslating] = useState(false);
+  const [currentTranslateIndex, setCurrentTranslateIndex] = useState<{
+    questionIndex: number;
+    text: string;
+  }>({ questionIndex: 0, text: "" });
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
@@ -40,6 +47,10 @@ export const CourseComponent = () => {
           const course: Course = JSON.parse(courseInLocalStorage.course);
           course.questions.forEach((question) => {
             question.question.isTranslating = false;
+            question.choices.forEach(
+              (choice) => (choice.isTranslating = false)
+            );
+            question.selects = [];
           });
           setCourse(course);
           setIsCacheMode(true);
@@ -55,29 +66,99 @@ export const CourseComponent = () => {
     // getFileInLocalStorage();
   }, []);
 
-  const translateQuestion = async (questionIndex: number) => {
-    await updateCourse((course) => {
-      const question = course.questions[questionIndex]?.question;
-      if (!question) return null;
-      question.isTranslating = true;
-      return course;
-    });
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(() => resolve(1), ms));
 
-    await updateCourse(async (course) => {
-      const question = course.questions[questionIndex]?.question;
-      console.log({ question });
-      if (!question) return null;
-      console.log({ en: question.en });
-      const en = question.en;
-      if (!en) return null;
-      console.log({ ja: question.ja });
-      if (question.ja) return null;
-      const ja = await translate(typeof en === "string" ? en : en.join("\n"));
-      question.ja = ja;
-      question.isTranslating = false;
-      console.log(course);
-      return course;
+  const shouldTranslate = (jaEn: JaEn): boolean => {
+    const en = jaEn.en;
+    if (!en) return false;
+    if (jaEn.ja) return false;
+    return true;
+  };
+
+  useEffect(() => {
+    if (shouldTranslateAll && !isAllTranslating) {
+      translateAll();
+    }
+  }, [shouldTranslateAll, isAllTranslating]);
+
+  const updateCurrentTranslateIndex = (questionIndex: number, text: string) => {
+    setCurrentTranslateIndex({
+      questionIndex,
+      text,
     });
+  };
+
+  const translateAll = async () => {
+    setIsAllTranslating(true);
+    const questions = course?.questions;
+    if (!questions) return;
+    let done = false;
+
+    for (const [questionIndexStr, { choices }] of Object.entries(questions)) {
+      const questionIndex = Number(questionIndexStr);
+      updateCurrentTranslateIndex(questionIndex, "問題文");
+
+      if (
+        await translateJaEn(
+          (course) => course.questions[questionIndex]?.question
+        )
+      ) {
+        done = true;
+        break;
+      }
+
+      for (const [choiceIndexStr] of Object.entries(choices)) {
+        const choiceIndex = Number(choiceIndexStr);
+        updateCurrentTranslateIndex(questionIndex, `選択肢 ${choiceIndex + 1}`);
+        if (
+          await translateJaEn(
+            (course) => course.questions[questionIndex]?.choices[choiceIndex]
+          )
+        ) {
+          done = true;
+          break;
+        }
+      }
+
+      updateCurrentTranslateIndex(questionIndex, "説明文");
+      if (
+        await translateJaEn(
+          (course) => course.questions[questionIndex]?.explanation
+        )
+      ) {
+        done = true;
+        break;
+      }
+
+      if (done) break;
+    }
+    if (!done) {
+      setShouldTranslateAll(false);
+    }
+    setIsAllTranslating(false);
+  };
+
+  const translateJaEn = async (
+    jaEnCallback: (course: Course) => JaEn | undefined
+  ): Promise<boolean> => {
+    if (!courseId) return false;
+    if (!course) return false;
+    const jaEn = jaEnCallback(course);
+    if (!jaEn) return false;
+    if (!shouldTranslate(jaEn)) return false;
+    jaEn.isTranslating = true;
+    setCourse(JSON.parse(JSON.stringify(course)));
+
+    const en = jaEn.en;
+    if (!en) return false;
+    const ja = await translate(typeof en === "string" ? en : en.join("\n"));
+    jaEn.ja = ja;
+    jaEn.isTranslating = false;
+    setCourse(JSON.parse(JSON.stringify(course)));
+
+    if (course) ls.saveCourse(course, courseId);
+    return true;
   };
 
   const saveMouseEnterQuestion = (questionId: string) => {
@@ -99,14 +180,28 @@ export const CourseComponent = () => {
   };
 
   const updateCourse = async (
-    coursePipe: (course: Course) => Course | null | Promise<Course | null>
+    coursePipe: (course: Course) => Course | null
   ) => {
     const courseClone = JSON.parse(JSON.stringify(course));
-    console.log({ courseClone });
-    const updatedCourse = await coursePipe(courseClone);
-    console.log({ updatedCourse });
-    if (!updateCourse) return;
+    const updatedCourse = coursePipe(courseClone);
+    if (!updatedCourse) return;
     setCourse(updatedCourse);
+    await sleep(100);
+  };
+
+  const selectChoice = async (questionIndex: number, choiceIndex: number) => {
+    updateCourse((course) => {
+      const question = course?.questions[questionIndex];
+      if (!question) return null;
+      if (question.selects.includes(choiceIndex)) {
+        question.selects = question.selects.filter(
+          (selectIndex) => selectIndex !== choiceIndex
+        );
+        return course;
+      }
+      question.selects = [...question.selects, choiceIndex];
+      return course;
+    });
   };
 
   const fetchCourse = async () => {
@@ -116,8 +211,14 @@ export const CourseComponent = () => {
         timestamp: Date.now(),
       },
     });
-    setCourse(json.data);
+    const course: Course = json.data;
+    course.questions.forEach((question) => (question.selects = []));
+    setCourse(course);
   };
+
+  useEffect(() => {
+    setTimeout(restoreScroll, 100);
+  }, [isEditMode]);
 
   useEffect(() => {
     fetchCourse();
@@ -165,9 +266,17 @@ export const CourseComponent = () => {
     fileReader.readAsText(file);
   };
 
+  const Footer = () => (
+    <footer className="bg-main w-full h-32 absolute bottom-0 grid place-content-center">
+      <small className="text-white font-bold">
+        Copyright © Michinosuke All Rights Reserved.
+      </small>
+    </footer>
+  );
+
   if (!course && !sourceUrl) {
     return (
-      <div>
+      <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
         <Header />
         <div className="px-5 py-5 mt-10">
           <form action="" className="py-3 px-5 border">
@@ -204,6 +313,7 @@ export const CourseComponent = () => {
             </button>
           </a>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -220,16 +330,16 @@ export const CourseComponent = () => {
           saveMouseEnterQuestion,
           updateCourse,
           setIsEditMode,
-          translateQuestion,
+          translateJaEn,
         }}
       />
     );
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
       <Header />
-      <div className="px-3 py-3">
+      <div className="sm:px-3 py-3">
         {course.meta?.title && (
           <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow">
             <h1 className="text-xl font-extrabold">{course.meta.title}</h1>
@@ -299,9 +409,9 @@ export const CourseComponent = () => {
                 initialized &&
                 saveMouseEnterQuestion(`question-${questionIndex + 1}`)
               }
-              className="bg-white px-5 py-10 rounded-lg shadow"
+              className="bg-white pt-10 rounded-lg shadow overflow-hidden"
             >
-              <h2 className="text-lg font-bold">
+              <h2 className="text-lg font-bold px-5">
                 {isCacheMode ? (
                   <>
                     <span className="text-bold text-main">Q. </span>
@@ -329,14 +439,13 @@ export const CourseComponent = () => {
                 sentences: question.question,
                 textType: course.meta?.text_type,
                 language: preferLang,
-                className: "mt-2",
+                className: "mt-2 px-5",
               })}
-              <ul className="flex flex-col gap-4 mt-5">
+              <ul className="flex flex-col gap-4 my-5 px-3 pb-5">
                 {question.choices.map((choice, choiceIndex) => (
                   <Choice
                     choice={choice}
                     color={(() => {
-                      if (!question.selects) question.selects = [];
                       if (question.selects.length >= question.corrects.length) {
                         if (question.corrects.includes(choiceIndex + 1)) {
                           return "correct";
@@ -351,7 +460,6 @@ export const CourseComponent = () => {
                     preferLang={preferLang}
                     textType={course.meta?.text_type}
                     onClick={() => {
-                      if (!question.selects) question.selects = [];
                       if (question.selects.length >= question.corrects.length) {
                         updateCourse((course) => {
                           const question = course.questions[questionIndex];
@@ -360,31 +468,38 @@ export const CourseComponent = () => {
                           return course;
                         });
                       } else {
-                        updateCourse((course) => {
-                          const question = course.questions[questionIndex];
-                          if (!question) return null;
-                          if (!question.selects) question.selects = [];
-                          question.selects.push(choiceIndex);
-                          return course;
-                        });
+                        selectChoice(questionIndex, choiceIndex);
                       }
                     }}
+                    multiple={question.corrects.length > 1}
                   />
                 ))}
               </ul>
-              {question.selects &&
-                question.selects.length >= question.corrects.length &&
-                question.explanation &&
-                sentences2Elements({
-                  sentences: question.explanation,
-                  textType: course.meta?.text_type,
-                  language: preferLang,
-                  className: "mt-5 border-l-4 pl-5",
-                })}
+              {question.explanation && (
+                <div
+                  className={`px-5 bg-[#e7f2f2] ${
+                    question.selects &&
+                    question.selects.length >= question.corrects.length
+                      ? "display-active py-10"
+                      : "display-none"
+                  }`}
+                  style={{
+                    boxShadow: "0 20 20 0 #000 inset",
+                  }}
+                >
+                  <h3 className="text-lg font-bold">解説</h3>
+                  {sentences2Elements({
+                    sentences: question.explanation,
+                    textType: course.meta?.text_type,
+                    language: preferLang,
+                    className: "mt-5",
+                  })}
+                </div>
+              )}
             </li>
           ))}
         </ul>
-        <ul className="fixed bottom-10 left-10 flex gap-3">
+        <ul className="fixed bottom-10 left-10 flex gap-3 z-10">
           <li>
             <button
               onClick={() => setPreferLang(preferLang === "ja" ? "en" : "ja")}
@@ -415,6 +530,18 @@ export const CourseComponent = () => {
               編集中のコース一覧
             </button>
           </li>
+          <li>
+            <button
+              onClick={() => setShouldTranslateAll(!shouldTranslateAll)}
+              className="bg-white px-3 py-2 rounded-md shadow-lg"
+            >
+              {shouldTranslateAll
+                ? `全て翻訳モード実行中(${
+                    currentTranslateIndex.questionIndex + 1
+                  } - ${currentTranslateIndex.text})`
+                : "全て翻訳モード停止中"}
+            </button>
+          </li>
         </ul>
         {isCacheMode && (
           <div className="bg-red-500 text-white px-3 py-2 rounded-md fixed top-5 left-5 shadow-lg">
@@ -422,6 +549,7 @@ export const CourseComponent = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

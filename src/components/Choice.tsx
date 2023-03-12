@@ -13,6 +13,7 @@ type Props = {
   textType: TextType | undefined;
   selected: boolean;
   onClick?: React.MouseEventHandler<HTMLLIElement>;
+  multiple: boolean;
 };
 
 export const Choice: FC<Props> = ({
@@ -23,6 +24,7 @@ export const Choice: FC<Props> = ({
   textType,
   selected,
   onClick,
+  multiple,
 }) => {
   const bgColor = (() => {
     switch (color) {
@@ -36,7 +38,7 @@ export const Choice: FC<Props> = ({
   })();
   return (
     <li
-      className={`flex gap-5 py-5 border px-3 cursor-pointer rounded hover:shadow-[#e1f5f7] ${bgColor} ${
+      className={`flex gap-5 items-center py-3 border pl-3 pr-5 cursor-pointer rounded hover:shadow-[#e1f5f7] ${bgColor} ${
         selected ? "shadow-inner" : "shadow-lg"
       }`}
       // className={`flex gap-5 py-2 px-3 border border-black cursor-pointer ${
@@ -46,7 +48,7 @@ export const Choice: FC<Props> = ({
       // }`}
       onClick={onClick}
     >
-      <Checkbox checked={selected} />
+      <Checkbox checked={selected} multiple={multiple} />
       {/* <span>{ABC[index]}</span> */}
       {sentences2Elements({
         sentences: choice,

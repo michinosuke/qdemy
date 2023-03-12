@@ -29,16 +29,18 @@ export const sentences2Elements = ({
   language,
   mode = "prefer",
   className,
+  style,
 }: {
   sentences: string | string[] | JaEn;
   textType: TextType | undefined;
   language: Language;
   mode?: "just" | "prefer";
   className?: string | undefined;
+  style?: React.CSSProperties | undefined;
 }): ReactNode => {
   if (Array.isArray(sentences)) {
     return (
-      <div className={`sentences ${className}`}>
+      <div className={`sentences ${className}`} style={style}>
         {sentences.map((str, key) =>
           str === "" ? <br key={key} /> : str2Elements({ str, textType, key })
         )}
@@ -47,7 +49,7 @@ export const sentences2Elements = ({
   }
   if (typeof sentences === "string") {
     return (
-      <div className={`sentences ${className}`}>
+      <div className={`sentences ${className}`} style={style}>
         {str2Elements({ str: sentences, textType, key: 1 })}
       </div>
     );
@@ -63,6 +65,7 @@ export const sentences2Elements = ({
       language,
       mode,
       className,
+      style,
     });
   }
   if (mode === "just") return "NULL";
@@ -73,6 +76,7 @@ export const sentences2Elements = ({
       language,
       mode,
       className,
+      style,
     });
   }
   return <></>;
