@@ -1,1 +1,5 @@
-Astro.redirect('/course');
+---
+import { Redirect } from "../libs/redirect";
+---
+
+<Redirect path="/course" client:load />;
