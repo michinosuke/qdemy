@@ -3,8 +3,9 @@ export const Header = () => (
     <img src="/assets/icon.svg" className="h-5 w-5 mt-[1px]" />
     <h1 className="text-xl">
       <a href="/course">
-        <span className="font-bold text-main">exam</span>
-        <span className="text-gray-500">pack</span>
+        {/* <span className="font-bold text-main">exam</span>
+        <span className="text-gray-500">pack</span> */}
+        exam.blue
       </a>
     </h1>
   </div>

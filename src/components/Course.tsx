@@ -441,11 +441,16 @@ export const CourseComponent = () => {
                 language: preferLang,
                 className: "mt-2 px-5",
               })}
+              {question.corrects.length > 1 && (
+                <p className="px-3">
+                  （ {question.corrects.length} つ選択してください。）
+                </p>
+              )}
               <ul className="flex flex-col gap-4 my-5 px-3 pb-5">
                 {question.choices.map((choice, choiceIndex) => (
                   <Choice
                     choice={choice}
-                    color={(() => {
+                    status={(() => {
                       if (question.selects.length >= question.corrects.length) {
                         if (question.corrects.includes(choiceIndex + 1)) {
                           return "correct";

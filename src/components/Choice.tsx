@@ -7,7 +7,7 @@ import { Checkbox } from "./Checkbox";
 
 type Props = {
   choice: JaEn;
-  color: "correct" | "incorrect" | "default";
+  status: "correct" | "incorrect" | "default";
   index: number;
   preferLang: Language;
   textType: TextType | undefined;
@@ -18,8 +18,7 @@ type Props = {
 
 export const Choice: FC<Props> = ({
   choice,
-  color,
-  index,
+  status,
   preferLang,
   textType,
   selected,
@@ -27,7 +26,7 @@ export const Choice: FC<Props> = ({
   multiple,
 }) => {
   const bgColor = (() => {
-    switch (color) {
+    switch (status) {
       case "correct":
         return "bg-[#e1f5f7]";
       case "incorrect":
@@ -50,11 +49,16 @@ export const Choice: FC<Props> = ({
     >
       <Checkbox checked={selected} multiple={multiple} />
       {/* <span>{ABC[index]}</span> */}
-      {sentences2Elements({
-        sentences: choice,
-        textType: textType,
-        language: preferLang,
-      })}
+      <div>
+        {status === "correct" && (
+          <p className="text-main font-bold -mb-3">正解</p>
+        )}
+        {sentences2Elements({
+          sentences: choice,
+          textType: textType,
+          language: preferLang,
+        })}
+      </div>
     </li>
   );
 };
