@@ -2,7 +2,14 @@ import type { JaEn, Language, TextType } from "../interfaces/course";
 import type { ReactElement, ReactFragment, ReactNode } from "react";
 
 import { marked } from "marked";
+import highlight from "highlight.js";
 import parse from "html-react-parser";
+
+marked.setOptions({
+  highlight: (code) => {
+    return highlight.highlightAuto(code).value;
+  },
+});
 
 const str2Elements = ({
   str,
