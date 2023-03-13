@@ -284,7 +284,8 @@ export const CourseComponent = () => {
             <div className="flex gap-5 mt-5">
               <input
                 name="source"
-                placeholder="https://example.com/nazonazo.json"
+                placeholder="https://exam.blue/nazonazo.json"
+                value="https://exam.blue/pas.json"
                 className="px-2 py-1 w-full border rounded"
               />
               <input
