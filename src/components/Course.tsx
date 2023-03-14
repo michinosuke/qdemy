@@ -1,4 +1,4 @@
-import type { Course, JaEn, Language, Question } from "../interfaces/course";
+import type { Course, JaEn, Language } from "../interfaces/course";
 import { isCourseInLocalStorage } from "../interfaces/courseInLocalStorage";
 import { useEffect, useState } from "react";
 
@@ -7,11 +7,9 @@ import { CourseEdit } from "./CourseEditor";
 import axios from "axios";
 import { ls } from "../libs/localStorage";
 import { sentences2Elements } from "../libs/sentences2Elements";
-import { useClickedQuestion } from "../hooks/useClickedQuestion";
 import { Header } from "./header";
 import { Heading } from "./Heading";
 import { translate } from "../libs/translate";
-import { compareDocumentPosition } from "domutils";
 import { FixedButtons } from "./FixedButtons";
 import { remote } from "../libs/remote";
 import { format } from "date-fns";
@@ -248,47 +246,13 @@ export const CourseComponent = () => {
     </footer>
   );
 
-  if (!course && !sourceUrl) {
+  if (!course) {
     return (
       <div className="grid place-content-center h-screen">
         <img src="/assets/spin.svg" />
       </div>
     );
   }
-
-  if (!course && !sourceUrl) {
-    return (
-      <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
-        <Header />
-        <div className="px-5 py-5 mt-10">
-          <form action="" className="py-3 px-5 border">
-            <Heading>JSONをURLから取得</Heading>
-            <div className="flex gap-5 mt-5">
-              <input
-                name="source"
-                placeholder="https://exam.blue/nazonazo.json"
-                value="https://exam.blue/pas.json"
-                className="px-2 py-1 w-full border rounded"
-              />
-              <input
-                type="submit"
-                className="px-2 py-1 bg-black text-white"
-                value="取得"
-              />
-            </div>
-          </form>
-          <a href="/caches">
-            <button className="px-3 py-2 rounded-lg shadow-lg mt-10 bg-white hover:-translate-y-1">
-              編集中のコース一覧
-            </button>
-          </a>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (!course) return <></>;
 
   if (isEditMode) {
     return (
@@ -452,7 +416,7 @@ export const CourseComponent = () => {
               </ul>
               {question.explanation && (
                 <div
-                  className={`px-5 bg-[#e7f2f2] ${
+                  className={`px-5 bg-[hsl(180,50%,96%)] ${
                     question.selects &&
                     question.selects.length >= question.corrects.length
                       ? "display-active py-10"
@@ -462,7 +426,7 @@ export const CourseComponent = () => {
                     boxShadow: "0 20 20 0 #000 inset",
                   }}
                 >
-                  <h3 className="text-lg font-bold">解説</h3>
+                  <h3 className="text-lg font-bold text-gray-600">解説</h3>
                   {sentences2Elements({
                     sentences: question.explanation,
                     textType: course.meta?.text_type,
