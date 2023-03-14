@@ -5,7 +5,8 @@ export const Header = () => (
       <a href="/course">
         {/* <span className="font-bold text-main">exam</span>
         <span className="text-gray-500">pack</span> */}
-        exam.blue
+        <span className="text-gray-500">exam</span>
+        <span className="font-bold text-main">.blue</span>
       </a>
     </h1>
   </div>

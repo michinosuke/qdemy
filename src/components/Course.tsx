@@ -162,14 +162,18 @@ export const CourseComponent = () => {
   };
 
   const saveMouseEnterQuestion = (questionId: string) => {
-    localStorage.setItem("focusedQuestionId", questionId);
+    localStorage.setItem(
+      `focusedQuestionId.${sourceUrl ?? courseId}`,
+      questionId
+    );
   };
 
   const restoreScroll = () => {
+    console.log({ sourceUrl, courseId });
     const q = new URLSearchParams(window.location.search).get("q");
     const questionId = q
       ? `question-${q}`
-      : localStorage.getItem("focusedQuestionId");
+      : localStorage.getItem(`focusedQuestionId.${sourceUrl ?? courseId}`);
     if (!questionId) return;
     const question = document.getElementById(questionId);
     if (question) {
