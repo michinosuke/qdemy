@@ -1,5 +1,14 @@
 ---
-import { Redirect } from "../libs/redirect";
+import Layout from "../layouts/Layout.astro";
+// import { Redirect } from "../libs/redirect";
 ---
 
-<Redirect path="/course" client:load />;
+<!-- <Redirect path="/course" client:load />; -->
+<Layout title="exam.blue">
+  <div class="grid place-content-center h-screen">
+    <h1 class="flex">
+      <span class="text-gray-500">exam</span>
+      <span class="font-bold text-main">.blue</span>
+    </h1>
+  </div>
+</Layout>
