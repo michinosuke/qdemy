@@ -12,6 +12,7 @@ import { Header } from "./header";
 import { Heading } from "./Heading";
 import { translate } from "../libs/translate";
 import { compareDocumentPosition } from "domutils";
+import { FixedButtons } from "./FixedButtons";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -509,50 +510,36 @@ export const CourseComponent = () => {
             </li>
           ))}
         </ul>
-        <ul className="fixed bottom-10 left-10 flex gap-3 z-10">
-          <li>
-            <button
-              onClick={() => setPreferLang(preferLang === "ja" ? "en" : "ja")}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              優先言語：{preferLang === "ja" ? "日本語" : "英語"}
-            </button>
-          </li>
-          <li>
-            <button
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-              onClick={() => {
+        <FixedButtons
+          buttons={[
+            {
+              onClick: () => setPreferLang(preferLang === "ja" ? "en" : "ja"),
+              text: `優先言語：${preferLang === "ja" ? "日本語" : "英語"}`,
+            },
+            {
+              onClick: () => {
                 if (isCacheMode) {
                   setIsEditMode(!isEditMode);
                   return;
                 }
                 window.location.href = `?cache=${ls.saveCourse(course)}`;
-              }}
-            >
-              編集
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => (location.href = "/caches")}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              編集中のコース一覧
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setShouldTranslateAll(!shouldTranslateAll)}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              {shouldTranslateAll
+              },
+              text: "編集",
+            },
+            {
+              onClick: () => (location.href = "/caches"),
+              text: "編集中のコース一覧",
+            },
+            {
+              onClick: () => setShouldTranslateAll(!shouldTranslateAll),
+              text: shouldTranslateAll
                 ? `全て翻訳モード実行中(${
                     currentTranslateIndex.questionIndex + 1
                   } - ${currentTranslateIndex.text})`
-                : "全て翻訳モード停止中"}
-            </button>
-          </li>
-        </ul>
+                : "全て翻訳モード停止中",
+            },
+          ]}
+        />
         {isCacheMode && (
           <div className="bg-red-500 text-white px-3 py-2 rounded-md fixed top-5 left-5 shadow-lg">
             ローカル編集モード

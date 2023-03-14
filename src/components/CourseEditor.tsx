@@ -6,6 +6,7 @@ import { dumpCourse } from "../libs/dumpCourse";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { Header } from "./header";
 import { Heading } from "./Heading";
+import { FixedButtons } from "./FixedButtons";
 
 type Props = {
   course: Course;
@@ -359,32 +360,22 @@ export const CourseEdit: FC<Props> = ({
             </li>
           ))}
         </ul>
-        <ul className="fixed bottom-10 left-10 flex gap-3">
-          <li>
-            <button
-              onClick={() => setIsEditMode(false)}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              編集を終了
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => dumpCourse(course)}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              ダウンロード
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => (location.href = "/caches")}
-              className="bg-white px-3 py-2 rounded-md shadow-lg"
-            >
-              編集中のコース一覧
-            </button>
-          </li>
-        </ul>
+        <FixedButtons
+          buttons={[
+            {
+              onClick: () => setIsEditMode(false),
+              text: "編集を終了",
+            },
+            {
+              onClick: () => dumpCourse(course),
+              text: "ダウンロード",
+            },
+            {
+              onClick: () => (location.href = "/caches"),
+              text: "編集中のコース一覧",
+            },
+          ]}
+        />
       </div>
     </div>
   );
