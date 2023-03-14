@@ -281,6 +281,14 @@ export const CourseComponent = () => {
 
   if (!course && !sourceUrl) {
     return (
+      <div className="grid place-content-center h-screen">
+        <img src="/assets/spin.svg" />
+      </div>
+    );
+  }
+
+  if (!course && !sourceUrl) {
+    return (
       <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
         <Header />
         <div className="px-5 py-5 mt-10">
