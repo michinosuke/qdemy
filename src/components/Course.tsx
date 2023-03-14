@@ -19,7 +19,6 @@ import { format } from "date-fns";
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const [course, setCourse] = useState<Course | null>(null);
-  const [file, setFile] = useState<File | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [preferLang, setPreferLang] = useState<Language>("ja");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -190,7 +189,6 @@ export const CourseComponent = () => {
   ) => {
     const courseClone = JSON.parse(JSON.stringify(course));
     const updatedCourse = coursePipe(courseClone);
-    console.log(JSON.stringify(courseClone) === JSON.stringify(updatedCourse));
     if (JSON.stringify(course) === JSON.stringify(updatedCourse)) return;
     if (!updatedCourse) return;
     setCourse(updatedCourse);
@@ -233,14 +231,6 @@ export const CourseComponent = () => {
   }, [sourceUrl]);
 
   useEffect(() => {
-    if (!file) return;
-    importFromFile(file);
-    setInterval(() => {
-      watchFileModify(file);
-    }, 1000);
-  }, [file]);
-
-  useEffect(() => {
     if (!initialized) {
       setTimeout(restoreScroll, 100);
       setTimeout(() => setInitialized(true), 3000);
@@ -249,32 +239,6 @@ export const CourseComponent = () => {
       ls.saveCourse(course, courseId);
     }
   }, [course]);
-
-  const watchFileModify = (file: File) => {
-    const fileReader = new FileReader();
-    fileReader.addEventListener("error", () => {
-      location.reload();
-    });
-    fileReader.readAsText(file);
-  };
-
-  const importFromFile = (file: File) => {
-    const fileReader = new FileReader();
-    fileReader.addEventListener("load", (e) => {
-      const result = e.target?.result;
-      if (typeof result !== "string") return;
-      try {
-        const json = JSON.parse(result);
-        setCourse(json);
-      } catch (e) {
-        console.log("パースエラー");
-      }
-    });
-    fileReader.addEventListener("error", () => {
-      location.reload();
-    });
-    fileReader.readAsText(file);
-  };
 
   const Footer = () => (
     <footer className="bg-main w-full h-32 absolute bottom-0 grid place-content-center">
@@ -313,19 +277,6 @@ export const CourseComponent = () => {
               />
             </div>
           </form>
-          <div className="mt-10 py-3 px-5 border overflow-x-scroll">
-            <Heading>JSONをローカルファイルから取得</Heading>
-            <input
-              type="file"
-              className="m-5"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                setFile(file);
-                // localStorage.setItem("localFile", JSON.stringify(file));
-              }}
-            />
-          </div>
           <a href="/caches">
             <button className="px-3 py-2 rounded-lg shadow-lg mt-10 bg-white hover:-translate-y-1">
               編集中のコース一覧
@@ -530,14 +481,16 @@ export const CourseComponent = () => {
               className: "bg-main text-white",
             },
             {
-              text: `クラウドに保存されたデータを開く(最終送信日時: ${
-                course.meta?.last_uploaded_at
-                  ? format(
-                      new Date(course.meta.last_uploaded_at),
-                      "yyyy/MM/dd HH:mm:ss"
-                    )
-                  : "?"
-              })`,
+              text: course.meta?.url
+                ? `クラウドに保存されたデータを開く(最終送信日時: ${
+                    course.meta?.last_uploaded_at
+                      ? format(
+                          new Date(course.meta.last_uploaded_at),
+                          "yyyy/MM/dd HH:mm:ss"
+                        )
+                      : "?"
+                  })`
+                : null,
               onClick: () => {
                 if (course.meta?.url) location.href = course.meta.url;
               },

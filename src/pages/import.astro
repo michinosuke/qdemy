@@ -1,0 +1,38 @@
+---
+import { FileInput } from "../components/FileInput";
+import { Header } from "../components/header";
+import { Heading } from "../components/Heading";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="import">
+  <div class="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
+    <Header />
+    <div class="px-5 py-5 mt-10">
+      <form action="" class="py-3 px-5 border">
+        <Heading>JSONをURLから取得</Heading>
+        <div class="flex gap-5 mt-5">
+          <input
+            name="source"
+            placeholder="https://exam.blue/nazonazo.json"
+            value="https://exam.blue/pas.json"
+            class="px-2 py-1 w-full border rounded"
+          />
+          <input
+            type="submit"
+            class="px-2 py-1 bg-black text-white"
+            value="取得"
+          />
+        </div>
+      </form>
+      <FileInput client:load />
+      <a href="/caches">
+        <button
+          class="px-3 py-2 rounded-lg shadow-lg mt-10 bg-white hover:-translate-y-1"
+        >
+          編集中のコース一覧
+        </button>
+      </a>
+    </div>
+  </div>
+</Layout>
