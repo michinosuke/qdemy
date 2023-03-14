@@ -41,6 +41,8 @@ export type Question = {
 export type Language = "ja" | "en";
 
 export type Meta = {
+  url?: string;
+  last_uploaded_at?: string;
   title?: string;
   description?: string | string[];
   minutes?: number;

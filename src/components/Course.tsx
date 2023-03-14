@@ -13,6 +13,8 @@ import { Heading } from "./Heading";
 import { translate } from "../libs/translate";
 import { compareDocumentPosition } from "domutils";
 import { FixedButtons } from "./FixedButtons";
+import { remote } from "../libs/remote";
+import { format } from "date-fns";
 
 export const CourseComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -158,7 +160,7 @@ export const CourseComponent = () => {
     jaEn.isTranslating = false;
     setCourse(JSON.parse(JSON.stringify(course)));
 
-    if (course) ls.saveCourse(course, courseId);
+    // if (course) ls.saveCourse(course, courseId);
     return true;
   };
 
@@ -170,7 +172,6 @@ export const CourseComponent = () => {
   };
 
   const restoreScroll = () => {
-    console.log({ sourceUrl, courseId });
     const q = new URLSearchParams(window.location.search).get("q");
     const questionId = q
       ? `question-${q}`
@@ -189,6 +190,8 @@ export const CourseComponent = () => {
   ) => {
     const courseClone = JSON.parse(JSON.stringify(course));
     const updatedCourse = coursePipe(courseClone);
+    console.log(JSON.stringify(courseClone) === JSON.stringify(updatedCourse));
+    if (JSON.stringify(course) === JSON.stringify(updatedCourse)) return;
     if (!updatedCourse) return;
     setCourse(updatedCourse);
     await sleep(100);
@@ -242,7 +245,9 @@ export const CourseComponent = () => {
       setTimeout(restoreScroll, 100);
       setTimeout(() => setInitialized(true), 3000);
     }
-    if (course && courseId) ls.saveCourse(course, courseId);
+    if (course && courseId) {
+      ls.saveCourse(course, courseId);
+    }
   }, [course]);
 
   const watchFileModify = (file: File) => {
@@ -521,8 +526,37 @@ export const CourseComponent = () => {
         <FixedButtons
           buttons={[
             {
+              text: isCacheMode ? `ローカル編集モード` : null,
+              className: "bg-main text-white",
+            },
+            {
+              text: `クラウドに保存されたデータを開く(最終送信日時: ${
+                course.meta?.last_uploaded_at
+                  ? format(
+                      new Date(course.meta.last_uploaded_at),
+                      "yyyy/MM/dd HH:mm:ss"
+                    )
+                  : "?"
+              })`,
+              onClick: () => {
+                if (course.meta?.url) location.href = course.meta.url;
+              },
+            },
+            {
               onClick: () => setPreferLang(preferLang === "ja" ? "en" : "ja"),
               text: `優先言語：${preferLang === "ja" ? "日本語" : "英語"}`,
+            },
+            {
+              onClick: async () => {
+                const { courseUrl } = await remote.save(course, courseId);
+                updateCourse((course) => {
+                  if (!course.meta) course.meta = {};
+                  course.meta.url = courseUrl;
+                  course.meta.last_uploaded_at = new Date().toISOString();
+                  return course;
+                });
+              },
+              text: `リモートに送信`,
             },
             {
               onClick: () => {
@@ -538,21 +572,16 @@ export const CourseComponent = () => {
               onClick: () => (location.href = "/caches"),
               text: "編集中のコース一覧",
             },
-            {
-              onClick: () => setShouldTranslateAll(!shouldTranslateAll),
-              text: shouldTranslateAll
-                ? `全て翻訳モード実行中(${
-                    currentTranslateIndex.questionIndex + 1
-                  } - ${currentTranslateIndex.text})`
-                : "全て翻訳モード停止中",
-            },
+            // {
+            //   onClick: () => setShouldTranslateAll(!shouldTranslateAll),
+            //   text: shouldTranslateAll
+            //     ? `全て翻訳モード実行中(${
+            //         currentTranslateIndex.questionIndex + 1
+            //       } - ${currentTranslateIndex.text})`
+            //     : "全て翻訳モード停止中",
+            // },
           ]}
         />
-        {isCacheMode && (
-          <div className="bg-red-500 text-white px-3 py-2 rounded-md fixed top-5 left-5 shadow-lg">
-            ローカル編集モード
-          </div>
-        )}
       </div>
       <Footer />
     </div>
