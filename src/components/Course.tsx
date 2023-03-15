@@ -222,7 +222,7 @@ export const CourseComponent = () => {
 
   useEffect(() => {
     setTimeout(restoreScroll, 100);
-  }, [isEditMode]);
+  }, [isEditMode, preferLang]);
 
   useEffect(() => {
     fetchCourse();
@@ -445,8 +445,20 @@ export const CourseComponent = () => {
               className: "bg-main text-white",
             },
             {
+              onClick: async () => {
+                const { courseUrl } = await remote.save(course, courseId);
+                updateCourse((course) => {
+                  if (!course.meta) course.meta = {};
+                  course.meta.url = courseUrl;
+                  course.meta.last_uploaded_at = new Date().toISOString();
+                  return course;
+                });
+              },
+              text: isCacheMode ? `クラウドに保存` : null,
+            },
+            {
               text: course.meta?.url
-                ? `クラウドに保存されたデータを開く(最終送信日時: ${
+                ? `クラウドに保存された模擬試験を開く(最終送信日時: ${
                     course.meta?.last_uploaded_at
                       ? format(
                           new Date(course.meta.last_uploaded_at),
@@ -464,24 +476,18 @@ export const CourseComponent = () => {
               text: `優先言語：${preferLang === "ja" ? "日本語" : "英語"}`,
             },
             {
-              onClick: async () => {
-                const { courseUrl } = await remote.save(course, courseId);
-                updateCourse((course) => {
-                  if (!course.meta) course.meta = {};
-                  course.meta.url = courseUrl;
-                  course.meta.last_uploaded_at = new Date().toISOString();
-                  return course;
-                });
-              },
-              text: `リモートに送信`,
-            },
-            {
               onClick: () => {
                 if (isCacheMode) {
                   setIsEditMode(!isEditMode);
                   return;
                 }
-                window.location.href = `?cache=${ls.saveCourse(course)}`;
+                if (
+                  confirm(
+                    `現在、インターネット上の模擬試験を表示しています。\n編集するには、この模擬試験をブラウザにコピーし、「ローカル編集モード」に移行する必要があります。\n「ローカル編集モード」に移行しますか？`
+                  )
+                ) {
+                  window.location.href = `?cache=${ls.saveCourse(course)}`;
+                }
               },
               text: "編集",
             },
