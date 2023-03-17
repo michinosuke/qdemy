@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.choicesが配列ではないから",
-  "problems": [
+  "why-invalid": "questions.choicesが配列ではないから",
+  "questions": [
     {
       "statement": "パンはパンでも食べられないパンは？",
       "choices": "フランスパン",

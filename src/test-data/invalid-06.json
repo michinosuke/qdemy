@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.correctsが存在しないから",
-  "problems": [
+  "why-invalid": "questions.correctsが存在しないから",
+  "questions": [
     {
       "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],

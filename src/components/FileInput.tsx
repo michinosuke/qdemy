@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+
 import type { Exam } from "../interfaces/exam";
-import { ls } from "../libs/localStorage";
 import { Heading } from "./Heading";
+import { ls } from "../libs/localStorage";
 
 const watchFileModify = (file: File) => {
   const fileReader = new FileReader();
@@ -16,13 +17,16 @@ const importFromFile = (file: File) => {
   fileReader.addEventListener("load", (e) => {
     const result = e.target?.result;
     if (typeof result !== "string") return;
-    try {
-      const exam: Exam = JSON.parse(result);
-      const examId = ls.saveExam(exam);
-      location.href = `/exam?cache=${examId}`;
-    } catch (e) {
-      console.log("パースエラー");
-    }
+    const exam: Exam | null = (() => {
+      try {
+        return JSON.parse(result);
+      } catch (e) {
+        return null;
+      }
+    })();
+    if (!exam) throw new Error("パースエラー");
+    const examId = ls.saveExam(exam);
+    location.href = `/exam?cache=${examId}`;
   });
   fileReader.addEventListener("error", () => {
     location.reload();

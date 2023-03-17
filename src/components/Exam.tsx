@@ -1,18 +1,18 @@
 import type { Exam, Language, UIJaEn } from "../interfaces/exam";
-import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { useEffect, useState } from "react";
 
 import { Choice } from "./Choice";
 import { ExamEdit } from "./ExamEditor";
-import axios from "axios";
-import { ls } from "../libs/localStorage";
-import { sentences2Elements } from "../libs/sentences2Elements";
+import { FixedButtons } from "./FixedButtons";
 import { Header } from "./header";
 import { Heading } from "./Heading";
-import { translate } from "../libs/translate";
-import { FixedButtons } from "./FixedButtons";
-import { remote } from "../libs/remote";
+import axios from "axios";
 import { format } from "date-fns";
+import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
+import { ls } from "../libs/localStorage";
+import { remote } from "../libs/remote";
+import { sentences2Elements } from "../libs/sentences2Elements";
+import { translate } from "../libs/translate";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -25,36 +25,48 @@ export const ExamComponent = () => {
   const [shouldTranslateAll, setShouldTranslateAll] = useState(false);
   const [isAllTranslating, setIsAllTranslating] = useState(false);
   const [currentTranslateIndex, setCurrentTranslateIndex] = useState<{
-    problemIndex: number;
+    questionIndex: number;
     text: string;
-  }>({ problemIndex: 0, text: "" });
+  }>({ questionIndex: 0, text: "" });
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
     const examId = search.get("cache");
     if (examId) {
       setExamId(examId);
-      try {
-        const examKey = `exam.${examId}`;
-        const cache = localStorage.getItem(examKey);
-        if (!cache) {
-          console.log(`cache key exam.${examId} not found.`);
-          return;
+      const examKey = `exam.${examId}`;
+      const cache = localStorage.getItem(examKey);
+      if (!cache) {
+        console.log(`cache key exam.${examId} not found.`);
+        return;
+      }
+      const examInLocalStorage: object | null = (() => {
+        try {
+          return JSON.parse(cache);
+        } catch (e) {
+          return null;
         }
-        const examInLocalStorage = JSON.parse(cache);
-        if (isExamInLocalStorage(examInLocalStorage)) {
-          const exam: Exam = JSON.parse(examInLocalStorage.exam);
-          exam.problems.forEach((problem) => {
-            problem.statement.isTranslating = false;
-            problem.choices.forEach((choice) => (choice.isTranslating = false));
-            problem.selects = [];
-          });
-          setExam(exam);
-          setIsCacheMode(true);
-        } else {
-          console.log("exam in local storage is invalid.");
-        }
-      } catch (e) {}
+      })();
+      if (!examInLocalStorage) throw new Error("パースエラー");
+      if (isExamInLocalStorage(examInLocalStorage)) {
+        const exam: Exam | null = (() => {
+          try {
+            return JSON.parse(examInLocalStorage.exam);
+          } catch (e) {
+            return null;
+          }
+        })();
+        if (!exam) throw new Error("パースエラー");
+        exam.questions.forEach((question) => {
+          question.statement.isTranslating = false;
+          question.choices.forEach((choice) => (choice.isTranslating = false));
+          question.selects = [];
+        });
+        setExam(exam);
+        setIsCacheMode(true);
+      } else {
+        console.log("exam in local storage is invalid.");
+      }
     } else {
       const source = search.get("source");
       if (!source) return;
@@ -79,25 +91,25 @@ export const ExamComponent = () => {
     }
   }, [shouldTranslateAll, isAllTranslating]);
 
-  const updateCurrentTranslateIndex = (problemIndex: number, text: string) => {
+  const updateCurrentTranslateIndex = (questionIndex: number, text: string) => {
     setCurrentTranslateIndex({
-      problemIndex,
+      questionIndex,
       text,
     });
   };
 
   const translateAll = async () => {
     setIsAllTranslating(true);
-    const problems = exam?.problems;
-    if (!problems) return;
+    const questions = exam?.questions;
+    if (!questions) return;
     let done = false;
 
-    for (const [problemIndexStr, { choices }] of Object.entries(problems)) {
-      const problemIndex = Number(problemIndexStr);
-      updateCurrentTranslateIndex(problemIndex, "問題文");
+    for (const [questionIndexStr, { choices }] of Object.entries(questions)) {
+      const questionIndex = Number(questionIndexStr);
+      updateCurrentTranslateIndex(questionIndex, "問題文");
 
       if (
-        await translateJaEn((exam) => exam.problems[problemIndex]?.statement)
+        await translateJaEn((exam) => exam.questions[questionIndex]?.statement)
       ) {
         done = true;
         break;
@@ -105,10 +117,10 @@ export const ExamComponent = () => {
 
       for (const [choiceIndexStr] of Object.entries(choices)) {
         const choiceIndex = Number(choiceIndexStr);
-        updateCurrentTranslateIndex(problemIndex, `選択肢 ${choiceIndex + 1}`);
+        updateCurrentTranslateIndex(questionIndex, `選択肢 ${choiceIndex + 1}`);
         if (
           await translateJaEn(
-            (exam) => exam.problems[problemIndex]?.choices[choiceIndex]
+            (exam) => exam.questions[questionIndex]?.choices[choiceIndex]
           )
         ) {
           done = true;
@@ -116,9 +128,11 @@ export const ExamComponent = () => {
         }
       }
 
-      updateCurrentTranslateIndex(problemIndex, "説明文");
+      updateCurrentTranslateIndex(questionIndex, "説明文");
       if (
-        await translateJaEn((exam) => exam.problems[problemIndex]?.explanation)
+        await translateJaEn(
+          (exam) => exam.questions[questionIndex]?.explanation
+        )
       ) {
         done = true;
         break;
@@ -154,19 +168,22 @@ export const ExamComponent = () => {
     return true;
   };
 
-  const saveMouseEnterProblem = (problemId: string) => {
-    localStorage.setItem(`focusedProblemId.${sourceUrl ?? examId}`, problemId);
+  const saveMouseEnterQuestion = (questionId: string) => {
+    localStorage.setItem(
+      `focusedQuestionId.${sourceUrl ?? examId}`,
+      questionId
+    );
   };
 
   const restoreScroll = () => {
     const q = new URLSearchParams(window.location.search).get("q");
-    const problemId = q
-      ? `problem-${q}`
-      : localStorage.getItem(`focusedProblemId.${sourceUrl ?? examId}`);
-    if (!problemId) return;
-    const problem = document.getElementById(problemId);
-    if (problem) {
-      problem.scrollIntoView({
+    const questionId = q
+      ? `question-${q}`
+      : localStorage.getItem(`focusedQuestionId.${sourceUrl ?? examId}`);
+    if (!questionId) return;
+    const question = document.getElementById(questionId);
+    if (question) {
+      question.scrollIntoView({
         behavior: "smooth",
       });
     }
@@ -181,17 +198,17 @@ export const ExamComponent = () => {
     await sleep(100);
   };
 
-  const selectChoice = async (problemIndex: number, choiceIndex: number) => {
+  const selectChoice = async (questionIndex: number, choiceIndex: number) => {
     updateExam((exam) => {
-      const problem = exam?.problems[problemIndex];
-      if (!problem) return null;
-      if (problem.selects.includes(choiceIndex)) {
-        problem.selects = problem.selects.filter(
+      const question = exam?.questions[questionIndex];
+      if (!question) return null;
+      if (question.selects.includes(choiceIndex)) {
+        question.selects = question.selects.filter(
           (selectIndex) => selectIndex !== choiceIndex
         );
         return exam;
       }
-      problem.selects = [...problem.selects, choiceIndex];
+      question.selects = [...question.selects, choiceIndex];
       return exam;
     });
   };
@@ -204,7 +221,7 @@ export const ExamComponent = () => {
       },
     });
     const exam: Exam = json.data;
-    exam.problems.forEach((problem) => (problem.selects = []));
+    exam.questions.forEach((question) => (question.selects = []));
     setExam(exam);
   };
 
@@ -249,7 +266,7 @@ export const ExamComponent = () => {
           exam,
           initialized,
           preferLang,
-          saveMouseEnterProblem,
+          saveMouseEnterQuestion,
           updateExam,
           setIsEditMode,
           translateJaEn,
@@ -282,21 +299,21 @@ export const ExamComponent = () => {
             <Heading>メタデータ</Heading>
             <ul>
               <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5 pt-3">
-                問題数: {exam.problems.length}
+                問題数: {exam.questions.length}
               </li>
               <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
                 解説の数:{" "}
                 {
-                  exam.problems.filter((problem) => problem.explanation?.ja)
+                  exam.questions.filter((question) => question.explanation?.ja)
                     .length
                 }
               </li>
               <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
                 解説の充実率:{" "}
                 {Math.floor(
-                  (exam.problems.filter((problem) => problem.explanation?.ja)
+                  (exam.questions.filter((question) => question.explanation?.ja)
                     .length /
-                    exam.problems.length) *
+                    exam.questions.length) *
                     1000
                 ) / 10}
                 %
@@ -321,13 +338,13 @@ export const ExamComponent = () => {
           </div>
         </div>
         <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
-          {exam.problems.map((problem, problemIndex) => (
+          {exam.questions.map((question, questionIndex) => (
             <li
-              key={problemIndex}
-              id={`problem-${problemIndex + 1}`}
+              key={questionIndex}
+              id={`question-${questionIndex + 1}`}
               onMouseEnter={() =>
                 initialized &&
-                saveMouseEnterProblem(`problem-${problemIndex + 1}`)
+                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
               }
               className="bg-white pt-10 rounded-lg shadow overflow-hidden"
             >
@@ -335,7 +352,7 @@ export const ExamComponent = () => {
                 {isCacheMode ? (
                   <>
                     <span className="text-bold text-main">Q. </span>
-                    {problemIndex + 1}
+                    {questionIndex + 1}
                   </>
                 ) : (
                   <a
@@ -345,66 +362,66 @@ export const ExamComponent = () => {
                         ...new URLSearchParams(
                           window.location.search
                         ).entries(),
-                        ["q", (problemIndex + 1).toString()],
+                        ["q", (questionIndex + 1).toString()],
                       ])
                     }
                     className="hover:opacity-70"
                   >
                     <span className="text-bold text-main">Q. </span>
-                    {problemIndex + 1}
+                    {questionIndex + 1}
                   </a>
                 )}
               </h2>
               {sentences2Elements({
-                sentences: problem.statement,
+                sentences: question.statement,
                 textType: exam.meta?.text_type,
                 language: preferLang,
                 className: "mt-2 px-5",
               })}
-              {problem.corrects.length > 1 && (
+              {question.corrects.length > 1 && (
                 <span className="inline-block mx-5 px-3 py-0.5 bg-main text-white rounded">
-                  {problem.corrects.length} つ選択
+                  {question.corrects.length} つ選択
                 </span>
               )}
               <ul className="flex flex-col gap-4 my-5 px-3 pb-5">
-                {problem.choices.map((choice, choiceIndex) => (
+                {question.choices.map((choice, choiceIndex) => (
                   <Choice
                     choice={choice}
                     status={(() => {
-                      if (problem.selects.length >= problem.corrects.length) {
-                        if (problem.corrects.includes(choiceIndex + 1)) {
+                      if (question.selects.length >= question.corrects.length) {
+                        if (question.corrects.includes(choiceIndex + 1)) {
                           return "correct";
                         }
                         return "incorrect";
                       }
                       return "default";
                     })()}
-                    selected={problem.selects.includes(choiceIndex)}
+                    selected={question.selects.includes(choiceIndex)}
                     key={choiceIndex}
                     index={choiceIndex}
                     preferLang={preferLang}
                     textType={exam.meta?.text_type}
                     onClick={() => {
-                      if (problem.selects.length >= problem.corrects.length) {
+                      if (question.selects.length >= question.corrects.length) {
                         updateExam((exam) => {
-                          const question = exam.problems[problemIndex];
+                          const question = exam.questions[questionIndex];
                           if (!question) return null;
-                          problem.selects = [];
+                          question.selects = [];
                           return exam;
                         });
                       } else {
-                        selectChoice(problemIndex, choiceIndex);
+                        selectChoice(questionIndex, choiceIndex);
                       }
                     }}
-                    multiple={problem.corrects.length > 1}
+                    multiple={question.corrects.length > 1}
                   />
                 ))}
               </ul>
-              {problem.explanation && (
+              {question.explanation && (
                 <div
                   className={`px-5 bg-[hsl(180,50%,96%)] ${
-                    problem.selects &&
-                    problem.selects.length >= problem.corrects.length
+                    question.selects &&
+                    question.selects.length >= question.corrects.length
                       ? "display-active py-10"
                       : "display-none"
                   }`}
@@ -414,7 +431,7 @@ export const ExamComponent = () => {
                 >
                   <h3 className="text-lg font-bold text-gray-600">解説</h3>
                   {sentences2Elements({
-                    sentences: problem.explanation,
+                    sentences: question.explanation,
                     textType: exam.meta?.text_type,
                     language: preferLang,
                     className: "mt-5",

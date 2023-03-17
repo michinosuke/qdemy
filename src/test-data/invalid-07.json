@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.correctsが空配列だから",
-  "problems": [
+  "why-invalid": "questions.correctsが空配列だから",
+  "questions": [
     {
       "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],

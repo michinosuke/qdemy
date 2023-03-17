@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.statementが存在しないから",
-  "problems": [
+  "why-invalid": "questions.statementが存在しないから",
+  "questions": [
     {
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],
       "corrects": [2, 4],

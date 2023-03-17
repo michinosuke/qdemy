@@ -1,6 +1,6 @@
 export type TextType = "plain" | "html" | "markdown";
 
-export type Problem = {
+export type Question = {
   statement: UIJaEn;
   choices: UIJaEn[];
   corrects: number[];
@@ -38,7 +38,7 @@ export type Meta = {
 
 export type Exam = {
   meta?: Meta;
-  problems: Problem[];
+  questions: Question[];
 };
 
 export type JaEn =
@@ -46,4 +46,4 @@ export type JaEn =
   | { ja: string | string[]; en?: null }
   | { ja?: null; en: string | string[] };
 
-export type UIJaEn = JaEn & { isTranslating: boolean };
+export type UIJaEn = JaEn & { isTranslating?: boolean };

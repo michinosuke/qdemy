@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.choicesが空配列だから",
-  "problems": [
+  "why-invalid": "questions.choicesが空配列だから",
+  "questions": [
     {
       "statement": "パンはパンでも食べられないパンは？",
       "choices": [],

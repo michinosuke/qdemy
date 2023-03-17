@@ -8,7 +8,7 @@
       "icon_url": "https://qiita-image-store.s3.amazonaws.com/0/227791/profile-images/1550453410"
     }
   },
-  "problems": [
+  "questions": [
     {
       "statement": {
         "en": [
@@ -286,7 +286,7 @@
       ],
       "explanation": {
         "en": [
-          "The problem statement says that HANA system replication is used for both high availability and DR. Therefore, for High Availability, it would be SYNC replication mode or SYNCMEM replication mode, and for DR, it would be ASYNC replication mode. So, the answer is B and E.\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
+          "The question statement says that HANA system replication is used for both high availability and DR. Therefore, for High Availability, it would be SYNC replication mode or SYNCMEM replication mode, and for DR, it would be ASYNC replication mode. So, the answer is B and E.\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
         ],
         "isTranslating": false,
         "ja": "問題文には、HANA システム複製が高可用性と DR の両方で使用されていることが記載されています。\nしたがって、高可用性の場合は SYNC 複製モードまたは SYNCMEM 複製モードであり、DR の場合は ASYNC 複製モードであることがわかります。\n\n高可用性のための AZ 間レプリケーションには SYNC または SYNCMEM モードを、DR のためのリージョン間レプリケーションには ASYNC モードを使用している選択肢が正解です。\n\nしたがって、答えはBとEです。\n\n![レプリケーションの構成図](https://docs.aws.amazon.com/images/sap/latest/sap-hana/images/pattern6.1.png)\n\n> 参考資料\n> - https://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n> - https://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
@@ -297,7 +297,7 @@
     {
       "statement": {
         "en": [
-          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB in size. The company is receiving notifications about long-running database backups every day. The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database. An SAP NetWeaver administrator needs to troubleshoot the problem and propose a solution.Which solution will help resolve this problem?"
+          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB in size. The company is receiving notifications about long-running database backups every day. The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database. An SAP NetWeaver administrator needs to troubleshoot the question and propose a solution.Which solution will help resolve this question?"
         ],
         "isTranslating": false,
         "ja": "ある企業は、SAP HANA データベースのサイズが 10 TB である SAP ERP Central Component (SAP ECC) システムを稼働させています。\n\nこの企業は、毎日長時間実行されるデータベースのバックアップに関する通知を受け取っています。\n\nこの企業は、AWS Backint エージェントを使用してデータベースをバックアップするために Amazon EC2 インスタンス上で実行されています。\n\nSAP NetWeaver 管理者は、この問題をトラブルシューティングし、解決策を提案する必要があります。\n\nどの解決策がこの問題を解決するのに役立ちますか？ "
@@ -1595,7 +1595,7 @@
     {
       "statement": {
         "en": [
-          "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS. An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration).After the server migration process is finished, the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes, the EC2 console reports that the test instance has failed an instance status check. Network connections to the instance are refused.How can the SAP solutions architect solve this problem?"
+          "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS. An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration).After the server migration process is finished, the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes, the EC2 console reports that the test instance has failed an instance status check. Network connections to the instance are refused.How can the SAP solutions architect solve this question?"
         ],
         "isTranslating": false,
         "ja": "会社は、SUSE Linux Enterprise Server 12 SP3上で動作するSAP Business Oneシステムを持っています。会社はこのシステムをAWSに移行したいと考えており、SAPのソリューションアーキテクトは、AWS Application Migration Service（CloudEndure Migration）を使用した同種の移行戦略を選択しました。サーバー移行プロセスが完了した後、SAPソリューションアーキテクトはR5インスタンスファミリーからAmazon EC2のテストインスタンスを起動します。数分後、EC2コンソールによってテストインスタンスがインスタンスステータスチェックに失敗したことが報告されました。インスタンスへのネットワーク接続が拒否されています。SAPソリューションアーキテクトは、この問題をどのように解決できますか？\n\n【回答】\nSAPソリューションアーキテクトは、次の手順を実行して問題を解決できます。\n1. テストインスタンスがEC2インスタンスにアタッチされているセキュリティグループの設定を確認します。許可されたポートが正しいかどうかを確認します。\n2. インスタンスが正常に起動しているかどうかを確認し、CloudWatchメトリックスを使用してCPU使用率、ネットワークI/O、およびディスクI/Oなどのリソース使用状況を観察します。\n3. インスタンスがVPC内で正しいサブネットに配置されていることを確認します。\n4. インスタンスがアクセスできるようにするための必要なルートを、ルーティングテーブルとネットワークACLで確認します。\n5. Amazon EC2サービスから、テストインスタンスが正常に起動するための詳細なログを確認します。\nこれらの手順で問題が解決されない場合は、AWSテクニカルサポートに連絡し、詳細な診断を受ける必要があります。"
@@ -1715,7 +1715,7 @@
     {
       "statement": {
         "en": [
-          "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANA data mart. An SAP system administrator has discovered that at peak volume, the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed. However, the SAP HANA database is occupying only 1,120 GiB of the available 1,952 GiB on the instance. I/O wait times are not increasing. Extensive query tuning and system tuning have not resolved this performance problem.Which solutions should the SAP system administrator use to improve the performance? (Choose two.)"
+          "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANA data mart. An SAP system administrator has discovered that at peak volume, the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed. However, the SAP HANA database is occupying only 1,120 GiB of the available 1,952 GiB on the instance. I/O wait times are not increasing. Extensive query tuning and system tuning have not resolved this performance question.Which solutions should the SAP system administrator use to improve the performance? (Choose two.)"
         ],
         "isTranslating": false,
         "ja": "企業向けのSAP HANAデータマートで、ピーク時のクエリ活動中にタイムアウトが報告されています。SAPシステム管理者は、データベースがインストールされているx1.32xlarge Amazon EC2インスタンスで、ピーク時にCPU使用率が急速に増加して長時間100%になることを発見しました。ただし、SAP HANAデータベースは、インスタンスの利用可能な1,952 GiBのうち1,120 GiBしか占有していません。I/O待ち時間は増加していません。クエリチューニングとシステムチューニングによるパフォーマンス問題の解決には成功していません。システム管理者がパフォーマンスを改善するために使用すべきソリューションはどれですか？ （2つ選択してください。）\n\n- Add more CPU resources to the instance to handle the peak query loads.\n- Move the SAP HANA database to an instance with more memory to avoid CPU saturation.\n- Use Amazon ElastiCache to cache frequently accessed data to reduce query times.\n- Upgrade the network connection between the SAP HANA instance and the application servers.\n- Use Amazon CloudWatch to monitor query activity and alert when timeouts are encountered. \n\n（2つ選択してください。） \n\n1.ピーク時のクエリ負荷を処理するために、インスタンスにより多くのCPUリソースを追加します。\n2.CPU飽和を回避するために、SAP HANAデータベースをメモリが多いインスタンスに移動します。\n3.頻繁にアクセスされるデータをキャッシュしてクエリ時間を短縮するためにAmazon ElastiCacheを使用します。\n4.SAP HANAインスタンスとアプリケーションサーバー間のネットワーク接続をアップグレードします。\n5.クエリアクティビティを監視し、タイムアウトが発生した場合にアラートを発信するためにAmazon CloudWatchを使用します。"
@@ -2137,7 +2137,7 @@
     {
       "statement": {
         "en": [
-          "A company is migrating its SAP workloads to AWS. The company’s IT team installs a highly available SAP S/4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server. The IT team deploys the system by using cluster nodes in different Availability Zones within the same AWS Region.After the initial launch of the SAP application, the application is accessible. However, after failover, the IT team cannot access the application even though the system is up and running on the secondary node. After investigation, an SAP solutions architect discovers that the virtual IP address has not been used correctly.Which combination of steps should the SAP solutions architect take to resolve this problem? (Choose two.)"
+          "A company is migrating its SAP workloads to AWS. The company’s IT team installs a highly available SAP S/4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server. The IT team deploys the system by using cluster nodes in different Availability Zones within the same AWS Region.After the initial launch of the SAP application, the application is accessible. However, after failover, the IT team cannot access the application even though the system is up and running on the secondary node. After investigation, an SAP solutions architect discovers that the virtual IP address has not been used correctly.Which combination of steps should the SAP solutions architect take to resolve this question? (Choose two.)"
         ],
         "isTranslating": false,
         "ja": "会社はSAPワークロードをAWSに移行しています。企業のITチームは、SUSE Linux Enterprise Server上のSAP HANAシステムレプリケーションクラスターパッケージを使用する高可用性のSAP S/4HANAシステムをインストールします。ITチームは、同じAWSリージョン内の異なる可用性ゾーンのクラスターノードを使用してシステムを展開します。SAPアプリケーションの最初の起動後、アプリケーションはアクセス可能です。しかし、フェイルオーバー後、システムが二次ノードで稼働しているにもかかわらず、ITチームはアプリケーションにアクセスできません。調査の結果、SAPのソリューションアーキテクトは、仮想IPアドレスが正しく使用されていないことを発見しました。この問題を解決するために、SAPのソリューションアーキテクトが実行すべき手順の組み合わせは何ですか？(２つ選んでください。)\n\n1. Modify the SAP HANA replication parameters.\n\n2. Configure the virtual IP address as the client access point.\n\n3. Configure the resource record set (RRS) for the virtual IP address to specify health check information.\n\n4. Configure the resource record set (RRS) for the virtual IP address to specify that DNS is the routing policy.\n\n5. Modify the SAP HANA failover sequence to use the virtual IP address."
@@ -2435,7 +2435,7 @@
     {
       "statement": {
         "en": [
-          "A company runs its SAP ERP 6.0 EHP 8 system on SAP HANA on AWS. The system is deployed on an r4.16xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd.16xlarge High Memory instance. After an operations engineer changes the instance type and starts the instance, the AWS Management Console shows a failed instance status check.What is the cause of this problem?"
+          "A company runs its SAP ERP 6.0 EHP 8 system on SAP HANA on AWS. The system is deployed on an r4.16xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd.16xlarge High Memory instance. After an operations engineer changes the instance type and starts the instance, the AWS Management Console shows a failed instance status check.What is the cause of this question?"
         ],
         "isTranslating": false,
         "ja": "この会社は、SAP ERP 6.0 EHP 8システムをSAP HANA on AWSで実行しています。このシステムは、デフォルトテナントを使用してr4.16xlarge Amazon EC2インスタンスに展開されています。会社は、SAP HANAデータベースをx2gd.16xlarge High Memoryインスタンスに移行する必要があります。オペレーションエンジニアがインスタンスタイプを変更してインスタンスを起動した後、AWS Management Consoleには失敗したインスタンスステータスチェックが表示されています。問題の原因は何でしょうか？\n\nこの問題の原因は、x2gd.16xlargeインスタンスがデフォルトテナントではサポートされていないためです。つまり、別のテナントでしか使用できないため、AWS Management Consoleで失敗したステータスチェックが表示されているのです。したがって、オペレーションエンジニアがデフォルトテナント以外のテナントを使用するように指示する必要があります。"
@@ -2677,12 +2677,12 @@
       "explanation": {
         "en": [
           "Reference: ",
-          "https://me.sap.com/notes/0002512397  See ”Problem: The following error is displayed when initiating a backup from the SAP HANA console:” section following URL. https://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html",
+          "https://me.sap.com/notes/0002512397  See ”Question: The following error is displayed when initiating a backup from the SAP HANA console:” section following URL. https://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html",
           "The error message indicates that the SAP HANA Studio is unable to connect to the tenant database for backup, and this is likely due to an incorrect connection. Option D suggests that an SAP solutions architect should add the SAP HANA system to SAP HANA Studio, select multi-container mode, and then initiate the backup again. This is a plausible solution as it addresses the issue of the incorrect connection. Therefore, D is the correct answer.",
           "Options A, B, and C are incorrect because they do not address the root cause of the issue, which is the incorrect connection to the tenant database. Option A suggests setting execute permissions for the AWS Backint agent, which is not relevant to the issue at hand. Option B suggests verifying installation steps and creating symbolic links, which may not resolve the issue. Option C suggests ensuring that the catalog_backup_using_backint SAP HANA parameter is set to true, and that the data_backup_parameter_file and log_backup_parameter_file parameters have the correct path location in the global.ini file, but this may not necessarily address the issue of the incorrect connection.\n"
         ],
         "isTranslating": false,
-        "ja": "参照先：\nhttps://me.sap.com/notes/0002512397　上記URLの「Problem: The following error is displayed when initiating a backup from the SAP HANA console:」のセクションをご覧ください。\nhttps://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html\nエラーメッセージは、SAP HANA Studioがテナントデータベースにバックアップのために接続できないことを示しており、これは接続が間違っているためです。Option Dは、SAP HANAシステムをSAP HANA Studioに追加し、マルチコンテナモードを選択してバックアップを再開するようにSAPソリューションアーキテクトがすることを示唆しており、接続が間違っている問題に対処する妥当な解決策です。したがって、Dが正しい解答です。\n\n一方、A、B、Cのオプションは、テナントデータベースへの正しい接続という根本的な問題に対処していないため、不正解です。オプションAは、問題に関係のないAWS Backintエージェントの実行許可を設定することを示唆しています。オプションBは、インストール手順の確認とシンボリックリンクの作成を示唆していますが、問題を解決しない場合があります。オプションCは、catalog_backup_using_backint SAP HANAパラメータがtrueに設定されていること、data_backup_parameter_fileとlog_backup_parameter_fileパラメータがglobal.iniファイルの正しい場所にあることを確認することを示唆していますが、接続が間違っている問題に対処する保証はありません。"
+        "ja": "参照先：\nhttps://me.sap.com/notes/0002512397　上記URLの「Question: The following error is displayed when initiating a backup from the SAP HANA console:」のセクションをご覧ください。\nhttps://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html\nエラーメッセージは、SAP HANA Studioがテナントデータベースにバックアップのために接続できないことを示しており、これは接続が間違っているためです。Option Dは、SAP HANAシステムをSAP HANA Studioに追加し、マルチコンテナモードを選択してバックアップを再開するようにSAPソリューションアーキテクトがすることを示唆しており、接続が間違っている問題に対処する妥当な解決策です。したがって、Dが正しい解答です。\n\n一方、A、B、Cのオプションは、テナントデータベースへの正しい接続という根本的な問題に対処していないため、不正解です。オプションAは、問題に関係のないAWS Backintエージェントの実行許可を設定することを示唆しています。オプションBは、インストール手順の確認とシンボリックリンクの作成を示唆していますが、問題を解決しない場合があります。オプションCは、catalog_backup_using_backint SAP HANAパラメータがtrueに設定されていること、data_backup_parameter_fileとlog_backup_parameter_fileパラメータがglobal.iniファイルの正しい場所にあることを確認することを示唆していますが、接続が間違っている問題に対処する保証はありません。"
       },
       "corrects": [4],
       "selects": []

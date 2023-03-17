@@ -28,7 +28,7 @@ export const parser = (
 };
 
 export const isExam = (obj: any): obj is Exam => {
-  if (!Array.isArray(obj.problems)) return false;
+  if (!Array.isArray(obj.questions)) return false;
   return true;
 };
 

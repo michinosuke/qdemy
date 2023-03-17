@@ -1,6 +1,6 @@
 {
-  "why-invalid": "problems.explanationが空文字だから",
-  "problems": [
+  "why-invalid": "questions.explanationが空文字だから",
+  "questions": [
     {
       "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],

@@ -8,7 +8,7 @@
       "icon_url": "https://qdemy.s3.ap-northeast-1.amazonaws.com/michinosuke-icon.png"
     }
   },
-  "problems": [
+  "questions": [
     {
       "statement": {
         "en": "A company has deployed a highly available SAP NetWeaver system on SAP HANA into a VPC The system is distributed across multiple Availability Zones within a single AWS Region SAP NetWeaver is running on SUSE Linux Enterprise Server for SAP SUSE Linux Enterprise High Availability Extension is configured to protect SAP ASCS and ERS instances and uses the overlay IP address concept The SAP shared dies sapmnt and . usrsap. trans are hosted on an Amazon Elastic File System (Amazon EFS) tile system The company needs a solution that uses already-existing private connectivity to the VPC. The SAP NetWeaver system must be accessible through the SAP GUI client tool. Which solutions will meet these requirements? (Select TWO)",
@@ -681,7 +681,7 @@
     },
     {
       "statement": {
-        "en": "A company runs its SAP ERP 6 0 EHP 8 system on SAP HANAon AWS The system is deployed on an r4 I6xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd/.6xiarge High Memory instance After an operations engineer changes the instance type and starts the instance the AWS Management Console shows a failed instance status check What is the cause of this problem?",
+        "en": "A company runs its SAP ERP 6 0 EHP 8 system on SAP HANAon AWS The system is deployed on an r4 I6xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd/.6xiarge High Memory instance After an operations engineer changes the instance type and starts the instance the AWS Management Console shows a failed instance status check What is the cause of this question?",
         "ja": null
       },
       "choices": [
@@ -731,7 +731,7 @@
     },
     {
       "statement": {
-        "en": "A company is migrating its SAP workloads to AWS The company's IT team installs a highly available SAP S.4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server The IT team deploys the system by using cluster nodes m different Availability Zones within the same AWS Region. After the initial launch of the SAP application the application is accessible However after failover the IT team cannot access the application even though the system is up and running on the secondary node After investigation an SAP solutions architect discovers that the virtual IP address has not been used correctly Which combination of steps should the SAP solutions architect take to resolve this problem? (Select TWO.)",
+        "en": "A company is migrating its SAP workloads to AWS The company's IT team installs a highly available SAP S.4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server The IT team deploys the system by using cluster nodes m different Availability Zones within the same AWS Region. After the initial launch of the SAP application the application is accessible However after failover the IT team cannot access the application even though the system is up and running on the secondary node After investigation an SAP solutions architect discovers that the virtual IP address has not been used correctly Which combination of steps should the SAP solutions architect take to resolve this question? (Select TWO.)",
         "ja": null
       },
       "choices": [
@@ -893,7 +893,7 @@
     },
     {
       "statement": {
-        "en": "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration) After the server migration process is finished the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes the EC2 console reports that the test instance has failed an instance status check Network connections to the instance are refused How can the SAP solutions architect solve this problem?",
+        "en": "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration) After the server migration process is finished the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes the EC2 console reports that the test instance has failed an instance status check Network connections to the instance are refused How can the SAP solutions architect solve this question?",
         "ja": null
       },
       "choices": [
@@ -918,7 +918,7 @@
     },
     {
       "statement": {
-        "en": "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANAdata mart An SAP system administrator has discovered that at peak volume the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed However the SAP HANA database is occupying only 1 120 GiB of the available 1 952 GiB on the instance 10 wart times are not increasing Extensive query tuning and system tuning have not resolved this performance problem Which solutions should the SAP system administrator use to improve the performance? (Select TWO.)",
+        "en": "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANAdata mart An SAP system administrator has discovered that at peak volume the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed However the SAP HANA database is occupying only 1 120 GiB of the available 1 952 GiB on the instance 10 wart times are not increasing Extensive query tuning and system tuning have not resolved this performance question Which solutions should the SAP system administrator use to improve the performance? (Select TWO.)",
         "ja": null
       },
       "choices": [
@@ -1754,7 +1754,7 @@
     },
     {
       "statement": {
-        "en": "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB m size The company rs receiving notifications about long-running database backups every day The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database An SAP NetWeaver administrator needs to troubleshoot the problem and propose a solution Which solution will help resolve this problem'?",
+        "en": "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB m size The company rs receiving notifications about long-running database backups every day The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database An SAP NetWeaver administrator needs to troubleshoot the question and propose a solution Which solution will help resolve this question'?",
         "ja": null
       },
       "choices": [

@@ -2,18 +2,18 @@ import type { Exam, Language, TextType, UIJaEn } from "../interfaces/exam";
 
 import { ABC } from "../libs/abc";
 import type { FC } from "react";
-import { dumpExam } from "../libs/dumpExam";
-import { sentences2Elements } from "../libs/sentences2Elements";
+import { FixedButtons } from "./FixedButtons";
 import { Header } from "./header";
 import { Heading } from "./Heading";
-import { FixedButtons } from "./FixedButtons";
+import { dumpExam } from "../libs/dumpExam";
+import { sentences2Elements } from "../libs/sentences2Elements";
 
 type Props = {
   exam: Exam;
   updateExam: (examPipe: (exam: Exam) => Exam | null) => void;
   preferLang: Language;
   initialized: boolean;
-  saveMouseEnterProblem: (problemId: string) => void;
+  saveMouseEnterQuestion: (questionId: string) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   translateJaEn: (
     jaEnCallback: (exam: Exam) => UIJaEn | undefined
@@ -25,7 +25,7 @@ export const ExamEdit: FC<Props> = ({
   updateExam,
   preferLang,
   initialized,
-  saveMouseEnterProblem,
+  saveMouseEnterQuestion,
   setIsEditMode,
   translateJaEn,
 }) => {
@@ -153,16 +153,16 @@ export const ExamEdit: FC<Props> = ({
         </div>
 
         <ul className="flex flex-col gap-28 mt-10 pt-10 border-t-4">
-          {exam.problems.map((question, problemIndex) => (
+          {exam.questions.map((question, questionIndex) => (
             <li
-              key={problemIndex}
-              id={`question-${problemIndex + 1}`}
+              key={questionIndex}
+              id={`question-${questionIndex + 1}`}
               onMouseEnter={() =>
                 initialized &&
-                saveMouseEnterProblem(`question-${problemIndex + 1}`)
+                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
               }
             >
-              <h2 className="text-lg font-bold">Q. {problemIndex + 1}</h2>
+              <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
               <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
               <ul className="flex gap-3 mt-3">
                 {(() => {
@@ -171,7 +171,7 @@ export const ExamEdit: FC<Props> = ({
                       <textarea
                         onChange={(e) =>
                           updateExam((exam) => {
-                            const question = exam.problems[problemIndex];
+                            const question = exam.questions[questionIndex];
                             if (!question) return null;
                             question.statement[lng] = e.target.value;
                             return exam;
@@ -179,7 +179,7 @@ export const ExamEdit: FC<Props> = ({
                         }
                         value={(() => {
                           const text =
-                            exam.problems[problemIndex]?.statement[lng];
+                            exam.questions[questionIndex]?.statement[lng];
                           if (Array.isArray(text)) return text.join("\n");
                           if (typeof text === "string") return text;
                           return "";
@@ -205,7 +205,7 @@ export const ExamEdit: FC<Props> = ({
                       onClick={() =>
                         !question.statement.isTranslating &&
                         translateJaEn(
-                          (exam) => exam.problems[problemIndex]?.statement
+                          (exam) => exam.questions[questionIndex]?.statement
                         )
                       }
                       key={2}
@@ -238,7 +238,7 @@ export const ExamEdit: FC<Props> = ({
                                 onChange={(e) =>
                                   updateExam((exam) => {
                                     const choice =
-                                      exam.problems[problemIndex]?.choices?.[
+                                      exam.questions[questionIndex]?.choices?.[
                                         choiceIndex
                                       ];
                                     if (!choice) return null;
@@ -248,7 +248,7 @@ export const ExamEdit: FC<Props> = ({
                                 }
                                 value={(() => {
                                   const text =
-                                    exam.problems[problemIndex]?.choices?.[
+                                    exam.questions[questionIndex]?.choices?.[
                                       choiceIndex
                                     ]?.[lng];
                                   if (Array.isArray(text))
@@ -277,7 +277,7 @@ export const ExamEdit: FC<Props> = ({
                               !choice.isTranslating &&
                               translateJaEn(
                                 (exam) =>
-                                  exam.problems[problemIndex]?.choices[
+                                  exam.questions[questionIndex]?.choices[
                                     choiceIndex
                                   ]
                               )
@@ -312,7 +312,7 @@ export const ExamEdit: FC<Props> = ({
                         onChange={(e) =>
                           updateExam((exam) => {
                             const explanation =
-                              exam.problems[problemIndex]?.explanation;
+                              exam.questions[questionIndex]?.explanation;
                             if (!explanation) return null;
                             explanation[lng] = e.target.value;
                             return exam;
@@ -320,7 +320,7 @@ export const ExamEdit: FC<Props> = ({
                         }
                         value={(() => {
                           const text =
-                            exam.problems[problemIndex]?.explanation?.[lng];
+                            exam.questions[questionIndex]?.explanation?.[lng];
                           if (Array.isArray(text)) return text.join("\n");
                           if (typeof text === "string") return text;
                           return "";
@@ -346,7 +346,7 @@ export const ExamEdit: FC<Props> = ({
                       onClick={() =>
                         !question.explanation?.isTranslating &&
                         translateJaEn(
-                          (exam) => exam.problems[problemIndex]?.explanation
+                          (exam) => exam.questions[questionIndex]?.explanation
                         )
                       }
                       key={2}

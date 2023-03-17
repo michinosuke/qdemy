@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "Latest AWS PAS-C01 Exam Questions & Answers Training Course | Udemy",
-    "description": "https://www.udemy.com/course/latest-aws-pas-c01-exam-problems-answers-training-course/"
+    "description": "https://www.udemy.com/course/latest-aws-pas-c01-exam-questions-answers-training-course/"
   },
-  "problems": [
+  "questions": [
     {
       "statement": {
         "en": [
@@ -87,7 +87,7 @@
     {
       "statement": {
         "en": [
-          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB m size The company rs receiving notifications about long-running database backups every day The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database An SAP NetWeaver administrator needs to troubleshoot the problem and propose a solution Which solution will help resolve this problem'?"
+          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB m size The company rs receiving notifications about long-running database backups every day The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database An SAP NetWeaver administrator needs to troubleshoot the question and propose a solution Which solution will help resolve this question'?"
         ]
       },
       "choices": [

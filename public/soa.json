@@ -1,0 +1,2346 @@
+{
+  "meta": { "title": "SOA問題集", "language": "en" },
+  "questions": [
+    {
+      "statement": {
+        "en": [
+          "In AWS Organizations, which centrally manages multiple AWS accounts, You're thinking of restricting the AWS services that can be used by the production AWS account. ",
+          "On the other hand, the verification AWS account allows the use of all AWS services and determines whether to approve the use in the production AWS account. ",
+          "What's the best way to meet this requirement with the least amount of work and the least operations in the future?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an organizational unit (OU) for production AWS accounts and apply service control policies (SCPs) with approved AWS services as an allow list."
+        },
+        {
+          "en": "﻿﻿Create an organizational unit (OU) for production AWS accounts and apply a service control policy (SCP) as a deny list for unapproved AWS services."
+        },
+        {
+          "en": "An AWS Lambda function scheduled by an Amazon EventBridge rule to regularly delete AWS service resources that are not authorized in the production AWS account."
+        },
+        {
+          "en": "AWS Lambde functions scheduled by Amazon EventBridge rules apply IAM policies to IAM users that prevent them from using AWS services that are not authorized in the production AWS account."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "AWS Organizations has a service control policy (SCP) that limits AWS services and can be applied to each organizational unit (OU). The service control policy (SCP) has a whitelist format that permits the use of AWS services and a blacklist format that prohibits the use of AWS services. In this question, the allow list method is appropriate because the AWS services that have been verified and allowed in the verification AWS account are allowed in the production AWS account. Also, by keeping it on the allow list, when a new AWS service is released, you don't have to change the policy to ban that service.",
+          "",
+          "Option 2 is incorrect. If you put it on the deny list, when a new AWS service is released, you need to change the policy to ban that service.",
+          "",
+          "Options 3 and 4 are incorrect. Although it is a viable architecture, it requires more development and operations effort."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "The response of the system running on standalone EC2 was poor, so when You checked the resource usage, the memory utilization was low, but the CPU utilization reached 100%. ",
+          "The instance is running m5.large. You want to optimize your resources while minimizing rising costs. Which instance family should you choose and adjust the instance size?"
+        ]
+      },
+      "choices": [
+        { "en": "m5" },
+        { "en": "c5" },
+        { "en": "r5" },
+        { "en": "p3" }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "The c5 family is compute optimized. An instance with a high CPU to memory ratio. The resource that is lacking is the CPU, so if you choose an appropriate size in the c5 family, there is a high possibility that it will fit.",
+          "",
+          "Option 1 is incorrect. In the same instance family, one step size increase roughly doubles the CPU and memory. Since the memory is originally in a state where there is room, the surplus of memory will increase and it will not be optimized.",
+          "",
+          "Option 3 is incorrect. The r5 family is memory optimized. An instance with a high ratio of memory to CPU. The r5 family, which has more memory, is not suitable because the memory utilization rate is originally low.",
+          "",
+          "Option 4 is incorrect. The p3 family is for fast computing. Equipped with a high-speed GPU, it is often used for image processing and, in turn, machine learning. Although many CPUs are allocated, the cost is significantly higher. In addition, GPUs that are not used are wasted, so it is not an appropriate choice."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company hosts an online shopping portal within the AWS cloud. This portal uses a TLS certificate on an Elastic Load Balancer (ELB) for HTTPS security. The portal has recently become unusable due to a revoked TLS certificate. SysOps administrators should create a solution to automatically renew certificates to prevent this issue from occurring in the future.",
+          "How can you meet this requirement in the most operationally efficient way?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Request a public certificate using AWS Certificate Manager (ACM). Associate the certificate in ACM with ELB. Write and schedule an AWS Lambda function to renew the certificate every 18 months."
+        },
+        {
+          "en": "Request a public certificate using AWS Certificate Manager (ACM). Associate the certificate in ACM with ELB. This allows ACM to automatically manage certificate renewals."
+        },
+        {
+          "en": "Register the certificate with a third-party certification authority (CA). Import this certificate into AWS Certificate Manager (ACM). Associate the certificate in ACM with ELB. This allows ACM to automatically manage certificate renewals."
+        },
+        {
+          "en": "Register the certificate with a third-party certification authority (CA). Configure your ELB to import certificates directly from your CA. Set the certificate renewal cycle on the ELB to renew when the certificate has three months left before its expiration date."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "In AWS Certificate Manager (ACM), certificates are eligible for automatic renewal subject to the following considerations.",
+          "・This applies if it is associated with another AWS such as Elastic Load Balancing or CloudFront.",
+          "・It will be applicable if it is exported after issuance or after the last update.",
+          "Eligible if it is a private certificate issued by calling the ACM RequestCertificate API and then exported or associated with another AWS service.",
+          "Eligible if it is a private certificate issued through the Management Console and then exported or associated with another AWS service",
+          "・This does not apply to private certificates issued by calling the ACM Private CA IssueCertificate API.",
+          "- Not applicable when importing.",
+          "・ If the expiration date has already passed, it is not eligible.",
+          "",
+          "Option 1 is incorrect. Certificates are automatically renewed, so there is no need to create a Lambda function.",
+          "",
+          "Option 3 is incorrect. If you've imported your certificate into AWS Certificate Manager (ACM), it's not eligible for automatic renewal.",
+          "",
+          "Option 4 is incorrect. If you've imported your certificate into AWS Certificate Manager (ACM), it's not eligible for automatic renewal.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "The department in charge of security is requesting information on the report content and reporting period regarding ISO certification when using AWS. ",
+          "Which AWS service can meet this requirement?"
+        ]
+      },
+      "choices": [
+        { "en": "AWS Organizations" },
+        { "en": "Amazon Macie" },
+        { "en": "AWS Artifact" },
+        { "en": "Amazon GuardDuty" }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Use AWS Artifact to get AWS ISO certification reports. AWS Artitact is a service that allows you to quickly download AWS security and compliance documents such as ISO certification, PCl, SOC, etc.",
+          "",
+          "Option 1 is incorrect. AWS Organizations is a service that centrally manages AWS accounts.",
+          "",
+          "Option 2 is incorrect. Amazon Macie is a service that uses machine learning to discover sensitive data in Amazon S3 buckets.",
+          "",
+          "Option 4 is incorrect. Amazon GuardDuty is a service that uses machine learning to detect potential threats from AWS CloudTrail logs, VPC flow logs, and DNS logs."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company stores text data in an Amazon S3 bucket. The company needs to classify this data and detect sensitive personal information within S3 files.",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create AWS Config rules that detect sensitive personal information in S3 files and mark them as non-compliant."
+        },
+        {
+          "en": "Create an S3 event-driven artificial intelligence/machine learning (AI/ML) pipeline to classify sensitive personal information using Amazon Rekognition."
+        },
+        {
+          "en": "Enable Amazon GuardDuty. Configure S3 protectors to monitor all data in Amazon S3."
+        },
+        {
+          "en": "Activate Amazon Macie. Create a discovery job that uses managed data identifiers."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "Amazon Macie analyzes objects in your Amazon Simple Storage Service (Amazon S3) buckets to determine if they contain sensitive data and provides detailed reports of the sensitive data detected and the analysis performed. can provide You can also automate the discovery, logging, and reporting of sensitive data in your S3 buckets by creating and running sensitive data discovery jobs.",
+          "",
+          "Option 1 is incorrect. AWS Config cannot detect sensitive personal information in S3 files.",
+          "",
+          "Option 2 is incorrect. Amazon Rekognition is a service that uses machine learning to automate the analysis of images and videos, and cannot classify sensitive personal information in text.",
+          "",
+          "Option 3 is incorrect. Amazon Guard Duty is a service that detects attacks against AWS environments and AWS accounts, and cannot detect sensitive personal information in S3 files.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/macie/latest/user/data-classification.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're trying to run a website with website hosting enabled on an Amazon S3 bucket. ",
+          "Website logs should include HTTP status, HTTP referrer, object size, request transfer time, and request processing time. The saved log must be searched by specifying conditions with standard SQL. ",
+          "Which settings and log search tools can meet this requirement? (Choose two.)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Enable the server access log on the Amazon S3 bucket and set it to be saved in the access log bucket."
+        },
+        {
+          "en": "Create a trail of data events by specifying an S3 bucket that is used for web hosting with AWS CloudTrail, and configure the trail logs to be saved in Amazon CloudWatch Logs in addition to the S3 bucket for the trail."
+        },
+        { "en": "Search logs stored in an S3 bucket using Amazon Athena." },
+        {
+          "en": "Search logs stored in an S3 bucket using Amazon CloudSearch."
+        },
+        {
+          "en": "Search logs stored in CloudWatch Logs using Amazon CloudWatch Logs Insights."
+        }
+      ],
+      "corrects": [1, 3],
+      "explanation": {
+        "en": [
+          "Options 1 and 3 are correct.",
+          "The log is the server access log. And for option 3, since the S3 server access logs are stored in an Amazon S3 bucket, you use Amazon Athena, which allows you to query data in Amazon S3 with standard SQL. Both options meet your requirements.",
+          "",
+          "Logs that can track access to Amazon S3 buckets include Amazon S3 server access logs and AWS CloudTrail data event logs. The S3 server access log consists of fields containing HTTP status, HTTP referrer, object size, request transfer time, request processing time, etc., separated by spaces, and each log record is separated by a newline, just like a web server access log. . Logs are stored in an Amazon S3 bucket.",
+          "AWS CloudTrail data event logs store Amazon S3 object-level API logs in JSON format as CoudTrail trails. Logs can be saved to CloudWatch Logs in addition to Amazon S3 buckets.",
+          "",
+          "Since the question requires \"including HTTP status, HTTP referrer, object size, request transfer time, request processing time\", record it in the S3 server access log and use Amazon Athena to search the S3 bucket log Use the.",
+          "",
+          "",
+          "Option 2 is incorrect. Data event logs are a good way to get Amazon S3 object-level API logs as audit logs along with other AWS CloudTrail trails.",
+          "",
+          "Option 4 is incorrect. Amazon CloudSearch is a managed service custom search engine that supports full-text search and more. You cannot search Amazon S3 buckets with CloudSearch. Nor does it support standard SQL.",
+          "",
+          "Option 5 is incorrect. If you're sending your AWS CloudTrail trail logs to Amazon CloudWatch Logs, search them in Logs Insights using a dedicated query language."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company hosts a website on multiple Amazon EC2 instances operating within an Auto Scaling group. Users reported slow response times during peak hours of 6pm-11pm every weekend. SysOps administrators should implement solutions to improve performance during peak hours. ",
+          "How can you meet this requirement in the most operationally efficient way?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create a scheduled Amazon EventBridge (Amazon CloudWatch Events) rule to invoke an AWS Lambda function that increases the desired capacity before peak hours."
+        },
+        {
+          "en": "Configure a scheduled scaling action with a periodic option to change the desired capacity around peak hours."
+        },
+        {
+          "en": "Create a target tracking scaling policy that adds instances when memory utilization is above 70%."
+        },
+        {
+          "en": "Configure cooldown periods for Auto Scalling groups to change their desired capacity before and after peak hours."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Scheduled scaling allows you to set your own scaling schedule in response to predictable load changes. For example, every week traffic to your web application starts increasing on Wednesday, remains high on Thursday, and starts decreasing on Friday. In this case, you can schedule Amazon EC2 Auto Scaling to increase capacity on Wednesday and decrease it on Friday.",
+          "",
+          "Option 1 is incorrect. Since this method requires managing Amazon EventBridge (Amazon CloudWatch Events) and AWS Lambda, the operational cost is higher than Option 2.",
+          "",
+          "Option 3 is incorrect. This method does not necessarily improve performance during peak hours, as memory utilization is not always above 70% during peak hours. For example, if the CPU is more of a bottleneck than the memory, the CPU usage rate will be high during peak hours, but the memory usage rate will not be high.",
+          "",
+          "Option 4 is incorrect. The purpose of the cooldown period is to prevent the Auto Scaling group from launching or terminating additional instances before the Auto Scaling group has seen the impact of launching or terminating instances, improving performance during peak hours. you can't.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator received a report that an Amazon EC2 instance has stopped responding. You checked the AWS Management Console and the system status check was failing. ",
+          "What should you do first to resolve this issue?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Reboot the EC2 instance. This will launch an EC2 instance on the new host."
+        },
+        {
+          "en": "Stop and restart the EC2 instance. This will launch an EC2 instance on the new host."
+        },
+        { "en": "Delete the EC2 instance and restart it." },
+        {
+          "en": "View AWS CloudTrail logs to see what changed on your EC2 instance."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Examples of issues that cause system status check failures include the following, which may be resolved by first stopping and restarting the EC2 instance and then starting it on a new host .",
+          "- Loss of network connection",
+          "- Loss of system power",
+          "- Physical host software question",
+          "- Hardware issues on the physical host that affect network reachability",
+          "",
+          "Option 1 is incorrect. Rebooting the EC2 instance does not change the host.",
+          "",
+          "Option 3 is incorrect. Once you delete (terminate) an instance, you cannot restart it.",
+          "",
+          "Option 4 is incorrect. AWS CloudTrail logs are records of actions taken by users, roles, or AWS services, and are not related to system status check failures.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-system-instance-status-check.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstances.html#InitialSteps",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html#lifecycle-differences"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company is moving its production file servers to AWS. All data stored on a file server should be accessible even if one of the Availability Zones becomes unavailable or during system maintenance activities. The user must be able to communicate with the file server using the SMB protocol. You should also be able to manage permissions on files using Windows ACLs.",
+          "How can you meet these requirements?"
+        ]
+      },
+      "choices": [
+        { "en": "Create one AWS Storage Gateway file gateway." },
+        {
+          "en": "Create an Amazon FSx for Windows File Server file system in a Multi-AZ deployment."
+        },
+        {
+          "en": "Deploy two AWS Storage Gateway file gateways across two Availability Zones. Configure an Application Load Balancer outside of your file gateway."
+        },
+        {
+          "en": "Deploy two Amazon FSx for Windows File Server file systems in a Single AZ 2 deployment. configure Microsoft Distributed File System Replication (DFSR);"
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Amazon FSx for Windows File Server provides a fully managed Microsoft Windows file server backed by a fully native Windows file system.",
+          "Amazon FSx natively supports Windows file system features and the industry-standard Server Message Block (SMB) protocol for accessing file storage over the network. It also uses Windows Access Control Lists (ACLs) to provide access control at the file and folder level.",
+          "",
+          "Option 1 is incorrect. AWS Storage Gateway is a service that provides access to cloud storage for on-premises applications and is irrelevant to our requirements.",
+          "",
+          "Option 3 is incorrect. AWS Storage Gateway is a service that provides access to cloud storage for on-premises applications and is irrelevant to our requirements.",
+          "",
+          "Option 4 is incorrect. Microsoft Distributed File System Replication (DFSR) is not supported on Multi-AZ and Single-AZ 2 file systems.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html",
+          "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company requires that all IAM users use multi-factor authentication (MFA) and that API calls must be made in the CLI. However, users are not prompted to enter an MFA token and can run CLI commands without MFA. To enforce MFA, the company attached an IAM policy to all users that rejects API calls that are not MFA-authenticated.",
+          "What else do You need to do to ensure my API calls are authenticated using MFA?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Enable MFA for IAM roles. Also, require IAM users to use their role credentials to sign API calls."
+        },
+        {
+          "en": "Require IAM users to log in to the AWS Management Console using MFA before making API calls using the CLI."
+        },
+        {
+          "en": "Require IAM users to use the console only, as MFA is not supported on the CLI."
+        },
+        {
+          "en": "Require users to sign API calls with temporary credentials obtained with the get-session-token command."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "If you use the AWS CLI to interact with resources when using MFA, you must create a temporary session. A temporary session (temporary authentication information) can be obtained with the get-session-token command.",
+          "",
+          "reference:",
+          "https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator wants to protect objects in an Amazon S3 bucket from being accidentally overwritten or deleted. Also, the object must be stored for 90 days and then permanently deleted. The object must be in the same AWS Region as the original S3 bucket.",
+          "How can you meet these requirements?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an Amazon Data Lifecycle Manager (Amazon DLM) lifecycle policy for this S3 bucket. Add a rule to this lifecycle policy to delete obsolete objects after 90 days."
+        },
+        {
+          "en": "Create an AWS Backup policy for this S3 bucket. Create a backup rule with a lifecycle that expires obsolete objects after 90 days."
+        },
+        {
+          "en": "Enable S3 cross-region replication on this S3 bucket. For this packet, create an S3 lifecycle policy that expires stale objects after 90 days."
+        },
+        {
+          "en": "Enable S3 versioning on this S3 bucket. Create an S3 lifecycle policy for this bucket that expires stale objects after 90 days."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "You can achieve your requirement by enabling S3 Versioning for an S3 bucket and creating an S3 lifecycle policy for this bucket that expires obsolete objects after 90 days.",
+          "",
+          "Option 1 is incorrect. Amazon Data Lifecycle Manager (Amazon DLM), a service that automates the creation, retention, and deletion of EBS snapshots and EBS-backed AMIs, is not available for S3.",
+          "",
+          "Option 2 is incorrect. AWS Backup's backup rules specify backup windows and backup frequency, and cannot specify the lifecycle of S3 objects.",
+          "",
+          "Option 3 is incorrect. Enabling S3 Cross-Region Replication fails to satisfy the requirement that the object must be located within the same AWS Region as the original S3 bucket.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-configuration-examples.html#lifecycle-config-conceptual-ex6"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator needs to design a high-traffic static website. The requirements for this website are to ensure high availability and minimize delays in serving users around the world.",
+          "How can you meet these requirements?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an Amazon S3 bucket and upload your website content to this S3 bucket. Create an Amazon CloudFront distribution in each AWS Region and set this S3 bucket as the origin. Use Amazon Route 53 to create DNS records that use geolocation routing policies to route traffic to the appropriate CloudFront distribution based on the request origin."
+        },
+        {
+          "en": "Create an Amazon S3 bucket and upload your website content to this S3 bucket. Create an Amazon CloudFront distribution and set this S3 bucket as the origin. Create an alias record using Amazon Route 53 to route to this CloudFront distribution."
+        },
+        {
+          "en": "Create an Application Load Balancer (ALB) and target group. Create an Amazon EC2 Auto Scaling group with two or more EC2 instances in the target group. Store your website content on these EC2 instances. Use Amazon Route 53 to create an alias record that routes to this ALB."
+        },
+        {
+          "en": "Create an Application Load Balancer (ALB) and target groups in two regions. Create an Amazon EC2 Auto Scaling group in each region with at least two EC2 instances in each target group. Store your website content on these EC2 instances. Create DNS records using Amazon Route 53 that route traffic to the appropriate ALB based on the request origin using geolocation routing policies."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Amazon CloudFront is a service that provides businesses and web application developers with an easy and cost-effective way to deliver content with low latency and high data transfer speeds.",
+          "CloudFront uses a worldwide network of edge locations to fulfill requests and deliver stored content with low latency and high data transfer speeds.",
+          "",
+          "Option 1 is incorrect. Since CloudFront is a global service, it is not possible to create a distribution by specifying a region.",
+          "",
+          "Option 3 is incorrect. With Amazon CloudFront, requests are processed in edge locations, whereas with ALB, requests are processed in data centers within an Availability Zone, resulting in higher latency.",
+          "",
+          "Option 4 is incorrect. With Amazon CloudFront, requests are processed in edge locations, whereas with ALB, requests are processed in data centers within an Availability Zone, resulting in higher latency.",
+          "",
+          "reference:",
+          "https://aws.amazon.com/cloudfront/faqs/"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator is investigating an issue with an Amazon RDS for MariaDB DB instance. A SysOps administrator wants to view database load broken down by detailed wait events.",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        { "en": "Create an Amazon CloudWatch dashboard." },
+        { "en": "Enable Amazon RDS Performance Insights." },
+        { "en": "Enable and configure Enhanced Monitoring." },
+        {
+          "en": "Check the contents of the database log in Amazon CloudWatch Logs."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Amazon RDS Performance Insights extends existing Amazon RDS monitoring capabilities to make database performance clearer and easier to analyze. The Performance Insights dashboard allows you to visualize database load and filter load by waits, SQL statements, hosts, and users.",
+          "",
+          "Option 1 is incorrect. Creating an Amazon CloudWatch dashboard does not allow you to view database load broken down by detailed wait events.",
+          "",
+          "Option 3 is incorrect. Enhanced Monitoring is a function related to OS monitoring and cannot monitor database loads.",
+          "",
+          "Option 4 is incorrect. Amazon CloudWatch Logs does not allow you to view database load broken down by detailed wait events.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A new application is running on an Amazon EC2 instance and accessing data in an Amazon RDS database instance. When you deployed this application to production, it did not work. The console on the bastion host can query this database. You've checked the web server logs and You're getting the following error over and over again.",
+          "*** Error Establishing a Database Connection",
+          "Which of the following could be the cause of this connectivity issue? (Choose 2)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "The security group for the database does not have proper outbound rules from the database to the web server."
+        },
+        {
+          "en": "The certificate used by your web server is not trusted by your RDS instance."
+        },
+        {
+          "en": "The security group for the database does not have proper inbound rules from the web server to the database."
+        },
+        {
+          "en": "The port used by the application developer does not match the port specified in the RDS configuration."
+        },
+        {
+          "en": "The database is still being created and cannot be connected to."
+        }
+      ],
+      "corrects": [3, 4],
+      "explanation": {
+        "en": [
+          "Options 3 and 4 are correct.",
+          "There are several reasons why a connection cannot be established from the application to the database.",
+          "・The connection cannot be accepted because the RDS DB instance is not available.",
+          "The source used to connect to the DB instance is not in a security group, network access control list (ACL), or source that allows access to the DB instance in your local firewall.",
+          "- The wrong DNS name or endpoint is being used to connect to the DB instance.",
+          "A Multi-AZ DB instance fails over and the secondary DB instance uses a subnet or route table that doesn't allow inbound connections.",
+          "- Accessing the instance from the DB client using the wrong username or password at the database level.",
+          "- The client is running on a version that is incompatible with the database version.",
+          "",
+          "Option 1 is incorrect. Responses to allowed inbound traffic can leave the instance regardless of outbound rules.",
+          "",
+          "Option 2 is incorrect. The webserver needs to trust the certificate that the RDS instance is using, but the RDS instance does not need to trust the certificate used by the webserver.",
+          "",
+          "Option 5 is incorrect. The connection from the bastion host is successful, so the database is ready to connect.",
+          "",
+          "reference:",
+          "https://aws.amazon.com/premiumsupport/knowledge-center/rds-cannot-connect/",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Which of the following statements about AWS Budgets and Billing Alerts are correct? (Choose 3)"
+        ]
+      },
+      "choices": [
+        { "en": "AWS Budgets are set from CloudWatch Alarm." },
+        {
+          "en": "You can select either the actual value or the predicted value for the alert threshold set in AWS Budgets."
+        },
+        {
+          "en": "There are three actions that can be set when the interval value is exceeded: apply IAM policy, attach SCP, and EC2 or RDS instance action."
+        },
+        {
+          "en": "Billing Alerts can be set up in each region where EC2 is running."
+        },
+        {
+          "en": "Billing Alerts can be set up for standalone accounts or payment accounts."
+        }
+      ],
+      "corrects": [2, 3, 5],
+      "explanation": {
+        "en": [
+          "Option 2 is correct. You can choose between actual and predicted values ​​as alert thresholds.",
+          "",
+          "Option 3 is correct. There are three actions that can be set when the threshold is exceeded: apply IAM policy, attach SCP, and EC2 or RDS instance action.",
+          "",
+          "Option 5 is correct. It can be set up with a standalone account or a payer account.",
+          "",
+          "Option 1 is incorrect. AWS Budgets and Billing Alerts are separate things.",
+          "",
+          "Option 4 is incorrect. Billing Alert can only be set up in the us-east-1 (Eastern Virginia) Region."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company is running a serverless application on AWS Lambda. Data for this application is stored in an Amazon RDS for MySQL database instance. ",
+          "The usage of this application has been gradually increasing, and lately I've been getting a lot of \"too many connections\" errors when trying to connect to the database from my Lambda function. The database's max_connections value is already set to the upper limit.",
+          "What can you do to resolve this error?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create a read replica of the database. Use Amazon Route 53 to create weighted DNS records pointing to both databases."
+        },
+        {
+          "en": "Create a proxy using Amazon RDS Proxy. Fix the connection string in your Lambda function."
+        },
+        {
+          "en": "Increase the value of the max_connect_errors parameter in the parameter group used by your database."
+        },
+        { "en": "Increase the reserved concurrency of your Lambda function." }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Amazon RDS Proxy allows your applications to pool and share database connections to improve your application's ability to scale.",
+          "",
+          "Option 1 is incorrect. Distributing access to your database by weighted DNS records in Amazon Route 53 is inappropriate because it can cause write requests to be routed to read replicas.",
+          "",
+          "Option 3 is incorrect. The max_connect_errors parameter is the number of connection errors the server will tolerate before blocking the host, and has nothing to do with reducing the number of database connections.",
+          "",
+          "Option 4 is incorrect. Increasing the Lambda function's reserved concurrency does not reduce the number of database connections.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You are trying to build a disaster recovery environment with the same configuration by replicating data from an Amazon EC2 instance in Amazon VPC from the primary region ap-northeast-1 to the secondary region ap-southeast-1. ",
+          "Data replication should be done over an encrypted and private channel. ",
+          "Which network configuration can meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Build a NAT gateway and set a route table in two VPCs, primary and secondary."
+        },
+        {
+          "en": "﻿﻿Create a Network Load Balancer in the primary region, set up a VPC endpoint service, and build an AWS Privatelink to the secondary region"
+        },
+        {
+          "en": "Set up an inter-region VPC peering connection and route table in two VPCs, primary and secondary."
+        },
+        {
+          "en": "Configure AWS Direct Connect connection and route table in two VPCs, primary and secondary."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "You can build a connection that allows private encrypted communication with VPC peering between regions. From the content of the question, you can see that you need a connection that allows private encrypted communication between Amazon VPCs in two regions.",
+          "",
+          "Option 1 is incorrect. Private encrypted communication cannot be established between NAT gateways.",
+          "",
+          "Option 2 is incorrect. This is the architecture of AWS Privatelink when using web services in the primary region from the secondary region.",
+          "",
+          "Option 4 is incorrect. AWS Direct Connect is a service that connects on-premises environments and VPCs."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You operate with a configuration in which multiple EC2 instances are running behind the ALB. Occasionally, there was a spike in access, and the site temporarily returned a 503 error each time. Upon investigation, there were no errors from the application on the EC2 instance, and there were many errors from the ALB. ",
+          "Although you can spend the cost of making changes to withstand this surge in access, you would like to keep operating costs as low as possible. What should you do now."
+        ]
+      },
+      "choices": [
+        { "en": "Increase the number of EC2" },
+        {
+          "en": "Create another set of ALB + EC2 and set 50% for each ALB with Route 53's weighted routing policy to distribute the load."
+        },
+        { "en": "Ask support to warm up the ALB." },
+        { "en": "Rebuild from ALB to NLB." }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "ALB takes a long time to scale and is vulnerable to spike access, so switching to spike-resistant NLB can meet the requirements.",
+          "",
+          "Option 1 is incorrect. Since EC2 is able to return the request normally, it is not a countermeasure and is inappropriate.",
+          "",
+          "Option 2 is incorrect. Although it is somewhat countermeasure, it is not suitable because it cannot withstand more spikes and the operation cost will be doubled.",
+          "",
+          "Option 3 is incorrect. It is necessary to ask support to increase ALB, but it is inappropriate because the timing of spikes is unpredictable."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Which of the following is a good security practice check for an Amazon RDS DB instance? (Choose three.)"
+        ]
+      },
+      "choices": [
+        { "en": "The parameter group has the correct settings." },
+        { "en": "Removing master user privileges." },
+        {
+          "en": "The DB instance and connections to the DB instance are encrypted."
+        },
+        { "en": "Output and save log of SSH login to DB instance." },
+        {
+          "en": "The minimum necessary access rules are applied to the security group."
+        },
+        {
+          "en": "Regular security assessments are performed by Amazon Inspector."
+        }
+      ],
+      "corrects": [1, 3, 5],
+      "explanation": {
+        "en": [
+          "Options 1, 3 and 5 are correct.",
+          "Basic security measures for Amazon RDS DB instances include transfer data encryption (TLS connection), stored data encryption (KMS disk encryption), access restrictions (IAM, security groups), DB settings (parameters group, option group) can be learned.",
+          "",
+          "Option 1 is the correct answer.",
+          "Confirmation is required because the parameter group manages important parameters for database settings, including security protocols such as TLS used for transferring data encryption.",
+          "",
+          "Option 3 is the correct answer.",
+          "Confirmation of encryption of stored data and transferred data.",
+          "",
+          "Option 5 is the correct answer.",
+          "Confirmation of access restrictions.",
+          "",
+          "Option 2 is incorrect. Removing master user privileges will interfere with database administration.",
+          "",
+          "Option 4 is incorrect. This confirmation is unnecessary because SSH login is not possible for the DB instance.",
+          "",
+          "Option 6 is incorrect. Amazon Inspector is a service that installs an Inspector agent on Amazon EC2 instances and performs vulnerability inspections. Amazon Inspector can also be used agentless, but only for network assessment purposes. Amazon RDS is a managed service, so Amazon Inspector cannot be installed."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company has a stateless application running on four Amazon EC2 instances. This application requires 4 instances to be in constant use to handle all traffic. SysOps administrators must design a highly available and fault-tolerant architecture to continuously serve all traffic even if one Availability Zone becomes unavailable.",
+          "",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Deploy two Auto Scaling groups in two Availability Zones. Set the minimum capacity of each group to 2 instances."
+        },
+        {
+          "en": "Deploy one Auto Scaling group across two Availability Zones. Set the minimum capacity for this group to 4 instances."
+        },
+        {
+          "en": "Deploy one Auto Scaling group across three Availability Zones. Set the minimum capacity for this group to 4 instances."
+        },
+        {
+          "en": "Deploy one Auto Scaling group across three Availability Zones. Set the minimum capacity for this group to 6 instances."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "Amazon EC2 Auto Scaling distributes your instances evenly across the Availability Zones available to your Auto Scaling group.",
+          "Therefore, in the option 4 configuration, when the number of instances is the smallest, two EC2 instances are placed in each of three availability zones, so even if one of the availability zones becomes unavailable, four EC2 instances will be available. Instances are always available.",
+          "",
+          "Option 1 is incorrect. In this configuration, 2 EC2 instances are placed in each of 2 Availability Zones when the number of instances is the lowest, so 4 instances will be used if one of the Availability Zones becomes unavailable. You will not be able to do it.",
+          "",
+          "Option 2 is incorrect. In this configuration, 2 EC2 instances are placed in each of 2 Availability Zones when the number of instances is the lowest, so 4 instances will be used if one of the Availability Zones becomes unavailable. You will not be able to do it.",
+          "",
+          "Option 3 is incorrect. In this configuration, when the number of instances is the lowest, 4 EC2 instances are placed in 3 availability zones, 1 or 2 each, so if one of the availability zones becomes unavailable You will not be able to use 4 instances for",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/en_us/autoscaling/ec2/userguide/auto-scaling-benefits.html#arch-AutoScalingMultiAZ"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company uses AWS CloudFormation to deploy its application infrastructure. Recently, a user accidentally modified a database property in a CloudFormation template and ran a stack update operation. As a result, the application was interrupted. A SysOps administrator should decide how to modify the deployment process. ",
+          "A requirement of the deployment process is to allow the DevOps team to continue deploying the infrastructure and prevent erroneous modifications to individual resources.",
+          "",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Set up an AWS Config rule to alert you when your CloudFormation stack is modified. This allows the stack to be written within an AWS Lambda function to determine if the protected resource has been modified and then cancel the process."
+        },
+        {
+          "en": "Configure Amazon CloudWatch Events events with rules that fire in response to CloudFormation API calls. This allows the stack to be written within an AWS Lambda function to determine if the protected resource has been modified and then cancel the process."
+        },
+        {
+          "en": "Launch a CloudFormation template that uses stack policies. This stack policy specifies Update:* actions to explicitly allow update operations on all resources and explicitly deny update operations on protected resources."
+        },
+        {
+          "en": "Attach an IAM policy to the DevOps team's role. This policy prevents CloudFormation stacks from being updated according to conditions based on the protected resource's Amazon Resource Name (ARN)."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Stack policies help prevent the unintentional update or deletion of your stack's resources. A stack policy is a JSON document that defines update actions that can be performed on specified resources.",
+          "",
+          "Option 1 is incorrect. Stacks are never described within AWS Lambda functions.",
+          "",
+          "Option 2 is incorrect. Stacks are never described within AWS Lambda functions.",
+          "",
+          "Option 4 is incorrect. This method prevents DevOps team members from updating protected resources, but not non-DevOps team members.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html#protect-stack-resources-updating"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator manages a web application running on Amazon EC2 instances behind an Application Load Balancer (ALB). These instances are running within an EC2 AutoScaling group. ",
+          "A SysOps administrator wants to set an alarm when all target instances associated with an ALB go into an unhealthy state.",
+          "Which condition should you use for this alarm?"
+        ]
+      },
+      "choices": [
+        { "en": "AWS/Application ELB HealthyHostCount <= 0" },
+        { "en": "AWS/Application ELB UnhealthyHostCount >= 1" },
+        { "en": "AWS/EC2 StatusCheckFailed <= 0" },
+        { "en": "AWS/EC2 StatusCheckFailed >= 1" }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "HealthyHostCount is a metric that indicates the number of targets considered healthy, so using \"AWS/ApplicationELB HealthyHostCount <= 0\" means that \"no targets are healthy\", that is, \"all targets are unhealthy\". You can set an alarm for when the \"state\" is reached.",
+          "",
+          "Option 2 is incorrect. This condition states \"at least one target is unhealthy\", which does not meet the requirement of the question \"all targets are unhealthy\".",
+          "",
+          "Option 3 is incorrect. StatusCheckFailed is a metric that indicates whether the instance has passed both the instance status check and the system status check in the last minute, and \"AWS/EC2 StatusCheckFailed <= 0\" is the number of instances that failed the status check. It doesn't meet the requirements of the question because it shows \"nothing\".",
+          "",
+          "Option 4 is incorrect. StatusCheckFailed is a metric that indicates whether the instance has passed both the instance status check and the system status check in the last minute, and \"AWS/EC2 StatusCheckFailed >= 0\" means \"There are at least There is one\", so it doesn't meet the requirements in question.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/en_us/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A recent audit of our organization found that our existing Amazon RDS database was not configured for high availability. This database is critical and should be configured for high availability as soon as possible.",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Switch to an active/passive database pair with the --availability-zone flag in the create-db-instance-read-replica command."
+        },
+        {
+          "en": "Create a new RDS instance with high availability and live migrate data."
+        },
+        {
+          "en": "Use the console to modify your RDS instance to include the Multi-AZ option."
+        },
+        { "en": "Set the --ha flag using the modify-db-instance command." }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "By taking advantage of Amazon RDS Multi-AZ deployments, you can have one or two standby DB instances to ensure high availability.",
+          "",
+          "Option 1 is incorrect. Creating read replicas takes longer than including the Multi-AZ option in an RDS instance.",
+          "",
+          "Option 2 is incorrect. There is no option to specify high availability when creating an RDS instance.",
+          "",
+          "Option 4 is incorrect. There is no --ha flag in the modify-db-instance command.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html",
+          "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/modify-db-instance.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You are trying to transfer and store 200TB of encrypted data from an on-premises environment to AWS during a 3-week migration period. ",
+          "You use a 100Mbps internet line to connect to AWS. Which migration solution is most likely to meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Store data in Amazon S3 with multipart upload using AWS CLI."
+        },
+        { "en": "Store data in Amazon S3 using one AWS Snowcone." },
+        {
+          "en": "Store data in Amazon S3 using three AWS Snowball Edge Storage Optimized in parallel."
+        },
+        {
+          "en": "Install 1Gbps AWS Direct Connect and store data in Amazon S3 via public virtual interface."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "You anticipate using multiple AWS Snowball Edge Storage Optimized to meet our data capacity and transfer data over a 3-week migration period.",
+          "The AWS Snow family has devices with the following storage capacities, mainly with edge computing.",
+          "AWS Snowcone: Has 8TB HDD and 14TB SSD storage available.",
+          "・AWS Snowball Edge Storage Optimized: Has 80TB HDD and 1TB SSD storage.",
+          "・AWS Snowball Edge Compute Optimized: Has 42TB HDD and 7.68TB SSD storage.",
+          "・AWS Snowmobile: Has 100PB of HDD storage (there are restrictions on available regions).",
+          "",
+          "Snow Family can usually transfer up to 100TB in about a week. Also, the Snow family can be used in parallel, so you can use multiple devices if you don't have enough storage space.",
+          "",
+          "Option 1 is incorrect. Based on the above approximation, no data transfer can be completed via internet connection during the transition period.",
+          "",
+          "Option 2 is incorrect. One Snowcone does not have enough storage capacity for the amount of data to be migrated.",
+          "",
+          "Option 4 is incorrect. AWS Direct Connect takes weeks just to install. Also, even with a 1 Gbps leased line, it takes about 20 days to transfer 200 TB, so we cannot meet the requirements."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You are looking for a cloud storage solution to archive up to 10TB of sensitive facility surveillance video files weekly. ",
+          "This file must be kept in a secure storage location where it can be viewed, modified, or deleted by others, with a 5 hour grace period for retrieval if needed is. ",
+          "Which method meets this requirement and operates at the lowest cost?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Upload files to Amazon S3 Glacier as an archive using the AWS CLI and set vault lock."
+        },
+        {
+          "en": "Upload files to an Amazon S3 bucket using the AWS CLI and set a lifecycle policy to migrate them immediately to Amazon S3 Glacier."
+        },
+        {
+          "en": "Save files on Amazon EFS with an encrypted file system mounted and automatically back up with AWS Backup."
+        },
+        {
+          "en": "Archive files to virtual tape storage using AWS Storage Gateway Tape Gateway."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "Amazon S3 Glacier is often used as an archive in lifecycle management from an Amazon S3 bucket, but it is also possible to store directly as an archive using the AWS CLI or AWS SDK. The maximum size of a single Amazon S3 Glacier archive is 40TB, and there is no limit to the number of archives and amount of data that can be stored. Archive retrieval time varies depending on the option: 1-5 minutes for rapid retrieval, 3-5 hours for standard retrieval, and 5-12 hours for large retrieval. Also, by using the vault lock function, you can lock the policy that describes the access control so that it cannot be edited or deleted in the future.",
+          "",
+          "Option 2 is incorrect. The maximum size of a single object that can be stored in an Amazon S3 bucket is 5TB, so a 10TB file cannot be stored.",
+          "",
+          "Option 3 is incorrect. The maximum size of one Amazon EFS file is about 47.9 TB, but since it is designed as a shared file system, it can be mounted from other terminals, and replication such as copying and backup is possible, so it does not meet the requirements.",
+          "",
+          "Option 4 is incorrect. AWS Storage Gateway tape gateway has a maximum virtual tape size of 5TB, so you can't store a 10TB file."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "How to leave AWS resources intact when stack creation fails in AWS CloudFormation? (Choose two.)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Disable rollback on failure when creating a stack in the AWS Management Console."
+        },
+        {
+          "en": "Use a stack policy to allow all resources and then explicitly deny the protecting lease."
+        },
+        { "en": "View failure and impact after failure with change sets." },
+        {
+          "en": "Execute the aws cloudformation create-stack command with the --disable-rollback or --on-failure DO_NOTHING option with the AWS CLI."
+        },
+        {
+          "en": "Explicitly deny the ContinueUpdate Rollback action in the IAM policy of the IAM user creating the stack."
+        }
+      ],
+      "corrects": [1, 4],
+      "explanation": {
+        "en": [
+          "Options 1 and 4 are correct.",
+          "Disable rollback if you want AWS CloudFormation to preserve resources if stack creation fails. To disable rollback, set it to disabled when creating a stack in the AWS Management Console, or execute the aws cloudformation create-stack command with the --disable-rollback or --on-fallure Do_NOTHING option in the AWS CLI. increase.",
+          "",
+          "Option 2 is incorrect. The stack policy is used when updating the stack. Also, if you use a stack policy, the target AWS resource will not be updated. In other words, the purpose is different from the content of the question because it does not reflect the changed content.",
+          "",
+          "Option 3 is incorrect. Changesets are used during stack updates. In addition, change sets are for checking the content and impact of changes before making changes, so they cannot be used to leave AWS resources behind.",
+          "",
+          "Option 5 is incorrect. The ContinuelpdateRollback action is used to fix the error and continue the rollback when the stack update fails and is in UPDATE_ROLLBACK_FAILED state."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator successfully deployed a VPC using an AWS CloudFormation template. This Sysops administrator wants to deploy this same template to multiple accounts under AWS Organizations control.",
+          "",
+          "How can you meet this requirement while minimizing operational overhead?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Delegate the OrganizationAccountAccessRole IAM role within the managed account. Deploy this template to each account."
+        },
+        {
+          "en": "Within each account, create an AWS Lambda function to delegate the role. Deploy this template using the AWS CloudFormation CreateStack API call."
+        },
+        {
+          "en": "Create an AWS Lambda function to query the list of accounts. Deploy this template using the AWS CloudFormation CreateStack API call."
+        },
+        {
+          "en": "Deploy this template to each account using AWS CloudFormation StackSets within the managed account."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "AWS CloudFormation StackSets provide the ability to create, update, and delete stacks across multiple accounts and Regions in a single operation. An administrator account can be used to define and manage AWS CloudFormation templates to provision stacks to selected target accounts in specified AWS Regions.",
+          "",
+          "Option 1 is incorrect. This method is more costly to operate than option 4 because it requires role delegation for each account.",
+          "",
+          "Option 2 is incorrect. This method requires the use of AWS Lambda and is more expensive to operate than Option 4.",
+          "",
+          "Option 3 is incorrect. This method requires the use of AWS Lambda and is more expensive to operate than Option 4.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You have an AWS Direct Connect connection from an on-premises data center to a VPC in the ap-northeast-1 region of my AWS account. ",
+          "There is an additional requirement to connect AWS Direct Connect from the data center to the VPC in the ap-southeast-1 region with consistent communication quality. How can this requirement be met in the least amount of time and money?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Add a new Direct Connect to connect your data center with your VPC in the ap-southeast-1 region."
+        },
+        {
+          "en": "Create a private virtual interface with an existing AWS Direct Connect and connect to the VPC on ap-southeast-1 via the Direct Connect Gateway."
+        },
+        {
+          "en": "Use VPC peering to connect the VPC in ap-northeast-1 and the VPC in ap-southeast-1, and connect the data center to the VPC in ap-southeast-1."
+        },
+        {
+          "en": "Use AWS VPN CloudHub to connect data center and VPC in ap-southeast-1 region."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "I already have an AWS Direct Connect connection, and You have a requirement to connect to VPCs in other regions from my data center, so this is a good fit for Direct Connect Gateway. Direct Connect Gateway is a service that allows you to connect to VPCs in multiple regions by connecting private virtual interfaces created with AWS Direct Connect.",
+          "",
+          "Option 1 is incorrect. A viable architecture, but time consuming and costly.",
+          "",
+          "Option 3 is incorrect. VPC peering does not allow transitive routing. In other words, even if you connect VPC peering with ap-northeast-1 and ap-southeast-1, data center->VPC at ap-northeast-1->VPC at ap-southeast-1, etc. will go through the VPC from the data center. cannot be connected.",
+          "",
+          "Option 4 is incorrect. AWS VPN CloudHub enables VPN connections between multiple locations by using this VPC as a VPN hub when connecting to one Virtual Private Gateway (VGW) of Amazon VPC with Site-to-Site VPN connections from multiple on-premises environments. It is a hub-and-spoke model service."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're trying to register an Elastic Load Balancing Amazon EC2 instance to serve a web service to my clients. On the client side, access permission by IP address is required by the firewall. ",
+          "Which option meets this requirement?"
+        ]
+      },
+      "choices": [
+        { "en": "Classic Load Balancers (CLBs)" },
+        { "en": "Application Load Balancers (ALBs)" },
+        { "en": "Network Load Balancers (NLBs)" },
+        { "en": "Gateway Load Balancer (GWLB)" }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Among the load balancer types of Elastic Load Balancing, Network Load Balancer (NLB) can assign a fixed IP address. NLB allows you to assign auto-assigned static P addresses or Elastic IP addresses. NLB operates at Layer 4 and load balances TCP, UDP and TLS protocol traffic to target IP addresses, EC2/ECS instances and ALBs. It can handle millions of requests per second and you can build an AWS Privatelink to connect from other VPCs in the same region via interface endpoints by fronting your VPC application and creating an endpoint service. It is possible to assign a fixed IP address.",
+          "",
+          "Option 1 is incorrect. CLB operates at layers 4 and 7, load balancing TCP, SSL/TLS, HTTP, and HTTPS protocol traffic to registered EC2 and ECS instances. A fixed IP address cannot be assigned.",
+          "",
+          "Option 2 is incorrect. ALB operates at Layer 7 and load balances HTTP, HTTPS and gRPC protocol traffic to target IP addresses, EC2/ECS instances and AWS Lambda functions. HTTP header-based (host-based, path-based, etc.) routing is possible. A fixed IP address cannot be assigned.",
+          "",
+          "Option 4 is incorrect. GWLB consists of Layer 3 Gateway and Layer 4 Load Balancing and is mainly used for the use case of deploying, scaling and managing third party virtual appliances. Load balance IP protocol traffic across a fleet of virtual appliances. Build AWS PrivateLink using AWS Gateway Load Balancer endpoint (GWLBE) to connect GWLB and virtual appliance. A fixed IP address cannot be assigned."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're trying to store data as objects from an Amazon EC2 instance in a private subnet of my VPC to an Amazon S3 bucket without going through the internet. Which method can meet this requirement?"
+        ]
+      },
+      "choices": [
+        { "en": "Create a snapshot of your EC2 instance." },
+        {
+          "en": "Store data from EC2 instance to AWS Storage Gateway file gateway and sync data to Amazon S3 bucket."
+        },
+        {
+          "en": "Create an AWS Client VPN in the VPC where the EC2 instance exists and save data via the AWS Client VPN."
+        },
+        {
+          "en": "Create an S3 VPC endpoint in the VPC where the EC2 instance exists and store data via the S3 VPC endpoint."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "Use VPC endpoints to privately connect to AWS services from within your VPC without going through the internet. VPC endpoints include gateway endpoints used by Amazon S3 and Amazon DynamoDB, and interface endpoints provided as Elastic Network Interfaces with private IP addresses.",
+          "Questions can use S3 VPC endpoints (gateway endpoints) to privately connect to Amazon S3 buckets from Amazon EC2 instances in the VPC.",
+          "",
+          "Option 1 is incorrect. EC2 instance snapshots are technically stored on Amazon S3, but data cannot be stored as objects.",
+          "",
+          "Option 2 is incorrect. Even if you use AWS Storage Gateway file gateway, data will be saved via the Internet unless you create a VPC endpoint for Storage Gateway.",
+          "",
+          "Option 3 is incorrect. AWS Client VPN is an AWS managed service that provides a form of SSL-VPN (actually using TLS connection) between the client and AWS."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A development team created and deployed a new AWS Lambda function 15 minutes ago. This function was called many times, but you don't see any log messages in Amazon CloudWatch Logs.",
+          "Which is one possible cause?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "The developer did not enable log messages for this Lambda function."
+        },
+        {
+          "en": "Permission to create CloudWatch Logs items has not been granted to the role of this Lambda function."
+        },
+        {
+          "en": "An exception occurs in this Lambda function before reaching the first log statement."
+        },
+        {
+          "en": "This Lambda function generates a log file locally, but it must be sent to CloudWatch Logs before it can be seen."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "AWS Lambda logs every request processed by your function and automatically saves logs generated by your code through Amazon CloudWatch Logs.",
+          "Your function's execution role must have permissions to upload logs to CloudWatch Logs.",
+          "",
+          "Option 1 is incorrect. Developers cannot toggle logging on or off.",
+          "",
+          "Option 3 is incorrect. When an exception occurs in a function, the content of the exception is saved as an error log.",
+          "",
+          "Option 4 is incorrect. No log files are generated locally.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/lambda/latest/dg/monitoring-cloudwatchlogs.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You are deploying and operating the infrastructure for my application in AWS CloudFormation. When updating the stack, an unintended change occurred due to a mistake in the description of some AWS resources in the template, causing an application failure. ",
+          "To solve this question, you want to be able to see changes and their impact before deployment, and also protect specific resources from accidental changes. Which approach can meet this requirement? (Choose two.)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Use the text editor's diff tool to view changes and their impact before deployment to check for unintended changes."
+        },
+        {
+          "en": "View changes and their impact before deployment using change sets to check for unintended changes."
+        },
+        {
+          "en": "Use drift detection to view changes and their impact before deployment to check for unintended changes."
+        },
+        {
+          "en": "Use a stack policy to allow all resources and then explicitly deny the 'Update' action on the protecting lease."
+        },
+        {
+          "en": "Explicitly deny the \"Update\" action on the protected resource in the IAM policy for the IAM user updating the stack."
+        }
+      ],
+      "corrects": [2, 4],
+      "explanation": {
+        "en": [
+          "Options 2 and 4 are correct.",
+          "Approaches to prevent unintentional changes when updating AWS CloudFormation stacks include change sets and stack policies. Change set is a function that allows you to check the contents and impact of changes before deployment, and stack policy is a function that can be set to deny changes to specific resources. It should be noted that change sets are only a function for checking, and there is no function for prohibiting resource changes. If you want to disallow resource modification, you should use a stack policy. The requirements of the question are both to see what the change is and its impact, and to protect certain resources, so you need to use those two.",
+          "",
+          "Option 1 is incorrect. A diff view in a text editor will not show the effects of the change. Also, even if the content is the same, it will be displayed as a difference just by changing the description style.",
+          "",
+          "Option 3 is incorrect. Drift detection is a function that detects differences in changes in resources managed by the stack manually, via CLI, SDK, etc. without updating the stack.",
+          "",
+          "Option 5 is incorrect. It is possible to prohibit resource operations for individual IAM users, but it explains how to write a stack policy, not the format of an IAM policy."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You need to migrate an Amazon EC2 instance from the original AWS account's ap-northeast-1 region to another AWS account's us-east-1 region. ",
+          "Which way to meet this requirement while maintaining security?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an AMI of the EC2 instance and copy it to the us-east-1 region of the original AWS account. Grant the permissions of the copied AMI to another AWS account, share it, and launch a new EC2 instance in another AWS account."
+        },
+        {
+          "en": "Create an AMI of an EC2 instance, give another AWS account access to the AMI and share it. Launch a new EC2 instance with a different AWS account specifying the us-east-1 region as the launch destination."
+        },
+        {
+          "en": "Create an AMI of the EC2 instance and copy it to the us-east-1 region of the original AWS account. Set the copied AMI to public, publish it to the community AMI, and launch a new EC2 instance with another AWS account."
+        },
+        {
+          "en": "Create a customer managed CMK in the original AWS account's ap-northeast-1 region with another AWS account's permissions. Create an AMI of the EC2 instance, encrypt it with the created customer managed CMK and copy the AMI to the same region. Grant the permissions of the copied AMI to another AWS account, share it, and launch a new EC2 instance."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "A question asking how to migrate an Amazon EC2 instance to another region in another account. The easiest migration method is to create an AMI from an Amazon EC2 instance, copy it to the target account region, and launch an EC2 instance from that AMI. Since this facility will be migrated to a different region of a different account, each AMI sharing method is organized below. The AMI is copied in the order of ap-northeast-1 of the original AWS account → us-east-1 of the original AWS account → us-east-1 of another AWS account.",
+          "",
+          "AMI sharing to another account: Specify the account number of another AWS account to grant access privileges to the AMI and share it.",
+          "",
+          "AMI copy to another region: Specify the destination region in the same AWS account and copy the AMI.",
+          "",
+          "The point is that sharing between accounts is not possible unless they are in the same region.",
+          "Whichever of these two procedures comes first, you can migrate to another region of another account. The difference is whether the AMI copy to another region is in the original AWS account or in another AWS account. Therefore, the correct answer is the one that implements these two steps in the question options.",
+          "",
+          "Option 2 is incorrect. The flow of ap-northeast-1 in the original AWS account → ap-northeast-1 in another AWS account is correct, but it is incorrect because it is not possible to specify a different region to launch an EC2 instance.",
+          "",
+          "Option 3 is incorrect. The flow of ap-northeast-1 of the original AWS account → us-east-1 of the original AWS account is correct, but it is incorrect because it is published to the community AMI.",
+          "",
+          "Option 4 is incorrect. This is the procedure to create a KMS-encrypted AMI and share it in the same region of another account. Incorrect as there is no procedure to migrate to the us-east-1 region. Also, KMS encryption on the AMI is not required by this question."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You have an Auto Scaling group that is created for multiple applications with different purposes. ",
+          "You're trying to automate the patching of AMIs registered in an Auto Scaling group launch configuration to monitor progress and execution details. How can this requirement be met with the least amount of development?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Use AWS Systems Manager Automation to create an AMI by performing patching on EC2 instances launched from the original AMI. Create a new static configuration containing the new AMI and associate it with the Auto Scaling group."
+        },
+        {
+          "en": "Use AWS Systems Manager Automation to create an AMI by patching instances launched from the original AMI. Modify your existing launch configuration to use the new AMI."
+        },
+        {
+          "en": "Create an AMI by running patching with a user data script on an EC2 instance launched from the original AMI. Create a new launch configuration containing the new AMI and associate it with the Auto Scaling group."
+        },
+        {
+          "en": "Create an AMI using AWS Lambda to patch EC2 instances launched from the original AMI. Create a new launch configuration containing the new AMI and associate it with the Auto Scaling group."
+        },
+        {
+          "en": "Create an AMI using AWS Lambda to patch EC2 instances launched from the original AMI. Modify your existing launch configuration to use the new AMI."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "With AWS Systems Manager Automation, tasks that automate the creation of AMIs can be run during AWS Systems Manager maintenance windows, and you can monitor their progress and execution details. To use a new AMI with your Auto Scaling group, create a new launch configuration containing the new AMI and associate it with your Auto Scaling group. When using AWS Systems Manager Automation, the sequence of processes for creating an AMI is described in the automation document.",
+          "",
+          "Option 2 is incorrect. Existing launch configurations cannot be modified. You need to create a new launch configuration.",
+          "",
+          "Option 3 is incorrect. A viable architecture, but the process of launching an EC2 instance from the original AMI is not automated, and the progress and execution details cannot be monitored.",
+          "",
+          "Option 4 is incorrect. Although it is a feasible architecture, there are constraints on the execution time of the Lambda function, and development is required, such as monitoring progress and execution details.",
+          "",
+          "Option 5 is incorrect. Although it is a feasible architecture, there are constraints on the execution time of the Lambda function, and development is required, such as monitoring progress and execution details. We also need to create a new launch configuration."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A developer implements the ability to save files to an Amazon S3 bucket in a web application. You would like to be notified automatically if Amazon S3 responds with an Internal Error when my web application saves a file. ",
+          "Which of the following is the wrong way to receive notifications?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Search CloudTrail event history, check trail log content for S3 internal errors, and publish a notification to an Amazon SNS topic if an internal error is found."
+        },
+        {
+          "en": "Notify an AWS Lambda function of CloudTrail trail object creation events via event notifications for the Amazon S3 bucket where the CloudTrail trail is stored. Triggered Lambda function checks trail log content for S3 internal errors and publishes a notification to an Amazon SNS topic if an internal error is found."
+        },
+        {
+          "en": "Send trail logs to CloudWatch Logs and create a CloudWatch alarm that publishes a notification to an Amazon SNS topic when the trail log content contains an internal S3 error due to a metric filter."
+        },
+        {
+          "en": "Set up an event rule in CloudWatch Events that triggers when a CloudTrail trail event contains an S3 internal error, and specify an Amazon SNS topic as the target."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "In the question statement, there is a requirement that \"You want to receive notifications automatically\". Among the options, CloudTrail event history is a function for manually analyzing logs and does not have a function for automatic notification.",
+          "",
+          "It is possible to notify automatically by any of options 2 to 4, but in actual operation, pay-as-you-go charges for each service occur each time an event occurs. should be designed with this in mind."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company creates a custom AMI by launching a new Amazon EC2 instance from an AWS CloudFormation template. The company uses AWS OpsWorks to install and configure the required software and create images for each EC2 instance. The process of installing and configuring the software can take 2-3 hours. However, sometimes an installation error stops the process.",
+          "A SysOps administrator should modify the CloudFormation template so that the entire stack fails and rolls back when the process dies.",
+          "What should you add to the template to meet these requirements?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Add the Conditions attribute and set the timeout value to 4 hours."
+        },
+        {
+          "en": "Add the CreationPolicy attribute and set the timeout value to 4 hours."
+        },
+        {
+          "en": "Add the Dependson attribute and set the timeout value to 4 hours."
+        },
+        {
+          "en": "Add the Metadata attribute and set the timeout value to 4 hours."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "By adding the CreationPolicy attribute, you can prevent the status from being created until AWS CloudFormation receives a specified number of success signals or the timeout period has expired.",
+          "In our case, software installation can take 2-3 hours, so setting the timeout to 4 hours (a value of 2-3 hours or more) is appropriate.",
+          "",
+          "Option 1 is incorrect. The Conditions attribute specifies the conditions under which the resource is created or configured, and is not relevant to our requirements.",
+          "",
+          "Option 3 is incorrect. The DependsOn attribute specifies that a particular resource should be created in succession to other resources, and is irrelevant to our requirements.",
+          "",
+          "Option 4 is incorrect. The Metadata attribute is for associating data in JSON or YAML format with the resource and is irrelevant to our requirements.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-creationpolicy.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "An application is deployed in VPCs in the us-east-2 and eu-west-1 regions. You need to transfer a large amount of data between these two regions.",
+          "What is the most cost-effective way to configure data transfer processing?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Get a third-party VPN product on AWS Marketplace to establish a VPN connection between regions."
+        },
+        {
+          "en": "Create an Amazon CloudFront distribution for Amazon EC2 instances in both regions."
+        },
+        {
+          "en": "Establish an inter-region VPC peering connection between VPCs."
+        },
+        { "en": "Establish an AWS PrivateLink connection between regions." }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "A VPC peering connection is a network connection that allows traffic to be routed between two VPCs using private IPv4 or IPv6 addresses, and the VPCs can exist in multiple different regions (this is called regional (also known as an inter-VPC peering connection).",
+          "There is no charge for creating the VPC peering connection itself, you will be charged for the amount of data transferred.",
+          "",
+          "Option 1 is incorrect. Using a third-party VPN product on the AWS Marketplace is more expensive than option 3, as you will be charged for the use of the VPN product and the amount of data transferred.",
+          "",
+          "Option 2 is incorrect. Creating an Amazon CloudFront distribution does not allow you to configure data transfer handling.",
+          "",
+          "Option 4 is incorrect. AWS PrivateLink can only connect VPCs within the same region.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Data written to each other across Amazon EC2 instances in multiple AZs must be shared on filesystem-mounted persistent storage and read with strong consistency. Stored data is expected to automatically migrate to cheaper storage options after 30 days. Which storage solution can meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Share data with Amazon EBS and schedule a script from an EC2 instance to migrate files older than 30 days to the EC2 instance store."
+        },
+        {
+          "en": "Share data on Amazon EFS and enable EFS lifecycle management to transition files older than 30 days to the Infrequent Access (IA) storage class."
+        },
+        {
+          "en": "Share data on Amazon S3 and enable S3 lifecycle management to transition files older than 30 days to the Infrequent Access (S3 Standard-IA) storage class."
+        },
+        {
+          "en": "Share data with Amazon Storage Gateway file gateway, enable lifecycle policy, and migrate files older than 30 days to infrequent access (S3 standard-IA) storage class."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "This question asks for persistent storage that can be read with AWS strong consistency. Amazon S3 is a typical AWS storage service, and lifecycle management allows data to be migrated to inexpensive storage options in a specified number of days. You'll need party software, etc. Therefore, Amazon S3 does not meet the requirements for this question. On the other hand, Amazon EFS, which is AWS's managed NFS service, has strong consistency and file locking. Data can be migrated to storage options.",
+          "",
+          "Option 1 is incorrect. Amazon EBS provides strong consistency, but EBS disks cannot be shared.",
+          "",
+          "Option 3 is incorrect. The Amazon S3 service alone cannot provide file system mounting.",
+          "",
+          "Option 4 is incorrect. Amazon Storage Gateway file gateway stores data in Amazon S3 and cannot provide strong consistency."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "The operations team has seen instances in one Auto Scaling group suddenly stop working. Since the log of the instance is output to CloudWatch Logs, it was confirmed that a certain file behaved strangely. ",
+          "You would like to see what was in that file before it stopped, how can you do that?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Add processing to cat the target file with RunCommand of SSM, and periodically execute and check with Event Bridge."
+        },
+        {
+          "en": "Add a lifecycle hook to your Auto Scaling group and set a wait time. After that, connect to the scaled-in instance, download the desired file, and check it."
+        },
+        {
+          "en": "Add a process to cat the target file to the cron of the instance and execute it periodically."
+        },
+        {
+          "en": "Log in to the instance periodically to download and check the target files."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Lifecycle hooks allow you to execute custom actions or wait instances when scaling out/scaling in."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company uses AWS Trusted Advisor to implement security and compliance. The SysOps team is reviewing the list of available Trusted Advisor checks.",
+          "Which factors affect the amount of Trusted Advisor inspections available?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Whether one or more Amazon EC2 instances are in a running state"
+        },
+        { "en": "AWS Support Plan" },
+        { "en": "AWS Organizations Service Control Policy (SCP)" },
+        {
+          "en": "Whether multi-factor authentication (MFA) is enabled for the AWS account root user"
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "If your AWS Support plan is a Basic Support or Developer Support plan, you have access to all checks in the Service Limits category and only six checks in the Security category of Trusted Advisor, but you can access only six checks in the Security category of Trusted Advisor for Business, Enterprise On-Ramp, or Enterprise Support plans. , you can access all Trusted Advisor checks.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You would like to encrypt data stored in Amazon EFS that is referenced by multiple client applications. There may be more client applications in the future. ",
+          "What's the best way to meet this requirement with the least amount of effort and be the least operational in the future?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Store encrypted data in an EFS file system with client-side encryption prior to data storage."
+        },
+        {
+          "en": "Enable encryption in an existing EFS filesystem configuration."
+        },
+        {
+          "en": "Remount the filesystem with TLS enabled in the EFS mount helper."
+        },
+        {
+          "en": "Migrate data from the original unencrypted EFS file system to a newly created encrypted EFS file system."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "Since encryption can only be enabled when creating a new EFS file system, migrate the data from the original unencrypted EFS file system to the new encrypted EFS file system.",
+          "How to encrypt data in Amazon EFS and store it in storage includes server-side encryption using AWS KMS, which is a feature of EFS, and client-side encryption before storage with an encryption library implemented independently on the client side. side encryption. Server-side encryption for Amazon EFS is encrypted by specifying an AWS KMS key when creating a new EFS file system. Client-side encryption should be implemented for all applications that store data on client-specific EFS filesystems.",
+          "In the question, there are requirements for \"applications may increase in the future\", \"minimum amount of work\", and \"minimum operation in the future\", and there is no prohibition on recreating the EFS file system, Server-side encryption, which creates a new encrypted EFS file system, meets the requirements.",
+          "",
+          "Option 1 is incorrect. It does not meet the requirements of minimal effort, minimal operations in the future.",
+          "",
+          "Option 2 is incorrect. Encryption cannot be enabled by changing the settings of an existing EFS file system. Encryption can only be enabled when creating a new EFS file system.",
+          "",
+          "Option 3 is incorrect. A way to encrypt data in transit between a client and Amazon EFS."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator wants to securely share objects in a private Amazon S3 bucket with a group of users who do not have an AWS account. ",
+          "How can you meet this requirement in the most operationally efficient way?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Attach an S3 bucket policy that only allows object downloads from the user's IP address."
+        },
+        {
+          "en": "Create an IAM role with access to this object. Instruct the user to assume this role."
+        },
+        {
+          "en": "Create an IAM user with access to this object. Distribute credentials to users."
+        },
+        {
+          "en": "Generate a signed URL to this object. Distribute this URL to your users."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "You can create a signed URL and use your own security certificate to give someone time-bound permission to download your object.",
+          "When creating a presigned URL for an object, you must specify the bucket name, object key, HTTP method, and expiration date.",
+          "",
+          "Option 1 is incorrect. Creating policies by enumerating the IP addresses of users in user groups is more expensive to operate than Option 4.",
+          "",
+          "Option 2 is incorrect. IAM roles cannot be associated with user groups that do not have AWS accounts.",
+          "",
+          "Option 3 is incorrect. This method requires creating an IAM user and has higher operational costs compared to Option 4.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A customer of an enterprise reported high latency when accessing static web content in Amazon S3. A Sysops administrator has noticed that a particular S3 bucket has a very high read activity.",
+          "How can you reduce the load on my S3 bucket to minimize latency?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Move this S3 bucket to a region closer to the end user's region."
+        },
+        {
+          "en": "Use cross-region replication to replicate all your data to another region."
+        },
+        {
+          "en": "Create an Amazon CloudFront distribution with this S3 bucket as the origin."
+        },
+        {
+          "en": "Use Amazon ElastiCache to cache data being served from Amazon S3."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Amazon CloudFront folds viewer requests for the same file at the edge locations at the same time into a single origin server request. This reduces the load on the origin server and minimizes latency.",
+          "",
+          "Option 1 is incorrect. Moving the S3 bucket's region closer to the end user does not change the load on the bucket, it only shortens the network distance from the end user.",
+          "",
+          "Option 2 is incorrect. Simply replicating all the data will not reduce the load on the bucket.",
+          "",
+          "Option 4 is incorrect. Amazon ElastiCache cannot be used to cache content stored in S3.",
+          "",
+          "reference:",
+          "https://aws.amazon.com/cloudfront/faqs/"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're trying to create a low-latency global static website viewed by an unspecified number of users from various countries and regions using Amazon CloudFront and Amazon S3. ",
+          "You need to allow access only from the Amazon CloudFront URL, without direct access to the Amazon S3 bucket. Which setting can most reliably meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Enable website hosting on your Amazon S3 bucket and set a custom Referer header on Amazon CloudFront. Allow access only for requests with a custom Referer header in your S3 bucket policy."
+        },
+        {
+          "en": "Enable website hosting on your Amazon S3 bucket and allow only Amazon CloudFront to access objects in your S3 bucket using Lambda@Edge."
+        },
+        {
+          "en": "Disable website hosting on your Amazon S3 bucket and use Origin Access Identity (OAI) to allow only Amazon CloudFront to access objects in your S3 bucket."
+        },
+        {
+          "en": "Disable website hosting on your Amazon S3 bucket and use an IAM role to allow only Amazon CloudFront to access objects in your S3 bucket."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "If you associate a website created with Amazon S3 website hosting behind Amazon CloudFront, you can directly access the Amazon S3 bucket without going through Amazon CloudFront. You can prevent this by associating Amazon S3 buckets using Origin Access ldentity (OAI) and by restricting Referer to conditions with custom headers. However, for custom headers it is possible to spoof the Referer, so it cannot be restricted with certainty. OAI should be used for strict restrictions. A caveat with OAl is that subdirectories cannot be accessed by bypassing index.html. For example, \"https//example.com/subdir/\" will return index.html in S3 Website Hosting, but it will cause an access error in OAI, so you need to consider returning indexhtml with Lambda@Edge.",
+          "",
+          "Option 1 is incorrect. The Referer can be spoofed and is preferably used as a means of mitigating direct access to S3 buckets when S3 website hosting is required.",
+          "",
+          "Option 2 is incorrect. Direct access to Amazon S3 buckets is possible because lambdaEdgel will not start if Amazon Cloudfionl is not accessible.",
+          "",
+          "Option 4 is incorrect. IAM roles cannot be granted to Amazon CloudFront."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator wants to create two AWS CloudFormation templates. The first template creates a VPC with associated resources (eg subnets, routing tables, internet gateways). The second template deploys application resources inside the VPC created by the first template. Within the second template, you need to reference the resources created by the first template.",
+          "How can you meet this requirement while minimizing the amount of administrative effort?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Add an export field to the output of the first template. Import these values ​​into the second template."
+        },
+        {
+          "en": "Create a custom resource that queries the stack created by the first template to get the value you want."
+        },
+        {
+          "en": "Create a mapping in the first template that is referenced by the second template."
+        },
+        {
+          "en": "Specify the resource name in the first template. Reference these resource names as parameters in the second template."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "For one AWS CloudFormation stack to reference resources in another stack, you must create a cross-stack reference.",
+          "To create a cross-stack reference, set the value of the export's resource output using the Export output field on the referenced stack, and use the Fn::ImportValue built-in function on the referencing stack. Import values.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "There is a requirement to reference data in an S3 bucket managed by Company A from a system on AWS built by Company B. As a security policy of Company A, there is a rule that when passwords are issued, they must be changed periodically. It should also be possible to identify individuals who have accessed the data. What should Company A do to get Company B to see the data with as little effort as possible?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Issue an IAM user with access rights to the relevant S3 bucket to Company B. Have company B change the password periodically."
+        },
+        {
+          "en": "Grant an IAM policy with permission to view the corresponding S3 bucket to the IAM user of Company B."
+        },
+        {
+          "en": "Create an IAM role with access permissions for the relevant S3 bucket. Grant temporary authentication information only from a specific IAM user at Company B to that IAM role."
+        },
+        {
+          "en": "Set a bucket policy for the corresponding S3 bucket to allow access only to specific IP addresses of Company B's system."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "IAM roles can grant temporary credentials to other AWS resources and non-AWS external identities. By using IAM roles, user management can be entrusted to Company B. Since the control of reference authority is on the A company side, it can be made in an easy-to-understand form as a demarcation point of responsibility.",
+          "",
+          "Option 1 is incorrect. Access to S3 from Company B can be achieved. However, the IAM user managed by company A is passed to company B, and although the user is managed by company A, the password change is left to company B, which is ambiguous as a demarcation point of responsibility.",
+          "",
+          "Option 2 is incorrect. An IAM policy cannot be granted to an IAM user of another AWS account.",
+          "",
+          "Option 4 is incorrect. An example of network perimeter defense. With this method, the data on S3 can be viewed by an unspecified number of people who can use Company B's system. Also, Company A cannot identify who accessed it. You need to do some kind of user authentication."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You operate a web application with CloudFront, ALB, EC2, and RDS configurations, and enable log output for each. ",
+          "Which logs are the target when investigating HTTP/HTTPS status codes? Please select all that apply."
+        ]
+      },
+      "choices": [
+        { "en": "CloudTrail logs" },
+        { "en": "VPC flow logs" },
+        { "en": "CloudFront access log" },
+        { "en": "ALB access log" },
+        { "en": "RDS logs" }
+      ],
+      "corrects": [3, 4],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "CloudFront access logs handle HTTP status codes.",
+          "",
+          "Option 4 is the correct answer.",
+          "ALB's access log handles HTTP status codes.",
+          "",
+          "Option 1 is incorrect. CloudTrail logs deal with AWS infrastructure activity logs.",
+          "",
+          "Option 2 is incorrect. VPC Flow Logs handles network logs flowing into your VPC.",
+          "",
+          "Option 5 is incorrect. RDS logs deal with logs related to the database."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Which scaling method is possible for an Amazon Elastic Cache for Redis cluster with cluster mode disabled? (Choose two.)"
+        ]
+      },
+      "choices": [
+        { "en": "Double scaling to change the node type to a larger size" },
+        { "en": "Horizontal scaling adding shards" },
+        { "en": "Enabling cluster mode" },
+        { "en": "Adding read replicas" },
+        { "en": "Add TTL" }
+      ],
+      "corrects": [1, 4],
+      "explanation": {
+        "en": [
+          "Options 1 and 4 are correct.",
+          "ElastiCache for Redis clusters with cluster mode disabled can be vertically scaled by changing node types, adding read replicas. On the other hand, ElastiCache for Redis clusters with cluster mode enabled can scale horizontally by adding shards.",
+          "",
+          "Option 2 is incorrect. Shards can be added when cluster mode is enabled.",
+          "",
+          "Option 3 is incorrect. Enabling cluster mode has nothing to do with scaling. By the way, enabling cluster mode is only available when creating an ElastiCache for Redis cluster.",
+          "",
+          "Option 5 is incorrect. Adding a TTL has nothing to do with scaling as it's the same cache warfare as lazy reads and write-throughs."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You need to analyze the charges for resources created by each IAM user in my AWS account. ",
+          "Which method can meet this requirement with minimal effort? (Choose two.)"
+        ]
+      },
+      "choices": [
+        { "en": "Enable aws:creatBy for AWS generated cost allocation tags." },
+        {
+          "en": "Enable your own UsedBy tags with user-defined cost allocation tags and have Amazon EventBridge rules and AWS Lambda functions periodically refer to CloudTrail logs to tag AWS resources with the author's IAM username."
+        },
+        { "en": "Analyze your usage with AWS Budgets Reports." },
+        { "en": "Analyze your usage with AWS Cost Explorer." },
+        { "en": "Analyze usage with Amazon QuickSight." }
+      ],
+      "corrects": [1, 4],
+      "explanation": {
+        "en": [
+          "Options 1 and 4 are correct.",
+          "Use AWS Cost Explorer to view and analyze your AWS resource costs and usage. Also, by using cost allocation tags, it is possible to aggregate tagged resources by tag. There are two types of cost allocation tags: AWS-generated cost allocation tags and user-defined cost allocation tags. Among them, AWS-generated cost allocation tags have aws:createdBy tags that track the creator of AWS resources, and can be used in conjunction with AWS Cost Explorer to meet the requirements of the question.",
+          "",
+          "Option 2 is incorrect. A feasible architecture, but not minimal work.",
+          "",
+          "Option 3 is incorrect. AWS Budgets Reports is a feature that emails you budget reports on a daily, weekly, and monthly basis.",
+          "",
+          "Option 5 is incorrect. Amazon QuickSight is a BI tool that can yountegrate and analyze AWS resources and on-premises data sources."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You want to login to the AWS Management Console using an on-premises LDAP. Permissions for AWS resources must be assigned according to roles within the company. ",
+          "Which is the most efficient solution that can meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Implement and periodically run a batch script that creates IAM users and IAM groups from LDAP users and groups using the AWS CLI."
+        },
+        {
+          "en": "Install AWS Direct Connect to integrate LDAP with Amazon Route 53 and enable AWS Management Console access in AWS Directory Service"
+        },
+        {
+          "en": "Integrate an identity provider (ldP) that supports SAML 2.0-based federation with LDAP, and establish a trust relationship between the IAM identity provider settings and AWS. Create an IAM role and set access permissions for the IdP group associated with the LDAP group."
+        },
+        {
+          "en": "Integrate LDAP with an identity provider (IdP) that supports SAML 2.0-based federation, and select the IdP as the authentication provider in the Amazon Cognito identity pool. Create a Cognito authenticated IAM role for the IdP group associated with the LDAP group and set permissions."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Questions about how to log in to the AWS Management Console using your on-premises directory service credentials. Here are some key patterns for working with on-premises directory services to grant access to the AWS Management Console.",
+          "",
+          "・Enable AWS Management Console access in the AWS Directory Service that manages your AD Connector or AWS Managed Microsoft AD.",
+          "・Configure AWS Management Console access with AWS SSO connecting with AD Connector or AWS Managed Microsoft AD.",
+          "・Configure identity federation with an ldP that provides OpenlD Connect or SAML 2.0 with an IAM identity provider and IAM role.",
+          "・Authenticate with an external service other than the IAM identity provider (Amazon Cognito ID pool or custom ID broker linked via IdP, etc.), and issue a federated login URL to the AWS management console with the IAM STS issued after authentication. .",
+          "",
+          "These patterns will help you narrow down your choices.",
+          "",
+          "Option 1 is incorrect. Since this method creates IAM users and IAM groups based on LDAP authentication information, it is complicated to operate and is not secure.",
+          "",
+          "Option 2 is incorrect. Amazon Route 53 is not AWS Directory Service.",
+          "",
+          "Option 4 is incorrect. Although it is a feasible architecture, AWS management console access also requires issuing a federated login URL in the IAM STS."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A SysOps administrator wants to provision an Amazon Elastic File Systerm (Amazon EFS) file system to create shared storage across multiple Amazon EC2 instances. All instances are in the same VPC across multiple Availability Zones. ",
+          "There are 2 instances in each Availability Zone. A SysOps administrator must make this file system accessible from each instance. Also, the delay should be kept to a minimum. How can you meet these requirements?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create one mount target for the EFS file system in your VPC. Use this mount target to mount the file system on each instance."
+        },
+        {
+          "en": "Create a mount target for your EFS file system within one Availability Zone of your VPC. Use this mount target to mount your file system to instances in this Availability Zone. Share a directory with other instances."
+        },
+        {
+          "en": "Create a mount target for each instance. Use each mount target to mount the EFS file system to each corresponding instance."
+        },
+        {
+          "en": "Create a mount target within each Availability Zone of your VPC. Use this mount target to mount your EFS file system to instances in each corresponding Availability Zone."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "A mount target provides the IP address of an NFSv4 endpoint that can mount your Amazon EFS file system, and uses a Domain Name Service (DNS) name to mount the file system. You can create one mount target per Availability Zone in your AWS Region.",
+          "",
+          "Option 1 is incorrect. If you create one mount target in your VPC, there is a possibility that communication across Availability Zones will occur before accessing the mount target, so the delay will increase.",
+          "",
+          "Option 2 is incorrect. If you create one mount target in your VPC, there is a possibility that communication across Availability Zones will occur before accessing the mount target, so the delay will increase.",
+          "",
+          "Option 3 is incorrect. You can only create one mount target per Availability Zone.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/efs/latest/ug/accessing-fs.html",
+          "https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You have an application running on an Amazon EC2 instance that uses an Amazon RDS for MySQL DB instance as the database. You would like to store the username and password used for database connections in secure storage outside the application and enforce automatic password rotation. ",
+          "Which solution can meet this requirement with the least amount of work?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Store usernames and passwords in AWS Systems Manager Parameter Store and enable automatic password rotation. The application obtains authentication information as needed."
+        },
+        {
+          "en": "﻿﻿﻿Store usernames and passwords in AWS Secrets Manager and enable automatic password rotation. The application obtains authentication information as needed."
+        },
+        {
+          "en": "Store usernames and passwords in an Amazon S3 bucket and run automatic password rotation with AWS Lambda scheduled by Amazon Event Bridge rules. The application obtains authentication information as needed."
+        },
+        {
+          "en": "Save the user name in AWS CodeCommit and the password rotated by AWS Lambda in a separate repository and deploy it to the application with AWS CodeDeploy. Run these processes in CodePipeline scheduled with Amazon EventBridge rules."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "AWS Secrets Manager provides secure centralized management of credentials and automatic password rotation.",
+          "",
+          "Option 1 is incorrect. AWS Systems Manager Parameter Store does not allow automatic password rotation for RDS on its own.",
+          "",
+          "Option 3 is incorrect. A viable architecture but needs development. Also, since Amazon S3 buckets are multi-purpose and have many data sharing features, it takes a lot of work to enforce strict access restrictions.",
+          "",
+          "Option 4 is incorrect. Storing credentials in AWS CodeCommit is not a good idea."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You want to centrally store and manage CloudTrail trail logs for multiple member accounts within my AWS Organizations organization in a management account. ",
+          "How can this requirement be met with the least amount of effort and cost?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Enable all features in AWS Organizations and create an organization trail in your administrative account."
+        },
+        {
+          "en": "Grant member accounts cross-account access to the bucket policy of the S3 bucket for the CloudTrail trail in the administrative account. Enable AWS CloudTrail by specifying the CloudTrail trail S3 bucket of the management account in the member account."
+        },
+        {
+          "en": "Implement a script that synchronizes the member account's CloudTrail trail S3 bucket to the management account's CloudTrail trail S3 bucket with an AWS Lambda function triggered by an Amazon S3 event notification."
+        },
+        {
+          "en": "Create an IAM role with cross-account access permissions to refer to the member account's CloudTrail trail S3 bucket. The required IAM user of the management account switches to the IAM role and checks the CloudTrail trail."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "The fewest steps to centralize CloudTrail trail logs for member accounts in AWS Organizations in an administrative account is to enable all features and create an organization trail in an administrative account. Creating an organization trail will now store CloudTrail trails for all member accounts in the specified Amazon S3 bucket (including member accounts added after the organization trail was created).",
+          "",
+          "Option 2 is incorrect. This is a method to store CloudTrail trails of another AWS account in the S3 bucket of the management AWS account in an independent AWS account that does not use AWS Organizations. More work than creating an organization trail.",
+          "",
+          "Option 3 is incorrect. It's not a minimal amount of work as it requires implementing an AWS Lambda function.",
+          "",
+          "Option 4 is incorrect. Because of the requirement to \"store and manage CloudTrail trail logs centrally in a management account\", checking CloudTrail trails for each member account does not meet the requirement."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "It has been confirmed that the on-premises web server is being accessed from a large number of different IP addresses, targeting application vulnerabilities. ",
+          "Which of the following AWS services could potentially protect your web server from this malicious traffic with minimal operational overhead?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create Amazon CloudFront with web server as origin and deploy AWS WAF. Specify the reference destination of the domain to CloudFront and limit the HTTP/HTTPS access to the web server to the traffic from CloudFront."
+        },
+        {
+          "en": "Place a web server behind AWS WAF and restrict HTTP/HTTPS access to the web server to traffic that goes through AWS WAF."
+        },
+        {
+          "en": "Place a web server behind AWS Shield Advanced and limit HTTP/HTTPS access to the web server to traffic that goes through AWS Shield Advanced."
+        },
+        {
+          "en": "Migrate your on-premises web server to an Amazon EC2 instance in your VPC and switch the domain reference to the EC2 instance. Deny malicious IP addresses in network access control lists (NACLs)."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "This question asks how to use AWS services to mitigate attacks on on-premises web servers. AWS WAF and AWS Shield are services that protect against an unspecified number of external attacks, but AWS WAF can respond to attacks targeting application vulnerabilities. However, AWS services that can apply AWS WAF are Amazon CloudFront, Application Load Balancer (ALB), and Amazon API Gateway, and cannot be applied directly on-premises. Therefore, by applying AWS WAF to Amazon CloudFront, a cloud CDN service that can specify on-premises as the origin, attacks on on-premises can be mitigated. In this configuration, it is possible to attack the web server directly without going through CloudFront, so it is also necessary to consider limiting HTTP/HTTPS access to the web server to traffic from CloudFront. Ways to limit traffic from CloudFront include restricting using CloudFront's IP ranges, restricting using CloudFront's custom HTTP headers, and more.",
+          "",
+          "Option 2 is incorrect. AWS WAF cannot be applied directly on-premises.",
+          "",
+          "Option 3 is incorrect. AWS Shield Advanced does not support attacks targeting application vulnerabilities.",
+          "",
+          "Option 4 is incorrect. NACLs can block specific IP addresses, but preventing a large number of different IP addresses is very operationally expensive."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company's website has web and database tiers on AWS. The web tier consists of Amazon EC2 instances operating within an Auto Scaling group across two Availability Zones. The database tier runs on Amazon RDS for MySQL database instances in a Multi-AZ deployment. The network ACL for the database subnet allows access only to those web subnets that need access to the database. The web subnet uses the default network ACL with default rules.",
+          "The company's operations team added a third subnet to the Auto Scaling group configuration. You have received reports from some users that they occasionally get an error message after an Auto Scaling event occurs. The error message is that the server cannot connect to the database. The operations team confirmed that the routing table was correct and that all security groups had the required ports open.",
+          "How can you enable my web server to communicate with my database instance? (Choose 2)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an incoming allow rule in the default ACL. Specifically, specify TCP as the type, ephemeral port range as the port range, and database subnet as the source."
+        },
+        {
+          "en": "Create an outbound permit rule in the default ACL. Specifically, specify MySQL/Aurora (3306) as the type and the database subnet as the destination."
+        },
+        {
+          "en": "Create an inbound allow rule in the network ACL for the database subnet. Specifically, specify MySQL/Aurora (3306) as the type and the third web subnet as the source."
+        },
+        {
+          "en": "Create an outbound allow rule in the network ACL for the database subnet. Specifically, specify TCP as the type, ephemeral port range as the port range, and the third web subnet as the destination."
+        },
+        {
+          "en": "Create an outbound allow rule in the network ACL for the database subnet. Specifically, specify MySQL/Aurora (3306) as the type and the third web subnet as the destination.\n"
+        }
+      ],
+      "corrects": [3, 5],
+      "explanation": {
+        "en": [
+          "Options 3 and 5 are correct.",
+          "The occasional error message that the server cannot connect to the database is because the third subnet is not allowed to connect to the database. Connections to the database can be established from the first and second subnets, so connection failures do not occur all the time, but occasionally.",
+          "To resolve this issue, the network ACL for the database subnet must allow inbound traffic from the third subnet and outbound traffic to the third subnet.",
+          "",
+          "Option 1 is incorrect. The default ACL used by the web subnet does not need to be changed.",
+          "",
+          "Option 2 is incorrect. The default ACL used by the web subnet does not need to be changed.",
+          "",
+          "Option 4 is incorrect. For outbound traffic from the database server to the web server, the protocol is TCP and the destination port is an ephemeral port.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Automatically check that a large number of Amazon EC2 instances are tagged with the specified tag and that the security group does not allow unrestricted incoming traffic to the SSH port, and if there is a question ",
+          "You would like to automatically stop an EC2 instance. Which combination of AWS services can meet this requirement?"
+        ]
+      },
+      "choices": [
+        { "en": "AWS WAF, Amazon CloudWatch" },
+        { "en": "AWS Trusted Advisor. AWS Lambda" },
+        { "en": "Amazon CloudWatch, AWS Lambda" },
+        { "en": "AWS Config, AWS Systems Manager Automation" }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "A service that monitors the configuration of AWS resources is AWS Config. You can monitor tagging and security group settings in AWS Config and terminate questionatic EC2 instances with AWS Systems Manager Automation.",
+          "",
+          "Option 1 is incorrect. AWS WAF is a service that blocks attack patterns such as SQL injection and cross-site scripting, so it doesn't meet the requirements.",
+          "",
+          "Option 2 is incorrect. AWS Trusted Advisor's security category has an item to check unrestricted access for specific ports in security groups, but there is no item to check tagging.",
+          "",
+          "Option 3 is incorrect. Amazon CloudWatch does not have the ability to monitor AWS resource configurations."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You have an Application Load Balancer (ALB) assigned to my domain with Amazon Route 53, and You are running a website in an environment where two EC2 instances are running in multiple AZs behind the ALB. You have a website using Amazon S3 static website hosting for static content and ALB for dynamic content with each registered in a Route 53 alias record. ",
+          "As the number of visitors to the site increased, reports of slow loading of the website increased. Which is the way to resolve this issue? (Choose two.)"
+        ]
+      },
+      "choices": [
+        { "en": "Using latency-based routing with Amazon Route 53." },
+        {
+          "en": "Change ALB to Network Load Balancer (NLB) to withstand sudden increase in access."
+        },
+        {
+          "en": "Register Amazon CloudFront with Amazon S3 bucket as origin to Route 53 alias record to cache static content."
+        },
+        {
+          "en": "Migrate static content from Amazon S3 to an EC2 instance and distribute it with ALB path-based routing."
+        },
+        {
+          "en": "Change the EC2 instance to be launched in the Auto Scaling group behind the ALB."
+        }
+      ],
+      "corrects": [3, 5],
+      "explanation": {
+        "en": [
+          "Options 3 and 5 are correct.",
+          "This question asks about performance improvement measures for static content and dynamic content respectively. In the situation of the question, Amazon S3 that holds the static content is registered directly with Route 53, so requests are also sent directly to Amazon S3. Therefore, static content can be expected to reduce latency by placing Amazon CloudFront in front of the Amazon S3 bucket and caching it. On the other hand, ALBs holding dynamic content only have two static EC2 instances deployed. Therefore, dynamic content can be expected to improve performance by having the Auto Scaling group scale and deploy EC2 behind the ALB.",
+          "",
+          "Option 1 is incorrect. Amazon Route 53's latency-based routing is used to deploy similar sites in multiple regions and allocate them to minimize latency for clients around the world. Therefore, it does not meet the requirements of the question.",
+          "",
+          "Option 2 is incorrect. The requirements cannot be met because there is no backend for dynamic content and no countermeasures for static content.",
+          "",
+          "Option 4 is incorrect. Moving static content to an EC2 instance is unlikely to improve performance."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're a SysOps administrator managing an Amazon S3 website and would like to restrict access to only one Amazon CloudFront distribution. Visitors to this website should not be able to bypass CloudFront or view this S3 website directly from the bucket.",
+          "Which AWS service or AWS feature should you use to meet these requirements?"
+        ]
+      },
+      "choices": [
+        { "en": "S3 bucket ACL" },
+        { "en": "AWS Firewall Manager" },
+        { "en": "Amazon Route 53 Private Hosted Zones" },
+        { "en": "Origin Access Identity (OAI)" }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "Origin Access Control (OAC) or Origin Access Identity (OAI) has the following features:",
+          "・Restrict access to Amazon S3 buckets to prevent public access.",
+          "Allow viewers (users) to access content in your bucket only through the specified CloudFront distribution. This means that users cannot access content directly from your bucket or through an unintended CloudFront distribution.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company is planning to deploy resources to a second AWS Region for disaster recovery purposes. The company uses AWS CloudFormation and its infrastructure is clearly defined as code. The company wants to reuse existing code as much as possible when deploying resources to the second region.",
+          "A SysOps administrator is reconsidering how he chooses machine images (AMIs) within AWS CloudFormation, but is struggling to get the same stack working within a second region.",
+          "How can you manage multiple regions more easily?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Name each AMI in the second region exactly the same as the equivalent AMI in the first region."
+        },
+        {
+          "en": "Clone the stack so that unique AMI names can be written within the appropriate stack."
+        },
+        {
+          "en": "Create aliases for each AMI so that you can refer to the AMIs using a common name across regions."
+        },
+        {
+          "en": "Create a Mappings section in your stack to define the association between Regions and AMIs."
+        }
+      ],
+      "corrects": [4],
+      "explanation": {
+        "en": [
+          "Option 4 is the correct answer.",
+          "The Mappings section maps keys to named sets of values. For example, if you want to set a value based on region, create a mapping that holds the desired value with the region name as the key.",
+          "In this case, the requirement can be achieved by creating a mapping with the region name as the key and the AMI ID for each region as the value, and referencing this.",
+          "",
+          "Option 1 is incorrect. You cannot assign the same AMI ID to multiple AMIs.",
+          "",
+          "Option 3 is incorrect. Developers cannot create aliases for AMIs.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "SysOps administrators must create a solution to auto-shutdown Amazon EC2 instances that have average CPU utilization below 10% for more than 60 minutes.",
+          "How can you meet this requirement in the most operationally efficient way?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Implement a cron job on each EC2 instance that runs every 60 minutes and calculates the current CPU utilization. Start instance shutdown process when CPU utilization drops below 10%."
+        },
+        {
+          "en": "Implement Amazon CloudWatch alarms for each EC2 instance to monitor average CPU utilization. Set the duration to 1 hour and the threshold to 10%. Configure an EC2 action to stop the instance for the alarm."
+        },
+        {
+          "en": "Install the integrated Amazon CloudWatch agent on each EC2 instance. Activate the Basic level predefined set of metrics. Log CPU usage every 60 minutes. If the CPU usage falls below 10%, start the instance shutdown process."
+        },
+        {
+          "en": "Using AWS Systems Manager Run Command to get CPU utilization from each EC2 instance every 60 minutes. If the CPU usage falls below 10%, start the instance shutdown process."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "Amazon CloudWatch allows you to send notifications using Amazon SNS depending on CPU utilization. You can achieve your requirement by configuring an EC2 action to stop the instance in response to Amazon SNS notification.",
+          "",
+          "Option 1 is incorrect. This method requires a cron job to be implemented on each EC2 instance, making it more expensive to operate than Option 2.",
+          "",
+          "Option 3 is incorrect. The Basic level predefined metric set does not allow you to get metrics on CPU utilization.",
+          "",
+          "Option 4 is incorrect. AWS Systems Manager Run Command cannot get CPU utilization from EC2 instances.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_AlarmAtThresholdEC2.html",
+          "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-cloudwatch-agent-configuration-file-wizard.html#cloudwatch-agent-preset-metrics"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "Application logs are aggregated in Amazon S3 buckets for log storage in both the development and production AWS accounts. A requirement has arisen for the IAM user of the development AWS account to check the application logs of the production AWS account for investigation purposes. ",
+          "Any access by the development AWS account's IAM user to the production AWS account's Amazon S3 bucket must be tracked. How can this requirement be met with minimal effort while maintaining security?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Implement cross-region replication between the production S3 bucket and the new development S3 bucket, and IAM users in the development account will see the logs in the new development S3 bucket."
+        },
+        {
+          "en": "Attach a policy that allows read access to the production S3 bucket in the production account's IAM to the IAM role, and allow the development account's IAM user to assume the IAM role in the trust policy."
+        },
+        {
+          "en": "By calling an AWS Lambda function attached with an IAM role that allows read access to the production S3 bucket, the IAM user in the development account can view the logs."
+        },
+        {
+          "en": "Build a springboard server with an Amazon EC2 instance attached with an IAM role that allows reference access to the production S3 bucket, and development account members access via the springboard server."
+        }
+      ],
+      "corrects": [2],
+      "explanation": {
+        "en": [
+          "Option 2 is the correct answer.",
+          "To allow the IAM user of the referencing AWS account to access the resources of the referencing AWS account, configure the cross-account IAM role in the referencing AWS account so that the IAM user of the referencing AWS account can assume it. create. By switching roles to this cross-account IAM role, the IAM user of the referencing AWS account can operate the referencing AWS resources with the privileges granted in the referencing AWS account. In addition, this switch role and AWS resource operations in the referenced AWS account are recorded in AWS CloudTrail of the referenced AWS account.",
+          "",
+          "Option 1 is incorrect. Cross-account S3 cross-region replication can be created with AWS CLI, but even if logs are illegally acquired at the replication destination, it cannot be traced.",
+          "",
+          "Options 3 and 4 are incorrect. It's a workable architecture, but it takes work to develop and I can't track which IAM user has access."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "A company runs a web application on three Amazon EC2 instances behind an Application Load Balancer (ALB). The company noticed an irregular increase in traffic volume that caused slow application performance. ",
+          "SysOps administrators need to scale their applications to handle increased traffic volumes.",
+          "How can you meet this requirement?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create Amazon CloudWatch alarms to monitor application latency. Increase the size of each EC2 instance when latency reaches a threshold."
+        },
+        {
+          "en": "Create an Amazon EventBridge (Amazon CloudWatch Events) rule to monitor application latency. Add 1 more EC2 instance to the ALB when the latency reaches the threshold.\n"
+        },
+        {
+          "en": "Deploy your application to an Auto Scaling group of EC2 instances. Associate a target tracking scaling policy with this Auto Scaling group. Attach an ALB to this Auto Scaling group.\n"
+        },
+        {
+          "en": "Deploy your application to an Auto Scaling group of EC2 instances. Associate a scheduled scaling policy with this Auto Scalling group. Attach AILB to this Auto Scaling group."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "A target tracking scaling policy specifies an Amazon CloudWatch metric and a target value that represents the ideal average CPU utilization or throughput level for your application. Auto Scaling scales out the group (adds instances) or scales in the group (removes instances) to keep the actual metric value at the target value.",
+          "",
+          "Option 1 is incorrect. To detect increased traffic, you should monitor CPU usage and throughput rather than application latency.",
+          "",
+          "Option 2 is incorrect. To detect increased traffic, you should monitor CPU usage and throughput rather than application latency.",
+          "",
+          "Option 4 is incorrect. Traffic volumes increase irregularly, so scaling policies cannot be scheduled in advance.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You checked my Amazon S3 inventory report and found that over 1 million objects in my S3 bucket were not encrypted. You need to encrypt these objects. Also, all future objects stored in the bucket should be encrypted when written.",
+          "How can you meet these requirements? (Choose 2)"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Create an AWS Config rule that evaluates S3 bucket configuration changes. If an unencrypted object is detected, run an AWS Systerms Manager Automation document to encrypt the object within the bucket."
+        },
+        {
+          "en": "Modify the S3 bucket properties to enable default server-side encryption."
+        },
+        {
+          "en": "Use S3 Select to filter the S3 Inventory report to discover all unencrypted objects. Create an S3 Batch Operations job that copies each object within a bucket with encryption enabled."
+        },
+        {
+          "en": "Use S3 Select to filter the S3 Inventory report to discover all unencrypted objects. Send each object name as a message to an Amazon Simple Queue Service (Amazon SQS) queue. Use this SQS queue to invoke an AWS Lambda function that tags each object with a tag key of \"Encryption\" and a tag value of \"SSE-KMS\"."
+        },
+        {
+          "en": "Use S3 Event Notifications to invoke an AWS Lambda function whenever an object-created event occurs for future S3 packets. Configure this Lambda function to inspect whether an object is encrypted and, if an unencrypted object is detected, execute an AWS Secrets Manager Automation document to encrypt the object within the bucket."
+        }
+      ],
+      "corrects": [2, 3],
+      "explanation": {
+        "en": [
+          "Options 2 and 3 are correct.",
+          "With Amazon S3's default server-side encryption, new objects are encrypted when stored in the bucket. Objects can be stored using server-side encryption with either Amazon S3-managed keys (SSE-S3) or AWS KMS keys (SSE-KMS) stored in AWS Key Management Service (AWS KMS). Encrypted.",
+          "Alternatively, to encrypt existing Amazon S3 objects, use Amazon S3 Batch Operations. You can use a batch operation copy operation to copy an existing unencrypted object and write a new encrypted object to the same bucket.",
+          "A single Batch Operations job can perform specified operations on billions of objects.",
+          "",
+          "Option 1 is incorrect. This way the object is not encrypted when written.",
+          "",
+          "Option 4 is incorrect. Attaching a tag to an object does not encrypt the object.",
+          "",
+          "Option 5 is incorrect. This way the object is not encrypted when written.",
+          "",
+          "reference:",
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html"
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You're trying to configure an Amazon EC2 instance to scale based on memory utilization. ",
+          "Which method can meet this requirement with the least amount of work?"
+        ]
+      },
+      "choices": [
+        {
+          "en": "Register EC2 instances in Application Load Balancer (ALB) and perform health checks based on memory usage."
+        },
+        {
+          "en": "Amazon SNS notification triggers an AWS Lambda function to scale out an EC2 instance when the memory usage rate in the EC2 instance becomes high."
+        },
+        {
+          "en": "Install the Amazon CloudWatch agent on your EC2 instance, configure it to collect memory utilization, and register custom metrics. Configure Auto Scaling based on custom metrics for memory utilization."
+        },
+        {
+          "en": "Register messages in an Amazon SQS FIFO queue according to memory usage and configure Auto Scaling based on the number of messages."
+        }
+      ],
+      "corrects": [3],
+      "explanation": {
+        "en": [
+          "Option 3 is the correct answer.",
+          "Instance metrics provided by Amazon CloudWatch do not include memory usage and disk usage. CloudWatch has a function called Custom Metrics that allows you to customize and create your own metrics that are not provided as standard.",
+          "",
+          "Option 1 is incorrect. Even if you register an EC2 instance to ALB, you cannot get the memory usage rate.",
+          "",
+          "Option 2 is incorrect. Although it is a feasible architecture, it is inefficient because there is no function equivalent to Auto Scaling to manage the overall scaling situation.",
+          "",
+          "Option 4 is incorrect. Although it is a feasible architecture, it requires development to handle messages and is inefficient."
+        ]
+      }
+    },
+    {
+      "statement": {
+        "en": [
+          "You would like to automatically take a daily snapshot of my Amazon RDS DB instance and keep it for a week. How can this requirement be met with minimal development and effort?"
+        ]
+      },
+      "choices": [
+        { "en": "Use AWS Backup for backup lifecycle management." },
+        {
+          "en": "Use Amazon Data Lifecycle Manager (Amazon DLM) for backup lifecycle management."
+        },
+        {
+          "en": "Take snapshots using an AWS Lambda that runs daily with an Amazon EventBridge rule and delete snapshots older than 7 generations."
+        },
+        {
+          "en": "Take snapshots using an AWS CLI execution script that runs daily in cron on an Amazon EC2 instance, and delete snapshots older than 7 generations."
+        }
+      ],
+      "corrects": [1],
+      "explanation": {
+        "en": [
+          "Option 1 is the correct answer.",
+          "There are various ways to back up snapshots of Amazon RDS and Amazon EC2 instances while managing generations. AWS fully managed backup solutions include AWS Backup and Amazon DLM, each with the following characteristics:",
+          "",
+          "・AWS Backup: Various AWS services such as EC2 (Snapshot, AMI), EFS, RDS, DynamoDB, Storage Gateway are backed up. Can be scheduled in cron format. Create lifecycles with retention dates.",
+          "",
+          "・Amazon DLM: Only EC2 (Snapshot, AMI) can be backed up. Can be scheduled in cron format. Create lifecycles with retention dates and generations.",
+          "Based on these characteristics, Option 1 is correct because it meets the requirements by taking snapshots once a day at a specified time and creating a lifecycle with a retention period of one week.",
+          "",
+          "Option 2 is incorrect. Amazon DLM does not support Amazon RDS backups.",
+          "",
+          "Option 3 is incorrect. This is the backup architecture before AWS Backup came along. Feasible, but not minimal development and effort compared to fully managed.",
+          "",
+          "Option 4 is incorrect. Backup architecture before AWS Backup and AWS Lambda. Feasible, but not minimal development and effort compared to fully managed."
+        ]
+      }
+    }
+  ]
+}
