@@ -1,23 +1,19 @@
 import axios from "axios";
-import type { Course } from "../interfaces/course";
-
-const CREATE_EXAM_FUNCTION_URL =
-  "https://kgjfxsubnztqvyuxw7g7ihddoe0ywzcn.lambda-url.ap-northeast-1.on.aws/";
-const GET_EXAM_FUNCTION_URL =
-  "https://tg3n6cnlkfjtrkj6rg4z7vybja0hgqga.lambda-url.ap-northeast-1.on.aws/";
+import type { Exam } from "../interfaces/exam";
+import { CREATE_EXAM_FUNCTION_URL, GET_EXAM_FUNCTION_URL } from "./constants";
 
 const save = async (
-  course: Course,
-  courseId?: string | undefined | null
-): Promise<{ courseId: string; courseUrl: string }> => {
-  const body: { course: any; courseId?: string } = {
-    course,
+  exam: Exam,
+  examId?: string | undefined | null
+): Promise<{ examId: string; examUrl: string }> => {
+  const body: { exam: any; examId?: string } = {
+    exam,
   };
-  if (courseId) body.courseId = courseId;
+  if (examId) body.examId = examId;
   const { data } = await axios.post(CREATE_EXAM_FUNCTION_URL, body);
   return {
-    courseId: data.courseId,
-    courseUrl: `https://exam.blue/course?source=${GET_EXAM_FUNCTION_URL}?courseId=${data.courseId}`,
+    examId: data.examId,
+    examUrl: `https://exam.blue/exam?source=${GET_EXAM_FUNCTION_URL}?examId=${data.examId}`,
   };
 };
 

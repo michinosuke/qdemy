@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Course } from "../interfaces/course";
+import type { Exam } from "../interfaces/exam";
 import { ls } from "../libs/localStorage";
 import { Heading } from "./Heading";
 
@@ -17,9 +17,9 @@ const importFromFile = (file: File) => {
     const result = e.target?.result;
     if (typeof result !== "string") return;
     try {
-      const course: Course = JSON.parse(result);
-      const courseId = ls.saveCourse(course);
-      location.href = `/course?cache=${courseId}`;
+      const exam: Exam = JSON.parse(result);
+      const examId = ls.saveExam(exam);
+      location.href = `/exam?cache=${examId}`;
     } catch (e) {
       console.log("パースエラー");
     }

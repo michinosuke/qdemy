@@ -1,36 +1,36 @@
-import type { Course, JaEn, Language, TextType } from "../interfaces/course";
+import type { Exam, Language, TextType, UIJaEn } from "../interfaces/exam";
 
 import { ABC } from "../libs/abc";
 import type { FC } from "react";
-import { dumpCourse } from "../libs/dumpCourse";
+import { dumpExam } from "../libs/dumpExam";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { Header } from "./header";
 import { Heading } from "./Heading";
 import { FixedButtons } from "./FixedButtons";
 
 type Props = {
-  course: Course;
-  updateCourse: (coursePipe: (course: Course) => Course | null) => void;
+  exam: Exam;
+  updateExam: (examPipe: (exam: Exam) => Exam | null) => void;
   preferLang: Language;
   initialized: boolean;
-  saveMouseEnterQuestion: (questionId: string) => void;
+  saveMouseEnterProblem: (problemId: string) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   translateJaEn: (
-    jaEnCallback: (course: Course) => JaEn | undefined
+    jaEnCallback: (exam: Exam) => UIJaEn | undefined
   ) => Promise<boolean>;
 };
 
-export const CourseEdit: FC<Props> = ({
-  course,
-  updateCourse,
+export const ExamEdit: FC<Props> = ({
+  exam,
+  updateExam,
   preferLang,
   initialized,
-  saveMouseEnterQuestion,
+  saveMouseEnterProblem,
   setIsEditMode,
   translateJaEn,
 }) => {
   return (
-    <div className="pb-32">
+    <div className="pb-32 text-gray-600">
       <Header />
       <div className="py-5 px-5">
         <div className="flex flex-col gap-5">
@@ -38,13 +38,13 @@ export const CourseEdit: FC<Props> = ({
             <Heading>タイトル</Heading>
             <input
               onChange={(e) =>
-                updateCourse((course) => {
-                  if (!course.meta) course.meta = {};
-                  course.meta.title = e.target.value;
-                  return course;
+                updateExam((exam) => {
+                  if (!exam.meta) exam.meta = {};
+                  exam.meta.title = e.target.value;
+                  return exam;
                 })
               }
-              value={course.meta?.title}
+              value={exam.meta?.title}
               className="px-3 py-1 w-full mt-1"
             />
           </div>
@@ -53,13 +53,13 @@ export const CourseEdit: FC<Props> = ({
             <Heading>文章のタイプ</Heading>
             <select
               onChange={(e) => {
-                updateCourse((course) => {
-                  if (!course.meta) course.meta = {};
-                  course.meta.text_type = e.target.value as TextType;
-                  return course;
+                updateExam((exam) => {
+                  if (!exam.meta) exam.meta = {};
+                  exam.meta.text_type = e.target.value as TextType;
+                  return exam;
                 });
               }}
-              value={course.meta?.text_type ?? "plain"}
+              value={exam.meta?.text_type ?? "plain"}
               className="px-2 py-1 mt-1"
             >
               <option>plain</option>
@@ -71,22 +71,22 @@ export const CourseEdit: FC<Props> = ({
           <div>
             <Heading>概要</Heading>
             <div className="flex">
-              {course.meta?.description &&
+              {exam.meta?.description &&
                 sentences2Elements({
-                  sentences: course.meta.description,
-                  textType: course.meta.text_type,
+                  sentences: exam.meta.description,
+                  textType: exam.meta.text_type,
                   language: preferLang,
                   className: "flex-1 p-5",
                 })}
               <textarea
                 onChange={(e) =>
-                  updateCourse((course) => {
-                    if (!course.meta) course.meta = {};
-                    course.meta.description = e.target.value;
-                    return course;
+                  updateExam((exam) => {
+                    if (!exam.meta) exam.meta = {};
+                    exam.meta.description = e.target.value;
+                    return exam;
                   })
                 }
-                value={course.meta?.description}
+                value={exam.meta?.description}
                 className="flex-1 p-5"
               ></textarea>
             </div>
@@ -96,16 +96,16 @@ export const CourseEdit: FC<Props> = ({
             <Heading>作者</Heading>
             <div className="flex gap-5 mt-5">
               <div className="flex gap-3 items-center flex-1">
-                {course.meta?.author?.icon_url && (
+                {exam.meta?.author?.icon_url && (
                   <div
                     className="rounded-full bg-cover bg-center w-20 h-20"
                     style={{
-                      backgroundImage: `url(${course.meta.author.icon_url})`,
+                      backgroundImage: `url(${exam.meta.author.icon_url})`,
                     }}
                   />
                 )}
-                {course.meta?.author?.name && (
-                  <span className="">{course.meta.author.name}</span>
+                {exam.meta?.author?.name && (
+                  <span className="">{exam.meta.author.name}</span>
                 )}
               </div>
               <div className="flex-1 flex flex-col gap-5">
@@ -116,14 +116,14 @@ export const CourseEdit: FC<Props> = ({
                   </p>
                   <input
                     onChange={(e) =>
-                      updateCourse((course) => {
-                        if (!course.meta) course.meta = {};
-                        if (!course.meta.author) course.meta.author = {};
-                        course.meta.author.icon_url = e.target.value ?? null;
-                        return course;
+                      updateExam((exam) => {
+                        if (!exam.meta) exam.meta = {};
+                        if (!exam.meta.author) exam.meta.author = {};
+                        exam.meta.author.icon_url = e.target.value ?? null;
+                        return exam;
                       })
                     }
-                    value={course.meta?.author?.icon_url ?? ""}
+                    value={exam.meta?.author?.icon_url ?? ""}
                     className="w-full px-2 py-1"
                     placeholder="アイコンURL"
                   />
@@ -135,14 +135,14 @@ export const CourseEdit: FC<Props> = ({
                   </p>
                   <input
                     onChange={(e) =>
-                      updateCourse((course) => {
-                        if (!course.meta) course.meta = {};
-                        if (!course.meta.author) course.meta.author = {};
-                        course.meta.author.name = e.target.value ?? null;
-                        return course;
+                      updateExam((exam) => {
+                        if (!exam.meta) exam.meta = {};
+                        if (!exam.meta.author) exam.meta.author = {};
+                        exam.meta.author.name = e.target.value ?? null;
+                        return exam;
                       })
                     }
-                    value={course.meta?.author?.name ?? ""}
+                    value={exam.meta?.author?.name ?? ""}
                     className="w-full px-2 py-1"
                     placeholder="作成者名"
                   />
@@ -153,16 +153,16 @@ export const CourseEdit: FC<Props> = ({
         </div>
 
         <ul className="flex flex-col gap-28 mt-10 pt-10 border-t-4">
-          {course.questions.map((question, questionIndex) => (
+          {exam.problems.map((question, problemIndex) => (
             <li
-              key={questionIndex}
-              id={`question-${questionIndex + 1}`}
+              key={problemIndex}
+              id={`question-${problemIndex + 1}`}
               onMouseEnter={() =>
                 initialized &&
-                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
+                saveMouseEnterProblem(`question-${problemIndex + 1}`)
               }
             >
-              <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
+              <h2 className="text-lg font-bold">Q. {problemIndex + 1}</h2>
               <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
               <ul className="flex gap-3 mt-3">
                 {(() => {
@@ -170,16 +170,16 @@ export const CourseEdit: FC<Props> = ({
                     <li className="flex-1" key={key}>
                       <textarea
                         onChange={(e) =>
-                          updateCourse((course) => {
-                            const question = course.questions[questionIndex];
+                          updateExam((exam) => {
+                            const question = exam.problems[problemIndex];
                             if (!question) return null;
-                            question.question[lng] = e.target.value;
-                            return course;
+                            question.statement[lng] = e.target.value;
+                            return exam;
                           })
                         }
                         value={(() => {
                           const text =
-                            course.questions[questionIndex]?.question[lng];
+                            exam.problems[problemIndex]?.statement[lng];
                           if (Array.isArray(text)) return text.join("\n");
                           if (typeof text === "string") return text;
                           return "";
@@ -193,19 +193,19 @@ export const CourseEdit: FC<Props> = ({
                     0,
                     <button
                       className={`text-white text-lg font-bold rounded-full w-8 h-8 self-center grid place-content-center relative ${
-                        question.question.isTranslating &&
+                        question.statement.isTranslating &&
                         'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
                       } ${
-                        !question.question.isTranslating &&
-                        question.question.en &&
-                        !question.question.ja
+                        !question.statement.isTranslating &&
+                        question.statement.en &&
+                        !question.statement.ja
                           ? "bg-main"
-                          : "bg-black"
+                          : "bg-slate-500 cursor-default"
                       }`}
                       onClick={() =>
-                        !question.question.isTranslating &&
+                        !question.statement.isTranslating &&
                         translateJaEn(
-                          (course) => course.questions[questionIndex]?.question
+                          (exam) => exam.problems[problemIndex]?.statement
                         )
                       }
                       key={2}
@@ -236,18 +236,19 @@ export const CourseEdit: FC<Props> = ({
                             <li className="flex-1" key={key}>
                               <textarea
                                 onChange={(e) =>
-                                  updateCourse((course) => {
+                                  updateExam((exam) => {
                                     const choice =
-                                      course.questions[questionIndex]
-                                        ?.choices?.[choiceIndex];
+                                      exam.problems[problemIndex]?.choices?.[
+                                        choiceIndex
+                                      ];
                                     if (!choice) return null;
                                     choice[lng] = e.target.value;
-                                    return course;
+                                    return exam;
                                   })
                                 }
                                 value={(() => {
                                   const text =
-                                    course.questions[questionIndex]?.choices?.[
+                                    exam.problems[problemIndex]?.choices?.[
                                       choiceIndex
                                     ]?.[lng];
                                   if (Array.isArray(text))
@@ -270,13 +271,13 @@ export const CourseEdit: FC<Props> = ({
                             } ${
                               !choice.isTranslating && choice.en && !choice.ja
                                 ? "bg-main"
-                                : "bg-black"
+                                : "bg-slate-500 cursor-default"
                             }`}
                             onClick={() =>
                               !choice.isTranslating &&
                               translateJaEn(
-                                (course) =>
-                                  course.questions[questionIndex]?.choices[
+                                (exam) =>
+                                  exam.problems[problemIndex]?.choices[
                                     choiceIndex
                                   ]
                               )
@@ -298,7 +299,7 @@ export const CourseEdit: FC<Props> = ({
                   {question.explanation
                     ? sentences2Elements({
                         sentences: question.explanation,
-                        textType: course.meta?.text_type,
+                        textType: exam.meta?.text_type,
                         language: "ja",
                         mode: "just",
                       })
@@ -309,17 +310,17 @@ export const CourseEdit: FC<Props> = ({
                     <li className="flex-1" key={key}>
                       <textarea
                         onChange={(e) =>
-                          updateCourse((course) => {
+                          updateExam((exam) => {
                             const explanation =
-                              course.questions[questionIndex]?.explanation;
+                              exam.problems[problemIndex]?.explanation;
                             if (!explanation) return null;
                             explanation[lng] = e.target.value;
-                            return course;
+                            return exam;
                           })
                         }
                         value={(() => {
                           const text =
-                            course.questions[questionIndex]?.explanation?.[lng];
+                            exam.problems[problemIndex]?.explanation?.[lng];
                           if (Array.isArray(text)) return text.join("\n");
                           if (typeof text === "string") return text;
                           return "";
@@ -340,13 +341,12 @@ export const CourseEdit: FC<Props> = ({
                         question.explanation?.en &&
                         !question.explanation?.ja
                           ? "bg-main"
-                          : "bg-black"
+                          : "bg-slate-500 cursor-default"
                       }`}
                       onClick={() =>
                         !question.explanation?.isTranslating &&
                         translateJaEn(
-                          (course) =>
-                            course.questions[questionIndex]?.explanation
+                          (exam) => exam.problems[problemIndex]?.explanation
                         )
                       }
                       key={2}
@@ -367,7 +367,7 @@ export const CourseEdit: FC<Props> = ({
               text: "編集を終了",
             },
             {
-              onClick: () => dumpCourse(course),
+              onClick: () => dumpExam(exam),
               text: "ダウンロード",
             },
             {

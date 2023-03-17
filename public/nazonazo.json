@@ -2,9 +2,9 @@
   "meta": {
     "title": "なぞなぞ"
   },
-  "questions": [
+  "problems": [
     {
-      "question": "パンはパンでも食べられないパンは？",
+      "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フライパン", "メロンパン", "パンダ"],
       "corrects": [1, 3]
     }

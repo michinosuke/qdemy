@@ -1,5 +1,5 @@
-import type { JaEn, Language, TextType } from "../interfaces/course";
-import type { ReactElement, ReactFragment, ReactNode } from "react";
+import type { UIJaEn, Language, TextType } from "../interfaces/exam";
+import type { ReactFragment, ReactNode } from "react";
 
 import { marked } from "marked";
 import highlight from "highlight.js";
@@ -38,7 +38,7 @@ export const sentences2Elements = ({
   className,
   style,
 }: {
-  sentences: string | string[] | JaEn;
+  sentences: string | string[] | UIJaEn;
   textType: TextType | undefined;
   language: Language;
   mode?: "just" | "prefer";

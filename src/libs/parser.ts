@@ -1,34 +1,34 @@
-import type { Course } from "../interfaces/course";
+import type { Exam } from "../interfaces/exam";
 import { parseJSON } from "./parse-json";
 
 export const parser = (
   jsonString: string
 ): {
-  course: Course | null;
+  exam: Exam | null;
   fatalMessage: string[];
   warnMessage: string[];
 } | null => {
   const { json, error } = parseJSON(jsonString);
   if (error) {
     return {
-      course: null,
+      exam: null,
       fatalMessage: ["読み込まれたファイルは有効なJSON形式ではありません。"],
       warnMessage: [],
     };
   }
-  if (!isCourse(json)) {
+  if (!isExam(json)) {
     // [TODO]
     return {
-      course: null,
+      exam: null,
       fatalMessage: ["読み込まれたファイルは有効なJSON形式ではありません。"],
       warnMessage: [],
     };
   }
-  return { course: json, fatalMessage: [], warnMessage: [] };
+  return { exam: json, fatalMessage: [], warnMessage: [] };
 };
 
-export const isCourse = (obj: any): obj is Course => {
-  if (!Array.isArray(obj.questions)) return false;
+export const isExam = (obj: any): obj is Exam => {
+  if (!Array.isArray(obj.problems)) return false;
   return true;
 };
 

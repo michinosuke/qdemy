@@ -1,27 +1,27 @@
-import type { Course } from "../interfaces/course";
-import type { CourseInLocalStorage } from "../interfaces/courseInLocalStorage";
+import type { Exam } from "../interfaces/exam";
+import type { ExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { ulid } from "ulid";
 
-const deleteCourse = (courseId: string) => {
-  localStorage.removeItem(`course.${courseId}`);
+const deleteExam = (examId: string) => {
+  localStorage.removeItem(`exam.${examId}`);
 };
 
-const getCourse = (
-  courseId: string
+const getExam = (
+  examId: string
 ): {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  course: Course;
+  exam: Exam;
 } | null => {
-  const row = localStorage.getItem(`course.${courseId}`);
+  const row = localStorage.getItem(`exam.${examId}`);
   if (!row) return null;
   try {
-    const json: CourseInLocalStorage = JSON.parse(row);
-    const course: Course = JSON.parse(json.course);
+    const json: ExamInLocalStorage = JSON.parse(row);
+    const exam: Exam = JSON.parse(json.exam);
     return {
-      id: courseId,
-      course,
+      id: examId,
+      exam,
       createdAt: new Date(json.createdAt),
       updatedAt: new Date(json.updatedAt),
     };
@@ -30,26 +30,26 @@ const getCourse = (
   }
 };
 
-const saveCourse = (course: Course, courseId?: string): string => {
-  const strCourse = JSON.stringify(course, null, 4);
-  const cachedCourse = courseId && getCourse(courseId);
-  if (cachedCourse) {
-    const json: CourseInLocalStorage = {
-      createdAt: cachedCourse.createdAt.toString(),
+const saveExam = (exam: Exam, examId?: string): string => {
+  const strExam = JSON.stringify(exam, null, 4);
+  const cachedExam = examId && getExam(examId);
+  if (cachedExam) {
+    const json: ExamInLocalStorage = {
+      createdAt: cachedExam.createdAt.toString(),
       updatedAt: new Date().toString(),
-      course: strCourse,
+      exam: strExam,
     };
-    localStorage.setItem(`course.${courseId}`, JSON.stringify(json));
-    return courseId;
+    localStorage.setItem(`exam.${examId}`, JSON.stringify(json));
+    return examId;
   }
-  const json: CourseInLocalStorage = {
+  const json: ExamInLocalStorage = {
     createdAt: new Date().toString(),
     updatedAt: new Date().toString(),
-    course: strCourse,
+    exam: strExam,
   };
-  const id = courseId ?? ulid();
-  localStorage.setItem(`course.${id}`, JSON.stringify(json));
+  const id = examId ?? ulid();
+  localStorage.setItem(`exam.${id}`, JSON.stringify(json));
   return id;
 };
 
-export const ls = { saveCourse, deleteCourse };
+export const ls = { saveExam, deleteExam };

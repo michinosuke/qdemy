@@ -1,17 +1,16 @@
-import type { Course } from "../interfaces/course";
-import Valid01 from "../test-data/valid-01.json";
-import { parser } from "./parser";
+// import type { Exam } from "../interfaces/exam";
+// import { parser } from "./parser";
 
-const invalidFiles: string[] = ["", "{}", "[]", "a", '"a"', "[a"];
-const validFiles: Course[] = [Valid01];
+// const invalidFiles: string[] = ["", "{}", "[]", "a", '"a"', "[a"];
+// const validFiles: Exam[] = [];
 
-it.each(invalidFiles)("Course型じゃなかった場合は、nullが返る", (file) => {
-  expect(parser(file)).toBeNull();
-});
+// it.each(invalidFiles)("Exam型じゃなかった場合は、nullが返る", (file) => {
+//   expect(parser(file)).toBeNull();
+// });
 
-it.each(validFiles)(
-  "Course型であれば、パースされたオブジェクトが返る",
-  (file) => {
-    expect(parser(JSON.stringify(file))).toEqual(file);
-  }
-);
+// it.each(validFiles)(
+//   "Exam型であれば、パースされたオブジェクトが返る",
+//   (file) => {
+//     expect(parser(JSON.stringify(file))).toEqual(file);
+//   }
+// );

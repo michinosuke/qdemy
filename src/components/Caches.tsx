@@ -1,5 +1,5 @@
-import type { Course } from "../interfaces/course";
-import type { CourseInLocalStorage } from "../interfaces/courseInLocalStorage";
+import type { Exam } from "../interfaces/exam";
+import type { ExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Header } from "./header";
@@ -9,7 +9,7 @@ export const Caches = () => {
   const [rows, setRows] = useState<
     {
       id: string;
-      course: Course;
+      exam: Exam;
       createdAt: Date;
       updatedAt: Date;
     }[]
@@ -19,13 +19,13 @@ export const Caches = () => {
     const localStorages = { ...localStorage };
     const rows = [];
     for (const [id, value] of Object.entries(localStorages)) {
-      if (!id.startsWith("course.")) continue;
+      if (!id.startsWith("exam.")) continue;
       try {
-        const json: CourseInLocalStorage = JSON.parse(value);
-        const course: Course = JSON.parse(json.course);
+        const json: ExamInLocalStorage = JSON.parse(value);
+        const exam: Exam = JSON.parse(json.exam);
         rows.push({
-          id: id.replace("course.", ""),
-          course,
+          id: id.replace("exam.", ""),
+          exam,
           createdAt: new Date(json.createdAt),
           updatedAt: new Date(json.updatedAt),
         });
@@ -68,10 +68,10 @@ export const Caches = () => {
               </tr>
             </thead>
             <tbody>
-              {rows.map(({ id, course, createdAt, updatedAt }, key) => (
+              {rows.map(({ id, exam, createdAt, updatedAt }, key) => (
                 <tr
                   key={key}
-                  onClick={() => (location.href = `/course?cache=${id}`)}
+                  onClick={() => (location.href = `/exam?cache=${id}`)}
                   className="bg-white border-b cursor-pointer hover:bg-[#eaf5f6] hover:shadow-md"
                 >
                   <td className="px-3">
@@ -82,11 +82,11 @@ export const Caches = () => {
                         if (
                           confirm(
                             `タイトル：${
-                              course.meta?.title ?? "未設定"
+                              exam.meta?.title ?? "未設定"
                             }\n\nこの編集中のコースを削除しますか？\nこの操作は取り消せません。`
                           )
                         ) {
-                          ls.deleteCourse(id);
+                          ls.deleteExam(id);
                           getRows();
                         }
                       }}
@@ -95,7 +95,7 @@ export const Caches = () => {
                     </button>
                   </td>
                   <TD>{id}</TD>
-                  <TD>{course.meta?.title}</TD>
+                  <TD>{exam.meta?.title}</TD>
                   <TD>{format(createdAt, "yyyy/MM/dd HH:mm:ss")}</TD>
                   <TD>{format(updatedAt, "yyyy/MM/dd HH:mm:ss")}</TD>
                 </tr>

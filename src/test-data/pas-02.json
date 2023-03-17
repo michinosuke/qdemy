@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Latest AWS PAS-C01 Exam Questions & Answers Training Course | Udemy",
-    "description": "https://www.udemy.com/course/latest-aws-pas-c01-exam-questions-answers-training-course/"
+    "description": "https://www.udemy.com/course/latest-aws-pas-c01-exam-problems-answers-training-course/"
   },
-  "questions": [
+  "problems": [
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is starting a new project to implement an SAP landscape with multiple accounts that belong to multiple teams in the us-east-2 Region. These teams include procurement finance sales and human resources An SAP solutions architect has started designing this new landscape and the AWS account structures The company wants to use automation as much as possible The company also wants to secure the environment implement federated access to accounts centralize logging and establish cross-account security audits in addition the company's management team needs to receive a top-level summary of policies that are applied to the AWS accounts.",
           "What should the SAP solutions architect do to meet these requirements?"
@@ -31,7 +31,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is running its SAP workloads on premises and needs to migrate the workloads to AWS All the workloads are running on SUSE Linux Enterprise Server and Oracle Database. The company's landscape consists of SAP ERP Central Component {SAP ECC). SAP Business Warehouse (SAP BW), and SAP NetWeaver systems. The company has a dedicated AWS Direct Connect connection between its on-premises environment and AWS The company needs to migrate the systems to AWS with the least possible downtime Which migration solution will meet these requirements?"
         ]
@@ -56,7 +56,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants 10 run SAP HANA on AWS m the eu-centrai-1 Region. The company must make the SAP HANA system highly available by using SAP HANA system replication in addition the company must create a disaster recovery (DR) solution that uses SAP HANA system replication in the eu-west-1 Region As prerequisites the company has confirmed that inter-AZ latency is less than 1 ms and that Inter-Region latency is greater than 1 ms.",
           "Which solutions will meet these requirements? (Select TWO.)"
@@ -85,7 +85,7 @@
       "corrects": [2, 3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB m size The company rs receiving notifications about long-running database backups every day The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database An SAP NetWeaver administrator needs to troubleshoot the problem and propose a solution Which solution will help resolve this problem'?"
         ]
@@ -110,7 +110,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants to migrate its SAP workloads to AWS from another cloud provider. The company's landscape consists of SAP S 4HANA SAP BWMHANA SAP Solution Manager and SAP Web Dispatcher SAP Solution Manager 15 running on SAP NANA The company wants 10 change the operating system from SUSE Linux Enterprise Server to Red Hat Enterprise Linux as a pan of this migration. The company needs a solution that results in the least possible downtime for the SAP SMHANA and SAP BW 4HANA systems.",
           "Which migration solution will meet these requirements?"
@@ -136,7 +136,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is running an SAP on Oracle system on IBM Power architecture in an on-premises data center. The company wants to migrate the SAP system to AWS. The Oracle database is 15 TB n size The company has set up a 100 Gbps AWS Direct Connect connection to AWS from the on-premises data center.",
           "Which solution should the company use to migrate the SAP system MOST quickly?"
@@ -162,7 +162,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is designing a disaster recovery (DR) strategy for an SAP HANA database that runs on an Amazon EC2 instance in a single Availability Zone The company can tolerate a long RTO and an RPO greater than zero if it means that the company can save money on its DR process.",
           "The company has configured an Amazon CloudWatch alarm to automatically recover the EC2 instance if the instance experiences an unexpected issue. The company has set up AWS Backint Agent for SAP HANA to save the backups into Amazon S3.",
@@ -189,7 +189,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is using a multi-account strategy for SAP HANA and SAP BW 4HANA instances across development QA and production systems m the same AWS Region Each system is hosted m its own VPC The company needs to establish cross-VPC communication between the SAP systems.",
           "The company might add more SAP systems m the future. The company must create connectivity across the SAP systems and hundreds of AWS accounts. The solution must maximize scalability and reliability. Which solution will meet these requirements?"
@@ -215,7 +215,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to deploy a new SAP NetWeaverABAP system on AWS with an Oracle database that runs on an Amazon EC2 instance. The EC2 instance uses a Linux-based operating system. The company needs a database storage solution that provides flexibility to adjust the IOPS regardless of the allocated storage size.",
           "Which solution will meet these requirements MOST cost-effectively?"
@@ -241,7 +241,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A global enterprise is running SAP ERP Central Component (SAP ECC) workloads on Oracle in an on-premises environment. The enterprise plans to migrate to SAP S 4HANA on AWS.",
           "The enterprise recently acquired two other companies One of the acquired companies is running SAP ECC on Oracle as its ERP system The other acquired company is running an ERP system that is not from SAP The enterprise wants to consolidate the three ERP systems into one ERP system on SAP S 4HANA on AWS Not all the data from the acquired companies needs to be migrated to the final ERP system The enterprise needs to complete this migration with a solution that minimizes cost and maximizes operational efficiency.",
@@ -268,7 +268,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A global retail company is running its SAP landscape on AWS Recently the company made changes to its SAP Web Dispatcher architecture The company added an additional SAP Web Dispatcher for high availability with an Application Load Balancer (ALB) to balance the load between the two SAP Web Dispatchers When users try to access SAP through the ALB the system is reachable However the SAP backend system is showing an error message An investigation reveals that the issue is related to SAP session handling and distribution of requests . The company confirmed that the system was working as expected with one SAP Web Dispatcher. The company replicated the configuration of that SAP Web Dispatcher to the new SAP Web Dispatcher How can the company resolve the error?"
         ]
@@ -293,7 +293,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to move its on-premises SAP HANA database to AWS. The company needs to migrate this environment to AWS as quickly as possible An SAP solutions architect will use AWS Launch Wizard for SAP to deploy this SAP HANA workload.",
           "Which combination of steps should the SAP solutions architect follow to start the deployment of this workload on AWS? (Select THREE.)"
@@ -325,7 +325,7 @@
       "corrects": [1, 3, 6]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants 10 implement SAP HANAonAWS with the Multi-AZ deployment option by using AWS Launch Wizard for SAP The solution will use SUSE Linux Enterprise High Availability Extension for the high availability deployment An SAP solutions architect must ensure that all the prerequisites are met The SAP solutions architect also must ensure that the user inputs to start the guided deployment of Launch Wizard are valid.",
           "Which combination of steps should the SAP solutions architect take to meet these requirements? (Select TWO)"
@@ -354,7 +354,7 @@
       "corrects": [2, 5]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company that has SAP workloads on premises plans to migrate an SAP environment to AWS. The company is new to AWS and has no poor setup. The company has the following requirements:",
           "-The application server and database server must be placed in isolated network configurations",
@@ -387,7 +387,7 @@
       "corrects": [3, 4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is running its SAP workload on AWS The company's security team has implemented the following requirements:",
           "• All Amazon EC2 instances for SAP must be SAP certified instance types",
@@ -418,7 +418,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is hosting its SAP workloads on AWS An SAP solutions architect is designing high availability architecture for the company's production SAP S4HANA and SAP BW-4HANA workloads These workloads have the following requirements:",
           "",
@@ -449,7 +449,7 @@
       "corrects": [2]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company has deployed SAP HANA m the AWS Cloud. The company needs its SAP HAN A database to be highly available An SAP solutions architect has deployed the SAP HANA database in separate Availability Zones in a single AWS Region SUSE Linux Enterprise High Availability Extension is configured with an overlay IP address. The overlay IP resource agent has the following IAM policy:",
           "",
@@ -495,7 +495,7 @@
       "corrects": [2]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants to improve the RPO and RTO for its SAP disaster recovery (DR) solution by running the DR solution on AWS The company is running SAP ERP Central Component (SAP ECO on SAP HANA The company has set an RPO of 15 minutes and an RTO of 4 hours.",
           "The production SAP HANA database is running on a physical appliance that has x86 architecture. The appliance has 1 TB of memory and the SAP HANA global allocation limit is set to 768 GB. The SAP application servers are running as VMs on VMware and they store data on an NFS file system The company does not want to change any existing SAP HANA parameters that are related to data and log backup for its on-premises systems.",
@@ -522,7 +522,7 @@
       "corrects": [2]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to migrate its on-premises SAP applications to AWS. The applications are based on Windows operating systems A file share stores the transport directories and third party application data on the network attached storage of the company's on-premises data center. The company's plan is to lift and shift the SAP applications and the file share to AWS. The company must follow AWS best practices for the migration Which AWS service should the company use to host the transport directories and third-party application data on AWS?"
         ]
@@ -547,7 +547,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company hosts an SAP HANA database on an Amazon EC2 instance in the us-easi-1 Region. The company needs to implement a disaster recovery (DR) site in the us-west-1 Region. The company needs a cost-optimized solution that offers a guaranteed capacity reservation an RPO of less than 30 minutes and an RTO of less than 30 minutes.",
           "When solution will meet these requirements?"
@@ -573,7 +573,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "An SAP solutions architect is leading the SAP basis team for a company. The company's SAP landscape includes SAP HANA database instances for the following systems sandbox development quality assurance test {QAT} system performance test (SPT) and production. The sandbox development and OAT systems are running on Amazon EC2 On-Demand Instances. The SPT and production systems are running on EC2 Reserved Instances All the EC2 instances are using Provisioned IOPS SSO (K)2) Amazon Elastic Block Store (Amazon EBS) volumes.",
           "The entire development learn is in the same time zone and works from 8 AM to 6 PM. The sandbox system is for research and testing that are not critical. The SPT and production systems are business critical The company runs load-testing jobs and stress-testing jobs on the QAT systems overnight to reduce testing duration. The company wants to optimize infrastructure cost for the existing AWS resources.",
@@ -600,7 +600,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is hosting an SAP HANA database on AWS. The company is automating operational tasks including backup and system refreshes. The company wants to use SAP HANA Studio to perform data backup of an SAP HANA tenant database to a backint interface. The SAP HANA database is running in multi-tenant database container (MDO mode. The company receives the following error message during an attempt to perform the backup.",
           "",
@@ -629,7 +629,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to migrate its on-premises SAP ERP Central Component (SAP ECC) system on SAP HANA to AWS Each month the system experiences two peaks in usage. The first peak is on the 21st day of the month when the company runs payroll. The second peak is on the last day of the month when the company processes and exports credit data Both peak workloads are of high importance and cannot be rescheduled The current SAP ECC system has six application servers an of a similar size. During normal operation outside of peak usage four application servers would suffice Which purchasing option will meet the company's requirements MOST cost-effectively on AWS?"
         ]
@@ -654,7 +654,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company hosts its SAP NetWeaver workload on SAP HANA m the AWS Cloud The SAP NetWeaver application is protected by a cluster solution that uses Red Hat Enterprise Linux High Availability Add- On The duster solution uses an overlay IP address to ensure that the high availability cluster is still accessible during failover scenarios.",
           "An SAP solutions architect needs to facilitate the network connection to this overlay IP address from multiple locations These locations include more than 25 VPCs other AWS Regions and the onpremises environment The company already has set up an AWS Direct Connect connection between the on-premises environment and AWS.",
@@ -681,7 +681,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is implementing SAP HANA on AWS According 10 the company's security policy SAP backups must be encrypted Only authorized team members can have the ability to decrypt the SAP backups What is the MOST operationally efficient solution that meets these requirements?"
         ]
@@ -706,7 +706,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A data analysis company has two SAP landscapes that consist of sandbox development QA, preproduction and production servers. One landscape is on Windows and the other landscape is on Red Hat Enterprise Linux. The servers reside in a room m a building that other tenants share.",
           "An SAP solutions architect proposes to migrate the SAP applications to AWS The SAP solutions architect wants to move the production backups to AWS and wants to make the backups highly available to restore >n case of unavailability of an on-premises server.",
@@ -733,7 +733,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company's SAP basis team is responsible for database backups in Amazon S3. The company frequently needs to restore the last 3 months of backups into the pre-production SAP system to perform tests and analyze performance. Previously an employee accidentally deleted backup files from the S3 bucket. The SAP basis team wants to prevent accidental deletion of backup files in the future.",
           "Which solution will meet these requirements?"
@@ -759,7 +759,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "An SAP solutions architect is designing an SAP HANA scale-out architecture for SAP Business Warehouse (SAP BW) on SAP HANA on AWS. The SAP solutions architect identifies the design as a three-node scale out deployment of x1e 32xlarge Amazon EC2 instances The SAP solutions architect must ensure that the SAP HANA scale-out nodes can achieve the lowlatency and high-throughput network performance that are necessary for node-to-node communication Which combination of steps should the SAP solutions architect take to meet these requirements?",
           "(Select TWO.)"
@@ -788,7 +788,7 @@
       "corrects": [3, 5]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company needs to migrate its critical SAP workloads from an on-premises data center to AWS The company has a few source production databases that are 10 TB or more in size The company wants to minimize the downtime for this migration As part of the proof of concept the company used a low-speed high-latency connection between its data center and AWS During the actual migration the company wants to maintain a consistent connection that delivers high bandwidth and low latency. The company also wants to add a layer of connectivity resiliency. The backup connectivity does not need to be as fast as the primary connectivity An SAP solutions architect needs to determine the optimal network configuration for data transfer.",
           "The solution must transfer the data with minimum latency Which configuration will meet these requirements?"
@@ -814,7 +814,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants 10 migrate its SAP ERP landscape to AWS The company will use a highly available distributed deployment for the new architecture Clients will access SAP systems from a local data center through an AWS Site-to-Site VPN connection that is already in place An SAP solutions architect needs to design the network access to the SAP production environment Which configuration approaches will meet these requirements? (Select TWO.)"
         ]
@@ -842,7 +842,7 @@
       "corrects": [1, 2]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is running an SAP HANA database on AWS The company is running AWS Backint Agent for SAP HANA(AWS Backint agent) on an Amazon EC2 instance AWS Back agent is configured to back up to an Amazon S3 bucket The backups are failing with an AccessDeniod error m the AWS Backint agent log file.",
           "What should an SAP basis administrator do to resolve this error?"
@@ -868,7 +868,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is using SAP NetWeaver with Java on AWS The company has updated its generation of Amazon EC2 instances to the most recent generation of EC2 instances When the company tries to start SAP the startup fails The tog indicates that the SAP license expired Of is not valid.",
           "What is the reason for this issue?"
@@ -894,7 +894,7 @@
       "corrects": [2]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company's basis administrator is planning to deploy SAP on AWS m Linux. The basis administrator must set up the proper storage to store SAP HANAdata and log volumes. Which storage options should the basis administrator choose to meet these requirements? (Select TWO.)"
         ]
@@ -922,7 +922,7 @@
       "corrects": [3, 4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company has deployed a highly available SAP NetWeaver system on SAP HANA into a VPC The system is distributed across multiple Availability Zones within a single AWS Region SAP NetWeaver is running on SUSE Linux Enterprise Server for SAP SUSE Linux Enterprise High Availability Extension is configured to protect SAP ASCS and ERS instances and uses the overlay IP address concept The SAP shared dies sapmnt and . usrsap. trans are hosted on an Amazon Elastic File System (Amazon EFS) tile system The company needs a solution that uses already-existing private connectivity to the VPC. The SAP NetWeaver system must be accessible through the SAP GUI client tool.",
           "Which solutions will meet these requirements? (Select TWO)"
@@ -951,7 +951,7 @@
       "corrects": [2, 3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to move all its SAP applications to Amazon EC2 instances in a VPC Recently the company signed a multiyear contract with a payroll software-as-a-service (SaaS) provider integration with the payroll SaaS solution is available only through public web APIs.",
           "Corporate security guidelines state that all outbound traffic must be validated against an allow list.",
@@ -979,7 +979,7 @@
       "corrects": [4]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company is planning to migrate its on-premises SAP application to AWS. The application runs on VMware vSphere The SAP ERP Central Component (SAP ECC) server runs on an IBM Db2 database that is 2 TB m size The company wants to migrate the database to SAP HANA Which migration strategy will meet these requirements'?"
         ]
@@ -1004,7 +1004,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company hosts multiple SAP applications on Amazon EC2 instances in a VPC While monitoring the environment the company notices that multiple port scans are attempting to connect to SAP portals inside the VPC. These port scans are originating from the same IP address block. The company must deny access to the VPC from all the offending IP addresses for the next 24 hours.",
           "Which solution win meet this requirement?"
@@ -1030,7 +1030,7 @@
       "corrects": [3]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company has deployed SAP workloads on AWS The AWS Data Provider for SAP is installed on the Amazon EC2 instance where the SAP application is running An SAP solutions architect has attached an IAM role to the EC2 instance with the following policy.",
           "",
@@ -1081,7 +1081,7 @@
       "corrects": [1]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company wants to deploy an SAP HANA database on AWS by using AWS Launch Wizard for SAP An SAP solutions architect needs to run a custom post-deployment script on the Amazon EC2 instance that Launch Wizard provisions. Which actions can the SAP solutions architect take to provide the post-deployment script m the Launch Wizard console? (Select TWO.)"
         ]
@@ -1109,7 +1109,7 @@
       "corrects": [4, 5]
     },
     {
-      "question": {
+      "statement": {
         "en": [
           "A company has an SAP environment that runs on AWS. The company wants to enhance security by restricting Amazon EC2 Instance Metadata Service (IMDS) to IMDSv2 only. The company's current configuration option supports both iMDSvi and iM0Sv2. The security enhancement must not create an SAP outage.",
           "What should the company do before it applies the security enhancement on EC2 instances that are running the SAP environment?"

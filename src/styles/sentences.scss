@@ -31,7 +31,10 @@
   h3 {
     @apply border-b border-black font-bold text-gray-800;
   }
+  ul {
+    @apply py-0 -my-2;
+  }
   li {
-    @apply list-disc ml-5;
+    @apply list-disc ml-5 -my-1 text-gray-700;
   }
 }

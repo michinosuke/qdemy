@@ -1,14 +1,14 @@
 {
-  "why-invalid": "questions.choicesが空配列だから",
-  "questions": [
+  "why-invalid": "problems.choicesが空配列だから",
+  "problems": [
     {
-      "question": "パンはパンでも食べられないパンは？",
+      "statement": "パンはパンでも食べられないパンは？",
       "choices": [],
       "corrects": [2, 4],
       "explanation": "正解は2と4です。1のフランスパン、3のメロンパンは食べられるパンなので不正解です。"
     },
     {
-      "question": "パンはパンでも食べられないパンは？",
+      "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],
       "corrects": [2, 4],
       "explanation": "正解は2と4です。1のフランスパン、3のメロンパンは食べられるパンなので不正解です。"

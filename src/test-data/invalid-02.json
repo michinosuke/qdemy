@@ -1,13 +1,13 @@
 {
-  "why-invalid": "questions.questionが存在しないから",
-  "questions": [
+  "why-invalid": "problems.statementが存在しないから",
+  "problems": [
     {
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],
       "corrects": [2, 4],
       "explanation": "正解は2と4です。1のフランスパン、3のメロンパンは食べられるパンなので不正解です。"
     },
     {
-      "question": "パンはパンでも食べられないパンは？",
+      "statement": "パンはパンでも食べられないパンは？",
       "choices": ["フランスパン", "フライパン", "メロンパン", "パンダ"],
       "corrects": [2, 4],
       "explanation": "正解は2と4です。1のフランスパン、3のメロンパンは食べられるパンなので不正解です。"
