@@ -13,11 +13,16 @@ type Props = {
   updateExam: (examPipe: (exam: Exam) => Exam | null) => void;
   preferLang: Language;
   initialized: boolean;
-  saveMouseEnterQuestion: (questionId: string) => void;
+  saveMouseEnterQuestion: (questionIndex: number) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   translateJaEn: (
     jaEnCallback: (exam: Exam) => UIJaEn | undefined
   ) => Promise<boolean>;
+  addQuestion: (newQuestionIndex: number) => Promise<void>;
+  removeQuestion: (questionIndex: number) => Promise<void>;
+  addChoice: (questionIndex: number) => Promise<void>;
+  removeChoice: (questionIndex: number, choiceIndex: number) => Promise<void>;
+  toggleCorrect: (questionIndex: number, choiceIndex: number) => Promise<void>;
 };
 
 export const ExamEdit: FC<Props> = ({
@@ -28,6 +33,11 @@ export const ExamEdit: FC<Props> = ({
   saveMouseEnterQuestion,
   setIsEditMode,
   translateJaEn,
+  addQuestion,
+  removeQuestion,
+  addChoice,
+  removeChoice,
+  toggleCorrect,
 }) => {
   return (
     <div className="pb-32 text-gray-600">
@@ -158,11 +168,18 @@ export const ExamEdit: FC<Props> = ({
               key={questionIndex}
               id={`question-${questionIndex + 1}`}
               onMouseEnter={() =>
-                initialized &&
-                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
+                initialized && saveMouseEnterQuestion(questionIndex)
               }
             >
-              <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
+              <div className="flex gap-3">
+                <h2 className="text-lg font-bold">Q. {questionIndex + 1}</h2>
+                <button
+                  className="bg-main text-white px-2 py-0.5 rounded"
+                  onClick={() => removeQuestion(questionIndex)}
+                >
+                  削除
+                </button>
+              </div>
               <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
               <ul className="flex gap-3 mt-3">
                 {(() => {
@@ -220,16 +237,27 @@ export const ExamEdit: FC<Props> = ({
                 <h3 className="mt-7 border-b-2 font-bold text-lg">選択肢</h3>
                 {question.choices.map((choice, choiceIndex) => (
                   <li key={choiceIndex} className="flex items-center gap-3">
-                    <h3
-                      className={`w-7 h-7 rounded-full text-white grid place-content-center ${
-                        question.corrects.includes(choiceIndex + 1)
-                          ? "bg-main"
-                          : "bg-black"
-                      }`}
-                    >
-                      <span>{ABC[choiceIndex]}</span>
-                    </h3>
-                    <ul className="flex gap-3 flex-auto">
+                    <div className="flex flex-col gap-3">
+                      <button
+                        className={`w-7 h-7 rounded-full text-white grid place-content-center ${
+                          question.corrects.includes(choiceIndex + 1)
+                            ? "bg-main"
+                            : "bg-black"
+                        }`}
+                        onClick={() =>
+                          toggleCorrect(questionIndex, choiceIndex)
+                        }
+                      >
+                        {ABC[choiceIndex]}
+                      </button>
+                      <button
+                        className="w-7 h-7 bg-main text-white rounded-full grid place-content-center pb-1"
+                        onClick={() => removeChoice(questionIndex, choiceIndex)}
+                      >
+                        <span>-</span>
+                      </button>
+                    </div>
+                    <ul className="flex gap-3 flex-auto items-center">
                       {(() => {
                         const arr = (["en", "ja"] as Language[]).map(
                           (lng, key) => (
@@ -264,34 +292,60 @@ export const ExamEdit: FC<Props> = ({
                         arr.splice(
                           1,
                           0,
-                          <button
-                            className={`text-white text-lg font-bold rounded-full w-8 h-8 self-center grid place-content-center relative ${
-                              choice.isTranslating &&
-                              'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
-                            } ${
-                              !choice.isTranslating && choice.en && !choice.ja
-                                ? "bg-main"
-                                : "bg-slate-500 cursor-default"
-                            }`}
-                            onClick={() =>
-                              !choice.isTranslating &&
-                              translateJaEn(
-                                (exam) =>
-                                  exam.questions[questionIndex]?.choices[
-                                    choiceIndex
-                                  ]
-                              )
-                            }
-                            key={2}
-                          >
-                            →
-                          </button>
+                          <div key={2} className="flex flex-col gap-2">
+                            <button
+                              className={`text-white text-lg font-bold rounded-full w-8 h-8 self-center grid place-content-center relative ${
+                                choice.isTranslating &&
+                                'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
+                              } ${
+                                !choice.isTranslating && choice.en && !choice.ja
+                                  ? "bg-main"
+                                  : "bg-slate-500 cursor-default"
+                              }`}
+                              onClick={() =>
+                                !choice.isTranslating &&
+                                translateJaEn(
+                                  (exam) =>
+                                    exam.questions[questionIndex]?.choices[
+                                      choiceIndex
+                                    ]
+                                )
+                              }
+                            >
+                              →
+                            </button>
+                            <button
+                              className={`text-white text-lg font-bold rounded-full w-8 h-8 self-center grid place-content-center relative bg-main`}
+                              onClick={() => {
+                                updateExam((exam) => {
+                                  const choice =
+                                    exam.questions[questionIndex]?.choices[
+                                      choiceIndex
+                                    ];
+                                  if (!choice) return null;
+                                  if (choice.ja) return null;
+                                  if (choice.en) choice.ja = choice.en;
+                                  return exam;
+                                });
+                              }}
+                            >
+                              ＝
+                            </button>
+                          </div>
                         );
                         return arr;
                       })()}
                     </ul>
                   </li>
                 ))}
+                <li>
+                  <button
+                    className="w-7 h-7 bg-main text-white rounded-full grid place-content-center pb-1"
+                    onClick={() => addChoice(questionIndex)}
+                  >
+                    <span>+</span>
+                  </button>
+                </li>
               </ul>
               <h3 className="mt-8 border-b-2 font-bold text-lg">解説</h3>
               <ul className="flex gap-3 mt-4">
@@ -357,8 +411,27 @@ export const ExamEdit: FC<Props> = ({
                   return arr;
                 })()}
               </ul>
+
+              <div className="mt-3">
+                <button
+                  className="bg-main text-white px-2 py-0.5 rounded"
+                  onClick={() => addQuestion(questionIndex + 1)}
+                >
+                  問題を追加する
+                </button>
+              </div>
             </li>
           ))}
+          {exam.questions.length === 0 && (
+            <li className="mt-3">
+              <button
+                className="bg-main text-white px-2 py-0.5 rounded"
+                onClick={() => addQuestion(0)}
+              >
+                問題を追加する
+              </button>
+            </li>
+          )}
         </ul>
         <FixedButtons
           buttons={[

@@ -3,13 +3,14 @@ import { FileInput } from "../components/FileInput";
 import { Header } from "../components/header";
 import { Heading } from "../components/Heading";
 import Layout from "../layouts/Layout.astro";
+import { CreateExamForm } from "../components/createExamForm";
 ---
 
 <Layout title="import">
   <div class="w-full max-w-3xl mx-auto min-h-screen relative pb-32">
     <Header />
-    <div class="px-5 py-5 mt-10">
-      <form action="" class="py-3 px-5 border">
+    <div class="px-5 py-5 mt-10 flex flex-col gap-5">
+      <form action="/exam" class="py-3 px-5 border">
         <Heading>JSONをURLから取得</Heading>
         <div class="flex gap-5 mt-5">
           <input
@@ -26,6 +27,7 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </form>
       <FileInput client:load />
+      <CreateExamForm client:load />
       <a href="/caches">
         <button
           class="px-3 py-2 rounded-lg shadow-lg mt-10 bg-white hover:-translate-y-1"

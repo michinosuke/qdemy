@@ -1,4 +1,4 @@
-import type { Exam, Language, UIJaEn } from "../interfaces/exam";
+import type { Exam, Language, Question, UIJaEn } from "../interfaces/exam";
 import { useEffect, useState } from "react";
 
 import { Choice } from "./Choice";
@@ -168,19 +168,19 @@ export const ExamComponent = () => {
     return true;
   };
 
-  const saveMouseEnterQuestion = (questionId: string) => {
+  const saveMouseEnterQuestion = (questionIndex: number) => {
     localStorage.setItem(
-      `focusedQuestionId.${sourceUrl ?? examId}`,
-      questionId
+      `focusedQuestionNum.${sourceUrl ?? examId}`,
+      (questionIndex + 1).toString()
     );
   };
 
   const restoreScroll = () => {
     const q = new URLSearchParams(window.location.search).get("q");
-    const questionId = q
-      ? `question-${q}`
-      : localStorage.getItem(`focusedQuestionId.${sourceUrl ?? examId}`);
-    if (!questionId) return;
+    const questionNum =
+      q ?? localStorage.getItem(`focusedQuestionNum.${sourceUrl ?? examId}`);
+    if (!questionNum) return;
+    const questionId = `question-${questionNum}`;
     const question = document.getElementById(questionId);
     if (question) {
       question.scrollIntoView({
@@ -196,6 +196,75 @@ export const ExamComponent = () => {
     if (!updatedExam) return;
     setExam(updatedExam);
     await sleep(100);
+  };
+
+  const addQuestion = async (newQuestionIndex: number) => {
+    const newQuestion: Question = {
+      choices: [
+        {
+          ja: "",
+        },
+        {
+          ja: "",
+        },
+      ],
+      corrects: [],
+      selects: [],
+      statement: {
+        ja: "",
+      },
+    };
+    updateExam((exam) => {
+      exam.questions.splice(newQuestionIndex, 0, newQuestion);
+      return exam;
+    });
+  };
+
+  const removeQuestion = async (questionIndex: number) => {
+    if (!confirm(`問題 ${questionIndex + 1} を削除しますか？`)) return;
+    updateExam((exam) => {
+      exam.questions.splice(questionIndex, 1);
+      return exam;
+    });
+  };
+
+  const addChoice = async (questionIndex: number) => {
+    const newChoice: UIJaEn = {
+      ja: "",
+    };
+    updateExam((exam) => {
+      const question = exam.questions[questionIndex];
+      if (!question) return null;
+      question.choices.push(newChoice);
+      return exam;
+    });
+  };
+
+  const removeChoice = async (questionIndex: number, choiceIndex: number) => {
+    if (!confirm(`選択肢を削除しますか？`)) return;
+    updateExam((exam) => {
+      const question = exam.questions[questionIndex];
+      if (!question) return null;
+      question.choices.splice(choiceIndex, 1);
+      return exam;
+    });
+  };
+
+  const toggleCorrect = async (questionIndex: number, choiceIndex: number) => {
+    updateExam((exam) => {
+      const question = exam.questions[questionIndex];
+      if (!question) return null;
+      if (question.corrects.includes(choiceIndex + 1)) {
+        question.corrects = question.corrects.filter(
+          (correct) => correct !== choiceIndex + 1
+        );
+      } else {
+        question.corrects = [
+          ...new Set([...question.corrects, choiceIndex + 1]),
+        ];
+      }
+      return exam;
+    });
   };
 
   const selectChoice = async (questionIndex: number, choiceIndex: number) => {
@@ -270,6 +339,11 @@ export const ExamComponent = () => {
           updateExam,
           setIsEditMode,
           translateJaEn,
+          addQuestion,
+          removeQuestion,
+          addChoice,
+          removeChoice,
+          toggleCorrect,
         }}
       />
     );
@@ -343,8 +417,7 @@ export const ExamComponent = () => {
               key={questionIndex}
               id={`question-${questionIndex + 1}`}
               onMouseEnter={() =>
-                initialized &&
-                saveMouseEnterQuestion(`question-${questionIndex + 1}`)
+                initialized && saveMouseEnterQuestion(questionIndex)
               }
               className="bg-white pt-10 rounded-lg shadow overflow-hidden"
             >
@@ -498,14 +571,14 @@ export const ExamComponent = () => {
               onClick: () => (location.href = "/caches"),
               text: "編集中のコース一覧",
             },
-            // {
-            //   onClick: () => setShouldTranslateAll(!shouldTranslateAll),
-            //   text: shouldTranslateAll
-            //     ? `全て翻訳モード実行中(${
-            //         currentTranslateIndex.statementIndex + 1
-            //       } - ${currentTranslateIndex.text})`
-            //     : "全て翻訳モード停止中",
-            // },
+            {
+              onClick: () => setShouldTranslateAll(!shouldTranslateAll),
+              text: shouldTranslateAll
+                ? `全て翻訳モード実行中(${
+                    currentTranslateIndex.questionIndex + 1
+                  } - ${currentTranslateIndex.text})`
+                : "全て翻訳モード停止中",
+            },
           ]}
         />
       </div>

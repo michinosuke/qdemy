@@ -1,6 +1,6 @@
 import type { Exam } from "../interfaces/exam";
 import type { ExamInLocalStorage } from "../interfaces/examInLocalStorage";
-import { ulid } from "ulid";
+import { customNanoId } from "./customNanoId";
 
 const deleteExam = (examId: string) => {
   localStorage.removeItem(`exam.${examId}`);
@@ -47,7 +47,7 @@ const saveExam = (exam: Exam, examId?: string): string => {
     updatedAt: new Date().toString(),
     exam: strExam,
   };
-  const id = examId ?? ulid();
+  const id = examId ?? customNanoId();
   localStorage.setItem(`exam.${id}`, JSON.stringify(json));
   return id;
 };

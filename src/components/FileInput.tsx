@@ -46,7 +46,7 @@ export const FileInput = () => {
   }, [file]);
 
   return (
-    <div className="mt-10 py-3 px-5 border overflow-x-scroll">
+    <div className="py-3 px-5 border overflow-x-scroll">
       <Heading>JSONをローカルファイルから取得</Heading>
       <input
         type="file"
