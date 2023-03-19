@@ -321,6 +321,9 @@ export const ExamComponent = () => {
     if (exam && examId) {
       ls.saveExam(exam, examId);
     }
+    if (exam?.meta?.title) {
+      document.title = exam.meta.title;
+    }
     setTotalTranslateToken(ls.getTotalTranslateToken());
   }, [exam]);
 
@@ -408,19 +411,21 @@ export const ExamComponent = () => {
           </div>
           <div>
             <Heading>作者</Heading>
-            <div className="flex gap-3 items-center mt-2">
-              {exam.meta?.author?.icon_url && (
-                <div
-                  className="rounded-full bg-cover bg-center w-20 h-20"
-                  style={{
-                    backgroundImage: `url(${exam.meta.author.icon_url})`,
-                  }}
-                />
-              )}
-              {exam.meta?.author?.name && (
-                <span className="">{exam.meta.author.name}</span>
-              )}
-            </div>
+            <a href={exam.meta?.author?.url?.udemy}>
+              <div className="flex gap-3 items-center mt-2 hover:bg-[hsl(180,100%,97%)]">
+                {exam.meta?.author?.icon_url && (
+                  <div
+                    className="rounded-full bg-cover bg-center w-20 h-20"
+                    style={{
+                      backgroundImage: `url(${exam.meta.author.icon_url})`,
+                    }}
+                  />
+                )}
+                {exam.meta?.author?.name && (
+                  <span className="">{exam.meta.author.name}</span>
+                )}
+              </div>
+            </a>
           </div>
         </div>
         <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">

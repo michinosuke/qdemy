@@ -11,9 +11,9 @@ export type Question = {
 export type Language = "ja" | "en";
 
 type AuthorUrl = {
-  homepage?: string | string[];
-  twitter?: string | string[];
-  udemy?: string | string[];
+  homepage?: string;
+  twitter?: string;
+  udemy?: string;
 };
 
 type Author = {
