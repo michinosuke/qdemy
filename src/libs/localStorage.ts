@@ -1,6 +1,7 @@
 import type { Exam } from "../interfaces/exam";
 import type { ExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { customNanoId } from "./customNanoId";
+import type { GptUsage } from "./translate";
 
 const deleteExam = (examId: string) => {
   localStorage.removeItem(`exam.${examId}`);
@@ -52,4 +53,43 @@ const saveExam = (exam: Exam, examId?: string): string => {
   return id;
 };
 
-export const ls = { saveExam, deleteExam };
+const addTotalTranslateToken = ({
+  prompt_tokens,
+  completion_tokens,
+  total_tokens,
+}: GptUsage) => {
+  const tokenStr = localStorage.getItem("translate_token");
+  if (!tokenStr) {
+    const token: GptUsage = {
+      completion_tokens,
+      prompt_tokens,
+      total_tokens,
+    };
+    localStorage.setItem("translate_token", JSON.stringify(token));
+    return;
+  }
+  const token: GptUsage = JSON.parse(tokenStr);
+  token.prompt_tokens += prompt_tokens;
+  token.completion_tokens += completion_tokens;
+  token.total_tokens += total_tokens;
+  localStorage.setItem("translate_token", JSON.stringify(token));
+};
+
+const getTotalTranslateToken = (): GptUsage => {
+  const tokenStr = localStorage.getItem("translate_token");
+  if (!tokenStr)
+    return {
+      completion_tokens: 0,
+      prompt_tokens: 0,
+      total_tokens: 0,
+    };
+  const token: GptUsage = JSON.parse(tokenStr);
+  return token;
+};
+
+export const ls = {
+  saveExam,
+  deleteExam,
+  addTotalTranslateToken,
+  getTotalTranslateToken,
+};

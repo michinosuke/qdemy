@@ -417,7 +417,7 @@ export const ExamEdit: FC<Props> = ({
                   className="bg-main text-white px-2 py-0.5 rounded"
                   onClick={() => addQuestion(questionIndex + 1)}
                 >
-                  問題を追加する
+                  設問を追加する
                 </button>
               </div>
             </li>
@@ -428,7 +428,7 @@ export const ExamEdit: FC<Props> = ({
                 className="bg-main text-white px-2 py-0.5 rounded"
                 onClick={() => addQuestion(0)}
               >
-                問題を追加する
+                設問を追加する
               </button>
             </li>
           )}

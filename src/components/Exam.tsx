@@ -12,7 +12,7 @@ import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { ls } from "../libs/localStorage";
 import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
-import { translate } from "../libs/translate";
+import { GptUsage, translate } from "../libs/translate";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -28,6 +28,11 @@ export const ExamComponent = () => {
     questionIndex: number;
     text: string;
   }>({ questionIndex: 0, text: "" });
+  const [totalTranslateToken, setTotalTranslateToken] = useState<GptUsage>({
+    completion_tokens: 0,
+    prompt_tokens: 0,
+    total_tokens: 0,
+  });
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
@@ -153,18 +158,24 @@ export const ExamComponent = () => {
     if (!exam) return false;
     const jaEn = jaEnCallback(exam);
     if (!jaEn) return false;
+
     if (!shouldTranslate(jaEn)) return false;
-    jaEn.isTranslating = true;
-    setExam(JSON.parse(JSON.stringify(exam)));
 
     const en = jaEn.en;
     if (!en) return false;
-    const ja = await translate(typeof en === "string" ? en : en.join("\n"));
-    jaEn.ja = ja;
+
+    jaEn.isTranslating = true;
+    setExam(JSON.parse(JSON.stringify(exam)));
+
+    const res = await translate(typeof en === "string" ? en : en.join("\n"));
+
     jaEn.isTranslating = false;
     setExam(JSON.parse(JSON.stringify(exam)));
 
-    // if (exam) ls.saveExam(exam, examId);
+    if (!res) return false;
+    jaEn.ja = res.message;
+    setExam(JSON.parse(JSON.stringify(exam)));
+
     return true;
   };
 
@@ -310,6 +321,7 @@ export const ExamComponent = () => {
     if (exam && examId) {
       ls.saveExam(exam, examId);
     }
+    setTotalTranslateToken(ls.getTotalTranslateToken());
   }, [exam]);
 
   const Footer = () => (
@@ -572,7 +584,24 @@ export const ExamComponent = () => {
               text: "編集中のコース一覧",
             },
             {
-              onClick: () => setShouldTranslateAll(!shouldTranslateAll),
+              onClick: () => {
+                if (shouldTranslateAll) {
+                  setShouldTranslateAll(false);
+                  return;
+                }
+                if (
+                  confirm(
+                    [
+                      "全て翻訳モードが有効化されている間、未翻訳の全ての設問の問題文、選択肢、解説を自動で翻訳します。",
+                      "翻訳には gpt-3.5-turbo を使用しています。",
+                      "利用料金がかかっているので、資格勉強以外の用途での使用はご遠慮ください。",
+                      "全て翻訳モードを有効化しますか？",
+                    ].join("\n\n")
+                  )
+                ) {
+                  setShouldTranslateAll(true);
+                }
+              },
               text: shouldTranslateAll
                 ? `全て翻訳モード実行中(${
                     currentTranslateIndex.questionIndex + 1
@@ -581,6 +610,12 @@ export const ExamComponent = () => {
             },
           ]}
         />
+      </div>
+      <div className="fixed bg-main px-3 py-1 rounded top-5 right-5 text-white">
+        翻訳にかかった料金:{" "}
+        {Math.floor((totalTranslateToken.total_tokens * 0.002 * 135) / 10) /
+          100}
+        円
       </div>
       <Footer />
     </div>
