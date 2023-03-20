@@ -5,7 +5,6 @@ export const TokenInput = () => {
   const [token, setToken] = useState("");
 
   const validator = (token: string): boolean => {
-    console.log(token);
     if (token.length !== 8) return false;
     return true;
   };
@@ -19,9 +18,11 @@ export const TokenInput = () => {
           className="px-3 py-1"
         />
         <button
-          onClick={() =>
-            (location.href = `/exam?source=${GET_EXAM_FUNCTION_URL}?examId=${token}`)
-          }
+          onClick={() => {
+            if (validator(token)) {
+              location.href = `/exam?source=${GET_EXAM_FUNCTION_URL}?examId=${token}`;
+            }
+          }}
           className={`ml-5 text-white px-3 py-1 rounded ${
             validator(token) ? "bg-main" : "bg-gray-400 cursor-pointer"
           }`}
