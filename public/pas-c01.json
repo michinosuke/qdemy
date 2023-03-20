@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "【日本語対応】SAP on AWS | Real Exam Questions 98% coverage",
-    "description": "SAP on AWSにほとんどそのまま出る問題集です。\n日本語に翻訳し、解説も追加しています。\n\n> Udemy: [PAS-C01: SAP on AWS | Real Exam Questions 98% coverage](https://www.udemy.com/course/practice-exam98-coverage-aws-pas-c01-exam-sap-on-aws/)",
+    "description": "SAP on AWSにほとんどそのまま出る問題集です。\n日本語に翻訳し、解説も追加しています。",
     "text_type": "markdown",
     "author": {
       "name": "みちのすけ",
@@ -10,7 +10,7 @@
   },
   "questions": [
     {
-      "statement": {
+      "question": {
         "en": [
           "A global enterprise is running SAP ERP Central Component (SAP ECC) workloads on Oracle in an on-premises environment. The enterprise plans to migrate to SAP S/4HANA on AWS.The enterprise recently acquired two other companies. One of the acquired companies is running SAP ECC on Oracle as its ERP system. The other acquired company is running an ERP system that is not from SAP. The enterprise wants to consolidate the three ERP systems into one ERP system on SAP S/4HANA on AWS. Not all the data from the acquired companies needs to be migrated to the final ERP system. The enterprise needs to complete this migration with a solution that minimizes cost and maximizes operational efficiency.Which solution will meet these requirements?"
         ],
@@ -50,7 +50,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A global retail company is running its SAP landscape on AWS. Recently, the company made changes to its SAP Web Dispatcher architecture. The company added an additional SAP Web Dispatcher for high availability with an Application Load Balancer (ALB) to balance the load between the two SAP Web Dispatchers.When users try to access SAP through the ALB, the system is reachable. However, the SAP backend system is showing an error message. An investigation reveals that the issue is related to SAP session handling and distribution of requests. The company confirmed that the system was working as expected with one SAP Web Dispatcher. The company replicated the configuration of that SAP Web Dispatcher to the new SAP Web Dispatcher.How can the company resolve the error?"
         ],
@@ -90,7 +90,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company hosts its SAP NetWeaver workload on SAP HANA in the AWS Cloud. The SAP NetWeaver application is protected by a cluster solution that uses Red Hat Enterprise Linux. High Availability Add-On. The cluster solution uses an overlay IP address to ensure that the high availability cluster is still accessible during failover scenarios.An SAP solutions architect needs to facilitate the network connection to this overlay IP address from multiple locations. These locations include more than 25 VPCs, other AWS Regions, and the on-premises environment. The company already has set up an AWS Direct Connect connection between the on-premises environment and AWS.What should the SAP solutions architect do to meet these requirements in the MOST scalable manner?"
         ],
@@ -130,7 +130,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is implementing SAP HANA on AWS. According to the company’s security policy, SAP backups must be encrypted. Only authorized team members can have the ability to decrypt the SAP backups.What is the MOST operationally efficient solution that meets these requirements?"
         ],
@@ -170,7 +170,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A data analysis company has two SAP landscapes that consist of sandbox, development, QA, pre-production, and production servers. One landscape is on Windows, and the other landscape is on Red Hat Enterprise Linux. The servers reside in a room in a building that other tenants share.An SAP solutions architect proposes to migrate the SAP applications to AWS. The SAP solutions architect wants to move the production backups to AWS and wants to make the backups highly available to restore in case of unavailability of an on-premises server.Which solution will meet these requirements MOST cost-effectively?"
         ],
@@ -210,7 +210,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company’s SAP basis team is responsible for database backups in Amazon S3. The company frequently needs to restore the last 3 months of backups into the pre-production SAP system to perform tests and analyze performance. Previously, an employee accidentally deleted backup files from the S3 bucket. The SAP basis team wants to prevent accidental deletion of backup files in the future.Which solution will meet these requirements?"
         ],
@@ -250,7 +250,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to run SAP HANA on AWS in the eu-central-1 Region. The company must make the SAP HANA system highly available by using SAP HANA system replication. In addition, the company must create a disaster recovery (DR) solution that uses SAP HANA system replication in the eu-west-1 Region. As prerequisites, the company has confirmed that Inter-AZ latency is less than 1 ms and that Inter-Region latency is greater than 1 ms.Which solutions will meet these requirements? (Choose two.)"
         ],
@@ -286,7 +286,7 @@
       ],
       "explanation": {
         "en": [
-          "The question statement says that HANA system replication is used for both high availability and DR. Therefore, for High Availability, it would be SYNC replication mode or SYNCMEM replication mode, and for DR, it would be ASYNC replication mode. So, the answer is B and E.\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
+          "The problem statement says that HANA system replication is used for both high availability and DR. Therefore, for High Availability, it would be SYNC replication mode or SYNCMEM replication mode, and for DR, it would be ASYNC replication mode. So, the answer is B and E.\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
         ],
         "isTranslating": false,
         "ja": "問題文には、HANA システム複製が高可用性と DR の両方で使用されていることが記載されています。\nしたがって、高可用性の場合は SYNC 複製モードまたは SYNCMEM 複製モードであり、DR の場合は ASYNC 複製モードであることがわかります。\n\n高可用性のための AZ 間レプリケーションには SYNC または SYNCMEM モードを、DR のためのリージョン間レプリケーションには ASYNC モードを使用している選択肢が正解です。\n\nしたがって、答えはBとEです。\n\n![レプリケーションの構成図](https://docs.aws.amazon.com/images/sap/latest/sap-hana/images/pattern6.1.png)\n\n> 参考資料\n> - https://docs.aws.amazon.com/sap/latest/sap-hana/hana-ops-patterns-multi.html\n> - https://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-aws-infrastructure-operating-system-setup-and-hana-installation.html"
@@ -295,9 +295,9 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
-          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB in size. The company is receiving notifications about long-running database backups every day. The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database. An SAP NetWeaver administrator needs to troubleshoot the question and propose a solution.Which solution will help resolve this question?"
+          "A company is running an SAP ERP Central Component (SAP ECC) system on an SAP HANA database that is 10 TB in size. The company is receiving notifications about long-running database backups every day. The company uses AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance to back up the database. An SAP NetWeaver administrator needs to troubleshoot the problem and propose a solution.Which solution will help resolve this problem?"
         ],
         "isTranslating": false,
         "ja": "ある企業は、SAP HANA データベースのサイズが 10 TB である SAP ERP Central Component (SAP ECC) システムを稼働させています。\n\nこの企業は、毎日長時間実行されるデータベースのバックアップに関する通知を受け取っています。\n\nこの企業は、AWS Backint エージェントを使用してデータベースをバックアップするために Amazon EC2 インスタンス上で実行されています。\n\nSAP NetWeaver 管理者は、この問題をトラブルシューティングし、解決策を提案する必要があります。\n\nどの解決策がこの問題を解決するのに役立ちますか？ "
@@ -335,7 +335,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to migrate its SAP workloads to AWS from another cloud provider. The company’s landscape consists of SAP S/4HANA, SAP BW/4HANA, SAP Solution Manager, and SAP Web Dispatcher. SAP Solution Manager is running on SAP HANA.The company wants to change the operating system from SUSE Linux Enterprise Server to Red Hat Enterprise Linux as a part of this migration. The company needs a solution that results in the least possible downtime for the SAP S/4HANA and SAP BW/4HANA systems.Which migration solution will meet these requirements?"
         ],
@@ -375,7 +375,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running an SAP on Oracle system on IBM Power architecture in an on-premises data center. The company wants to migrate the SAP system to AWS. The Oracle database is 15 TB in size. The company has set up a 100 Gbps AWS Direct Connect connection to AWS from the on-premises data center.Which solution should the company use to migrate the SAP system MOST quickly?"
         ],
@@ -415,7 +415,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP solutions architect is designing an SAP HANA scale-out architecture for SAP Business Warehouse (SAP BW) on SAP HANA on AWS. The SAP solutions architect identifies the design as a three-node scale-out deployment of xte.32xiarge Amazon EC2 instances.The SAP solutions architect must ensure that the SAP HANA scale-out nodes can achieve the low-latency and high-throughput network performance that are necessary for node-to-node communication.Which combination of steps should the SAP solutions architect take to meet these requirements? (Choose two.)"
         ],
@@ -460,7 +460,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company needs to migrate its critical SAP workloads from an on-premises data center to AWS. The company has a few source production databases that are 10 TB or more in size. The company wants to minimize the downtime for this migration.As part of the proof of concept, the company used a low-speed, high-latency connection between its data center and AWS. During the actual migration, the company wants to maintain a consistent connection that delivers high bandwidth and low latency. The company also wants to add a layer of connectivity resiliency. The backup connectivity does not need to be as fast as the primary connectivity.An SAP solutions architect needs to determine the optimal network configuration for data transfer. The solution must transfer the data with minimum latency.Which configuration will meet these requirements?"
         ],
@@ -500,7 +500,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to migrate its SAP ERP landscape to AWS. The company will use a highly available distributed deployment for the new architecture. Clients will access SAP systems from a local data center through an AWS Site-to-Site VPN connection that is already in place. An SAP solutions architect needs to design the network access to the SAP production environment.Which configuration approaches will meet these requirements? (Choose two.)"
         ],
@@ -545,7 +545,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running an SAP HANA database on AWS. The company is running AWS Backint Agent for SAP HANA (AWS Backint agent) on an Amazon EC2 instance. AWS Backint agent is configured to back up to an Amazon S3 bucket. The backups are failing with an AccessDenied error in the AWS Backint agent log file.What should an SAP basis administrator do to resolve this error?"
         ],
@@ -585,7 +585,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is starting a new project to implement an SAP landscape with multiple accounts that belong to multiple teams in the us-east-2 Region. These teams include procurement, finance, sales, and human resources. An SAP solutions architect has started designing this new landscape and the AWS account structures.The company wants to use automation as much as possible. The company also wants to secure the environment, implement federated access to accounts, centralize logging, and establish cross-account security audits. In addition, the company’s management team needs to receive a top-level summary of policies that are applied to the AWS accounts.What should the SAP solutions architect do to meet these requirements?"
         ],
@@ -625,7 +625,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running its SAP workloads on premises and needs to migrate the workloads to AWS. All the workloads are running on SUSE Linux Enterprise Server and Oracle Database. The company’s landscape consists of SAP ERP Central Component (SAP ECC), SAP Business Warehouse (SAP BW), and SAP NetWeaver systems. The company has a dedicated AWS Direct Connect connection between its on-premises environment and AWS. The company needs to migrate the systems to AWS with the least possible downtime.Which migration solution will meet these requirements?"
         ],
@@ -665,7 +665,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is designing a disaster recovery (DR) strategy for an SAP HANA database that runs on an Amazon EC2 instance in a single Availability Zone. The company can tolerate a long RTO and an RPO greater than zero if it means that the company can save money on its DR process.The company has configured an Amazon CloudWatch alarm to automatically recover the EC2 instance if the instance experiences an unexpected issue. The company has set up AWS Backint Agent for SAP HANA to save the backups into Amazon S3.What is the MOST cost-effective DR option for the company's SAP HANA database?"
         ],
@@ -705,7 +705,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is using a multi-account strategy for SAP HANA and SAP BW/4HANA instances across development, QA, and production systems in the same AWS Region. Each system is hosted in its own VPC. The company needs to establish cross-VPC communication between the SAP systems.The company might add more SAP systems in the future. The company must create connectivity across the SAP systems and hundreds of AWS accounts. The solution must maximize scalability and reliability.Which solution will meet these requirements?"
         ],
@@ -745,7 +745,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to deploy a new SAP NetWeaver ABAP system on AWS with an Oracle database that runs on an Amazon EC2 instance. The EC2 instance uses a Linux-based operating system. The company needs a database storage solution that provides flexibility to adjust the IOPS regardless of the allocated storage size.Which solution will meet these requirements MOST cost-effectively?"
         ],
@@ -785,7 +785,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is using SAP NetWeaver with Java on AWS. The company has updated its generation of Amazon EC2 instances to the most recent generation of EC2 instances. When the company tries to start SAP, the startup fails. The log indicates that the SAP license expired or is not valid.What is the reason for this issue?"
         ],
@@ -828,7 +828,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company’s basis administrator is planning to deploy SAP on AWS in Linux. The basis administrator must set up the proper storage to store SAP HANA data and log volumes.Which storage options should the basis administrator choose to meet these requirements? (Choose two.)"
         ],
@@ -873,7 +873,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has deployed a highly available SAP NetWeaver system on SAP HANA into a VPC. The system is distributed across multiple Availability Zones within a single AWS Region. SAP NetWeaver is running on SUSE Linux Enterprise Server for SAP. SUSE Linux Enterprise High Availability Extension is configured to protect SAP ASCS and ERS instances and uses the overlay IP address concept. The SAP shared files /sapmnt and /usr/sap/trans are hosted on an Amazon Elastic File System (Amazon EFS) file system.The company needs a solution that uses already-existing private connectivity to the VPC. The SAP NetWeaver system must be accessible through the SAP GUI client tool.Which solutions will meet these requirements? (Choose two.)"
         ],
@@ -918,12 +918,12 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to move all its SAP applications to Amazon EC2 instances in a VPC. Recently, the company signed a multiyear contract with a payroll software-as-a-service (SaaS) provider. Integration with the payroll SaaS solution is available only through public web APIs.Corporate security guidelines state that all outbound traffic must be validated against an allow list. The payroll SaaS provider provides only fully qualified domain name (FQDN) addresses and no IP addresses or IP address ranges. Currently, an on-premises firewall appliance filters FQDNs. The company needs to connect an SAP Process Orchestration (SAP PO) system to the payroll SaaS provider.What must the company do on AWS to meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある企業は、すべてのSAPアプリケーションをAmazon EC2インスタンスでのVPCへ移行する計画を立てています。\n\n最近、企業は賃金ソフトウェアサービスプロバイダーとの複数年契約に署名しました。\n\n給与 SaaS ソリューションとの統合は、パブリック Web API を介してのみ利用可能です。\n\n企業のセキュリティガイドラインは、すべてのアウトバウンドトラフィックを許可リストに対して検証する必要があります。\n\n給与 SaaS プロバイダーからは、IP アドレスや IP アドレス範囲ではなく、完全修飾ドメイン名（FQDN）アドレスのみが提供されています。\n\n現在、オンプレミスのファイアウォールアプライアンスが FQDN をフィルタリングしています。\n\n企業は SAP プロセスオーケストレーション（SAP PO）システムを給与 SaaS プロバイダーに接続する必要があります。\n\n企業はAWSでどのようなことを行う必要がありますか？"
+        "ja": "ある企業は、すべてのSAPアプリケーションをAmazon EC2インスタンスでのVPCへ移行する計画を立てています。\n\n最近、企業は給与 SaaS プロバイダーとの複数年契約に署名しました。\n\n給与 SaaS ソリューションとの統合は、パブリック Web API を介してのみ利用可能です。\n\n企業のセキュリティガイドラインは、すべてのアウトバウンドトラフィックを許可リストに対して検証する必要があります。\n\n給与 SaaS プロバイダーからは、IP アドレスや IP アドレス範囲ではなく、完全修飾ドメイン名（FQDN）アドレスのみが提供されています。\n\n現在、オンプレミスのファイアウォールアプライアンスが FQDN をフィルタリングしています。\n\n企業は SAP プロセスオーケストレーション（SAP PO）システムを給与 SaaS プロバイダーに接続する必要があります。\n\n企業はAWSでどのようなことを行う必要がありますか？"
       },
       "choices": [
         {
@@ -958,7 +958,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to migrate its on-premises SAP application to AWS. The application runs on VMware vSphere. The SAP ERP Central Component (SAP ECC) server runs on an IBM Db2 database that is 2 TB in size. The company wants to migrate the database to SAP HANA.Which migration strategy will meet these requirements?"
         ],
@@ -998,7 +998,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company hosts multiple SAP applications on Amazon EC2 instances in a VPC. While monitoring the environment, the company notices that multiple port scans are attempting to connect to SAP portals inside the VPC. These port scans are originating from the same IP address block. The company must deny access to the VPC from all the offending IP addresses for the next 24 hours.Which solution will meet this requirement?"
         ],
@@ -1038,7 +1038,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has deployed SAP workloads on AWS. The AWS Data Provider for SAP is installed on the Amazon EC2 instance where the SAP application is running. An SAP solutions architect has attached an IAM role to the EC2 instance with the following policy:",
           "",
@@ -1081,7 +1081,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to deploy an SAP HANA database on AWS by using AWS Launch Wizard for SAP. An SAP solutions architect needs to run a custom post-deployment script on the Amazon EC2 instance that Launch Wizard provisions.Which actions can the SAP solutions architect take to provide the post-deployment script in the Launch Wizard console? (Choose two.)"
         ],
@@ -1126,7 +1126,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to move its on-premises SAP HANA database to AWS. The company needs to migrate this environment to AWS as quickly as possible. An SAP solutions architect will use AWS Launch Wizard for SAP to deploy this SAP HANA workload.Which combination of steps should the SAP solutions architect follow to start the deployment of this workload on AWS? (Choose three.)"
         ],
@@ -1176,7 +1176,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to implement SAP HANA on AWS with the Multi-AZ deployment option by using AWS Launch Wizard for SAP. The solution will use SUSE Linux Enterprise High Availability Extension for the high availability deployment. An SAP solutions architect must ensure that all the prerequisites are met. The SAP solutions architect also must ensure that the user inputs to start the guided deployment of Launch Wizard are valid.Which combination of steps should the SAP solutions architect take to meet these requirements? (Choose two.)"
         ],
@@ -1221,7 +1221,7 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company that has SAP workloads on premises plans to migrate an SAP environment to AWS. The company is new to AWS and has no prior setup. The company has the following requirements:The application server and database server must be placed in isolated network configurations.SAP systems must be accessible to the on-premises end users over the internet.The cost of communications between the application server and the database server must be minimized.Which combination of steps should an SAP solutions architect take to meet these requirements? (Choose two.)"
         ],
@@ -1266,33 +1266,33 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running its SAP workload on AWS. The company’s security team has implemented the following requirements:All Amazon EC2 instances for SAP must be SAP certified instance types.Encryption must be enabled for all Amazon S3 buckets and Amazon Elastic Block Store (Amazon EBS) volumes.AWS CloudTrail must be activated.SAP system parameters must be compliant with business rules.Detailed monitoring must be enabled for all instances.The company wants to develop an automated process to review the systems for compliance with the security team’s requirements. The process also must provide notification about any deviation from these standards.Which solution will meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある会社は、SAPワークロードをAWS上で実行しています。同社のセキュリティチームは、以下の要件を実装しました。SAP用のすべてのAmazon EC2インスタンスは、SAP認定のインスタンスタイプである必要があります。すべてのAmazon S3バケットとAmazon Elastic Block Store (Amazon EBS)ボリュームには暗号化を有効にする必要があります。AWS CloudTrailを有効にする必要があります。SAPシステムのパラメータはビジネスルールに準拠する必要があります。すべてのインスタンスについて詳細な監視を有効にする必要があります。\n\n会社は、セキュリティチームの要件に対するシステムのコンプライアンスを自動的にレビューするプロセスを開発したいと考えています。このプロセスは、これらの基準からのどのような逸脱も通知する必要があります。どのソリューションがこれらの要件を満たすでしょうか？"
+        "ja": "ある会社は、SAP ワークロードを AWS 上で実行しています。\n\n同社のセキュリティチームは、以下の要件を実装しました。\n\nSAP 用のすべての Amazon EC2 インスタンスは、SAP 認定のインスタンスタイプである必要があります。\n\nすべての Amazon S3 バケットと Amazon Elastic Block Store (Amazon EBS) ボリュームには暗号化を有効にする必要があります。\n\nAWS CloudTrail を有効にする必要があります。\n\nSAP システムのパラメータはビジネスルールに準拠する必要があります。\n\nすべてのインスタンスについて詳細な監視を有効にする必要があります。\n\n会社は、セキュリティチームの要件に対するシステムのコンプライアンスを自動的にレビューするプロセスを開発したいと考えています。\n\nこのプロセスは、これらの基準からのどのような逸脱も通知する必要があります。\n\nどのソリューションがこれらの要件を満たすでしょうか？"
       },
       "choices": [
         {
           "en": "Use AWS AppConfig to model configuration data in an AWS Systems Manager Automation runbook. Schedule this Systems Manager Automation runbook to monitor for compliance with all the requirements. Integrate AWS AppConfig with Amazon CloudWatch for notification purposes.",
           "isTranslating": false,
-          "ja": "AWS AppConfigを使用して、AWS Systems Manager Automationのランブックで構成データをモデル化してください。すべての要件の遵守を監視するために、このSystems Manager Automationのランブックをスケジュールしてください。通知の目的で、AWS AppConfigをAmazon CloudWatchと統合してください。"
+          "ja": "AWS AppConfig を使用して、AWS Systems Manager Automation のランブックで構成データをモデル化してください。\n\nすべての要件の遵守を監視するために、この Systems Manager Automation のランブックをスケジュールしてください。\n\n通知の目的で、AWS AppConfig を Amazon CloudWatch と統合してください。"
         },
         {
           "en": "Use AWS Config managed rules to monitor for compliance with all the requirements. Use Amazon EventBridge (Amazon CloudWatch Events) and Amazon Simple Notification Service (Amazon SNS) for email notification when a resource is flagged as noncompliant.",
           "isTranslating": false,
-          "ja": "すべての要件に準拠しているかどうかを監視するために AWS Config の管理ルールを使用します。また、Amazon EventBridge（Amazon CloudWatch Events）および Amazon Simple Notification Service（Amazon SNS）を使用して、リソースが非準拠としてフラグ付けされた場合にメール通知をお届けします。"
+          "ja": "すべての要件に準拠しているかどうかを監視するために AWS Config の管理ルールを使用します。\n\nまた、Amazon EventBridge（Amazon CloudWatch Events）および Amazon Simple Notification Service（Amazon SNS）を使用して、リソースが非準拠としてフラグ付けされた場合にメール通知をお届けします。"
         },
         {
           "en": "Use AWS Trusted Advisor to monitor for compliance with all the requirements. Use Trusted Advisor preferences for email notification when a resource is flagged as noncompliant.",
           "isTranslating": false,
-          "ja": "すべての要件に準拠しているかを監視するために、AWS Trusted Advisorを使用してください。リソースが非準拠としてフラグ付けされた場合には、メール通知のためにTrusted Advisorの設定を使用してください。"
+          "ja": "すべての要件に準拠しているかを監視するために、AWS Trusted Advisor を使用してください。\n\nリソースが非準拠としてフラグ付けされた場合には、メール通知のために Trusted Advisor の設定を使用してください。"
         },
         {
           "en": "Use AWS Config managed rules to monitor for compliance with the requirements, except for the SAP system parameters. Create AWS Config custom rules to validate the SAP system parameters. Use Amazon EventBridge (Amazon CloudWatch Events) and Amazon Simple Notification Service (Amazon SNS) for email notification when a resource is flagged as noncompliant.",
           "isTranslating": false,
-          "ja": "AWS Configに標準管理ルールを使用して、SAPシステムパラメータを除く要件に対する遵守を監視します。AWS Configカスタムルールを作成して、SAPシステムパラメータの妥当性を検証します。Amazon EventBridge（Amazon CloudWatch Events）とAmazon Simple Notification Service（Amazon SNS）を使用して、リソースが非適合としてフラグ付けされた場合のメール通知を行います。"
+          "ja": "AWS Config に標準管理ルールを使用して、SAP システムパラメータを除く要件に対する遵守を監視します。\n\nAWS Config カスタムルールを作成して、SAP システムパラメータの妥当性を検証します。\n\nAmazon EventBridge（Amazon CloudWatch Events）と Amazon Simple Notification Service（Amazon SNS）を使用して、リソースが非適合としてフラグ付けされた場合のメール通知を行います。"
         }
       ],
       "explanation": {
@@ -1300,39 +1300,39 @@
           "https://aws.amazon.com/blogs/awsforsap/audit-your-sap-systems-with-aws-config-part-i/\nhttps://aws.amazon.com/blogs/awsforsap/audit-your-sap-systems-with-aws-config-part-ii/"
         ],
         "isTranslating": false,
-        "ja": "AWS Configを使用してSAPシステムを監査する際のベストプラクティスについて学ぶことができる、「AWS Configを使用してSAPシステムを監査する-Part I」と「AWS Configを使用してSAPシステムを監査する-Part II」の2つの記事が、AWSの公式ブログに投稿されました。この記事は、AWS Configを使用したSAPシステムの継続的監査の方法を説明しており、SAPシステムのトラブルシューティングやセキュリティ対策に役立ちます。"
+        "ja": "https://aws.amazon.com/blogs/awsforsap/audit-your-sap-systems-with-aws-config-part-i/\nhttps://aws.amazon.com/blogs/awsforsap/audit-your-sap-systems-with-aws-config-part-ii/"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is hosting its SAP workloads on AWS. An SAP solutions architect is designing high availability architecture for the company’s production SAP S/4HANA and SAP BW/4HANA workloads. These workloads have the following requirements:Redundant SAP application servers that consist of a primary application server (PAS) and an additional application server (AAS)ASCS and ERS instances that use a failover clusterDatabase high availability with a primary DB instance and a secondary DB instanceHow should the SAP solutions architect design the architecture to meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある企業はAWS上にSAPのワークロードをホスティングしています。SAPソリューションアーキテクトは、同社の生産SAP S / 4HANAおよびSAP BW / 4HANAのワークロード向けの高可用性アーキテクチャを設計しています。 これらのワークロードには、次の要件があります。\n- 主要なアプリケーションサーバー（PAS）と追加のアプリケーションサーバー（AAS）から構成される冗長なSAPアプリケーションサーバー\n- フェールオーバークラスタを使用するASCSおよびERSインスタンス。\n- プライマリDBインスタンスとセカンダリDBインスタンスによるデータベースの高可用性。\n\nこれらの要件を満たすために、SAPソリューションアーキテクトはどのようにアーキテクチャを設計すべきでしょうか？"
+        "ja": "ある企業は AWS 上に SAP のワークロードをホスティングしています。\n\nSAP ソリューションアーキテクトは、同社の本番 SAP S / 4HANA および SAP BW / 4HANA のワークロード向けの高可用性アーキテクチャを設計しています。 \n\nこれらのワークロードには、次の要件があります。\n\n- 主要なアプリケーションサーバー（PAS）と追加のアプリケーションサーバー（AAS）から構成される冗長なSAPアプリケーションサーバー\n- フェールオーバークラスタを使用する ASCS および ERS インスタンス。\n- プライマリ DB インスタンスとセカンダリ DB インスタンスによるデータベースの高可用性。\n\nこれらの要件を満たすために、SAP ソリューションアーキテクトはどのようにアーキテクチャを設計すべきでしょうか？"
       },
       "choices": [
         {
           "en": "Deploy ASCS and ERS cluster nodes in different subnets within the same Availability Zone. Deploy the PAS instance and AAS instance in different subnets within the same Availability Zone. Deploy the primary DB instance and secondary DB instance in different subnets within the same Availability Zone. Deploy all the components in the same VPC.",
           "isTranslating": false,
-          "ja": "同じアベイラビリティゾーン内の異なるサブネットにASCSおよびERSクラスターノードを展開します。同じアベイラビリティゾーン内の異なるサブネットにPASインスタンスとAASインスタンスを展開します。同じアベイラビリティゾーン内の異なるサブネットにプライマリDBインスタンスとセカンダリDBインスタンスを展開します。すべてのコンポーネントを同じVPC内に展開します。"
+          "ja": "同じアベイラビリティゾーン内の異なるサブネットに ASCS および ERS クラスターノードを展開します。\n\n同じアベイラビリティゾーン内の異なるサブネットに PAS インスタンスと AAS インスタンスを展開します。\n\n同じアベイラビリティゾーン内の異なるサブネットにプライマリ DB インスタンスとセカンダリ DB インスタンスを展開します。\n\nすべてのコンポーネントを同じ VPC 内に展開します。"
         },
         {
           "en": "Deploy ASCS and ERS cluster nodes in different subnets within the same Availability Zone. Deploy the PAS instance and AAS instance in different subnets within the same Availability Zone. Deploy the primary DB instance and secondary DB instance in different subnets within the same Availability Zone. Deploy the ASCS instance, PAS instance, and primary DB instance in one VPC. Deploy the ERS instance, AAS instance, and secondary DB instance in a different VPC.",
           "isTranslating": false,
-          "ja": "同じアベイラビリティーゾーン内の異なるサブネットにASCSとERSクラスターノードを展開します。同じアベイラビリティーゾーン内の異なるサブネットにPASインスタンスとAASインスタンスを展開します。同じアベイラビリティーゾーン内の異なるサブネットにプライマリDBインスタンスとセカンダリDBインスタンスを展開します。ASCSインスタンス、PASインスタンス、およびプライマリDBインスタンスを同じVPCに展開します。ERSインスタンス、AASインスタンス、およびセカンダリDBインスタンスを別のVPCに展開します。"
+          "ja": "同じアベイラビリティーゾーン内の異なるサブネットに ASCS と ERS クラスターノードを展開します。\n\n同じアベイラビリティーゾーン内の異なるサブネットに PAS インスタンスと AAS インスタンスを展開します。\n\n同じアベイラビリティーゾーン内の異なるサブネットにプライマリ DB インスタンスとセカンダリ DB インスタンスを展開します。\n\nASCS インスタンス、PAS インスタンス、およびプライマリ DB インスタンスを同じ VPC に展開します。\n\nERS インスタンス、AAS インスタンス、およびセカンダリ DB インスタンスを別の VPC に展開します。"
         },
         {
           "en": "Deploy ASCS and ERS cluster nodes in different subnets across two Availability Zones. Deploy the PAS instance and AAS instance in different subnets across two Availability Zones. Deploy the primary DB instance and secondary DB instance in different subnets across two Availability Zones. Deploy all the components in the same VPC.",
           "isTranslating": false,
-          "ja": "2つのアベイラビリティーゾーンにまたがる異なるサブネットに ASCS および ERS クラスターノードをデプロイします。また、2つのアベイラビリティーゾーンにまたがる異なるサブネットに PAS インスタンスと AAS インスタンスをデプロイします。さらに、2つのアベイラビリティーゾーンにまたがる異なるサブネットにプライマリ DB インスタンスとセカンダリ DB インスタンスをデプロイします。これらすべてのコンポーネントを同じ VPC にデプロイします。"
+          "ja": "2つのアベイラビリティーゾーンにまたがる異なるサブネットに ASCS および ERS クラスターノードをデプロイします。\n\nまた、2つのアベイラビリティーゾーンにまたがる異なるサブネットに PAS インスタンスと AAS インスタンスをデプロイします。\n\nさらに、2つのアベイラビリティーゾーンにまたがる異なるサブネットにプライマリ DB インスタンスとセカンダリ DB インスタンスをデプロイします。\n\nこれらすべてのコンポーネントを同じ VPC にデプロイします。"
         },
         {
           "en": "Deploy ASCS and ERS cluster nodes in different subnets across two Availability Zones. Deploy the PAS instance and AAS instance in different subnets across two Availability Zones. Deploy the primary DB instance and secondary DB instance in different subnets across two Availability Zones. Deploy the ASCS instance, PAS instance, and primary DB instance in one VPC. Deploy the ERS instance, AAS instance, and secondary DB instance in a different VPC.",
           "isTranslating": false,
-          "ja": "2つのアベイラビリティーゾーンに跨って、ASCSとERSクラスターノードを異なるサブネットに展開します。PASインスタンスとAASインスタンスを2つのアベイラビリティーゾーンにまたがる異なるサブネットに展開します。プライマリDBインスタンスとセカンダリDBインスタンスを異なるサブネットに跨って、2つのアベイラビリティーゾーンに展開します。ASCSインスタンス、PASインスタンス、およびプライマリDBインスタンスを同じVPCに展開します。ERSインスタンス、AASインスタンス、およびセカンダリDBインスタンスを別のVPCに展開します。"
+          "ja": "2つのアベイラビリティーゾーンに跨って、ASCS と ERS クラスターノードを異なるサブネットに展開します。\n\nPAS インスタンスと AAS インスタンスを2つのアベイラビリティーゾーンにまたがる異なるサブネットに展開します。\n\nプライマリ DB インスタンスとセカンダリ DB インスタンスを異なるサブネットに跨って、2 つのアベイラビリティーゾーンに展開します。\n\nASCS インスタンス、PAS インスタンス、およびプライマリ DB インスタンスを同じ VPC に展開します。\n\nERS インスタンス、AAS インスタンス、およびセカンダリ DB インスタンスを別の VPC に展開します。"
         }
       ],
       "explanation": {
@@ -1340,13 +1340,13 @@
           "The SAP solutions architect should choose option C as this is the most effective way to meet the high availability requirements. Deploying components across different Availability Zones helps to ensure that the workloads are highly available even in the event of an Availability Zone failure. Additionally, deploying the primary and secondary components in different subnets across different Availability Zones provides the maximum resiliency. Furthermore, deploying all the components in the same VPC makes it easier to manage network communication and security for the SAP workloads."
         ],
         "isTranslating": false,
-        "ja": "SAPのソリューションアーキテクトは、高可用性要件を満たす最も効果的な方法として、選択肢Cを選択するべきです。異なるアベイラビリティーゾーンにコンポーネントを展開することで、アベイラビリティーゾーンの障害が発生した場合でも、ワークロードが高可用性を維持できるようになります。さらに、プライマリとセカンダリのコンポーネントを異なるサブネットに跨いで異なるアベイラビリティーゾーンに展開することで、最大の弾力性を確保することができます。また、SAPのワークロードのネットワーク通信とセキュリティを管理する上でも、すべてのコンポーネントを同じVPCに展開することが容易になります。"
+        "ja": "SAP のソリューションアーキテクトは、高可用性要件を満たす最も効果的な方法として、選択肢 C を選択するべきです。\n\n異なるアベイラビリティーゾーンにコンポーネントを展開することで、アベイラビリティーゾーンの障害が発生した場合でも、ワークロードが高可用性を維持できるようになります。\n\nさらに、プライマリとセカンダリのコンポーネントを異なるサブネットに跨いで異なるアベイラビリティーゾーンに展開することで、最大の弾力性を確保することができます。\n\nまた、SAP のワークロードのネットワーク通信とセキュリティを管理する上でも、すべてのコンポーネントを同じ VPC に展開することが容易になります。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has deployed SAP HANA in the AWS Cloud. The company needs its SAP HANA database to be highly available. An SAP solutions architect has deployed the SAP HANA database in separate Availability Zones in a single AWS Region. SUSE Linux Enterprise High Availability Extension is configured with an overlay IP address. The overlay IP resource agent has the following IAM policy:",
           "",
@@ -1355,28 +1355,28 @@
           "During a test of failover, the SAP solutions architect finds that the overlay IP address does not change to the secondary Availability Zone.Which change should the SAP solutions architect make in the policy statement for Sid oip1 to fix this error?"
         ],
         "isTranslating": false,
-        "ja": "ある企業がSAP HANAをAWSクラウドに展開しました。同社はSAP HANAデータベースを高可用性にする必要があります。SAPのソリューションアーキテクトは、単一のAWSリージョン内で別々のアベイラビリティーゾーンにSAP HANAデータベースを展開しました。また、SUSE Linux Enterprise High Availability ExtensionがオーバーレイIPアドレスで設定されています。オーバーレイIPリソースエージェントには、次のIAMポリシーが設定されています。\n\nテストフェイルオーバー中に、SAPソリューションアーキテクトは、オーバーレイIPアドレスがセカンダリアベイラビリティーゾーンに切り替わらないことがわかりました。このエラーを修正するために、SAPソリューションアーキテクトがSid oip1のポリシー文を変更するべき内容は何ですか？"
+        "ja": "ある企業が SAP HANA を AWS クラウドに展開しました。\n\n同社は SAP HANA データベースを高可用性にする必要があります。\n\nSAP のソリューションアーキテクトは、単一の AWS リージョン内で別々のアベイラビリティーゾーンに SAP HANA データベースを展開しました。\n\nまた、SUSE Linux Enterprise High Availability Extension がオーバーレイ IP アドレスで設定されています。\n\nオーバーレイ IP リソースエージェントには、次の IAM ポリシーが設定されています。\n\nテストフェイルオーバー中に、SAP ソリューションアーキテクトは、オーバーレイ IP アドレスがセカンダリアベイラビリティーゾーンに切り替わらないことがわかりました。\n\nこのエラーを修正するために、SAP ソリューションアーキテクトが `Sid oip1` のポリシー文を変更するべき内容は何ですか？"
       },
       "choices": [
         {
           "en": "Change the Action element to ec2:CreateRoute.",
           "isTranslating": false,
-          "ja": "Action要素をec2:CreateRouteに変更してください。"
+          "ja": "Action 要素を `ec2:CreateRoute` に変更します。"
         },
         {
           "en": "Change the Action element to ec2:ReplaceRoute.",
           "isTranslating": false,
-          "ja": "Action要素をec2:ReplaceRouteに変更してください。"
+          "ja": "Action 要素を `ec2:ReplaceRoute` に変更します。"
         },
         {
           "en": "Change the Action element to ec2:ReplaceRouteTableAssociation.",
           "isTranslating": false,
-          "ja": "Action要素をec2:ReplaceRouteTableAssociationに変更します。"
+          "ja": "Action 要素を `ec2:ReplaceRouteTableAssociation` に変更します。"
         },
         {
           "en": "Change the Action element to ec2:ReplaceTransitGatewayRoute.",
           "isTranslating": false,
-          "ja": "Action要素をec2:ReplaceTransitGatewayRouteに変更してください。"
+          "ja": "Action 要素を `ec2:ReplaceTransitGatewayRoute` に変更します。"
         }
       ],
       "explanation": {
@@ -1384,77 +1384,77 @@
           "https://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-cluster-configuration-prerequisites.html\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-oip.html"
         ],
         "isTranslating": false,
-        "ja": "このページは、AWS上でSAP HANAクラスターを構成する前提条件について説明しています。また、SAP HANAをAWS上でデプロイする際に必要な手順が記載されている「AWSにおけるSAP HANAにおけるインスタンス起動プロセス」に関するドキュメントへのリンクが含まれています。"
+        "ja": "オーバーレイIPエージェントポリシーの作成\n\nAmazon VPCの設定には、SAP HANAデータベースのプライマリ/セカンダリノードにサブネットを割り当てることが含まれます。これらの構成済みサブネットのそれぞれに、VPCからのクラスレスインタードメインルーティング（CIDR）IP割り当てがあり、完全に1つのアベイラビリティーゾーンに存在します。このCIDR IP割り当ては、複数のゾーンにまたがることはできず、フェイルオーバーシナリオ中の別のAZのセカンダリインスタンスに再割り当てすることはできません。そのため、AWSでは、VPC CIDRブロックの外部にオーバーレイIP（OIP）を構成して、アクティブなSAPインスタンスにアクセスできるようにします。IPオーバーレイルーティングを使用することで、AWSネットワークがオーバーラップしないRFC1918プライベートIPアドレスを使用して、VPC CIDR範囲の外部に存在するSAPトラフィックを、SLES/RHELオーバーレイIPエージェントを使用してAWS内のアベイラビリティーゾーン全体にセットアップされた任意のインスタンスにルーティングすることができます。\n\nSLES/RHELオーバーレイIPエージェントがAWSルーティングテーブルのルーティングエントリを変更するためには、以下のポリシーを作成し、クラスターインスタンスの両方に割り当てられたIAMロールに添付する必要があります：\n\n```json\n{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Sid\": \"VisualEditor0\",\n            \"Effect\": \"Allow\",\n            \"Action\": \"ec2:ReplaceRoute\",\n            \"Resource\": \"arn:aws:ec2:region-name:account-id:route-table/rtb-XYZ\"\n        },\n        {\n            \"Sid\": \"VisualEditor1\",\n            \"Effect\": \"Allow\",\n            \"Action\": \"ec2:DescribeRouteTables\",\n            \"Resource\": \"*\"\n        }\n    ]\n}\n```\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-cluster-configuration-prerequisites.html\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-oip.html"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to improve the RPO and RTO for its SAP disaster recovery (DR) solution by running the DR solution on AWS. The company is running SAP ERP Central Component (SAP ECC) on SAP HANA. The company has set an RPO of 15 minutes and an RTO of 4 hours.The production SAP HANA database is running on a physical appliance that has x86 architecture. The appliance has 1 TB of memory, and the SAP HANA global allocation limit is set to 768 GB. The SAP application servers are running as VMs on VMware, and they store data on an NFS file system. The company does not want to change any existing SAP HANA parameters that are related to data and log backup for its on-premises systems.What should an SAP solutions architect do to meet the DR objectives MOST cost-effectively?"
         ],
         "isTranslating": false,
-        "ja": "ある企業が、AWS上でDRを実行することで、SAPの災害復旧（DR）ソリューションのRPOおよびRTOを改善したいと考えています。企業は、SAP HANA上でSAP ERP Central Component（SAP ECC）を実行しています。企業は、RPOを15分、RTOを4時間に設定しています。本番のSAP HANAデータベースは、x86アーキテクチャを持つ物理アプライアンス上で実行されています。アプライアンスには1 TBのメモリがあり、SAP HANAグローバル割り当て制限は768 GBに設定されています。SAPアプリケーションサーバーは、VMware上でVMとして実行され、NFSファイルシステムにデータが格納されています。企業は、オンプレミスシステムに関連するデータおよびログバックアップに関連する既存のSAP HANAパラメータを変更したくありません。SAPソリューションアーキテクトは、最もコスト効果的にDRの目標を達成するためにどのような作業をすべきでしょうか。"
+        "ja": "ある企業が、AWS 上で DR を実行することで、SAP の災害復旧（DR）ソリューションの RPO および RTO を改善したいと考えています。\n\n企業は、SAP HANA 上で SAP ERP Central Component（SAP ECC）を実行しています。\n\n企業は、RPO を 15 分、RTOを 4 時間に設定しています。\n\n本番の SAP HANA データベースは、x86 アーキテクチャを持つ物理アプライアンス上で実行されています。\n\nアプライアンスには 1 TB のメモリがあり、SAP HANA グローバル割り当て制限は 768 GB に設定されています。\n\nSAP アプリケーションサーバーは、VMware 上で VM として実行され、NFS ファイルシステムにデータが格納されています。\n\n企業は、オンプレミスシステムに関連するデータおよびログバックアップに関連する既存の SAP HANA パラメータを変更したくありません。\n\nSAP ソリューションアーキテクトは、最もコスト効果的に DR の目標を達成するためにどのような作業をすべきでしょうか。"
       },
       "choices": [
         {
           "en": "For the SAP HANA database, change the log backup frequency to 5 minutes. Move the data and log backups to Amazon S3 by using the AWS CLI or AWS DataSync. Launch the SAP HANA database. For the SAP application servers, export the VMs as AMIs by using the VM Import/Export feature from AWS. For NFS file shares /sapmnt and /usr/sap/trans, establish real-time synchronization from DataSync to Amazon Elastic File System (Amazon EFS).",
           "isTranslating": false,
-          "ja": "SAP HANA データベースでは、ログバックアップの頻度を5分間に変更します。AWS CLIまたはAWS DataSyncを使用して、データおよびログのバックアップをAmazon S3に移動します。SAP HANAデータベースを起動します。SAPアプリケーションサーバーについては、VM Import/Export機能を使用してVMをAMIとしてエクスポートします。NFSファイル共有/sapmntと/usr/sap/transについて、DataSyncからAmazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立します。"
+          "ja": "SAP HANA データベースでは、ログバックアップの頻度を 5 分間に変更します。\n\nAWS CLI または AWS DataSync を使用して、データおよびログのバックアップを Amazon S3 に移動します。\n\nSAP HANA データベースを起動します。\n\nSAP アプリケーションサーバーについては、VM Import/Export 機能を使用して VM を AMI としてエクスポートします。\n\nNFS ファイル共有 `/sapmnt` と `/usr/sap/trans` について、DataSync から Amazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立します。"
         },
         {
           "en": "For the SAP HANA database, change the log backup frequency to 5 minutes. Move the data and log backups to Amazon S3 by using AWS Storage Gateway File Gateway. For the SAP application servers, export the VMs as AMIs by using the VM Import/Export feature from AWS. For NFS file shares /sapmnt and /usr/sap/trans, establish real-time synchronization from AWS DataSync to Amazon Elastic File System (Amazon EFS).",
           "isTranslating": false,
-          "ja": "SAP HANA データベースの場合、ログバックアップの頻度を5分に変更します。AWS Storage Gateway File Gateway を使用して、データとログバックアップを Amazon S3 に移動します。SAPアプリケーションサーバーについては、AWSのVM Import/Export機能を使用してVMをAMIとしてエクスポートします。NFSファイル共有の/sapmntと/usr/sap/transについては、AWS DataSyncからAmazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立します。"
+          "ja": "SAP HANA データベースの場合、ログバックアップの頻度を 5 分に変更します。\n\nAWS Storage Gateway File Gateway を使用して、データとログバックアップを Amazon S3 に移動します。\n\nSAP アプリケーションサーバーについては、AWS の VM Import/Export 機能を使用して VM を AMI としてエクスポートします。\n\nNFS ファイル共有の `/sapmnt` と `/usr/sap/trans` については、AWS DataSync から Amazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立します。"
         },
         {
           "en": "For the SAP HANA database, SAP application servers, and NFS file shares, use CloudEndure Disaster Recovery to replicate the data continuously from on premises to AWS. Use CloudEndure Disaster Recovery to launch target instances in the event of a disaster.",
           "isTranslating": false,
-          "ja": "SAP HANAデータベース、SAPアプリケーションサーバー、およびNFSファイル共有については、CloudEndure Disaster Recoveryを使用して、オンプレミスからAWSにデータを継続的にレプリケートします。災害発生時にはCloudEndure Disaster Recoveryを使用して、ターゲットインスタンスを起動します。"
+          "ja": "SAP HANA データベース、SAP アプリケーションサーバー、および NFS ファイル共有については、CloudEndure Disaster Recovery を使用して、オンプレミスから AWS にデータを継続的にレプリケートします。\n\n災害発生時には CloudEndure Disaster Recovery を使用して、ターゲットインスタンスを起動します。"
         },
         {
           "en": "For the SAP HANA database, use a smaller SAP certified Amazon EC2 instance. Use SAP HANA system replication with ASYNC replication mode to replicate the data continuously from on premises to AWS. For the SAP application servers, use CloudEndure Disaster Recovery for continuous data replication. For NFS file shares /sapmnt and /usr/sap/trans, establish real-time synchronization from AWS DataSync to Amazon Elastic File System (Amazon EFS).",
           "isTranslating": false,
-          "ja": "SAP HANAデータベースにおいては、SAP認定Amazon EC2の小規模インスタンスを使用するようにしてください。また、SAP HANAシステムレプリケーションをASYNCレプリケーションモードで使用し、オンプレミスからAWSへとデータを継続的にレプリケートしてください。さらに、SAPアプリケーションサーバーに対しては、継続的なデータレプリケーションのためにCloudEndure Disaster Recoveryを使用してください。また、NFSファイル共有の/sapmntと/usr/sap/transについては、AWS DataSyncからAmazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立してください。"
+          "ja": "SAP HANA データベースにおいては、SAP 認定 Amazon EC2 の小規模インスタンスを使用するようにしてください。\n\nまた、SAP HANA システムレプリケーションを ASYNC レプリケーションモードで使用し、オンプレミスから AWS へとデータを継続的にレプリケートしてください。\n\nさらに、SAP アプリケーションサーバーに対しては、継続的なデータレプリケーションのために CloudEndure Disaster Recovery を使用してください。\n\nまた、NFS ファイル共有の `/sapmnt` と `/usr/sap/trans` については、AWS DataSync から Amazon Elastic File System（Amazon EFS）へのリアルタイム同期を確立してください。"
         }
       ],
       "explanation": {
         "en": ["ASYNC for HANA DB.\nDRS for App"],
         "isTranslating": false,
-        "ja": "ハナDB用の非同期処理。\nアプリ用の分散リソーススケジューリング（DRS）。"
+        "ja": "ASYNC for HANA DB.\nDRS for App"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to migrate its on-premises SAP applications to AWS. The applications are based on Windows operating systems. A file share stores the transport directories and third-party application data on the network-attached storage of the company’s on-premises data center. The company’s plan is to lift and shift the SAP applications and the file share to AWS. The company must follow AWS best practices for the migration.Which AWS service should the company use to host the transport directories and third-party application data on AWS?"
         ],
         "isTranslating": false,
-        "ja": "ある会社が、オンプレミスのSAPアプリケーションをAWSに移行する計画を立てています。これらのアプリケーションは、Windowsオペレーティングシステムに基づいています。ファイル共有は、会社のオンプレミスデータセンターのネットワークアタッチメントストレージに輸送ディレクトリとサードパーティのアプリケーションデータを保管しています。会社の計画は、SAPアプリケーションとファイル共有をAWSにリフトアンドシフトすることです。会社は、AWSのマイグレーションのベストプラクティスに従う必要があります。会社は、AWS上で輸送ディレクトリとサードパーティのアプリケーションデータをホストするために、どのAWSサービスを使用すればよいでしょうか？"
+        "ja": "ある会社が、オンプレミスの SAP アプリケーションを AWS に移行する計画を立てています。\n\nこれらのアプリケーションは、Windows オペレーティングシステムに基づいています。\n\nファイル共有は、会社のオンプレミスデータセンターのネットワークアタッチメントストレージに転送ディレクトリとサードパーティのアプリケーションデータを保管しています。\n\n会社の計画は、SAP アプリケーションとファイル共有を AWS にリフト&シフトすることです。\n\n会社は、AWSのマイグレーションのベストプラクティスに従う必要があります。\n\n会社は、AWS上で転送ディレクトリとサードパーティのアプリケーションデータをホストするために、どのAWSサービスを使用すればよいでしょうか？"
       },
       "choices": [
         {
           "en": "Amazon Elastic Block Store (Amazon EBS)",
           "isTranslating": false,
-          "ja": "Amazon Elastic Block Store（Amazon EBS）は、Amazon Web Services（AWS）の一部で、Amazon EC2インスタンスに対してブロックストレージを提供するサービスです。EBSは高可用性、高性能、スケーラビリティ、セキュリティを備えており、AWS上で仮想的なサーバー環境を構築するために必要なストレージ要件を容易に満たすことができます。また、EBSには、自動スナップショット、セキュリティ機能、データ転送、ストレージタイプの選択など、多数の機能が備わっています。"
+          "ja": "Amazon Elastic Block Store (Amazon EBS)"
         },
         {
           "en": "AWS Storage Gateway",
           "isTranslating": false,
-          "ja": "AWS Storage Gatewayとは、AWSが提供するサービスの1つで、オンプレミスのストレージシステムとクラウドストレージをシームレスに統合することができます。このサービスを使用することで、既存のオンプレミスのストレージシステムをAWSクラウドに拡張することができます。AWS Storage Gatewayは、ファイル、ボリューム、テープの3つの異なるストレージインターフェースをサポートしており、スケーラブルで高速なストレージソリューションを提供します。また、AWS Backupと連携することもでき、データのバックアップと復元を簡単かつ迅速に行うことができます。"
+          "ja": "AWS Storage Gateway"
         },
         {
           "en": "Amazon Elastic File System (Amazon EFS)",
           "isTranslating": false,
-          "ja": "Amazon Elastic File System（Amazon EFS）は、Amazon Web Services（AWS）のマネージドネットワークファイルシステムサービスで、マルチAZアーキテクチャをベースにしたスケーラブルなストレージソリューションを提供します。EFSは、複数のEC2インスタンスに同時にフルアクセスできるファイルシステムを提供するため、複雑なアプリケーションやワークロードに最適です。また、EFSは、ストレージ容量を自動的に拡大または縮小し、必要に応じてパフォーマンスもスケーリングできます。"
+          "ja": "Amazon Elastic File System (Amazon EFS)"
         },
         {
           "en": "Amazon FSx for Windows File Server",
           "isTranslating": false,
-          "ja": "Amazon FSx for Windows File Serverは、マネージド型のWindowsネイティブのファイルストレージサービスです。このサービスは、Windowsベースのアプリケーションにとって高いパフォーマンス、信頼性、およびセキュリティを提供します。また、AWSのクラウドネイティブな設計により、サービスを簡単にスケーリングでき、容量を必要に応じて追加できます。"
+          "ja": "Amazon FSx for Windows File Server"
         }
       ],
       "explanation": {
@@ -1462,39 +1462,39 @@
           "Amazon FSx for Windows File Server is a fully managed service that provides a Windows-compatible file system, making it easy to lift and shift Windows-based file servers to the cloud. It provides a highly available and scalable file storage solution that integrates with native Windows tools, making it easy to use and manage. In addition, it offers the ability to host a file share, which is what the company needs to store transport directories and third-party application data. AWS Storage Gateway is a hybrid storage service that enables customers to securely store data in the cloud while still providing low-latency access to data from on-premises resources, making it unsuitable for this requirement. Amazon Elastic Block Store (Amazon EBS) provides block-level storage for use with Amazon EC2 instances, and is used for storing and accessing data for Amazon EC2 instances, not for file shares. Amazon Elastic File System (Amazon EFS) provides scalable network attached file storage for Amazon EC2 instances and is not a fully managed file server solution."
         ],
         "isTranslating": false,
-        "ja": "Amazon FSx for Windows File Server は、Windows 互換のファイルシステムを提供するフルマネージド型サービスです。これにより、Windows ベースのファイルサーバーをクラウドに移行することが容易になります。高可用性でスケーラブルなファイルストレージソリューションを提供し、ネイティブの Windows ツールに統合されており、使いやすく管理しやすいです。さらに、ファイル共有をホストする機能も提供しており、それが会社が輸送ディレクトリとサードパーティアプリケーションのデータを保存する必要があるものです。 AWS Storage Gatewayは、ハイブリッドストレージサービスであり、クラウドで安全にデータを保存しながら、オンプレミスのリソースからデータへの低レイテンシアクセスを提供するものであり、この要件には適していません。Amazon Elastic Block Store（Amazon EBS）は、Amazon EC2 インスタンスで使用するためのブロックレベルストレージを提供し、Amazon EC2 インスタンスのデータの保存とアクセスに使用されますが、ファイル共有のためのものではありません。Amazon Elastic File System（Amazon EFS）は、Amazon EC2 インスタンス向けのスケーラブルなネットワークアタッチドファイルストレージを提供し、フルマネージドファイルサーバーソリューションではありません。"
+        "ja": "Amazon FSx for Windows File Server は、Windows 互換のファイルシステムを提供するフルマネージド型サービスです。\n\nこれにより、Windows ベースのファイルサーバーをクラウドに移行することが容易になります。\n\n高可用性でスケーラブルなファイルストレージソリューションを提供し、ネイティブの Windows ツールに統合されており、使いやすく管理しやすいです。\n\nさらに、ファイル共有をホストする機能も提供しており、それが会社が輸送ディレクトリとサードパーティアプリケーションのデータを保存する必要があるものです。\n\nAWS Storage Gatewayは、ハイブリッドストレージサービスであり、クラウドで安全にデータを保存しながら、オンプレミスのリソースからデータへの低レイテンシアクセスを提供するものであり、この要件には適していません。\n\nAmazon Elastic Block Store（Amazon EBS）は、Amazon EC2 インスタンスで使用するためのブロックレベルストレージを提供し、Amazon EC2 インスタンスのデータの保存とアクセスに使用されますが、ファイル共有のためのものではありません。\n\nAmazon Elastic File System（Amazon EFS）は、Amazon EC2 インスタンス向けのスケーラブルなネットワークアタッチドファイルストレージを提供し、フルマネージドファイルサーバーソリューションではありません。"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has an SAP environment that runs on AWS. The company wants to enhance security by restricting Amazon EC2 Instance Metadata Service (IMDS) to IMDSv2 only. The company’s current configuration option supports both IMDSv1 and IMDSv2. The security enhancement must not create an SAP outage.What should the company do before it applies the security enhancement on EC2 instances that are running the SAP environment?"
         ],
         "isTranslating": false,
-        "ja": "ある企業はAWS上で動作するSAP環境を持っています。企業は、Amazon EC2インスタンスメタデータサービス（IMDS）をIMDSv2のみに制限することでセキュリティを強化したいと考えています。現在、企業の設定オプションはIMDSv1とIMDSv2の両方をサポートしています。セキュリティ強化によってSAPの停止が発生しないようにする必要があります。企業はEC2インスタンスでSAP環境を実行する前に、何をすべきでしょうか？"
+        "ja": "ある企業は AWS 上で動作する SAP 環境を持っています。\n\n企業は、Amazon EC2 インスタンスメタデータサービス（IMDS）を IMDSv2 のみに制限することでセキュリティを強化したいと考えています。\n\n現在、企業の設定オプションは IMDSv1 と IMDSv2 の両方をサポートしています。\n\nセキュリティ強化によって SAP の停止が発生しないようにする必要があります。\n\n企業は EC2 インスタンスで SAP 環境を実行する前に、何をすべきでしょうか？"
       },
       "choices": [
         {
           "en": "Ensure that the SAP kernel versions are 7.45 or later.",
           "isTranslating": false,
-          "ja": "SAPカーネルのバージョンが7.45以上であることを確認してください。"
+          "ja": "SAP カーネルのバージョンが 7.45 以上であることを確認します。"
         },
         {
           "en": "Ensure that the EC2 instances are Nitro based.",
           "isTranslating": false,
-          "ja": "EC2インスタンスがNitroベースであることを確認してください。"
+          "ja": "EC2 インスタンスが Nitro ベースであることを確認します。"
         },
         {
           "en": "Ensure that the AWS Data Provider for SAP is installed on each EC2 instance.",
           "isTranslating": false,
-          "ja": "各EC2インスタンスにAWS Data Provider for SAPがインストールされていることを確認してください。"
+          "ja": "各 EC2 インスタンスに AWS Data Provider for SAP がインストールされていることを確認します。"
         },
         {
           "en": "Stop the EC2 instances.",
           "isTranslating": false,
-          "ja": "EC2 インスタンスを停止してください。"
+          "ja": "EC2 インスタンスを停止します。"
         }
       ],
       "explanation": {
@@ -1502,29 +1502,29 @@
           "This is because the restriction of Amazon EC2 Instance Metadata Service (IMDS) to IMDSv2 is supported only on Nitro-based instances. By ensuring that the EC2 instances are Nitro-based, the company can restrict IMDS to IMDSv2 without causing an SAP outage. This is because the EC2 instances are designed to support this feature without affecting the performance of the SAP environment."
         ],
         "isTranslating": false,
-        "ja": "これは、Amazon EC2 Instance Metadata Service（IMDS）の制限がIMDSv2に限定されているためであり、NitroベースのインスタンスにのみIMDSv2がサポートされているためです。EC2インスタンスがNitroベースであることを確認することで、企業はSAPの障害を引き起こすことなくIMDSをIMDSv2に制限することができます。これは、EC2インスタンスが、SAP環境のパフォーマンスに影響を与えることなく、この機能をサポートするように設計されているためです。"
+        "ja": "これは、Amazon EC2 Instance Metadata Service（IMDS）の制限が IMDSv2 に限定されているためであり、Nitro ベースのインスタンスにのみ IMDSv2 がサポートされているためです。\n\nEC2 インスタンスが Nitro ベースであることを確認することで、企業は SAP の障害を引き起こすことなく IMDS を IMDSv2 に制限することができます。\n\nこれは、EC2 インスタンスが、SAP 環境のパフォーマンスに影響を与えることなく、この機能をサポートするように設計されているためです。"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running an SAP HANA database on AWS. The company wants to manage historical, infrequently accessed warm data for a native SAP HANA use case. An SAP solutions architect needs to recommend a solution that can provide online data storage in extended store, available for queries and updates. The solution must be an integrated component of the SAP HANA database and must allow the storage of up to five times more data in the warm tier than in the hot tier.Which solution will meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある企業は、AWS上でSAP HANAデータベースを運用しています。同社では、ネイティブのSAP HANAユースケースに関する歴史的でアクセス頻度の低いウォームデータを管理したいと考えています。SAPソリューションアーキテクトは、クエリと更新が可能なオンラインデータストレージを提供できるソリューションを推奨する必要があります。このソリューションはSAP HANAデータベースの統合コンポーネントである必要があり、ウォームティアに保存できるデータはホットティアよりも最大5倍多くなければなりません。これらの要件を満たすソリューションは何でしょうか？"
+        "ja": "ある企業は、AWS 上で SAP HANA データベースを運用しています。\n\n同社では、ネイティブの SAP HANA ユースケースに関する歴史的でアクセス頻度の低いウォームデータを管理したいと考えています。\n\nSAP ソリューションアーキテクトは、クエリと更新が可能なオンラインデータストレージを提供できるソリューションを推奨する必要があります。\n\nこのソリューションは SAP HANA データベースの統合コンポーネントである必要があり、ウォームティアに保存できるデータはホットティアよりも最大5倍多くなければなりません。\n\nこれらの要件を満たすソリューションは何でしょうか？"
       },
       "choices": [
         {
           "en": "Use Amazon Data Lifecycle Manager (Amazon DLM) with SAP Data Hub to move data in and out of the SAP HANA database to Amazon S3.",
           "isTranslating": false,
-          "ja": "SAP Data HubとAmazon S3の間でデータを移動するために、Amazon Data Lifecycle Manager (Amazon DLM)を使用することができます。これにより、SAP HANAデータベース内のデータを効率的に操作することが可能になります。"
+          "ja": "SAP Data Hub と Amazon S3 の間でデータを移動するために、Amazon Data Lifecycle Manager (Amazon DLM)を使用することができます。\n\nこれにより、SAP HANA データベース内のデータを効率的に操作することが可能になります。"
         },
         {
           "en": "Use an SAP HANA extension node.",
           "isTranslating": false,
-          "ja": "SAP HANA拡張ノードを使用します。"
+          "ja": "SAP HANA 拡張ノードを使用します。"
         },
         {
           "en": "Use SAP HANA dynamic tiering as an optional add-on to the SAP HANA database.",
@@ -1534,7 +1534,7 @@
         {
           "en": "Use Amazon Data Lifecycle Manager (Amazon DLM) with SAP HANA spark controller so that SAP HANA can access the data through the Spark SQL SDA adapter.",
           "isTranslating": false,
-          "ja": "Amazon Data Lifecycle Manager（Amazon DLM）をSAP HANAスパークコントローラーと組み合わせることで、SAP HANAがSpark SQL SDAアダプターを介してデータにアクセスできるようにします。"
+          "ja": "Amazon Data Lifecycle Manager（Amazon DLM）を SAP HANA スパークコントローラーと組み合わせることで、SAP HANA が Spark SQL SDA アダプターを介してデータにアクセスできるようにします。"
         }
       ],
       "explanation": {
@@ -1542,44 +1542,44 @@
           "SAP HANA dynamic tiering is an optional add-on to the SAP HANA database that enables the management of historical and infrequently accessed warm data in a cost-effective manner. It allows for the storage of up to five times more data in the warm tier than in the hot tier and is an integrated component of the SAP HANA database, providing online data storage and making it available for queries and updates. This solution meets the requirements for the company's use case of managing historical warm data for a native SAP HANA use case."
         ],
         "isTranslating": false,
-        "ja": "SAP HANA ダイナミックティアリングは、費用効果的な方法で歴史的、または頻繁にアクセスされないウォームデータの管理を可能にする、SAP HANAデータベースのオプションの追加機能です。この機能により、ウォームティアにはホットティアよりも最大5倍のデータを保存でき、SAP HANAデータベースの統合コンポーネントであるため、オンラインデータストレージを提供し、クエリや更新に利用できます。このソリューションは、ネイティブのSAP HANAのユースケースにおいて、歴史的ウォームデータを管理するための要件を満たします。"
+        "ja": "SAP HANA ダイナミックティアリングは、費用効果的な方法で歴史的、または頻繁にアクセスされないウォームデータの管理を可能にする、SAP HANAデータベースのオプションの追加機能です。\n\nこの機能により、ウォームティアにはホットティアよりも最大 5 倍のデータを保存でき、SAP HANA データベースの統合コンポーネントであるため、オンラインデータストレージを提供し、クエリや更新に利用できます。\n\nこのソリューションは、ネイティブの SAP HANA のユースケースにおいて、歴史的ウォームデータを管理するための要件を満たします。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company plans to migrate its SAP NetWeaver deployment to AWS. The deployment runs on a Microsoft SQL Server database. The company plans to change the source database from SQL Server to SAP HANA as part of this process.Which migration tools or methods should an SAP solutions architect use to meet these requirements? (Choose two.)"
         ],
         "isTranslating": false,
-        "ja": "ある企業が自社のSAP NetWeaver展開をAWSに移行する計画を立てています。この展開は、Microsoft SQL Serverデータベース上で実行されています。このプロセスの一環として、企業はソースデータベースをSQL ServerからSAP HANAに変更する予定です。SAPソリューションアーキテクトがこれらの要件を満たすために使用すべき移行ツールまたは方法は何ですか？ (2つ選択してください。)"
+        "ja": "ある企業が自社の SAP NetWeaver 展開を AWS に移行する計画を立てています。\n\nこのデプロイは、Microsoft SQL Server データベース上で実行されています。\n\nこのプロセスの一環として、企業はソースデータベースを SQL Server から SAP HANA に変更する予定です。\n\nSAP ソリューションアーキテクトがこれらの要件を満たすために使用すべき移行ツールまたは方法は何ですか？"
       },
       "choices": [
         {
           "en": "SAP HANA classical migration",
           "isTranslating": false,
-          "ja": "SAP HANAの古典的な移行"
+          "ja": "SAP HANA classical migration"
         },
         {
           "en": "SAP HANA system replication",
           "isTranslating": false,
-          "ja": "SAP HANAのシステムレプリケーションについて。"
+          "ja": "SAP HANA system replication"
         },
         {
           "en": "SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Move",
           "isTranslating": false,
-          "ja": "システム移行を含むSAPソフトウェアの更新マネージャー（SUM）データベースマイグレーションオプション（DMO）"
+          "ja": "SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Move"
         },
         {
           "en": "SAP HANA backup and restore",
           "isTranslating": false,
-          "ja": "SAP HANA バックアップとリストアします。"
+          "ja": "SAP HANA バックアップ&リストア"
         },
         {
           "en": "SAP homogeneous system copy",
           "isTranslating": false,
-          "ja": "SAPホモジニアスシステムコピー"
+          "ja": "SAP 同機種間のシステムコピー"
         }
       ],
       "explanation": {
@@ -1587,18 +1587,18 @@
           "https://docs.aws.amazon.com/sap/latest/sap-hana/migrating-hana-anydb-to-hana.html"
         ],
         "isTranslating": false,
-        "ja": "こちらはSAP HANA AnyDBからSAP HANAへのマイグレーションについてのAmazon Web Servicesのドキュメントです。"
+        "ja": "AWS上でのSAP HANAへのAnyDBからの移行には、通常、データベースプラットフォームの変更や、オペレーティングシステムの変更が含まれることがあります。ただし、移行には、次のような追加の技術的変更や影響が必要な場合があります。\n\n・SAP ABAPコードの変更。たとえば、AnyDBプラットフォーム向けにコーディングされたデータベースヒントなど、データベースまたはオペレーティングシステムの依存関係を持つカスタムコードがある場合があります。SAP HANA上で最適に機能するようにカスタムABAPコードを変更する必要がある場合があります。SAP HANA固有の最適化に関するSAPの推奨事項とガイダンスについては、「SAP HANAへの移行時のカスタムABAPコードの考慮事項」および「SAP HANA向けのABAP SQLモニター」と「SAP HANA向けのABAPカスタムコード移行」を参照してください。\n\n・カスタムファイル共有やスクリプトなど、オペレーティングシステム固有の依存関係を再作成または別のソリューションに移行する必要がある場合があります。\n\n・オペレーティングシステムのチューニング（カーネルパラメータなど）を考慮する必要があります。SAP HANA用のAWS Launch Wizardは、SUSEやRed Hatなどのオペレーティングシステムパートナーのベストプラクティスを取り込んでいます。\n\n・Linux管理およびサポートのような技術的専門知識が必要な場合があります。組織がLinuxの経験を持っていない場合は、SAPが提供する古典的な移行やSUM DMOなどのツールと方法論を使用して、このシナリオの移行プロセスを支援することができます（詳細については、「移行ツールおよび方法論」セクションを参照してください）。AWSの顧客は、SAP SUM DMOツールを使用して、データベースをAWS上のSAP HANAに移行することができます。SAP SUM DMOメソッドに関するいくつかの考慮事項には、ネットワーク帯域幅、転送するデータ量...\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/migrating-hana-anydb-to-hana.html"
       },
       "corrects": [1, 3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
-          "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS. An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration).After the server migration process is finished, the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes, the EC2 console reports that the test instance has failed an instance status check. Network connections to the instance are refused.How can the SAP solutions architect solve this question?"
+          "A company has an SAP Business One system that runs on SUSE Linux Enterprise Server 12 SP3. The company wants to migrate the system to AWS. An SAP solutions architect selects a homogeneous migration strategy that uses AWS Application Migration Service (CloudEndure Migration).After the server migration process is finished, the SAP solutions architect launches an Amazon EC2 test instance from the R5 instance family. After a few minutes, the EC2 console reports that the test instance has failed an instance status check. Network connections to the instance are refused.How can the SAP solutions architect solve this problem?"
         ],
         "isTranslating": false,
-        "ja": "会社は、SUSE Linux Enterprise Server 12 SP3上で動作するSAP Business Oneシステムを持っています。会社はこのシステムをAWSに移行したいと考えており、SAPのソリューションアーキテクトは、AWS Application Migration Service（CloudEndure Migration）を使用した同種の移行戦略を選択しました。サーバー移行プロセスが完了した後、SAPソリューションアーキテクトはR5インスタンスファミリーからAmazon EC2のテストインスタンスを起動します。数分後、EC2コンソールによってテストインスタンスがインスタンスステータスチェックに失敗したことが報告されました。インスタンスへのネットワーク接続が拒否されています。SAPソリューションアーキテクトは、この問題をどのように解決できますか？\n\n【回答】\nSAPソリューションアーキテクトは、次の手順を実行して問題を解決できます。\n1. テストインスタンスがEC2インスタンスにアタッチされているセキュリティグループの設定を確認します。許可されたポートが正しいかどうかを確認します。\n2. インスタンスが正常に起動しているかどうかを確認し、CloudWatchメトリックスを使用してCPU使用率、ネットワークI/O、およびディスクI/Oなどのリソース使用状況を観察します。\n3. インスタンスがVPC内で正しいサブネットに配置されていることを確認します。\n4. インスタンスがアクセスできるようにするための必要なルートを、ルーティングテーブルとネットワークACLで確認します。\n5. Amazon EC2サービスから、テストインスタンスが正常に起動するための詳細なログを確認します。\nこれらの手順で問題が解決されない場合は、AWSテクニカルサポートに連絡し、詳細な診断を受ける必要があります。"
+        "ja": "会社は、SUSE Linux Enterprise Server 12 SP3 上で動作する SAP Business One システムを持っています。\n\n会社はこのシステムを AWS に移行したいと考えており、SAP のソリューションアーキテクトは、AWS Application Migration Service（CloudEndure Migration）を使用した同機種間の移行戦略を選択しました。\n\nサーバー移行プロセスが完了した後、SAP ソリューションアーキテクトは R5 インスタンスファミリーから Amazon EC2 のテストインスタンスを起動します。\n\n数分後、EC2 コンソールによってテストインスタンスがインスタンスステータスチェックに失敗したことが報告されました。\n\nインスタンスへのネットワーク接続が拒否されています。\n\nSAP ソリューションアーキテクトは、この問題をどのように解決できますか？"
       },
       "choices": [
         {
@@ -1609,17 +1609,17 @@
         {
           "en": "Request an instance limit increase for the AWS Region where the test instance is being launched.",
           "isTranslating": false,
-          "ja": "テストインスタンスを起動しているAWSリージョンのインスタンス制限を増やすようにリクエストしてください。"
+          "ja": "テストインスタンスを起動している AWS リージョンのインスタンス制限を増やすようにリクエストしてください。"
         },
         {
           "en": "Create a ticket for AWS Support that documents the test server instance ID. Wait for AWS to update the host of the R5 instance.",
           "isTranslating": false,
-          "ja": "AWSサポートに、テストサーバーのインスタンスIDが記載されたチケットを作成してください。R5インスタンスのホストが更新されるまでお待ちください。"
+          "ja": "AWS サポートに、テストサーバーのインスタンス ID が記載されたチケットを作成してください。\n\nR5 インスタンスのホストが更新されるまでお待ちください。"
         },
         {
           "en": "Install the missing drivers on the source system. Wait for the completion of migration synchronization. Launch the test instance again.",
           "isTranslating": false,
-          "ja": "ソースシステムに欠落しているドライバーをインストールします。移行同期が完了するのを待ちます。その後、テストインスタンスを再起動します。"
+          "ja": "ソースシステムに欠落しているドライバーをインストールします。\n\n移行同期が完了するのを待ちます。\n\nその後、テストインスタンスを再起動します。"
         }
       ],
       "explanation": {
@@ -1627,39 +1627,39 @@
           "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/troubleshooting-launch.html"
         ],
         "isTranslating": false,
-        "ja": "AWS EC2 における起動トラブルシューティングのヒントを説明したユーザーガイドがあります。"
+        "ja": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/troubleshooting-launch.html"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP basis architect is configuring high availability for a critical SAP system on AWS. The SAP basis architect is using an overlay IP address to route traffic to the subnets across multiple Availability Zones within an AWS Region for the system’s SAP HANA database.What should the SAP basis architect do to route the traffic to the Amazon EC2 instance of the active SAP HANA database?"
         ],
         "isTranslating": false,
-        "ja": "AWS上の重要なSAPシステムに対して、SAP基盤アーキテクトが高可用性を構成しています。SAP基盤アーキテクトは、システムのSAP HANAデータベースのサブネットにある複数の利用可能ゾーン間でトラフィックをルーティングするために、オーバーレイIPアドレスを使用しています。アクティブなSAP HANAデータベースのAmazon EC2インスタンスへトラフィックをルーティングするために、SAP基盤アーキテクトは何をすべきですか？"
+        "ja": "AWS 上の重要な SAP システムに対して、SAP 基盤アーキテクトが高可用性を構成しています。\n\nSAP 基盤アーキテクトは、システムの SAP HANA データベースのサブネットにある複数の利用可能ゾーン間でトラフィックをルーティングするために、オーバーレイ IP アドレスを使用しています。\n\nアクティブな SAP HANA データベースの Amazon EC2 インスタンスへトラフィックをルーティングするために、SAP 基盤アーキテクトは何をすべきですか？"
       },
       "choices": [
         {
           "en": "Edit the route in the route table of the VPC that includes the EC2 instance that runs SAP HANSpecify the overlay IP address as the destination. Specify the private IP address of the EC2 instance as the target.",
           "isTranslating": false,
-          "ja": "SAP HANAを実行するEC2インスタンスが含まれるVPCのルートテーブルのルートを編集してください。宛先にオーバーレイIPアドレスを指定し、ターゲットにはEC2インスタンスのプライベートIPアドレスを指定してください。"
+          "ja": "SAP HANA を実行する EC2 インスタンスが含まれるVPCのルートテーブルのルートを編集してください。\n\n宛先にオーバーレイ IP アドレスを指定し、ターゲットには EC2 インスタンスのプライベート IP アドレスを指定してください。"
         },
         {
           "en": "Edit the inbound and outbound rules in the security group of the EC2 instance that runs SAP HANA. Allow traffic for SAP HANA specific ports from the overlay IP address.",
           "isTranslating": false,
-          "ja": "SAP HANAを実行しているEC2インスタンスのセキュリティグループのインバウンドおよびアウトバウンド規則を編集し、オーバーレイIPアドレスからSAP HANA特定のポートへのトラフィックを許可してください。"
+          "ja": "SAP HANA を実行している EC2 インスタンスのセキュリティグループのインバウンドおよびアウトバウンド規則を編集し、オーバーレイ IP アドレスから SAP HANA 特定のポートへのトラフィックを許可してください。"
         },
         {
           "en": "Edit the network ACL of the subnet that includes the EC2 instance that runs SAP HANA. Allow traffic for SAP HANA specific ports from the overlay IP address.",
           "isTranslating": false,
-          "ja": "SAP HANAを実行しているEC2インスタンスが含まれるサブネットのネットワークACLを編集し、オーバーレイIPアドレスからSAP HANA特定のポートに対するトラフィックを許可してください。"
+          "ja": "SAP HANA を実行している EC2 インスタンスが含まれるサブネットのネットワーク ACL を編集し、オーバーレイ IP アドレスから SAP HANA 特定のポートに対するトラフィックを許可してください。"
         },
         {
           "en": "Edit the route in the route table of the VPC that includes the EC2 instance that runs SAP HANA. Specify the overlay IP address as the destination. Specify the elastic network interface of the EC2 instance as the target.",
           "isTranslating": false,
-          "ja": "SAP HANAを実行するEC2インスタンスが含まれるVPCのルーテーブルのルートを編集し、オーバーレイIPアドレスを宛先として指定します。EC2インスタンスの弾性ネットワークインターフェイスをターゲットとして指定してください。"
+          "ja": "SAP HANA を実行する EC2 インスタンスが含まれる VPC のルーテーブルのルートを編集し、オーバーレイ IP アドレスを宛先として指定します。\n\nEC2 インスタンスの Elastic Network Interface をターゲットとして指定してください。"
         }
       ],
       "explanation": {
@@ -1673,12 +1673,12 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running SAP ERP Central Component (SAP ECC) with a Microsoft SQL Server database on AWS. A solutions architect must attach an additional 1 TB Amazon Elastic Block Store (Amazon EBS) volume. The company needs to write the SQL Server database backups to this EBS volume before moving the database backups to Amazon S3 for long-term storage.Which EBS volume type will meet these requirements MOST cost-effectively?"
         ],
         "isTranslating": false,
-        "ja": "ある会社は、Microsoft SQL Serverデータベースを使用したSAP ERP Central Component（SAP ECC）をAWS上で運営しています。ソリューションアーキテクトは、1 TBのAmazon Elastic Block Store（Amazon EBS）ボリュームを追加する必要があります。会社は、SQL ServerデータベースのバックアップをこのEBSボリュームに書き込み、その後、長期保管のためにAmazon S3にデータベースバックアップを移動する必要があります。この要件を最も費用対効果よく満たすEBSボリュームタイプは何ですか？"
+        "ja": "ある会社は、Microsoft SQL Server データベースを使用した SAP ERP Central Component（SAP ECC）を AWS 上で運営しています。\n\nソリューションアーキテクトは、1 TBの Amazon Elastic Block Store（Amazon EBS）ボリュームを追加する必要があります。\n\n会社は、SQL Server データベースのバックアップをこの EBS ボリュームに書き込み、その後、長期保管のために Amazon S3 にデータベースバックアップを移動する必要があります。\n\nこの要件を最も費用対効果よく満たす EBS ボリュームタイプは何ですか？"
       },
       "choices": [
         {
@@ -1707,39 +1707,39 @@
           "The Throughput Optimized HDD (st1) EBS volume type is most cost-effective for the company's requirements. This is because it provides a balance of both performance and cost, and is well-suited for a wide range of workloads, including those that require low latency and high throughput. The SQL Server database backups are likely to have a moderate I/O demand, and the st1 volume type provides a consistent performance with a low cost per gigabyte. The st1 volume type is also a good choice for use with a SQL Server database because it supports burst performance for workloads that require sudden spikes in I/O."
         ],
         "isTranslating": false,
-        "ja": "会社の要件に最も費用対効果の高いのは、スループット最適化されたHDD（st1）EBSボリュームタイプです。これは、パフォーマンスとコストの両方のバランスを提供し、低レイテンシーと高スループットを求められるさまざまなワークロードに適しています。SQL Serverデータベースのバックアップには、中程度のI/O需要が予想されますが、st1ボリュームタイプは一定のパフォーマンスと低コスト/ギガバイトを提供するため、適しています。また、急激なI/Oのスパイクを要求するワークロードに対しては、バーストパフォーマンスをサポートしているため、SQL Serverデータベースでの利用にも適しています。"
+        "ja": "会社の要件に最も費用対効果の高いのは、スループット最適化された HDD（st1）EBS ボリュームタイプです。\n\nこれは、パフォーマンスとコストの両方のバランスを提供し、低レイテンシーと高スループットを求められるさまざまなワークロードに適しています。\n\nSQL Server データベースのバックアップには、中程度の I/O 需要が予想されますが、st1 ボリュームタイプは一定のパフォーマンスと低コスト/ギガバイトを提供するため、適しています。\n\nまた、急激な I/O のスパイクを要求するワークロードに対しては、バーストパフォーマンスをサポートしているため、SQL Server データベースでの利用にも適しています。"
       },
       "corrects": [1],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
-          "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANA data mart. An SAP system administrator has discovered that at peak volume, the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed. However, the SAP HANA database is occupying only 1,120 GiB of the available 1,952 GiB on the instance. I/O wait times are not increasing. Extensive query tuning and system tuning have not resolved this performance question.Which solutions should the SAP system administrator use to improve the performance? (Choose two.)"
+          "Business users are reporting timeouts during periods of peak query activity on an enterprise SAP HANA data mart. An SAP system administrator has discovered that at peak volume, the CPU utilization increases rapidly to 100% for extended periods on the x1.32xlarge Amazon EC2 instance where the database is installed. However, the SAP HANA database is occupying only 1,120 GiB of the available 1,952 GiB on the instance. I/O wait times are not increasing. Extensive query tuning and system tuning have not resolved this performance problem.Which solutions should the SAP system administrator use to improve the performance? (Choose two.)"
         ],
         "isTranslating": false,
-        "ja": "企業向けのSAP HANAデータマートで、ピーク時のクエリ活動中にタイムアウトが報告されています。SAPシステム管理者は、データベースがインストールされているx1.32xlarge Amazon EC2インスタンスで、ピーク時にCPU使用率が急速に増加して長時間100%になることを発見しました。ただし、SAP HANAデータベースは、インスタンスの利用可能な1,952 GiBのうち1,120 GiBしか占有していません。I/O待ち時間は増加していません。クエリチューニングとシステムチューニングによるパフォーマンス問題の解決には成功していません。システム管理者がパフォーマンスを改善するために使用すべきソリューションはどれですか？ （2つ選択してください。）\n\n- Add more CPU resources to the instance to handle the peak query loads.\n- Move the SAP HANA database to an instance with more memory to avoid CPU saturation.\n- Use Amazon ElastiCache to cache frequently accessed data to reduce query times.\n- Upgrade the network connection between the SAP HANA instance and the application servers.\n- Use Amazon CloudWatch to monitor query activity and alert when timeouts are encountered. \n\n（2つ選択してください。） \n\n1.ピーク時のクエリ負荷を処理するために、インスタンスにより多くのCPUリソースを追加します。\n2.CPU飽和を回避するために、SAP HANAデータベースをメモリが多いインスタンスに移動します。\n3.頻繁にアクセスされるデータをキャッシュしてクエリ時間を短縮するためにAmazon ElastiCacheを使用します。\n4.SAP HANAインスタンスとアプリケーションサーバー間のネットワーク接続をアップグレードします。\n5.クエリアクティビティを監視し、タイムアウトが発生した場合にアラートを発信するためにAmazon CloudWatchを使用します。"
+        "ja": "企業向けの SAP HANA データマートで、ピーク時のクエリ活動中にタイムアウトが報告されています。\n\nSAP システム管理者は、データベースがインストールされている x1.32xlarge Amazon EC2 インスタンスで、ピーク時に CPU 使用率が急速に増加して長時間 100% になることを発見しました。\n\nただし、SAP HANA データベースは、インスタンスの利用可能な 1,952 GiB のうち 1,120 GiB しか占有していません。\n\nI/O 待ち時間は増加していません。\n\nクエリチューニングとシステムチューニングによるパフォーマンス問題の解決には成功していません。\n\nシステム管理者がパフォーマンスを改善するために使用すべきソリューションはどれですか？"
       },
       "choices": [
         {
           "en": "Reduce the global_allocation_limit parameter to 1,120 GiB.",
           "isTranslating": false,
-          "ja": "グローバルアロケーション制限パラメーターを1,120 GiBに減らしてください。"
+          "ja": "グローバルアロケーション制限パラメーターを 1,120 GiB に減らしてください。"
         },
         {
           "en": "Migrate the SAP HANA database to an EC2 High Memory instance with a larger number of available vCPUs.",
           "isTranslating": false,
-          "ja": "SAP HANAデータベースを、使用可能なvCPUが多いEC2ハイメモリーインスタンスに移行します。"
+          "ja": "SAP HANA データベースを、使用可能な vCPU が多い EC2 ハイメモリーインスタンスに移行します。"
         },
         {
           "en": "Move to a scale-out architecture for SAP HANA with at least three x1. 16xlarge instances.",
           "isTranslating": false,
-          "ja": "SAP HANAのスケールアウトアーキテクチャについて、少なくとも3つのx1.16xlargeインスタンスを使用するよう移行してください。"
+          "ja": "SAP HANA のスケールアウトアーキテクチャについて、少なくとも 3 つの x1.16xlarge インスタンスを使用するよう移行してください。"
         },
         {
           "en": "Modify the Amazon Elastic Block Store (Amazon EBS) volume type from General Purpose to Provisioned IOPS for all SAP HANA data volumes.",
           "isTranslating": false,
-          "ja": "SAP HANAの全てのデータボリュームについて、Amazon Elastic Block Store (Amazon EBS) ボリュームタイプをジェネラルパーパスからプロビジョンドIOPSに変更します。"
+          "ja": "SAP HANA の全てのデータボリュームについて、Amazon Elastic Block Store (Amazon EBS) ボリュームタイプをジェネラルパーパスからプロビジョンド IOPS に変更します。"
         },
         {
           "en": "Change to a supported compute optimized instance type for SAP HANA.",
@@ -1758,33 +1758,33 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is moving to the AWS Cloud gradually. The company has multiple SAP landscapes on VMware. The company already has sandbox, development, and QA systems on AWS. The company’s production system is still running on premises. The company has 2 months to cut over the entire landscape to the AWS Cloud.The company has adopted a hybrid architecture for the next 2 months and needs to synchronize its shared file systems between the landscapes. These shared file systems include /trans directory mounts, /software directory mounts, and third-party integration mounts. In the on-premises landscape, the company has NFS mounts between the servers. On the AWS infrastructure side, the company is using Amazon Elastic File System (Amazon EFS) to share the common files.An SAP solutions architect needs to design a solution to schedule transfer of these shared files bidirectionally four times each day. The data transfer must be encrypted.Which solution will meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "1日に4回、共有ファイルを双方向に転送するようにスケジュールを設定する必要があるため、SAPソリューションアーキテクトは、これらの要件を満たすためのソリューションを設計する必要があります。データ転送は暗号化する必要があります。この期間中、ハイブリッドアーキテクチャが採用されているため、共有ファイルシステムをランドスケープ間で同期する必要があります。共有ファイルシステムには、/ transディレクトリマウント、/ softwareディレクトリマウント、およびサードパーティの統合マウントが含まれます。オンプレミスのランドスケープでは、会社はサーバー間で NFS マウントを使用しています。AWSのインフラストラクチャ側では、会社はAmazon Elastic File System(Amazon EFS)で共通のファイルを共有しています。以上の要件を満たすソリューションは何ですか？"
+        "ja": "1 日に 4 回、共有ファイルを双方向に転送するようにスケジュールを設定する必要があるため、SAP ソリューションアーキテクトは、これらの要件を満たすためのソリューションを設計する必要があります。\n\nデータ転送は暗号化する必要があります。\n\nこの期間中、ハイブリッドアーキテクチャが採用されているため、共有ファイルシステムをランドスケープ間で同期する必要があります。\n\n共有ファイルシステムには、`/trans` ディレクトリマウント、`/software` ディレクトリマウント、およびサードパーティの統合マウントが含まれます。\n\nオンプレミスのランドスケープでは、会社はサーバー間で NFS マウントを使用しています。\n\nAWSのインフラストラクチャ側では、会社は Amazon Elastic File System(Amazon EFS) で共通のファイルを共有しています。\n\n以上の要件を満たすソリューションは何ですか？"
       },
       "choices": [
         {
           "en": "Write an rsync script. Schedule the script through cron for four times each day in the on-premises VMware servers to transfer the data from on premises to AWS.",
           "isTranslating": false,
-          "ja": "オンプレミスのVMwareサーバからAWSへデータを転送するためのrsyncスクリプトを作成し、cronを使用して1日4回スケジュールしてください。"
+          "ja": "オンプレミスの VMware サーバから AWS へデータを転送するための rsync スクリプトを作成し、cron を使用して1日4回スケジュールしてください。"
         },
         {
           "en": "Install an AWS DataSync agent on the on-premises VMware platform. Use the DataSync endpoint to synchronize between the on-premises NFS server and Amazon EFS on AWS.",
           "isTranslating": false,
-          "ja": "オンプレミスVMwareプラットフォームにAWS DataSyncエージェントをインストールします。DataSyncエンドポイントを使用して、オンプレミスNFSサーバーとAWSのAmazon EFSとの間で同期を取ります。"
+          "ja": "オンプレミス VMware プラットフォームに AWS DataSync エージェントをインストールします。\n\nDataSync エンドポイントを使用して、オンプレミス NFS サーバーと AWS の Amazon EFS との間で同期を取ります。"
         },
         {
           "en": "Order an AWS Snowcone device. Use the Snowcone device to transfer data between the on-premises servers and AWS.",
           "isTranslating": false,
-          "ja": "AWS Snowconeデバイスをオーダーし、オンプレミスサーバーとAWSの間でデータを転送するために使用します。"
+          "ja": "AWS Snowcone デバイスをオーダーし、オンプレミスサーバーと AWS の間でデータを転送するために使用します。"
         },
         {
           "en": "Set up a separate AWS Direct Connect connection for synchronization between the on-premises servers and AWS.",
           "isTranslating": false,
-          "ja": "オンプレミス・サーバーとAWS間の同期のために、別のAWS Direct Connect接続を設定してください。"
+          "ja": "オンプレミス・サーバーと AWS 間の同期のために、別の AWS Direct Connect 接続を設定してください。"
         }
       ],
       "explanation": {
@@ -1792,39 +1792,39 @@
           "Install an AWS DataSync agent on the on-premises VMware platform and use the DataSync endpoint to synchronize between the on-premises NFS server and Amazon EFS on AWS.\n\nAWS DataSync provides a fast, simple, and secure way to transfer data between on-premises and AWS storage, including Amazon EFS. By installing an AWS DataSync agent on the on-premises VMware platform and configuring the DataSync endpoint, the SAP solutions architect can use the AWS DataSync to synchronize the shared file systems between the landscapes. The data transfer can be encrypted, meeting the security requirement. DataSync is designed for bi-directional transfers and can be scheduled for four times a day to meet the requirement for frequent data transfers."
         ],
         "isTranslating": false,
-        "ja": "オンプレミスのVMwareプラットフォームにAWS DataSyncエージェントをインストールし、DataSyncエンドポイントを使用してオンプレミスのNFSサーバーとAWSのAmazon EFS間で同期する方法があります。\n\nAWS DataSyncは、オンプレミスとAWSストレージ、Amazon EFSを含むストレージ間のデータ転送を迅速かつ簡単かつ安全な方法で提供します。オンプレミスのVMwareプラットフォームにAWS DataSyncエージェントをインストールし、DataSyncエンドポイントを設定することで、SAPソリューションアーキテクトは、AWS DataSyncを使用してランドスケープ間の共有ファイルシステムを同期することができます。データ転送は暗号化され、セキュリティ要件を満たすことができます。DataSyncは双方向の転送に対応しており、頻繁なデータ転送の要件を満たすために1日4回のスケジュールを設定することができます。"
+        "ja": "オンプレミスの VMware プラットフォームに AWS DataSync エージェントをインストールし、DataSync エンドポイントを使用してオンプレミスの NFS サーバーと AWS の Amazon EFS 間で同期する方法があります。\n\nAWS DataSync は、オンプレミスと AWS ストレージ、Amazon EFS を含むストレージ間のデータ転送を迅速かつ簡単かつ安全な方法で提供します。\n\nオンプレミスの VMware プラットフォームに AWS DataSync エージェントをインストールし、DataSync エンドポイントを設定することで、SAP ソリューションアーキテクトは、AWS DataSync を使用してランドスケープ間の共有ファイルシステムを同期することができます。\n\nデータ転送は暗号化され、セキュリティ要件を満たすことができます。\n\nDataSync は双方向の転送に対応しており、頻繁なデータ転送の要件を満たすために1日4回のスケジュールを設定することができます。"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to move to AWS. The company wants to set up sandbox and test environments on AWS to perform proofs of concept (POCs). Development and production environments will remain on premises until the POCs are completed.At the company’s on-premises location, SAProuter is installed on the same server as SAP Solution Manager. The company uses SAP Solution Manager to monitor the entire landscape. The company uses SAProuter to connect to SAP Support. The on-premises SAP Solution Manager instance must monitor the performance and server metrics of the newly created POC systems on AWS. The existing SAProuter must be able to report any issues to SAP.What should an SAP solutions architect do to set up this hybrid infrastructure MOST cost-effectively?"
         ],
         "isTranslating": false,
-        "ja": "ある企業がAWSへの移行を計画しています。同社は、概念実証（POC）を実行するためにAWS上にサンドボックスおよびテスト環境を設定することを望んでいます。POCが完了するまで、開発環境および本番環境はオンプレミスに残ります。同社のオンプレミスの場所では、SAPルータがSAP Solution Managerと同じサーバーにインストールされています。同社はSAP Solution Managerを使用して、全体像を監視しています。同社はSAPサポートに接続するためにSAProuterを使用しています。オンプレミスのSAP Solution Managerインスタンスは、AWS上に新たに作成されたPOCシステムのパフォーマンスおよびサーバーメトリックを監視する必要があります。既存のSAProuterは、SAPに問題がある場合に報告できるようにしておく必要があります。\n\nこのハイブリッドインフラストラクチャを、最も費用対効果が高く設定するために、SAPのソリューションアーキテクトは何をすべきでしょうか？"
+        "ja": "ある企業が AWS への移行を計画しています。\n\n同社は、概念実証（POC）を実行するためにAWS上にサンドボックスおよびテスト環境を設定することを望んでいます。\n\nPOC が完了するまで、開発環境および本番環境はオンプレミスに残ります。\n\nSAP ルータが SAP Solution Manager と同じオンプレミスサーバーにインストールされています。\n\n同社は SAP Solution Manager を使用して、全体像を監視しています。\n\n同社は SAP サポートに接続するために SAProuter を使用しています。\n\nオンプレミスの SAP Solution Manager インスタンスは、AWS 上に新たに作成された POC システムのパフォーマンスおよびサーバーメトリックを監視する必要があります。\n\n既存の SAProuter は、SAP に問題がある場合に報告できるようにしておく必要があります。\n\nこのハイブリッドインフラストラクチャを、最も費用対効果が高く設定するために、SAPのソリューションアーキテクトは何をすべきでしょうか？"
       },
       "choices": [
         {
           "en": "Install a new SAP Solution Manager instance and a new SAProuter instance in the AWS environment. Connect the POC systems to these new instances. Use these new instances in parallel with the on-premises SAP Solution Manager instance and the on-premises SAProuter instance.",
           "isTranslating": false,
-          "ja": "AWS環境に新しいSAP Solution ManagerインスタンスとSAProuterインスタンスをインストールし、POCシステムをこれらの新しいインスタンスに接続します。オンプレミスのSAP Solution ManagerインスタンスとSAProuterインスタンスと並行して、これらの新しいインスタンスを使用してください。"
+          "ja": "AWS 環境に新しい SAP Solution Manager インスタンスと SAProuter インスタンスをインストールし、POC システムをこれらの新しいインスタンスに接続します。\n\nオンプレミスの SAP Solution Manager インスタンスと SAProuter インスタンスと並行して、これらの新しいインスタンスを使用してください。"
         },
         {
           "en": "Install a new SAP Solution Manager instance and a new SAProuter instance in the AWS environment. Install the Amazon CloudWatch agent on all on-premises instances. Push the monitoring data to the new SAP Solution Manager instance. Connect all on-premises systems and POC systems on AWS to the new SAP Solution Manager instance and the new SAProuter instance. Remove the on-premises SAP Solution Manager instance and the on-premises SAProuter instance. Use the new instances on AWS.",
           "isTranslating": false,
-          "ja": "AWS環境に新しいSAP Solution Managerインスタンスと新しいSAProuterインスタンスをインストールします。オンプレミスのすべてのインスタンスにAmazon CloudWatchエージェントをインストールします。監視データを新しいSAP Solution Managerインスタンスに送信します。オンプレミスシステムとAWS上のPOCシステムを、新しいSAP Solution Managerインスタンスと新しいSAProuterインスタンスに接続します。オンプレミスのSAP Solution ManagerインスタンスとSAProuterインスタンスを削除し、AWS上の新しいインスタンスを使用します。"
+          "ja": "AWS 環境に新しい SAP Solution Manager インスタンスと新しい SAProuter インスタンスをインストールします。\n\nオンプレミスのすべてのインスタンスに Amazon CloudWatch エージェントをインストールします。\n\n監視データを新しい SAP Solution Manager インスタンスに送信します。\n\nオンプレミスシステムと AWS 上の POC システムを、新しい SAP Solution Manager インスタンスと新しいSAProuterインスタンスに接続します。\n\nオンプレミスの SAP Solution Manager インスタンスと SAProuter インスタンスを削除し、AWS 上の新しいインスタンスを使用します。"
         },
         {
           "en": "Use AWS Site-to-Site VPN to connect the on-premises network to the AWS environment. Connect the POC systems on AWS to the on-premises SAP Solution Manager instance and the on-premises SAProuter instance.",
           "isTranslating": false,
-          "ja": "オンプレミスネットワークとAWS環境を接続するために、AWS Site-to-Site VPNを使用してください。AWS上のPOCシステムを、オンプレミスのSAP Solution ManagerインスタンスおよびSAProuterインスタンスに接続してください。"
+          "ja": "オンプレミスネットワークと AWS 環境を接続するために、AWS Site-to-Site VPN を使用してください。\n\nAWS 上の POC システムを、オンプレミスの SAP Solution Manager インスタンスおよび SAProuter インスタンスに接続してください。"
         },
         {
           "en": "Add the POC systems on AWS to the existing SAP Transport Management System that is configured in the on-premises SAP systems.",
           "isTranslating": false,
-          "ja": "オンプレミスのSAPシステムに設定された既存のSAPトランスポート管理システムに、AWS上のPOCシステムを追加してください。"
+          "ja": "オンプレミスの SAP システムに設定された既存の SAP トランスポート管理システムに、AWS 上の POC システムを追加してください。"
         }
       ],
       "explanation": {
@@ -1832,39 +1832,39 @@
           "Use AWS Site-to-Site VPN to connect the on-premises network to the AWS environment Connect the POC systems on AWS to the on-premises SAP Solution Manager instance and the on-premises SAP router instance.\n\nExplanation: The company wants to monitor the newly created POC systems on AWS using the existing on-premises SAP Solution Manager instance. One cost-effective way to accomplish this is to set up a site-to-site VPN between the on-premises network and the AWS environment. This will allow the POC systems on AWS to connect to the on-premises SAP Solution Manager instance and the on-premises SAP router instance, enabling the monitoring of the performance and server metrics of the POC systems on AWS."
         ],
         "isTranslating": false,
-        "ja": "AWS Site-to-Site VPNを使用して、オンプレミスのネットワークをAWS環境に接続しましょう。そして、AWS上のPOCシステムをオンプレミスのSAP Solution ManagerインスタンスとオンプレミスのSAPルーターインスタンスに接続しましょう。\n\n説明：企業は、新しく作成されたAWS上のPOCシステムを既存のオンプレミスのSAP Solution Managerインスタンスを使用して監視したいと考えています。これを実現するための費用効果の高い方法の1つは、オンプレミスネットワークとAWS環境の間にサイト間VPNを設定することです。これにより、AWS上のPOCシステムがオンプレミスのSAP Solution ManagerインスタンスとオンプレミスのSAPルーターインスタンスに接続できるようになります。これにより、AWS上のPOCシステムのパフォーマンスやサーバーメトリックの監視が可能になります。"
+        "ja": "AWS Site-to-Site VPN を使用して、オンプレミスのネットワークをAWS環境に接続しましょう。\n\nそして、AWS上のPOCシステムをオンプレミスのSAP Solution ManagerインスタンスとオンプレミスのSAPルーターインスタンスに接続しましょう。\n\n説明：企業は、新しく作成されたAWS上のPOCシステムを既存のオンプレミスのSAP Solution Managerインスタンスを使用して監視したいと考えています。これを実現するための費用効果の高い方法の1つは、オンプレミスネットワークとAWS環境の間にサイト間VPNを設定することです。これにより、AWS上のPOCシステムがオンプレミスのSAP Solution ManagerインスタンスとオンプレミスのSAPルーターインスタンスに接続できるようになります。これにより、AWS上のPOCシステムのパフォーマンスやサーバーメトリックの監視が可能になります。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP solutions architect is using AWS Systems Manager Distributor to install the AWS Data Provider for SAP on production SAP application servers and SAP HANA database servers. The SAP application servers and the SAP HANA database servers are running on Red Hat Enterprise Linux.The SAP solutions architect chooses instances manually in Systems Manager Distributor and schedules installation. The installation fails with an access and authorization error related to Amazon CloudWatch and Amazon EC2 instances. There is no error related to AWS connectivity.What should the SAP solutions architect do to resolve the error?"
         ],
         "isTranslating": false,
-        "ja": "SAPソリューションアーキテクトは、AWS Systems Manager Distributorを使用して、本番SAPアプリケーションサーバーとSAP HANAデータベースサーバーにAWS Data Provider for SAPをインストールしています。SAPアプリケーションサーバーとSAP HANAデータベースサーバーはRed Hat Enterprise Linuxで動作しています。SAPソリューションアーキテクトは、Systems Manager Distributorで手動でインスタンスを選択し、インストールをスケジュールしています。インストールには、Amazon CloudWatchおよびAmazon EC2インスタンスに関連するアクセスと認証エラーが発生します。AWS接続に関連するエラーはありません。SAPソリューションアーキテクトは、エラーを解決するために何をすべきですか？"
+        "ja": "SAPソリューションアーキテクトは、AWS Systems Manager Distributorを使用して、本番SAPアプリケーションサーバーとSAP HANAデータベースサーバーにAWS Data Provider for SAPをインストールしています。\n\nSAPアプリケーションサーバーとSAP HANAデータベースサーバーはRed Hat Enterprise Linuxで動作しています。\n\nSAPソリューションアーキテクトは、Systems Manager Distributorで手動でインスタンスを選択し、インストールをスケジュールしています。\n\nインストールには、Amazon CloudWatchおよびAmazon EC2インスタンスに関連するアクセスと認証エラーが発生します。\n\nAWS接続に関連するエラーはありません。\n\nSAPソリューションアーキテクトは、エラーを解決するために何をすべきですか？"
       },
       "choices": [
         {
           "en": "Install the CloudWatch agent on the servers before installing the AWS Data Provider for SAP.",
           "isTranslating": false,
-          "ja": "AWS Data Provider for SAPをインストールする前に、サーバーにCloudWatchエージェントをインストールしてください。"
+          "ja": "AWS Data Provider for SAPをインストールする前に、サーバーにCloudWatchエージェントをインストールします。"
         },
         {
           "en": "Download the AWS Data Provider for SAP installation package from AWS Marketplace. Use an operating system super user to install the agent manually or through a script.",
           "isTranslating": false,
-          "ja": "AWS Marketplace から SAP 用の AWS データプロバイダのインストールパッケージをダウンロードしてください。オペレーティングシステムのスーパーユーザーを使用して、エージェントを手動でインストールするか、またはスクリプトを通じてインストールしてください。"
+          "ja": "AWS Marketplace から SAP 用の AWS データプロバイダのインストールパッケージをダウンロードします。\n\nオペレーティングシステムのスーパーユーザーを使用して、エージェントを手動でインストールするか、またはスクリプトを通じてインストールします。"
         },
         {
           "en": "Create an IAM role. Attach the appropriate policy to the role. Attach the role to the appropriate EC2 instances.",
           "isTranslating": false,
-          "ja": "IAMロールを作成します。適切なポリシーをロールにアタッチします。そして、適切なEC2インスタンスにロールをアタッチします。"
+          "ja": "IAMロールを作成します。\n\n適切なポリシーをロールにアタッチします。\n\nそして、適切なEC2インスタンスにロールをアタッチします。"
         },
         {
           "en": "Wait until Systems Manager Agent is fully installed and ready to use on the EC2 instances. Use Systems Manager Patch Manager to perform the installation.",
           "isTranslating": false,
-          "ja": "EC2インスタンスで、Systems Manager Agentが完全にインストールされ、使用可能になるまで待ちます。インストールは、Systems Manager Patch Managerを使用して実行してください。"
+          "ja": "EC2インスタンスで、Systems Manager Agentが完全にインストールされ、使用可能になるまで待ちます。\n\nインストールは、Systems Manager Patch Managerを使用して実行します。"
         }
       ],
       "explanation": {
@@ -1872,18 +1872,18 @@
           "Create an IAM role, attach the appropriate policy to the role, and attach the role to the appropriate EC2 instances.\n\nThis error is likely related to the instance not having the necessary permissions to interact with CloudWatch and EC2. An IAM role with the necessary policies attached to the EC2 instance will provide the instance with the necessary permissions to complete the installation of the AWS Data Provider for SAP."
         ],
         "isTranslating": false,
-        "ja": "IAMロールを作成し、適切なポリシーをロールにアタッチし、EC2インスタンスにロールをアタッチします。\n\nこのエラーはおそらく、インスタンスがCloudWatchとEC2とのやり取りに必要な権限を持っていないことに関連しています。必要なポリシーがアタッチされたIAMロールをEC2インスタンスにアタッチすることで、インスタンスはAWSデータプロバイダのSAPのインストールを完了するために必要な権限を持つことができます。"
+        "ja": "IAM ロールを作成し、適切なポリシーをロールにアタッチし、EC2インスタンスにロールをアタッチします。\n\nこのエラーはおそらく、インスタンスがCloudWatchとEC2とのやり取りに必要な権限を持っていないことに関連しています。\n\n必要なポリシーがアタッチされたIAMロールをEC2インスタンスにアタッチすることで、インスタンスはAWSデータプロバイダのSAPのインストールを完了するために必要な権限を持つことができます。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running its SAP applications on Oracle Database. Oracle Database is hosted on physical servers that are running SUSE Linux Enterprise Server. Because of compliance requirements, the company cannot install any additional software on its on-premises database servers. The company needs to migrate the SAP landscape to AWS and must continue to use Oracle Database.Which migration solution should the company use to meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある会社は、SAPアプリケーションをOracle Databaseで稼働しています。Oracle Databaseは、SUSE Linux Enterprise Serverを稼働している物理サーバー上でホストされています。規制要件のため、同社はオンプレミスのデータベースサーバーに追加のソフトウェアをインストールできません。同社はSAPランドスケープをAWSに移行する必要があり、引き続きOracle Databaseを使用する必要があります。これらの要件を満たすために、会社はどの移行ソリューションを使用すべきでしょうか？"
+        "ja": "ある会社は、SAP アプリケーションをOracle Databaseで稼働しています。\n\nOracle Databaseは、SUSE Linux Enterprise Serverを稼働している物理サーバー上でホストされています。\n\n規制要件のため、同社はオンプレミスのデータベースサーバーに追加のソフトウェアをインストールできません。\n\n同社はSAPランドスケープをAWSに移行する必要があり、引き続きOracle Databaseを使用する必要があります。\n\nこれらの要件を満たすために、会社はどの移行ソリューションを使用すべきでしょうか？"
       },
       "choices": [
         {
@@ -1918,18 +1918,18 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to migrate its SAP workloads to AWS. The company will use two VPCs. One VPC will be for production systems, and one VPC will be for non-production systems. The company will host the non-production systems and the primary node of all the production systems in the same Availability Zone.What is the MOST cost-effective way to establish a connection between the production systems and the non-production systems?"
         ],
         "isTranslating": false,
-        "ja": "ある企業がSAPのワークロードをAWSに移行する計画を立てています。その際、同社は2つのVPCを使用します。1つは本番システム用のVPCであり、もう一つは非本番システム用のVPCです。同社は、非本番システムと本番システムのプライマリノードすべてを同じアベイラビリティーゾーンでホストします。その場合、最も費用効果の高い方法で本番システムと非本番システムの間に接続を確立するには、何が最適ですか？"
+        "ja": "ある企業がSAPのワークロードをAWSに移行する計画を立てています。\n\nその際、同社は2つのVPCを使用します。\n\n1つは本番システム用のVPCであり、もう一つは非本番システム用のVPCです。\n\n同社は、非本番システムと本番システムのプライマリノードすべてを同じアベイラビリティーゾーンでホストします。\n\nその場合、最も費用効果の高い方法で本番システムと非本番システムの間に接続を確立するには、何が最適ですか？"
       },
       "choices": [
         {
           "en": "Create an AWS Transit Gateway. Attach the VPCs to the transit gateway. Add the appropriate routes in the subnet route tables.",
           "isTranslating": false,
-          "ja": "AWS トランジットゲートウェイを作成し、VPC をトランジットゲートウェイにアタッチします。そして、サブネットのルートテーブルに適切なルートを追加します。"
+          "ja": "AWS Transit Gateway を作成し、VPC を Transit Gateway にアタッチします。\n\nそして、サブネットのルートテーブルに適切なルートを追加します。"
         },
         {
           "en": "Establish a VPC peering connection between the two VPCs. Add the appropriate routes in the subnet route tables.",
@@ -1939,7 +1939,7 @@
         {
           "en": "Create an internet gateway in each VPUse an AWS Site-to-Site VPN connection between the two VPCs. Add the appropriate routes in the subnet route tables.",
           "isTranslating": false,
-          "ja": "各VPCごとにインターネットゲートウェイを作成し、2つのVPC間にAWS Site-to-Site VPN接続を設定します。サブネットのルートテーブルに正しいルートを追加してください。"
+          "ja": "各VPCごとにインターネットゲートウェイを作成し、2つのVPC間にAWS Site-to-Site VPN接続を設定します。\n\nサブネットのルートテーブルに正しいルートを追加してください。"
         },
         {
           "en": "Set up an AWS Direct Connect connection between the two VPCs. Add the appropriate routes in the subnet route tables.",
@@ -1952,18 +1952,18 @@
           "VPC peering is a cost-effective solution for connecting two VPCs within the same AWS Region. This way the traffic between the two VPCs will stay within the AWS network and avoid internet charges. The routing tables for the subnets in each VPC must be updated with routes to the other VPC, allowing the instances in the VPCs to communicate with each other.\n\nAWS Direct Connect is another option, but it is typically more expensive and not necessary for this scenario, as it is designed for high-bandwidth, low-latency connections between a customer's data center and AWS, while AWS Transit Gateway is designed to be used as a hub for connecting multiple VPCs, VPC peering provides a simpler, more cost-effective solution for this scenario."
         ],
         "isTranslating": false,
-        "ja": "VPCピアリングは、同じAWSリージョン内の2つのVPCを接続するための費用効果の高いソリューションです。これにより、2つのVPC間のトラフィックはAWSネットワーク内で処理され、インターネット料金を回避できます。各VPCのサブネットのルーティングテーブルには、他のVPCへのルートが更新される必要があります。これにより、VPC内のインスタンス同士が通信できるようになります。\n\nAWS Direct Connectは別の選択肢ですが、一般的により高価であり、このシナリオでは必要ありません。AWS Direct Connectは、顧客のデータセンターとAWSの間で高帯域幅、低レイテンシ接続が必要なシナリオに設計されています。一方、AWS Transit Gatewayは、複数のVPCを接続するための中央ハブとして使用されるように設計されていますが、VPCピアリングはこのシナリオにはよりシンプルかつ費用対効果の高いソリューションを提供します。"
+        "ja": "VPCピアリングは、同じAWSリージョン内の2つのVPCを接続するための費用効果の高いソリューションです。\n\nこれにより、2つのVPC間のトラフィックはAWSネットワーク内で処理され、インターネット料金を回避できます。\n\n各VPCのサブネットのルーティングテーブルには、他のVPCへのルートが更新される必要があります。\n\nこれにより、VPC内のインスタンス同士が通信できるようになります。\n\nAWS Direct Connectは別の選択肢ですが、一般的により高価であり、このシナリオでは必要ありません。\n\nAWS Direct Connectは、顧客のデータセンターとAWSの間で高帯域幅、低レイテンシ接続が必要なシナリオに設計されています。\n\n一方、AWS Transit Gatewayは、複数のVPCを接続するための中央ハブとして使用されるように設計されていますが、VPCピアリングはこのシナリオにはよりシンプルかつ費用対効果の高いソリューションを提供します。"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP engineer has deployed an SAP S/4HANA system on an Amazon EC2 instance that runs Linux. The SAP license key has been installed. After a while, the newly installed SAP instance presents an error that indicates that the SAP license key is not valid because the SAP system’s hardware key changed. There have been no changes to the EC2 instance or its configuration.Which solution will permanently resolve this issue?"
         ],
         "isTranslating": false,
-        "ja": "SAPエンジニアが、Linuxを実行するAmazon EC2インスタンスにSAP S/4HANAシステムを展開しました。SAPライセンスキーがインストールされました。しばらくすると、新しくインストールされたSAPインスタンスがエラーを表示し、SAPシステムのハードウェアキーが変更されたため、SAPライセンスキーが無効であることが示されます。EC2インスタンスやその構成に変更はありませんでした。この問題を永久的に解決するためには、どの解決策が最適でしょうか？"
+        "ja": "SAPエンジニアが、Linuxを実行するAmazon EC2インスタンスにSAP S/4HANAシステムを展開しました。\n\nSAPライセンスキーがインストールされました。\n\nしばらくすると、新しくインストールされたSAPインスタンスがエラーを表示し、SAPシステムのハードウェアキーが変更されたため、SAPライセンスキーが無効であることが示されます。\n\nEC2インスタンスやその構成に変更はありませんでした。\n\nこの問題を永久的に解決するためには、どの解決策が最適でしょうか？"
       },
       "choices": [
         {
@@ -1979,7 +1979,7 @@
         {
           "en": "Set the SLIC_HW_VERSION Linux environment variable.",
           "isTranslating": false,
-          "ja": "SLIC_HW_VERSIONというLinux環境変数を設定してください。"
+          "ja": "`SLIC_HW_VERSION` というLinux環境変数を設定してください。"
         },
         {
           "en": "Reboot the EC2 instance.",
@@ -2001,24 +2001,24 @@
           "Option D, rebooting the EC2 instance, is not a solution because the issue is not related to the instance's uptime or memory usage. Rebooting the instance will not change the hardware key of the SAP system, which is causing the error."
         ],
         "isTranslating": false,
-        "ja": "ERROR"
+        "ja": "A - なぜなら、単に新しいライセンスを適用しただけでは、後で再び無効なライセンスが適用されるからです。\nhttps://docs.aws.amazon.com/sap/latest/general/overview-sap-on-aws.html\n\n問題を永久に解決するためには、ライセンスを適用する前に適切なカーネル・パッチを適用する必要があります。\n\n\nSAP S/4HANAシステムがインストールされると、システムの特定のハードウェア構成に関連付けられた固有のハードウェアキーが生成されます。\n\nこのハードウェアキーは、SAPライセンスキーを検証するために使用されます。\n\nシステムのハードウェアキーが変更された場合、ライセンスキーは無効となり、SAPシステムはライセンスキーが有効でないことを示すエラーメッセージを提示します。\n\n今回のシナリオでは、EC2インスタンスやその構成に変更がないにもかかわらず、SAPシステムのハードウェアキーが変更されたことを示すエラーメッセージが表示されています。\n\nこれは、カーネルのアップグレードやシステムの更新など、さまざまな理由で発生する可能性があります。\n\nSAPカーネルパッチを適用することで、SAPシステムのハードウェアキーが変わらず、SAPライセンスキーが有効であることが確認できます。\n\nこれは、カーネルパッチによってSAPシステムのソフトウェアが変わらないことが保証され、ハードウェアキーがシステムの特定のソフトウェア構成に結びつけられるためです。\n\n新しいハードウェアキーを使用する新しいSAPライセンスを適用するオプションBは、ハードウェアキーが再び変更された場合に問題が再発する可能性が高いため、永続的な解決策ではありません。\n\nオプション C、Linux 環境変数 `SLIC_HW_VERSION` を設定することは、この変数が SAP システムのハードウェアキーを設定するために使用されるため、解決策ではありません。\n\nハードウェアキーが変更された場合、この変数を設定しても、問題は解決しません。\n\nオプションD、EC2インスタンスの再起動は、問題がインスタンスの稼働時間やメモリ使用量に関連していないため、解決策ではありません。\n\nインスタンスを再起動しても、エラーの原因となっているSAPシステムのハードウェアキーが変更されることはありません。"
       },
       "corrects": [1],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP technology consultant needs to scale up a primary application server (PAS) instance. The PAS currently runs on a c5a.xlarge Amazon EC2 instance. The SAP technology consultant needs to change the instance type to c5a.2xlarge.How can the SAP technology consultant meet this requirement?"
         ],
         "isTranslating": false,
-        "ja": "SAPテクノロジーコンサルタントは、プライマリアプリケーションサーバー（PAS）インスタンスのスケールアップが必要です。PASは現在、c5a.xlarge Amazon EC2インスタンスで実行されています。SAPテクノロジーコンサルタントは、インスタンスタイプをc5a.2xlargeに変更する必要があります。この要件を満たすには、どのようにすればよいですか？"
+        "ja": "SAPテクノロジーコンサルタントは、プライマリアプリケーションサーバー（PAS）インスタンスのスケールアップが必要です。\n\nPASは現在、c5a.xlarge Amazon EC2インスタンスで実行されています。\n\nSAPテクノロジーコンサルタントは、インスタンスタイプをc5a.2xlargeに変更する必要があります。\n\nこの要件を満たすには、どのようにすればよいですか？"
       },
       "choices": [
         {
           "en": "Stop the complete SAP system. Stop the EC2 instance. Use the AWS Management Console or the AWS CLI to change the instance type. Start the EC2 instance. Start the complete SAP system.",
           "isTranslating": false,
-          "ja": "完全なSAPシステムを停止します。EC2インスタンスを停止します。インスタンスタイプを変更するには、AWSの管理コンソールまたはAWS CLIを使用します。EC2インスタンスを起動します。完全なSAPシステムを起動します。"
+          "ja": "SAPシステム全体を停止します。\n\nEC2インスタンスを停止します。\n\nインスタンスタイプを変更するには、AWSの管理コンソールまたはAWS CLIを使用します。\n\nEC2インスタンスを起動します。\n\nSAPシステム全体を起動します。"
         },
         {
           "en": "While SAP is running, use the AWS Management Console or the AWS CLI to change the instance type without stopping the EC2 instance.",
@@ -2028,12 +2028,12 @@
         {
           "en": "Stop the complete SAP system. Terminate the EC2 instance. Use the AWS Management Console or the AWS CLI to change the instance type. Start the EC2 instance. Start the complete SAP system.",
           "isTranslating": false,
-          "ja": "完全なSAPシステムを停止します。 EC2インスタンスを終了します。 AWS管理コンソールまたはAWS CLIを使用してインスタンスタイプを変更します。 EC2インスタンスを起動します。 SAPシステム全体を起動します。"
+          "ja": "SAPシステム全体を停止します。 \n\nEC2インスタンスを終了します。 \n\nAWS管理コンソールまたはAWS CLIを使用してインスタンスタイプを変更します。 \n\nEC2インスタンスを起動します。 SAPシステム全体を起動します。"
         },
         {
           "en": "While SAP is running, log in to the EC2 instance. Run the following AWS CLI command: aws ec2 modify-instance-attribute --instance-id <INSTANCEID> --instance-type \"{\\\"Value\\\": \\\"c5a.2xlargel\\\"}\".",
           "isTranslating": false,
-          "ja": "SAPが実行されている間に、EC2インスタンスにログインしてください。次のAWS CLIコマンドを実行してください。aws ec2 modify-instance-attribute --instance-id <INSTANCEID> --instance-type \"{\\\"Value\\\": \\\"c5a.2xlargel\\\"}\"。"
+          "ja": "SAPが実行されている間に、EC2インスタンスにログインしてください。\n\n次のAWS CLIコマンドを実行してください。\n\n```sh\n$ aws ec2 modify-instance-attribute --instance-id <INSTANCEID> --instance-type \"{\\\"Value\\\": \\\"c5a.2xlargel\\\"}\"\n```"
         }
       ],
       "explanation": {
@@ -2041,18 +2041,18 @@
           "Use the AWS Management Console or the AWS CLI to change the instance type, start the EC2 instance, and start the complete SAP system.\n\nTo change the instance type of an EC2 instance, it is necessary to stop the instance. The SAP system should also be stopped to avoid any potential issues during the instance change process. Once the instance type is changed, the EC2 instance and the SAP system can be restarted."
         ],
         "isTranslating": false,
-        "ja": "AWS マネジメントコンソールまたは AWS CLI を使用して、EC2 インスタンスのインスタンスタイプを変更し、EC2 インスタンスと SAP システムを開始します。\n\nEC2 インスタンスのインスタンスタイプを変更するには、EC2 インスタンスを停止する必要があります。また、インスタンスの変更中に問題が発生しないように、SAP システムも停止する必要があります。インスタンスタイプが変更された後、EC2 インスタンスと SAP システムを再起動できます。"
+        "ja": "AWS マネジメントコンソールまたは AWS CLI を使用して、EC2 インスタンスのインスタンスタイプを変更し、EC2 インスタンスと SAP システムを開始します。\n\nEC2 インスタンスのインスタンスタイプを変更するには、EC2 インスタンスを停止する必要があります。\n\nまた、インスタンスの変更中に問題が発生しないように、SAP システムも停止する必要があります。\n\nインスタンスタイプが変更された後、EC2 インスタンスと SAP システムを再起動できます。"
       },
       "corrects": [1],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has moved all of its SAP workloads to AWS. During peak business hours, end users are reporting performance issues because work processes are going into PRIV mode on an SAP S/4HANA system. An SAP support engineer indicates that SAP cannot provide support for this issue because some specific performance metrics are not available.Which combination of actions must the company perform to comply with SAP support requirements? (Choose three.)"
         ],
         "isTranslating": false,
-        "ja": "ある会社はSAPの全てのワークロードをAWSに移行しました。ピークビジネス時間中、エンドユーザはパフォーマンスの問題を報告しています。理由は、SAP S/4HANA システム内でワークプロセスがPRIVモードに入っているためです。SAPのサポートエンジニアによると、特定のパフォーマンスメトリクスが利用できないため、SAPはこの問題に対してサポートを提供できません。SAPのサポート要件を満たすために、会社が実行する必要がある3つの行動の組み合わせは何ですか？（三つ選んでください。）\n\n（注意：命令形は使用しないでください。）"
+        "ja": "ある会社はSAPの全てのワークロードをAWSに移行しました。\n\nピークビジネス時間中、エンドユーザはパフォーマンスの問題を報告しています。\n\n理由は、SAP S/4HANA システム内でワークプロセスがPRIVモードに入っているためです。\n\nSAPのサポートエンジニアによると、特定のパフォーマンスメトリクスが利用できないため、SAPはこの問題に対してサポートを提供できません。\n\nSAPのサポート要件を満たすために、会社が実行する必要がある3つの行動の組み合わせは何ですか？"
       },
       "choices": [
         {
@@ -2089,18 +2089,18 @@
       "explanation": {
         "en": ["1656250 - SAP on AWS: Support prerequisites"],
         "isTranslating": false,
-        "ja": "AWS上のSAP：サポートの前提条件\n\nAWS上にSAPを展開する前に、以下のサポートの前提条件があります。\n\n- SAPがAWSで公式にサポートしているAMI（Amazon Machine Image）を使用すること。\n- AWSで利用可能なすべてのSAP向けAMI上で、最新のSAP推奨カーネルとAWSの推奨パッチを適用すること。\n- インスタンスサイズがSAPのハードウェア要件に合致すること。\n- Amazon Elastic Block Store（Amazon EBS）に保存されているSAPデータのスナップショットを定期的に作成すること。\n- AWS CloudFormationを使用して、SAPシステムをデプロイ、設定、管理する場合は、AWS CloudFormationテンプレートでサポートされているSAPリリースバージョンのみを使用すること。\n\nこれらの前提条件を満たすことで、AWS上でより安定かつ高いパフォーマンスを発揮できるSAPシステムを構築・運用することができます。"
+        "ja": "1656250 - SAP on AWS: Support prerequisites"
       },
       "corrects": [3, 4, 6],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company needs to implement high availability for its SAP S/4HANA system on AWS. The company will use a SUSE Linux Enterprise Server clustering solution in private subnets across two Availability Zones. An SAP solutions architect must ensure that the solution can route traffic to the active SAP instance in this clustered configuration.What should the SAP solutions architect do to meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "企業は、SAP S/4HANA システムの高可用性を AWS 上で実現する必要があります。企業は、2 つのアベイラビリティーゾーンにわたるプライベートサブネットに SUSE Linux Enterprise Server クラスタリングソリューションを使用します。SAP ソリューションアーキテクトは、クラスタ構成でアクティブな SAP インスタンスにトラフィックをルーティングできるようにする必要があります。これらの要件を満たすために、SAP ソリューションアーキテクトはどのような操作をすべきでしょうか？"
+        "ja": "企業は、SAP S/4HANA システムの高可用性を AWS 上で実現する必要があります。\n\n企業は、2 つのアベイラビリティーゾーンにわたるプライベートサブネットに SUSE Linux Enterprise Server クラスタリングソリューションを使用します。\n\nSAP ソリューションアーキテクトは、クラスタ構成でアクティブな SAP インスタンスにトラフィックをルーティングできるようにする必要があります。\n\nこれらの要件を満たすために、SAP ソリューションアーキテクトはどのような操作をすべきでしょうか？"
       },
       "choices": [
         {
@@ -2116,12 +2116,12 @@
         {
           "en": "Implement the SAP cluster solution by using a public IP address. Use this public IP address for communication between the instances and the internet.",
           "isTranslating": false,
-          "ja": "SAPクラスター・ソリューションをパブリックIPアドレスを用いて実装してください。このパブリックIPアドレスを、インスタンス同士の通信及びインターネットとの通信に使用してください。"
+          "ja": "SAPクラスター・ソリューションをパブリックIPアドレスを用いて実装してください。\n\nこのパブリックIPアドレスを、インスタンス同士の通信及びインターネットとの通信に使用してください。"
         },
         {
           "en": "Implement the SAP cluster solution by using an overlay IP address that is outside the CIDR block of the VPC. Use overlay IP address routing to dynamically update the route table to point to the active node and provide external access by using a Network Load Balancer or AWS Transit Gateway.",
           "isTranslating": false,
-          "ja": "VPCのCIDRブロック外にあるオーバーレイIPアドレスを使用して、SAPクラスタソリューションを実装します。オーバーレイIPアドレスのルーティングを使用して、ルートテーブルを動的に更新し、アクティブなノードを指すようにします。また、ネットワークロードバランサーやAWSトランジットゲートウェイを使用して外部からアクセスできるようにします。"
+          "ja": "VPCのCIDRブロック外にあるオーバーレイIPアドレスを使用して、SAPクラスタソリューションを実装します。\n\nオーバーレイIPアドレスのルーティングを使用して、ルートテーブルを動的に更新し、アクティブなノードを指すようにします。\n\nまた、Network Load Balancer やAWSトランジットゲートウェイを使用して外部からアクセスできるようにします。"
         }
       ],
       "explanation": {
@@ -2129,18 +2129,18 @@
           "Implement the SAP cluster solution by using an overlay IP address that is outside the CIDR block of the VPC.Use overlay IP address routing to dynamically update the route table to point to the active node and provide external access by using a Network Load Balancer or AWS Transit Gateway.\n\nThis solution implements an overlay IP address that is outside the CIDR block of the VPC. This helps in providing external access to the active node, which can be dynamically updated by the route table to ensure high availability. A Network Load Balancer or AWS Transit Gateway can be used to provide access to the active node. This solution provides a robust high availability solution that helps ensure the continuity of the SAP S 4HANA system on AWS."
         ],
         "isTranslating": false,
-        "ja": "VPCのCIDRブロックの外側にあるオーバーレイIPアドレスを使用して、SAPクラスターソリューションを実装します。オーバーレイIPアドレスルーティングを使用して、ルートテーブルを動的に更新し、アクティブなノードを指すようにします。ネットワークロードバランサーまたはAWSトランジットゲートウェイを使用して、外部からアクセスできるようにします。\n\nこのソリューションでは、VPCのCIDRブロックの外側にあるオーバーレイIPアドレスを使用して実装されます。これにより、ノードのアクティブ化に応じてルートテーブルが動的に更新され、高可用性が確保されます。また、ネットワークロードバランサーまたはAWSトランジットゲートウェイを使用して、アクティブなノードにアクセスできるようにします。このソリューションは、SAP S/4HANAシステムの高可用性を確保する堅牢な解決策を提供します。"
+        "ja": "VPCのCIDRブロックの外側にあるオーバーレイIPアドレスを使用して、SAPクラスターソリューションを実装します。\n\nオーバーレイIPアドレスルーティングを使用して、ルートテーブルを動的に更新し、アクティブなノードを指すようにします。\n\nネットワークロードバランサーまたはAWSトランジットゲートウェイを使用して、外部からアクセスできるようにします。\n\nこのソリューションでは、VPCのCIDRブロックの外側にあるオーバーレイIPアドレスを使用して実装されます。\n\nこれにより、ノードのアクティブ化に応じてルートテーブルが動的に更新され、高可用性が確保されます。\n\nまた、ネットワークロードバランサーまたはAWSトランジットゲートウェイを使用して、アクティブなノードにアクセスできるようにします。\n\nこのソリューションは、SAP S/4HANAシステムの高可用性を確保する堅牢な解決策を提供します。"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
-          "A company is migrating its SAP workloads to AWS. The company’s IT team installs a highly available SAP S/4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server. The IT team deploys the system by using cluster nodes in different Availability Zones within the same AWS Region.After the initial launch of the SAP application, the application is accessible. However, after failover, the IT team cannot access the application even though the system is up and running on the secondary node. After investigation, an SAP solutions architect discovers that the virtual IP address has not been used correctly.Which combination of steps should the SAP solutions architect take to resolve this question? (Choose two.)"
+          "A company is migrating its SAP workloads to AWS. The company’s IT team installs a highly available SAP S/4HANA system that uses the SAP HANA system replication cluster package on SUSE Linux Enterprise Server. The IT team deploys the system by using cluster nodes in different Availability Zones within the same AWS Region.After the initial launch of the SAP application, the application is accessible. However, after failover, the IT team cannot access the application even though the system is up and running on the secondary node. After investigation, an SAP solutions architect discovers that the virtual IP address has not been used correctly.Which combination of steps should the SAP solutions architect take to resolve this problem? (Choose two.)"
         ],
         "isTranslating": false,
-        "ja": "会社はSAPワークロードをAWSに移行しています。企業のITチームは、SUSE Linux Enterprise Server上のSAP HANAシステムレプリケーションクラスターパッケージを使用する高可用性のSAP S/4HANAシステムをインストールします。ITチームは、同じAWSリージョン内の異なる可用性ゾーンのクラスターノードを使用してシステムを展開します。SAPアプリケーションの最初の起動後、アプリケーションはアクセス可能です。しかし、フェイルオーバー後、システムが二次ノードで稼働しているにもかかわらず、ITチームはアプリケーションにアクセスできません。調査の結果、SAPのソリューションアーキテクトは、仮想IPアドレスが正しく使用されていないことを発見しました。この問題を解決するために、SAPのソリューションアーキテクトが実行すべき手順の組み合わせは何ですか？(２つ選んでください。)\n\n1. Modify the SAP HANA replication parameters.\n\n2. Configure the virtual IP address as the client access point.\n\n3. Configure the resource record set (RRS) for the virtual IP address to specify health check information.\n\n4. Configure the resource record set (RRS) for the virtual IP address to specify that DNS is the routing policy.\n\n5. Modify the SAP HANA failover sequence to use the virtual IP address."
+        "ja": "会社はSAPワークロードをAWSに移行しています。\n\n企業のITチームは、SUSE Linux Enterprise Server上のSAP HANAシステムレプリケーションクラスターパッケージを使用する高可用性のSAP S/4HANAシステムをインストールします。\n\nITチームは、同じAWSリージョン内の異なる可用性ゾーンのクラスターノードを使用してシステムを展開します。\n\nSAPアプリケーションの最初の起動後、アプリケーションはアクセス可能です。\n\nしかし、フェイルオーバー後、システムが二次ノードで稼働しているにもかかわらず、ITチームはアプリケーションにアクセスできません。\n\n調査の結果、SAPのソリューションアーキテクトは、仮想IPアドレスが正しく使用されていないことを発見しました。\n\nこの問題を解決するために、SAPのソリューションアーキテクトが実行すべき手順の組み合わせは何ですか？"
       },
       "choices": [
         {
@@ -2174,24 +2174,24 @@
           "In order to resolve the issue with virtual IP address after failover, the SAP solutions architect needs to use an overlay IP address as a virtual IP address. This will allow the virtual IP address to be used as a shared IP address that is accessible even if the primary node fails and the secondary node takes over.\n\nAdditionally, the overlay IP address should be chosen outside the VPC CIDR block that hosts the application and the database. This will ensure that the IP address is accessible from outside the VPC and the SAP application can be accessed even after failover.\n\nBy using these two steps, the SAP solutions architect can resolve the issue with the virtual IP address after failover, and ensure that the SAP application remains accessible even in the event of a failover."
         ],
         "isTranslating": false,
-        "ja": "仮想 IP アドレスに関する問題を解決するためには、SAP ソリューションアーキテクトはオーバーレイ IP アドレスを仮想 IP アドレスとして使用する必要があります。これにより、仮想 IP アドレスを共有 IP アドレスとして使用でき、プライマリノードが故障しセカンダリノードが引き継いだ場合でもアクセス可能になります。\n\nさらに、オーバーレイ IP アドレスは、アプリケーションとデータベースをホストする VPC CIDR ブロックの外部から選択する必要があります。これにより、IP アドレスが VPC の外部からアクセス可能であり、フェイルオーバー後も SAP アプリケーションにアクセスできるようになります。\n\nこれらの 2 つの手順を使用することで、SAP ソリューションアーキテクトはフェイルオーバー後の仮想 IP アドレスの問題を解決し、フェイルオーバーが発生した場合でも SAP アプリケーションにアクセス可能になることを確実にすることができます。"
+        "ja": "仮想 IP アドレスに関する問題を解決するためには、SAP ソリューションアーキテクトはオーバーレイ IP アドレスを仮想 IP アドレスとして使用する必要があります。\n\nこれにより、仮想 IP アドレスを共有 IP アドレスとして使用でき、プライマリノードが故障しセカンダリノードが引き継いだ場合でもアクセス可能になります。\n\nさらに、オーバーレイ IP アドレスは、アプリケーションとデータベースをホストする VPC CIDR ブロックの外部から選択する必要があります。\n\nこれにより、IP アドレスが VPC の外部からアクセス可能であり、フェイルオーバー後も SAP アプリケーションにアクセスできるようになります。\n\nこれらの 2 つの手順を使用することで、SAP ソリューションアーキテクトはフェイルオーバー後の仮想 IP アドレスの問題を解決し、フェイルオーバーが発生した場合でも SAP アプリケーションにアクセス可能になることを確実にすることができます。"
       },
       "corrects": [3, 5],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to migrate its on-premises servers to AWS. These servers include SAP ERP Central Component (SAP ECC) on Oracle Database. The company is running SAP ECC application servers and Oracle Database servers on AIX. The company must migrate the SAP workloads to AWS with minimal changes.Which solution will meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "ある会社は、自社のオンプレミスサーバーをAWSに移行したいと考えています。これらのサーバーには、Oracle Database上のSAP ERP Central Component（SAP ECC）が含まれています。同社はAIX上でSAP ECCアプリケーションサーバーとOracle Databaseサーバーを実行しています。同社は、SAPワークロードを最小限の変更でAWSに移行する必要があります。どのソリューションがこれらの要件を満たしますか？"
+        "ja": "ある会社は、自社のオンプレミスサーバーをAWSに移行したいと考えています。\n\nこれらのサーバーには、Oracle Database上のSAP ERP Central Component（SAP ECC）が含まれています。\n\n同社はAIX上でSAP ECCアプリケーションサーバーとOracle Databaseサーバーを実行しています。\n\n同社は、SAPワークロードを最小限の変更でAWSに移行する必要があります。\n\nどのソリューションがこれらの要件を満たしますか？"
       },
       "choices": [
         {
           "en": "Perform a heterogeneous migration for SAP on AWS. Specify the SAP ECC application servers to run on SUSE Linux Enterprise Server. Specify Oracle Database to run on Oracle Enterprise Linux on a Dedicated Host.",
           "isTranslating": false,
-          "ja": "SAP on AWSの異種混合移行を行います。SAP ECC アプリケーションサーバをSUSE Linux Enterprise Server上で実行します。また、Oracleデータベースを専用ホスト上のOracle Enterprise Linuxで実行します。"
+          "ja": "SAP on AWSの異種間マイグレーションを行います。\n\nSAP ECC アプリケーションサーバをSUSE Linux Enterprise Server上で実行します。\n\nまた、Oracleデータベースを専用ホスト上のOracle Enterprise Linuxで実行します。"
         },
         {
           "en": "Perform a homogeneous migration for SAP on AWS. Specify the SAP ECC application servers and Oracle Database to run on AIX.",
@@ -2201,12 +2201,12 @@
         {
           "en": "Perform a heterogeneous migration for SAP on AWS. Specify the SAP ECC application servers and Oracle Database to run on Oracle Enterprise Linux.",
           "isTranslating": false,
-          "ja": "AWS上でSAPの異質なマイグレーションを実行してください。SAP ECCアプリケーションサーバーとOracleデータベースをOracle Enterprise Linux上で実行するように指定してください。"
+          "ja": "AWS上でSAPの異種間マイグレーションを実行してください。\n\nSAP ECCアプリケーションサーバーとOracleデータベースをOracle Enterprise Linux上で実行するように指定してください。"
         },
         {
           "en": "Perform a heterogeneous migration for SAP on AWS. Specify the SAP ECC application servers and Oracle Database to run on Windows.",
           "isTranslating": false,
-          "ja": "AWS上のSAPの異種混合移行を実行してください。SAP ECCアプリケーションサーバとOracleデータベースがWindows上で実行されるように指定してください。"
+          "ja": "AWS上のSAPの異種間マイグレーションを実行してください。\n\nSAP ECCアプリケーションサーバとOracleデータベースがWindows上で実行されるように指定してください。"
         }
       ],
       "explanation": {
@@ -2218,12 +2218,12 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company has deployed its SAP applications into multiple Availability Zones in the same AWS Region. To accommodate storage of media files, database table export and import, and files dropped by third-party tools, the company has mounted Amazon Elastic File System (Amazon EFS) file systems between the SAP instances. The company needs to retrieve the files quickly for installations, updates, and system refreshes.Over time, the EFS file systems have grown exponentially to multiple terabytes. An SAP solutions architect must optimize storage cost for the files that are stored in Amazon EFS.Which solution will meet this requirement with the LEAST administrative overhead?"
         ],
         "isTranslating": false,
-        "ja": "ある会社は、複数の可用性ゾーンにSAPアプリケーションを展開しました。メディアファイルの保存、データベースのテーブルのエクスポート・インポート、およびサードパーティのツールによってドロップされたファイルを格納するため、同社はSAPインスタンス間にAmazon Elastic File System（Amazon EFS）ファイルシステムをマウントしました。同社は、インストール、アップデート、およびシステムリフレッシュのためにファイルを素早く取得する必要があります。EFSファイルシステムは時間の経過とともに複数のテラバイトに成長しています。SAPソリューションアーキテクトは、Amazon EFSに保存されているファイルのストレージコストを最適化する必要があります。最小限の管理オーバーヘッドでこの要件を満たす解決策は何ですか？"
+        "ja": "ある会社は、複数の可用性ゾーンにSAPアプリケーションを展開しました。\n\nメディアファイルの保存、データベースのテーブルのエクスポート・インポート、およびサードパーティのツールによってドロップされたファイルを格納するため、同社はSAPインスタンス間にAmazon Elastic File System（Amazon EFS）ファイルシステムをマウントしました。\n\n同社は、インストール、アップデート、およびシステムリフレッシュのためにファイルを素早く取得する必要があります。\n\nEFSファイルシステムは時間の経過とともに複数のテラバイトに成長しています。\n\nSAPソリューションアーキテクトは、Amazon EFSに保存されているファイルのストレージコストを最適化する必要があります。\n\n最小限の管理オーバーヘッドでこの要件を満たす解決策は何ですか？"
       },
       "choices": [
         {
@@ -2252,18 +2252,18 @@
           "Applying a lifecycle policy on the files stored in Amazon EFS to move the files to EFS Standard-Infrequent Access (Standard-IA) will optimize the storage cost for the files with the least administrative overhead. The lifecycle policy can automatically transition files to the lower-cost storage class based on the files' access patterns, reducing the cost of storing large amounts of data. The EFS Standard-IA class provides low-cost storage for infrequently accessed data, and the policy can be set to move data to this class after a specific number of days or after the data has been unmodified for a specified period. This solution allows the company to optimize storage costs with minimal manual intervention, thus reducing the administrative overhead."
         ],
         "isTranslating": false,
-        "ja": "Amazon EFSに保存されたファイルにライフサイクルポリシーを適用して、ファイルをEFS Standard-Infrequent Access (Standard-IA)に移動することで、管理オーバーヘッドが最小限で、最少限度でストレージコストを最適化することができます。ライフサイクルポリシーにより、ファイルのアクセスパターンに基づいて、自動的に低コストのストレージクラスに遷移させることができ、大量のデータを格納するコストを削減することができます。EFS Standard-IAクラスは、アクセス頻度の低いデータの低コストなストレージを提供し、データが特定の日数後にこのクラスに移動するようにポリシーを設定することができます。このソリューションにより、会社は最小限の手動介入でストレージコストを最適化し、管理オーバーヘッドを削減することができます。"
+        "ja": "Amazon EFSに保存されたファイルにライフサイクルポリシーを適用して、ファイルをEFS Standard-Infrequent Access (Standard-IA)に移動することで、管理オーバーヘッドが最小限で、最少限度でストレージコストを最適化することができます。\n\nライフサイクルポリシーにより、ファイルのアクセスパターンに基づいて、自動的に低コストのストレージクラスに遷移させることができ、大量のデータを格納するコストを削減することができます。\n\nEFS Standard-IAクラスは、アクセス頻度の低いデータの低コストなストレージを提供し、データが特定の日数後にこのクラスに移動するようにポリシーを設定することができます。\n\nこのソリューションにより、会社は最小限の手動介入でストレージコストを最適化し、管理オーバーヘッドを削減することができます。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP specialist is building an SAP environment. The SAP environment contains Amazon EC2 instances that run in a private subnet in a VPC. The VPC includes a NAT gateway.The SAP specialist is setting up IBM Db2 high availability disaster recovery for the SAP cluster. After configuration of overlay IP address routing, traffic is not routing to the database EC2 instances.What should the SAP specialist do to resolve this issue?"
         ],
         "isTranslating": false,
-        "ja": "SAPの専門家がSAP環境を構築しています。SAP環境には、VPC内のプライベートサブネットで実行されるAmazon EC2インスタンスが含まれています。VPCにはNATゲートウェイが含まれています。SAPの専門家は、SAPクラスターのためのIBM Db2高可用性災害復旧を設定しています。オーバーレイIPアドレスルーティングの構成後、トラフィックがデータベースEC2インスタンスにルーティングされていません。この問題を解決するには、SAPの専門家は何をすべきですか？"
+        "ja": "SAPの専門家がSAP環境を構築しています。\n\nSAP環境には、VPC内のプライベートサブネットで実行されるAmazon EC2インスタンスが含まれています。\n\nVPCにはNATゲートウェイが含まれています。\n\nSAPの専門家は、SAPクラスターのためのIBM Db2高可用性災害復旧を設定しています。\n\nオーバーレイIPアドレスルーティングの構成後、トラフィックがデータベースEC2インスタンスにルーティングされていません。\n\nこの問題を解決するには、SAPの専門家は何をすべきですか？"
       },
       "choices": [
         {
@@ -2292,18 +2292,18 @@
           "https://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-cluster-configuration-prerequisites.html"
         ],
         "isTranslating": false,
-        "ja": "このページは、AWS上でSAP HANAのクラスター構成を実行する前提条件について説明しています。このドキュメントは、SAP HANAの熟練した管理者や、AWS上でSAP HANAを実行することに興味のある企業向けに作成されています。SAP HANAをクラスター構成でAWS上で実行するには、いくつかの前提条件が必要です。例えば、VPC（仮想プライベートクラウド）へのアクセス、アベイラビリティーゾーンの選択、クラウドフォーメーションスタックの構成、そして最適なEC2インスタンスタイプの選択などです。このドキュメントは、SAP HANAをAWS上ですばやく実行する手順を提供しています。"
+        "ja": "### 送信元/送信先のチェックを無効にする\n\n各EC2インスタンスは、デフォルトで送信元/宛先チェックを実行する。これは、インスタンスが送受信するトラフィックの送信元または宛先である必要があることを意味する。\n\nクラスタインスタンスの場合、Overlay IPアドレスからトラフィックを受信することになっている両方のEC2インスタンスで、送信元/宛先チェックを無効にする必要があります。\n\nAWS CLIまたはAWS Management Consoleを使用して、送信元/送信先のチェックを無効にすることができます。\n\n詳細は、ec2 modify-instance-attributeのドキュメントを参照してください。\n\nhttps://docs.aws.amazon.com/sap/latest/sap-hana/sap-hana-on-aws-cluster-configuration-prerequisites.html"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company uses an SAP application that runs batch jobs that are performance sensitive. The batch jobs can be restarted safely. The SAP application has six application servers. The SAP application functions reliably as long as the SAP application availability remains greater than 60%. The company wants to migrate the SAP application to AWS. The company is using a cluster with two Availability Zones.How should the company distribute the SAP application servers to maintain system reliability?"
         ],
         "isTranslating": false,
-        "ja": "この会社は、パフォーマンスに敏感なバッチジョブを実行するSAPアプリケーションを使用しています。バッチジョブは安全に再起動できます。SAPアプリケーションには6つのアプリケーションサーバーがあります。SAPアプリケーションの可用性が60％以上であれば、SAPアプリケーションは信頼性を持って機能します。会社はSAPアプリケーションをAWSに移行したいと考えており、2つのアベイラビリティゾーンを持つクラスタを使用しています。\nこの場合、会社は以下のようにSAPアプリケーションサーバを分散配置することができます。\n\n- 1つのアベイラビリティゾーンに4つのアプリケーションサーバを配置します。\n- もう1つのアベイラビリティゾーンに2つのアプリケーションサーバを配置します。\n- アプリケーションサーバ間で負荷分散を行います。 \n\nこのようにすることで、バッチジョブを安全に再起動しながら、SAPアプリケーションの可用性を維持できます。また、負荷分散により、アプリケーションサーバーの性能を最大限に引き出すことができます。"
+        "ja": "ある企業は、パフォーマンスに敏感なバッチジョブを実行するSAPアプリケーションを使用しています。\n\nバッチジョブは安全に再開できます。\n\nSAPアプリケーションには6つのアプリケーションサーバーがあります。\n\nSAPアプリケーションの可用性が60%以上であれば、SAPアプリケーションは信頼性があります。\n\nこの企業はAWSへのSAPアプリケーションの移行を希望しており、2つの可用性ゾーンを持つクラスターを使用しています。\n\nシステムの信頼性を維持するため、この企業はSAPアプリケーションサーバーをどのように分散すべきでしょうか？"
       },
       "choices": [
         {
@@ -2332,18 +2332,18 @@
           "The company wants to ensure that their SAP application remains available with a rate greater than 60%. By distributing the servers across three Availability Zones, the company can provide high availability and minimize the risk of a single point of failure. If one Availability Zone were to fail, the other two would remain available, and the overall system availability would remain above 60%. This configuration ensures that the system remains reliable and that batch jobs can be restarted safely if needed."
         ],
         "isTranslating": false,
-        "ja": "企業は、SAPアプリケーションが60％を上回る利用率で利用可能であることを確保したいと考えています。サーバーを3つのアベイラビリティゾーンに分散配置することで、高可用性を提供し、単一障害点のリスクを最小限に抑えることができます。もし1つのアベイラビリティゾーンが故障した場合、残り2つのゾーンが利用可能であり、システム全体の可用性は60％を上回ったままです。この構成により、システムが信頼性があり、バッチジョブを必要に応じて安全に再開できるようになっています。"
+        "ja": "企業は、SAPアプリケーションが60％を上回る利用率で利用可能であることを確保したいと考えています。\n\nサーバーを3つのアベイラビリティゾーンに分散配置することで、高可用性を提供し、単一障害点のリスクを最小限に抑えることができます。\n\nもし1つのアベイラビリティゾーンが故障した場合、残り2つのゾーンが利用可能であり、システム全体の可用性は60％を上回ったままです。\n\nこの構成により、システムが信頼性があり、バッチジョブを必要に応じて安全に再開できるようになっています。"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company wants to migrate its SAP landscape from on premises to AWS.What are the MINIMUM requirements that the company must meet to ensure full support of SAP on AWS? (Choose three.)"
         ],
         "isTranslating": false,
-        "ja": "AWS Support Plan\n- The company must have an active AWS Support Plan in order to receive technical support from AWS experts. \n\nSAP Support Agreement\n- The company must have a valid SAP support agreement to receive support from SAP in the event of any issues or faults with the SAP landscape on AWS. \n\nSAP-Certified Instance Types\n- The company must ensure that it is leveraging SAP-certified instance types on AWS, as these instances are specifically designed and optimized for SAP workloads. \n\nNote: These are the important minimum requirements, but there may be other specific requirements based on the company's SAP environment and needs."
+        "ja": "ある会社は、SAPランドスケープをオンプレミスからAWSに移行したいと考えています。AWS上のSAPを完全にサポートするために、会社が満たさなければならない最小要件は何ですか。"
       },
       "choices": [
         {
@@ -2388,18 +2388,16 @@
       "selects": []
     },
     {
-      "statement": {
-        "en": [
-          "A company wants to migrate its SAP S/4HANA software from on premises to AWS in a few weeks. An SAP solutions architect plans to use AWS Launch Wizard for SAP to automate the SAP deployment on AWS.Which combination of steps must the SAP solutions architect take to use Launch Wizard to meet these requirements? (Choose two.)"
-        ],
+      "question": {
+        "en": "A company wants to migrate its SAP S/4HANA software from on premises to AWS in a few weeks. An SAP solutions architect plans to use AWS Launch Wizard for SAP to automate the SAP deployment on AWS.Which combination of steps must the SAP solutions architect take to use Launch Wizard to meet these requirements?",
         "isTranslating": false,
-        "ja": "SAP ソリューションアーキテクトが要件を満たすために使用する Launch Wizard を使用するために取る必要があるステップの組み合わせは次のとおりです。 (2つ選択してください。)\n\n1. 既存の SAP 環境の要件を AWS 上の S/4HANA インスタンスに移行するために評価します。\n2. AWS アカウントで AWS Launch Wizard を実行するために必要な IAM ロールとポリシーを作成します。\n3. Launch Wizard コンソールで SAP ブループリントを選択し、必要に応じてカスタマイズします。\n4. SAP アプリケーション設定に基づいて CloudFormation スタックを自動的に生成するように Launch Wizard を構成します。\n5. CloudFormation スタックで定義された AWS リソースが SAP ワークロードに適した方法で構成されていることを確認します。"
+        "ja": "数週間以内に、ある企業はオンプレミスからAWSにSAP S/4HANAソフトウェアを移行したいと考えています。\n\nSAPソリューションアーキテクトは、AWS Launch Wizard for SAPを使用して、AWS上でSAPの展開を自動化する計画を立てています。\n\nSAPソリューションアーキテクトが、これらの要件を満たすためにLaunch Wizardを使用するために必要な手順の組み合わせはどれでしょうか？"
       },
       "choices": [
         {
           "en": "Download the SAP software files from the SAP Support Portal. Upload the SAP software files to Amazon S3. Provide the S3 bucket path as an input to Launch Wizard.",
           "isTranslating": false,
-          "ja": "SAPソフトウェアファイルをSAPサポートポータルからダウンロードします。SAPソフトウェアファイルをAmazon S3にアップロードします。Launch Wizardの入力として、S3バケットパスを提供します。"
+          "ja": "SAPソフトウェアファイルをSAPサポートポータルからダウンロードします。\n\nSAPソフトウェアファイルをAmazon S3にアップロードします。\n\nLaunch Wizardの入力として、S3バケットパスを提供します。"
         },
         {
           "en": "Provide the SAP S-user ID and password as inputs to Launch Wizard to download the software automatically.",
@@ -2433,12 +2431,12 @@
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
-          "A company runs its SAP ERP 6.0 EHP 8 system on SAP HANA on AWS. The system is deployed on an r4.16xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd.16xlarge High Memory instance. After an operations engineer changes the instance type and starts the instance, the AWS Management Console shows a failed instance status check.What is the cause of this question?"
+          "A company runs its SAP ERP 6.0 EHP 8 system on SAP HANA on AWS. The system is deployed on an r4.16xlarge Amazon EC2 instance with default tenancy. The company needs to migrate the SAP HANA database to an x2gd.16xlarge High Memory instance. After an operations engineer changes the instance type and starts the instance, the AWS Management Console shows a failed instance status check.What is the cause of this problem?"
         ],
         "isTranslating": false,
-        "ja": "この会社は、SAP ERP 6.0 EHP 8システムをSAP HANA on AWSで実行しています。このシステムは、デフォルトテナントを使用してr4.16xlarge Amazon EC2インスタンスに展開されています。会社は、SAP HANAデータベースをx2gd.16xlarge High Memoryインスタンスに移行する必要があります。オペレーションエンジニアがインスタンスタイプを変更してインスタンスを起動した後、AWS Management Consoleには失敗したインスタンスステータスチェックが表示されています。問題の原因は何でしょうか？\n\nこの問題の原因は、x2gd.16xlargeインスタンスがデフォルトテナントではサポートされていないためです。つまり、別のテナントでしか使用できないため、AWS Management Consoleで失敗したステータスチェックが表示されているのです。したがって、オペレーションエンジニアがデフォルトテナント以外のテナントを使用するように指示する必要があります。"
+        "ja": "この会社は、SAP ERP 6.0 EHP 8システムをSAP HANA on AWSで実行しています。\n\nこのシステムは、デフォルトテナントを使用してr4.16xlarge Amazon EC2インスタンスに展開されています。\n\n会社は、SAP HANAデータベースをx2gd.16xlarge High Memoryインスタンスに移行する必要があります。\n\nオペレーションエンジニアがインスタンスタイプを変更してインスタンスを起動した後、AWS Management Consoleには失敗したインスタンスステータスチェックが表示されています。\n\n問題の原因は何でしょうか？"
       },
       "choices": [
         {
@@ -2467,39 +2465,39 @@
           "The operations engineer did not create a new AMI from the original instance and did not launch a new instance with dedicated tenancy from the AMI.\n\nWhen migrating an SAP HANA database to a different instance type in AWS, it is important to first create an Amazon Machine Image (AMI) from the original instance. This will capture the configuration and software state of the instance and allow you to launch a new instance with the same configuration.\n\nIf you change the instance type without creating a new AMI, the instance may not be configured correctly for the new instance type, and it is possible that drivers or other software components may not work correctly.\n\nIn this case, it is likely that the operations engineer did not create a new AMI from the original instance and did not launch a new instance with dedicated tenancy from the AMI. This would have caused the instance to fail the instance status check, as the instance is not properly configured for the new instance type."
         ],
         "isTranslating": false,
-        "ja": "オペレーションエンジニアは、元のインスタンスから新しいAMIを作成せず、そして、AMIから専用テナンシーを持つ新しいインスタンスを起動しませんでした。\n\nAWS上でSAP HANAデータベースを異なるインスタンスタイプに移行するときは、まず元のインスタンスからAmazon Machine Image(AMI)を作成することが重要です。これにより配置とソフトウェア状態がキャプチャされ、同じ構成を持つ新しいインスタンスを起動することができます。\n\nもし、新しいAMIを作成せずにインスタンスタイプを変更した場合、インスタンスが新しいインスタンスタイプ用に正しく構成されていない可能性があり、ドライバーや他のソフトウェアコンポーネントが正しく動作しない可能性があります。\n\nこの場合、オペレーションエンジニアは、元のインスタンスから新しいAMIを作成せず、AMIから専用テナンシーを持つ新しいインスタンスを起動しなかったと思われます。これにより、インスタンスステータスチェックに失敗した可能性があります。なぜなら、インスタンスが新しいインスタンスタイプに適切に構成されていなかったためです。"
+        "ja": "オペレーションエンジニアは、元のインスタンスから新しいAMIを作成せず、そして、AMIから専用テナンシーを持つ新しいインスタンスを起動しませんでした。\n\nAWS上でSAP HANAデータベースを異なるインスタンスタイプに移行するときは、まず元のインスタンスからAmazon Machine Image(AMI)を作成することが重要です。\n\nこれにより配置とソフトウェア状態がキャプチャされ、同じ構成を持つ新しいインスタンスを起動することができます。\n\nもし、新しいAMIを作成せずにインスタンスタイプを変更した場合、インスタンスが新しいインスタンスタイプ用に正しく構成されていない可能性があり、ドライバーや他のソフトウェアコンポーネントが正しく動作しない可能性があります。\n\nこの場合、オペレーションエンジニアは、元のインスタンスから新しいAMIを作成せず、AMIから専用テナンシーを持つ新しいインスタンスを起動しなかったと思われます。\n\nこれにより、インスタンスステータスチェックに失敗した可能性があります。\n\nなぜなら、インスタンスが新しいインスタンスタイプに適切に構成されていなかったためです。"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is running SAP on anyDB at a remote location that has slow and inconsistent internet connectivity. The company wants to migrate its system to AWS and wants to convert its database to SAP HANA during this process. Because of the inconsistent internet connection, the company has not established connectivity between the remote location and the company’s VPC in the AWS Cloud.How should the company perform this migration?"
         ],
         "isTranslating": false,
-        "ja": "インターネットの接続が遅く不安定なリモート場所で、ある企業がanyDB上でSAPを稼働させています。この企業は、システムをAWSに移行し、この過程でデータベースをSAP HANAに変換したいと考えています。しかしながら、不安定なインターネット接続のため、企業はリモート場所とAWSクラウド上の企業のVPCの間に接続を確立していません。この移行をどのように行うべきでしょうか？"
+        "ja": "インターネットの接続が遅く不安定なリモート場所で、ある企業がanyDB上でSAPを稼働させています。\n\nこの企業は、システムをAWSに移行し、この過程でデータベースをSAP HANAに変換したいと考えています。\n\nしかしながら、不安定なインターネット接続のため、企業はリモート場所とAWSクラウド上の企業のVPCの間に接続を確立していません。\n\nこの移行をどのように行うべきでしょうか？"
       },
       "choices": [
         {
           "en": "Migrate by using SAP HANA system replication over the internet connection. Specify a public IP address on the target system.",
           "isTranslating": false,
-          "ja": "インターネット接続を介してSAP HANAシステム複製を使用して移行します。ターゲットシステムに公開IPアドレスを指定してください。"
+          "ja": "インターネット接続を介してSAP HANAシステム複製を使用して移行します。\n\nターゲットシステムに公開IPアドレスを指定してください。"
         },
         {
           "en": "Migrate by using SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Move. Use an AWS Snowball Edge Storage Optimized device to transfer the SAP export files to AWS.",
           "isTranslating": false,
-          "ja": "SAPソフトウェアアップデートマネージャー（SUM）データベースマイグレーションオプション（DMO）を使用して、システムの移動を行ってください。AWS Snowball Edgeストレージ最適化デバイスを使用して、SAPのエクスポートファイルをAWSに転送してください。"
+          "ja": "SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Moveを使用して、マイグレーションを行ってください。\n\nAWS Snowball Edgeストレージ最適化デバイスを使用して、SAPのエクスポートファイルをAWSに転送してください。"
         },
         {
           "en": "Migrate by using SAP HANA system replication with initialization through backup and restore. Use an AWS Snowball Edge Storage Optimized device to transfer the SAP export files to AWS.",
           "isTranslating": false,
-          "ja": "SAP HANA システムレプリケーションを使用し、バックアップとリストアを介した初期化を行って移行します。AWS Snowball Edge Storage Optimized デバイスを使用して、SAP エクスポートファイルを AWS に転送します。"
+          "ja": "SAP HANA システムレプリケーションを使用し、バックアップ&リストアを介した初期化を行って移行します。\n\nAWS Snowball Edge Storage Optimized デバイスを使用して、SAP エクスポートファイルを AWS に転送します。"
         },
         {
           "en": "Migrate by using SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Move. Use Amazon Elastic File System (Amazon EFS) to transfer the SAP export files to AWS.",
           "isTranslating": false,
-          "ja": "SAP Software Update Manager (SUM) Database Migration Option (DMO) を使用したシステム移行によって移行します。Amazon Elastic File System (Amazon EFS) を使用して、SAP のエクスポートファイルを AWS に転送します。"
+          "ja": "SAP Software Update Manager (SUM) Database Migration Option (DMO) with System Moveを使用して、マイグレーションを行ってください。\n\nAmazon Elastic File System (Amazon EFS) を使用して、SAP のエクスポートファイルを AWS に転送します。"
         }
       ],
       "explanation": {
@@ -2507,39 +2505,39 @@
           "https://docs.aws.amazon.com/sap/latest/sap-hana/migrating-hana-tools.html#migrating-hana-snowball"
         ],
         "isTranslating": false,
-        "ja": "こちらのページは、SAP HANAをAWSクラウド上に移行する際に、AWS Snowballを利用したデータ移行方法について説明しています。移行手順に従って、スムーズな移行を実現してください。"
+        "ja": "https://docs.aws.amazon.com/sap/latest/sap-hana/migrating-hana-tools.html#migrating-hana-snowball"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A financial services company is implementing SAP core banking on AWS. The company must not allow any system information to traverse the public internet. The company needs to implement secure monitoring of its SAP ERP Central Component (SAP ECC) system to check for performance issues and faults in its application. The solution must maximize security and must be supported by SAP and AWS.How should the company integrate AWS metrics with its SAP system to meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "金融サービス企業は、SAPコアバンキングをAWS上で導入しています。企業は、公共インターネットを介してシステム情報が送信されることを許可してはなりません。企業は、パフォーマンスの問題やアプリケーション上の不具合を把握するため、SAP ERP Central Component（SAP ECC）システムのセキュアな監視を実施する必要があります。このソリューションは、SAPとAWSの両方でサポートされ、セキュリティを最大限に確保する必要があります。企業は、これらの要件を満たすために、どのようにAWSメトリックスをSAPシステムと統合すべきでしょうか？"
+        "ja": "金融サービス企業は、SAPコアバンキングをAWS上で導入しています。\n\n企業は、公共インターネットを介してシステム情報が送信されることを許可してはなりません。\n\n企業は、パフォーマンスの問題やアプリケーション上の不具合を把握するため、SAP ERP Central Component（SAP ECC）システムのセキュアな監視を実施する必要があります。\n\nこのソリューションは、SAPとAWSの両方でサポートされ、セキュリティを最大限に確保する必要があります。\n\n企業は、これらの要件を満たすために、どのようにAWSメトリックスをSAPシステムと統合すべきでしょうか？"
       },
       "choices": [
         {
           "en": "Set up SAP Solution Manager to call Amazon CloudWatch and Amazon EC2 endpoints with REST-based calls to populate SAPOSCOL details. Use SAP transaction ST06N to monitor CPU and memory utilization on each EC2 instance.",
           "isTranslating": false,
-          "ja": "SAPOSCOLの詳細を取得するために、SAP Solution Managerを設定してAmazon CloudWatchおよびAmazon EC2エンドポイントをRESTベースの呼び出しで呼び出します。各EC2インスタンスのCPUおよびメモリ利用率を監視するために、SAPトランザクションST06Nを使用します。"
+          "ja": "SAPOSCOLの詳細を取得するために、SAP Solution Managerを設定してAmazon CloudWatchおよびAmazon EC2エンドポイントをRESTベースの呼び出しで呼び出します。\n\n各EC2インスタンスのCPUおよびメモリ利用率を監視するために、SAPトランザクションST06Nを使用します。"
         },
         {
           "en": "Install the AWS Data Provider for SAP on the Amazon EC2 instances that host SAP. Allow access to the Amazon CloudWatch and EC2 endpoints through a NAT gateway. Create an IAM policy that allows the ec2:DescribeInstances action, the cloudwatch:GetMetricStatistics action, and the ec2:DescribeVolumes action for all EC2 resources.",
           "isTranslating": false,
-          "ja": "SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールし、NATゲートウェイを介してAmazon CloudWatchおよびEC2エンドポイントにアクセスできるようにしてください。また、すべてのEC2リソースに対するec2:DescribeInstancesアクション、cloudwatch:GetMetricStatisticsアクション、およびec2:DescribeVolumesアクションを許可するIAMポリシーを作成してください。"
+          "ja": "SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールし、NATゲートウェイを介してAmazon CloudWatchおよびEC2エンドポイントにアクセスできるようにしてください。\n\nまた、すべてのEC2リソースに対する `ec2:DescribeInstances` アクション、`cloudwatch:GetMetricStatistics` アクション、および `ec2:DescribeVolumes` アクションを許可するIAMポリシーを作成してください。"
         },
         {
           "en": "Install the AWS Data Provider for SAP on the Amazon EC2 instances that host SAP. Create VPC endpoints for Amazon CloudWatch and Amazon EC2. Allow access through these endpoints. Create an IAM policy that allows the ec2:DescribeInstances action, the cloudwatch:GetMetricStatistics action, and the ec2:DescribeVolumes action for all EC2 resources.",
           "isTranslating": false,
-          "ja": "SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールします。Amazon CloudWatchおよびAmazon EC2用のVPCエンドポイントを作成します。これらのエンドポイントを介してアクセスを許可します。すべてのEC2リソースに対して、ec2:DescribeInstancesアクション、cloudwatch:GetMetricStatisticsアクション、およびec2:DescribeVolumesアクションを許可するIAMポリシーを作成します。"
+          "ja": "SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールします。\n\nAmazon CloudWatchおよびAmazon EC2用のVPCエンドポイントを作成します。\n\nこれらのエンドポイントを介してアクセスを許可します。\n\nすべてのEC2リソースに対して、`ec2:DescribeInstances` アクション、`cloudwatch:GetMetricStatistics` アクション、および `ec2:DescribeVolumes` アクションを許可するIAMポリシーを作成します。"
         },
         {
           "en": "Install the AWS Data Provider for SAP on the Amazon EC2 instances that host SAP. Create VPC endpoints for Amazon CloudWatch and Amazon EC2. Allow access through these endpoints. Create an IAM policy that allows all actions for all EC2 resources.",
           "isTranslating": false,
-          "ja": "SAP をホストしている Amazon EC2 インスタンスに AWS Data Provider for SAP をインストールします。Amazon CloudWatch と Amazon EC2 に対する VPC エンドポイントを作成します。これらのエンドポイントを使用してアクセスを許可します。すべての EC2 リソースに対するすべてのアクションを許可する IAM ポリシーを作成します。"
+          "ja": "SAP をホストしている Amazon EC2 インスタンスに AWS Data Provider for SAP をインストールします。\n\nAmazon CloudWatch と Amazon EC2 に対する VPC エンドポイントを作成します。\n\nこれらのエンドポイントを使用してアクセスを許可します。\n\nすべての EC2 リソースに対するすべてのアクションを許可する IAM ポリシーを作成します。"
         }
       ],
       "explanation": {
@@ -2547,39 +2545,39 @@
           "The financial services company should install the AWS Data Provider for SAP on the Amazon EC2 instances that host SAP. They should then create VPC endpoints for Amazon CloudWatch and Amazon EC2 and allow access through these endpoints. Finally, they should create an IAM policy that allows actions for all EC2 resources.\n\nThis approach provides a secure and supported solution for integrating AWS metrics with the SAP system. By creating VPC endpoints, all data transfer between the SAP system and AWS metrics services is kept within the Amazon VPC, avoiding any system information from traversing the public internet. The IAM policy provides the necessary permissions to access the CloudWatch and EC2 endpoints, allowing the SAP system to securely access AWS metrics data."
         ],
         "isTranslating": false,
-        "ja": "金融サービス会社は、SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールすべきです。「Amazon CloudWatch」と「Amazon EC2」向けにVPCエンドポイントを作成し、これらのエンドポイントを介してアクセスを許可する必要があります。最後に、全てのEC2リソースのアクションを許可するIAMポリシーを作成する必要があります。\n\nこのアプローチは、SAPシステムとAWSメトリクスサービスを統合するための安全でサポートされたソリューションを提供します。VPCエンドポイントを作成することで、SAPシステムとAWSメトリクスサービス間のすべてのデータ転送はAmazon VPC内で保持され、公共インターネットを通過してシステム情報が移動することを避けることができます。IAMポリシーは、CloudWatchおよびEC2エンドポイントにアクセスするための必要な権限を提供し、SAPシステムがAWSメトリクスデータに安全にアクセスできるようにします。"
+        "ja": "金融サービス会社は、SAPをホストするAmazon EC2インスタンスにAWS Data Provider for SAPをインストールすべきです。\n\n「Amazon CloudWatch」と「Amazon EC2」向けにVPCエンドポイントを作成し、これらのエンドポイントを介してアクセスを許可する必要があります。\n\n最後に、全てのEC2リソースのアクションを許可するIAMポリシーを作成する必要があります。\n\nこのアプローチは、SAPシステムとAWSメトリクスサービスを統合するための安全でサポートされたソリューションを提供します。\n\nVPCエンドポイントを作成することで、SAPシステムとAWSメトリクスサービス間のすべてのデータ転送はAmazon VPC内で保持され、公共インターネットを通過してシステム情報が移動することを避けることができます。\n\nIAMポリシーは、CloudWatchおよびEC2エンドポイントにアクセスするための必要な権限を提供し、SAPシステムがAWSメトリクスデータに安全にアクセスできるようにします。"
       },
       "corrects": [3],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company hosts an SAP HANA database on an Amazon EC2 instance in the us-east-1 Region. The company needs to implement a disaster recovery (DR) site in the us-west-1 Region. The company needs a cost-optimized solution that offers a guaranteed capacity reservation, an RPO of less than 30 minutes, and an RTO of less than 30 minutes.Which solution will meet these requirements?"
         ],
         "isTranslating": false,
-        "ja": "会社は、SAP HANAデータベースを米国東部1リージョンのAmazon EC2インスタンスでホストしています。会社は、米国西部1リージョンに災害復旧(DR)サイトを実装する必要があります。会社は、保証された容量予約、RPOが30分未満、RTOが30分未満のコスト最適化されたソリューションが必要です。これらの要件を満たす解決策はどれですか？"
+        "ja": "会社は、SAP HANAデータベースを `us-east-1` リージョンのAmazon EC2インスタンスでホストしています。\n\n会社は、`us-west-1` リージョンに災害復旧(DR)サイトを実装する必要があります。\n\n会社は、保証された容量予約、RPOが30分未満、RTOが30分未満のコスト最適化されたソリューションが必要です。\n\nこれらの要件を満たす解決策はどれですか？"
       },
       "choices": [
         {
           "en": "Deploy a single EC2 instance to support the secondary database in us-west-1 with additional storage. Use this secondary database instance to support QA and production. Configure the primary SAP HANA database in us-east-1 to constantly replicate the data to the secondary SAP HANA database in us-west-1 by using SAP HANA system replication with preload off. During DR, shut down the QA SAP HANA instance and restart the production services at the secondary site.",
           "isTranslating": false,
-          "ja": "米国西部の副データベースをサポートするため、追加のストレージを備えた単一のEC2インスタンスをデプロイしてください。この副データベースインスタンスを使用して、QAとプロダクションをサポートします。米国東部の主要なSAP HANAデータベースを設定し、SAP HANAシステムレプリケーションを使用してデータを米国西部のセカンダリSAP HANAデータベースに定期的にレプリケーションしてください。この際、データを事前読み込みしないようにしてください。災害発生時には、QA SAP HANAインスタンスをシャットダウンし、セカンダリサイトでプロダクションサービスを再起動してください。"
+          "ja": "`us-west-1` のセカンダリデータベースをサポートするため、追加のストレージを備えた単一のEC2インスタンスをデプロイしてください。\n\nこのセカンダリデータベースインスタンスを使用して、QAとプロダクションをサポートします。\n\n`us-east-1` の主要なSAP HANAデータベースを設定し、SAP HANAシステムレプリケーションを使用してデータを `us-west-1` のセカンダリSAP HANAデータベースに定期的にレプリケーションしてください。\n\nこの際、データを事前読み込みしないようにしてください。\n\n災害発生時には、QA SAP HANAインスタンスをシャットダウンし、セカンダリサイトでプロダクションサービスを再起動してください。"
         },
         {
           "en": "Deploy a secondary staging server on an EC2 instance in us-west-1. Use CloudEndure Disaster Recovery to replicate changes at the database level from us-east-1 to the secondary staging server on an ongoing basis. During DR, initiate cutover, increase the size of the secondary EC2 instance to match the primary EC2 instance, and start the secondary EC2 instance.",
           "isTranslating": false,
-          "ja": "米国西部のEC2インスタンス上に2次ステージングサーバーを展開します。CloudEndure Disaster Recoveryを使用して、常にus-east-1から2次ステージングサーバーにデータベースレベルの変更をレプリケートします。DR中には、カットオーバーを開始し、2次EC2インスタンスのサイズをプライマリEC2インスタンスに合わせて拡張し、2次EC2インスタンスを起動します。"
+          "ja": "`us-west-1` のEC2インスタンス上に2次ステージングサーバーを展開します。\n\nCloudEndure Disaster Recoveryを使用して、常に `us-east-1` から2次ステージングサーバーにデータベースレベルの変更をレプリケートします。\n\nDR中には、カットオーバーを開始し、2次EC2インスタンスのサイズをプライマリEC2インスタンスに合わせて拡張し、2次EC2インスタンスを起動します。"
         },
         {
           "en": "Set up the primary SAP HANA database in us-east-1 to constantly replicate the data to a secondary SAP HANA database in us-west-1 by using SAP HANA system replication with preload on. Keep the secondary SAP HANA instance as a hot standby that is ready to take over in case of failure.",
           "isTranslating": false,
-          "ja": "米国東部リージョンの主要なSAP HANAデータベースをセットアップし、SAP HANAシステムレプリケーションを用いて、常に米国西部リージョンの二次SAP HANAデータベースにデータを複製するように設定してください。前置きを使用してSAP HANA システムレプリケーションを行います。二次SAP HANAインスタンスをホットスタンバイとして維持し、障害時にすぐに引き継ぐことができるようにしてください。"
+          "ja": "`us-east-1` リージョンの主要なSAP HANAデータベースをセットアップし、SAP HANAシステムレプリケーションを用いて、常に `us-west-1` リージョンの二次SAP HANAデータベースにデータを複製するように設定してください。\n\n前置きを使用してSAP HANA システムレプリケーションを行います。二次SAP HANAインスタンスをホットスタンバイとして維持し、障害時にすぐに引き継ぐことができるようにしてください。"
         },
         {
           "en": "Create an SAP HANA database AMI by using Amazon Elastic Block Store (Amazon EBS) snapshots. Replicate the database and log backup files from a primary Amazon S3 bucket in us-east-1 to a secondary S3 bucket in us-west-1. During DR, launch the EC2 instance in us-west-1 based on AMIs that are replicated. Update host information. Download database and log backups from the secondary S3 bucket. Perform a point-in-time recovery.",
           "isTranslating": false,
-          "ja": "Amazon Elastic Block Store (Amazon EBS) スナップショットを使用して SAP HANA データベース AMI を作成します。プライマリの Amazon S3 バケットにあるデータベースとログのバックアップファイルを、us-west-1 のセカンダリ S3 バケットに複製します。災害復旧時には、複製された AMI を基に us-west-1 で EC2 インスタンスを起動します。ホスト情報を更新し、セカンダリ S3 バケットからデータベースとログのバックアップをダウンロードし、ポイントインタイムリカバリを実行します。"
+          "ja": "Amazon Elastic Block Store (Amazon EBS) スナップショットを使用して SAP HANA データベース AMI を作成します。\n\nプライマリの Amazon S3 バケットにあるデータベースとログのバックアップファイルを、`us-west-1`  のセカンダリ S3 バケットに複製します。\n\n災害復旧時には、複製された AMI を基に `us-west-1` で EC2 インスタンスを起動します。\n\nホスト情報を更新し、セカンダリ S3 バケットからデータベースとログのバックアップをダウンロードし、ポイントインタイムリカバリを実行します。"
         }
       ],
       "explanation": {
@@ -2592,18 +2590,18 @@
           "Therefore, option A is the correct solution that meets all the given requirements."
         ],
         "isTranslating": false,
-        "ja": "ERROR"
+        "ja": "### A\n選択肢Aは、与えられた要件を満たす正しい解決策である。(DRサイトでQAを適用すれば、コスト最適化ソリューションを満たす)。\n\nこのソリューションでは、セカンダリデータベースをサポートするために、1つのEC2インスタンスがus-west-1リージョンに配備されています。\n\nこのインスタンスは、us-east-1にあるプライマリSAP HANAデータベースからレプリケートされるデータを収容できるように、追加のストレージで構成されます。\n\nプライマリデータベースは、プリロードオフのSAP HANAシステムレプリケーションを使用して、セカンダリデータベースに常にデータをレプリケートするように構成されています。\n\nDRの間、QA SAP HANAインスタンスはシャットダウンされ、本番サービスはセカンダリサイトで再開されます。\n\n\n### B\nオプションBは、us-west-1にセカンダリステージングサーバーをセットアップし、CloudEndure Disaster Recoveryを使用してデータベースレベルで変更をレプリケートするため、適切なソリューションではありません。\n\nこのソリューションは、低いRPOとRTOを提供することができますが、保証された容量予約を提供するものではありません。\n\n### C\nオプションCは、セカンダリSAP HANAインスタンスを、障害発生時に引き継ぐことができるホットスタンバイとして設定するため、適切なソリューションとは言えません。\n\nこのソリューションは、低いRPOとRTOを提供することができますが、保証された容量予約を提供するものではありません。\n\n### D\nオプションDは、Amazon Elastic Block Store（Amazon EBS）スナップショットを使用してSAP HANAデータベースAMIを作成し、データベースとログのバックアップファイルをus-east-1のプライマリAmazon S3バケットからus-west-1のセカンダリS3バケットにレプリケーションするため、適したソリューションではありません。\n\nこのソリューションは、保証された容量予約を提供することができますが、30分未満のRPOとRTOを提供することはできません。\n\nしたがって、選択肢Aは、与えられた要件をすべて満たす正しいソリューションです。"
       },
       "corrects": [1],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "An SAP solutions architect is leading the SAP basis team for a company. The company’s SAP landscape includes SAP HANA database instances for the following systems: sandbox, development, quality assurance test (QAT), system performance test (SPT), and production. The sandbox, development, and QAT systems are running on Amazon EC2 On-Demand Instances. The SPT and production systems are running on EC2 Reserved instances. All the EC2 instances are using Provisioned IOPS SSO (io2) Amazon Elastic Block Store (Amazon EBS) volumes.The entire development team is in the same time zone and works from 8 AM to 6 PM. The sandbox system is for research and testing that are not critical. The SPT and production systems are business critical. The company runs load-testing jobs and stress-testing jobs on the QAT systems overnight to reduce testing duration. The company wants to optimize infrastructure cost for the existing AWS resources.How can the SAP solutions architect meet these requirements with the LEAST amount of administrative effort?"
         ],
         "isTranslating": false,
-        "ja": "ある会社のSAPシステム担当者が、同社のSAP全般を担当しています。同社のSAPシステムには、以下のシステム用にSAP HANA データベースインスタンスがあります。それらは、サンドボックス、開発環境、品質保証テスト(QAT)、システムパフォーマンステスト(SPT)、そして本番環境です。サンドボックス、開発環境、QATシステムは、Amazon EC2オンデマンドインスタンス上で実行されています。SPTおよび本番システムは、EC2リザーブドインスタンス上で実行されています。すべてのEC2インスタンスは、Provisioned IOPS SSO（io2）Amazon Elastic Block Store（Amazon EBS）ボリュームを使用しています。全ての開発チームメンバーが同じ時間帯であり、8時から18時まで働いています。サンドボックスシステムは、重要性の低い研究やテストに使用されます。SPTおよび本番システムは、ビジネス上の重要なものです。同社は、QATシステムで負荷テストジョブやストレステストジョブを夜間に実行して、テスト期間を短縮しています。同社は、既存のAWSリソースのインフラストラクチャコストを最適化したいと考えています。SAPソリューションアーキテクトは、どのようにして、最小限の管理労力でこれらの要件を満たすことができますか？"
+        "ja": "ある会社のSAPシステム担当者が、同社のSAP全般を担当しています。\n\n同社のSAPシステムには、以下のシステム用にSAP HANA データベースインスタンスがあります。\n\nそれらは、サンドボックス、開発環境、品質保証テスト(QAT)、システムパフォーマンステスト(SPT)、そして本番環境です。\n\nサンドボックス、開発環境、QATシステムは、Amazon EC2オンデマンドインスタンス上で実行されています。\n\nSPTおよび本番システムは、EC2リザーブドインスタンス上で実行されています。\n\nすべてのEC2インスタンスは、Provisioned IOPS SSO（io2）Amazon Elastic Block Store（Amazon EBS）ボリュームを使用しています。\n\n全ての開発チームメンバーが同じ時間帯であり、8時から18時まで働いています。\n\nサンドボックスシステムは、重要性の低い研究やテストに使用されます。\n\nSPTおよび本番システムは、ビジネス上の重要なものです。\n\n同社は、QATシステムで負荷テストジョブやストレステストジョブを夜間に実行して、テスト期間を短縮しています。\n\n同社は、既存のAWSリソースのインフラストラクチャコストを最適化したいと考えています。\n\nSAPソリューションアーキテクトは、どのようにして、最小限の管理労力でこれらの要件を満たすことができますか？"
       },
       "choices": [
         {
@@ -2624,7 +2622,7 @@
         {
           "en": "Change the EBS volume type to Throughput Optimized HDD (st1) for the /hana/data and /hana/log file systems for the production and non-production SAP HANA databases.",
           "isTranslating": false,
-          "ja": "プロダクションおよび非プロダクションのSAP HANAデータベースの/hana/dataと/hana/logファイルシステムに対して、EBSボリュームタイプをスループット最適化HDD(st1)に変更してください。"
+          "ja": "プロダクションおよび非プロダクションのSAP HANAデータベースの `/hana/data` と `/hana/log` ファイルシステムに対して、EBSボリュームタイプをスループット最適化HDD(st1)に変更してください。"
         }
       ],
       "explanation": {
@@ -2635,28 +2633,22 @@
           "Option D, changing the EBS volume type to Throughput Optimized HDD, may not be the best solution as it can affect the performance of the SAP HANA database. Additionally, this solution does not address the need to optimize infrastructure costs."
         ],
         "isTranslating": false,
-        "ja": "最良の解決策はオプションBです。SAPソリューションアーキテクトは、非稼働時間中に開発およびサンドボックスEC2インスタンスを手動介入なしで自動的に停止できます。これによりオンデマンドインスタンスのコストを節約することができます。\nSpot Fleetを使用するオプションAは、SPTおよびプロダクションシステムには推奨されません。それらには保証された容量が必要であり、ビジネスに重要です。\nオプションC、SAP基盤チームを24時間365日稼働状態にして手動でインスタンスを停止および開始することは拡張可能な解決策ではなく、間違いや管理オーバーヘッドの増加を引き起こす可能性があります。\nオプションD、EBSボリュームタイプをスループット最適化HDDに変更することは、SAP HANAデータベースのパフォーマンスに影響する可能性があり、最適な解決策とは限りません。さらに、この解決策はインフラストラクチャコストを最適化する必要性に対処していません。"
+        "ja": "最良の解決策はオプションBです。\n\nSAPソリューションアーキテクトは、非稼働時間中に開発およびサンドボックスEC2インスタンスを手動介入なしで自動的に停止できます。\n\nこれによりオンデマンドインスタンスのコストを節約することができます。\n\nSpot Fleetを使用するオプションAは、SPTおよびプロダクションシステムには推奨されません。それらには保証された容量が必要であり、ビジネスに重要です。\n\nオプションC、SAP基盤チームを24時間365日稼働状態にして手動でインスタンスを停止および開始することは拡張可能な解決策ではなく、間違いや管理オーバーヘッドの増加を引き起こす可能性があります。\n\nオプションD、EBSボリュームタイプをスループット最適化HDDに変更することは、SAP HANAデータベースのパフォーマンスに影響する可能性があり、最適な解決策とは限りません。さらに、この解決策はインフラストラクチャコストを最適化する必要性に対処していません。"
       },
       "corrects": [2],
       "selects": []
     },
     {
-      "statement": {
-        "en": [
-          "A company is hosting an SAP HANA database on AWS. The company is automating operational tasks, including backup and system refreshes. The company wants to use SAP HANA Studio to perform data backup of an SAP HANA tenant database to a backint interface. The SAP HANA database is running in multi-tenant database container (MDC) mode. The company receives the following error message during an attempt to perform the backup:",
-          "",
-          "",
-          "",
-          "What should an SAP solutions architect do to resolve this issue?"
-        ],
+      "question": {
+        "en": "A company is hosting an SAP HANA database on AWS. The company is automating operational tasks, including backup and system refreshes. The company wants to use SAP HANA Studio to perform data backup of an SAP HANA tenant database to a backint interface. The SAP HANA database is running in multi-tenant database container (MDC) mode. The company receives the following error message during an attempt to perform the backup:\n\n```\nCould not start backup for system <SID> DBC: [447]: backup could not be completed: [110091] Invalid path selection for data backup using backint: usr/sap/<SID>/SYS/global/hdb/backint/COMPLETE DATA BACKUP must start with /usz/sap/<SID>/SYS/global/hdb/backint/DB_<TENANT>\n```\n\nWhat should an SAP solutions architect do to resolve this issue?",
         "isTranslating": false,
-        "ja": "ある企業は、SAP HANAデータベースをAWS上にホスティングしています。バックアップやシステムのリフレッシュなどの運用タスクを自動化しています。会社は、SAP HANA Studioを使用して、SAP HANAテナントデータベースをバックインターフェースにバックアップすることを望んでいます。SAP HANAデータベースは、マルチテナントデータベースコンテナ（MDC）モードで実行されています。バックアップを実行しようとしたとき、会社は以下のエラーメッセージを受け取りました。\n\nこの問題を解決するために、SAPソリューションアーキテクトは何をすべきでしょうか？"
+        "ja": "ある企業は、SAP HANAデータベースをAWS上にホスティングしています。\n\nバックアップやシステムのリフレッシュなどの運用タスクを自動化しています。\n\n会社は、SAP HANA Studioを使用して、SAP HANAテナントデータベースをバックインターフェースにバックアップすることを望んでいます。\n\nSAP HANAデータベースは、マルチテナントデータベースコンテナ（MDC）モードで実行されています。バックアップを実行しようとしたとき、会社は以下のエラーメッセージを受け取りました。\n\n```\nCould not start backup for system <SID> DBC: [447]: backup could not be completed: [110091] Invalid path selection for data backup using backint: usr/sap/<SID>/SYS/global/hdb/backint/COMPLETE DATA BACKUP must start with /usz/sap/<SID>/SYS/global/hdb/backint/DB_<TENANT>\n```\n\nこの問題を解決するために、SAPソリューションアーキテクトは何をすべきでしょうか？"
       },
       "choices": [
         {
           "en": "Set the execute permission for AWS Backint agent binary aws-backint-agent and for the launcher script aws-backint-agent-launcher.sh in the installation directory.",
           "isTranslating": false,
-          "ja": "AWS Backintエージェントバイナリaws-backint-agentおよびインストールディレクトリ内のランチャースクリプトaws-backint-agent-launcher.shに実行権限を設定してください。"
+          "ja": "AWS Backintエージェントバイナリ `aws-backint-agent` およびインストールディレクトリ内のランチャースクリプト `aws-backint-agent-launcher.sh` に実行権限を設定してください。"
         },
         {
           "en": "Verify the installation steps. Create symbolic links (symlinks).",
@@ -2666,34 +2658,34 @@
         {
           "en": "Ensure that the catalog_backup_using_backint SAP HANA parameter is set to true. Ensure that the data_backup_parameter_file and log_backup_parameter_file parameters have the correct path location in the global.ini file.",
           "isTranslating": false,
-          "ja": "catalog_backup_using_backintというSAP HANAパラメータがtrueに設定されていることを確認してください。また、global.iniファイル内のdata_backup_parameter_fileおよびlog_backup_parameter_fileパラメータが正しいパスに設定されていることを確認してください。"
+          "ja": "`catalog_backup_using_backint` というSAP HANAパラメータが `true` に設定されていることを確認してください。\n\nまた、`global.ini` ファイル内の `data_backup_parameter_file` および `log_backup_parameter_file` パラメータが正しいパスに設定されていることを確認してください。"
         },
         {
           "en": "Add the SAP HANA system to SAP HANA Studio. Select multiple container mode, and then try to initiate the backup again.",
           "isTranslating": false,
-          "ja": "SAP HANAシステムをSAP HANA Studioに追加します。複数のコンテナモードを選択し、バックアップを再開してみてください。"
+          "ja": "SAP HANAシステムをSAP HANA Studioに追加します。\n\n複数のコンテナモードを選択し、バックアップを再開してみてください。"
         }
       ],
       "explanation": {
         "en": [
           "Reference: ",
-          "https://me.sap.com/notes/0002512397  See ”Question: The following error is displayed when initiating a backup from the SAP HANA console:” section following URL. https://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html",
+          "https://me.sap.com/notes/0002512397  See ”Problem: The following error is displayed when initiating a backup from the SAP HANA console:” section following URL. https://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html",
           "The error message indicates that the SAP HANA Studio is unable to connect to the tenant database for backup, and this is likely due to an incorrect connection. Option D suggests that an SAP solutions architect should add the SAP HANA system to SAP HANA Studio, select multi-container mode, and then initiate the backup again. This is a plausible solution as it addresses the issue of the incorrect connection. Therefore, D is the correct answer.",
           "Options A, B, and C are incorrect because they do not address the root cause of the issue, which is the incorrect connection to the tenant database. Option A suggests setting execute permissions for the AWS Backint agent, which is not relevant to the issue at hand. Option B suggests verifying installation steps and creating symbolic links, which may not resolve the issue. Option C suggests ensuring that the catalog_backup_using_backint SAP HANA parameter is set to true, and that the data_backup_parameter_file and log_backup_parameter_file parameters have the correct path location in the global.ini file, but this may not necessarily address the issue of the incorrect connection.\n"
         ],
         "isTranslating": false,
-        "ja": "参照先：\nhttps://me.sap.com/notes/0002512397　上記URLの「Question: The following error is displayed when initiating a backup from the SAP HANA console:」のセクションをご覧ください。\nhttps://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html\nエラーメッセージは、SAP HANA Studioがテナントデータベースにバックアップのために接続できないことを示しており、これは接続が間違っているためです。Option Dは、SAP HANAシステムをSAP HANA Studioに追加し、マルチコンテナモードを選択してバックアップを再開するようにSAPソリューションアーキテクトがすることを示唆しており、接続が間違っている問題に対処する妥当な解決策です。したがって、Dが正しい解答です。\n\n一方、A、B、Cのオプションは、テナントデータベースへの正しい接続という根本的な問題に対処していないため、不正解です。オプションAは、問題に関係のないAWS Backintエージェントの実行許可を設定することを示唆しています。オプションBは、インストール手順の確認とシンボリックリンクの作成を示唆していますが、問題を解決しない場合があります。オプションCは、catalog_backup_using_backint SAP HANAパラメータがtrueに設定されていること、data_backup_parameter_fileとlog_backup_parameter_fileパラメータがglobal.iniファイルの正しい場所にあることを確認することを示唆していますが、接続が間違っている問題に対処する保証はありません。"
+        "ja": "参照先：\nhttps://me.sap.com/notes/0002512397\n上記URLの「Problem: The following error is displayed when initiating a backup from the SAP HANA console:」のセクションをご覧ください。\n\nhttps://docs.aws.amazon.com/ja_jp/sap/latest/sap-hana/aws-backint-agent-troubleshooting.html\n\nエラーメッセージは、SAP HANA Studioがテナントデータベースにバックアップのために接続できないことを示しており、これは接続が間違っているためです。\n\nOption Dは、SAP HANAシステムをSAP HANA Studioに追加し、マルチコンテナモードを選択してバックアップを再開するようにSAPソリューションアーキテクトがすることを示唆しており、接続が間違っている問題に対処する妥当な解決策です。\n\nしたがって、Dが正しい解答です。\n\n一方、A、B、Cのオプションは、テナントデータベースへの正しい接続という根本的な問題に対処していないため、不正解です。\n\nオプションAは、問題に関係のないAWS Backintエージェントの実行許可を設定することを示唆しています。\n\nオプションBは、インストール手順の確認とシンボリックリンクの作成を示唆していますが、問題を解決しない場合があります。\n\nオプションCは、`catalog_backup_using_backint` SAP HANAパラメータが `true` に設定されていること、`data_backup_parameter_file` と `log_backup_parameter_file` パラメータが `global.ini` ファイルの正しい場所にあることを確認することを示唆していますが、接続が間違っている問題に対処する保証はありません。"
       },
       "corrects": [4],
       "selects": []
     },
     {
-      "statement": {
+      "question": {
         "en": [
           "A company is planning to migrate its on-premises SAP ERP Central Component (SAP ECC) system on SAP HANA to AWS. Each month, the system experiences two peaks in usage. The first peak is on the 21st day of the month when the company runs payroll. The second peak is on the last day of the month when the company processes and exports credit data. Both peak workloads are of high importance and cannot be rescheduled.The current SAP ECC system has six application servers, all of a similar size. During normal operation outside of peak usage, four application servers would suffice.Which purchasing option will meet the company’s requirements MOST cost-effectively on AWS?"
         ],
         "isTranslating": false,
-        "ja": "ある企業が、オンプレミスのSAP ERP Central Component (SAP ECC) システムをSAP HANAからAWSに移行する計画を立てています。システムは、毎月2回のピーク使用量を経験しています。最初のピークは、会社が給与処理を実行する月の21日です。2番目のピークは、会社がクレジットデータを処理してエクスポートする月の最終日です。どちらのピークワークロードも高い重要度を持っており、スケジュール変更はできません。現在のSAP ECCシステムには6つのアプリケーションサーバーがあり、すべてのサーバーが同様のサイズです。ピーク使用量以外の通常の運用では、4つのアプリケーションサーバーが十分です。AWSのどの購入オプションが、この企業の要件を最も費用効果良く満たしますか？"
+        "ja": "ある企業が、オンプレミスのSAP ERP Central Component (SAP ECC) システムをSAP HANAからAWSに移行する計画を立てています。\n\nシステムは、毎月2回のピーク使用量を経験しています。\n\n最初のピークは、会社が給与処理を実行する月の21日です。\n\n2番目のピークは、会社がクレジットデータを処理してエクスポートする月の最終日です。\n\nどちらのピークワークロードも高い重要度を持っており、スケジュール変更はできません。\n\n現在のSAP ECCシステムには6つのアプリケーションサーバーがあり、すべてのサーバーが同様のサイズです。\n\nピーク使用量以外の通常の運用では、4つのアプリケーションサーバーが十分です。\n\nAWSのどの購入オプションが、この企業の要件を最も費用効果良く満たしますか？"
       },
       "choices": [
         {
@@ -2729,7 +2721,7 @@
           "For the normal operation outside of peak usage, four application servers would suffice, and the company could use Reserved Instances to reduce costs and provide a consistent performance. However, during peak usage, the company needs six application servers, which would not be covered by the four Reserved Instances. In this scenario, the company can use two additional On-Demand Instances to meet the additional capacity requirement during peak usage. This would ensure that the company has the necessary capacity during peak usage and also minimize costs as much as possible.\n\nUsing Spot Instances, as in option A, could result in unpredictable costs and performance as Spot Instances are subject to availability and bidding competition. Option B of using six On-Demand Instances would result in higher costs as compared to a mix of On-Demand and Reserved Instances. Option C of using six Reserved Instances would not be cost-effective as the company only needs six instances during peak usage and using this many instances outside of peak usage would result in unnecessary costs."
         ],
         "isTranslating": false,
-        "ja": "コスト効率的な方法で企業の要件を満たすため、Option Dが最適な選択です。このオプションは、予測可能なワークロードに対してReserved Instancesを活用し、ピーク時にはOn-Demand Instancesを使用することで、ほとんどの時間でReserved Instancesの低コストを利用しながら、ピーク時の負荷対応のための容量を確保できます。\n\nOption AのSpot InstancesとReserved Instancesの組み合わせは、中断や再スケジュールができない重要なワークロードには適していないため、効果が低いでしょう。\n\nOption BのOn-Demand Instancesのみでは、低ワークロード期間でもOn-Demand価格を支払う必要があるため、より高価になります。\n\nOption CのReserved Instancesのみだと、ピーク使用時以外にも6つのインスタンス分の支払いをしなければならず、未使用分が生じ、コストが増加する可能性があります。\n\nオプションDでは、通常の運用時には4つのアプリケーションサーバーで十分であり、Reserved Instancesを使用してコストを削減し、一貫したパフォーマンスを提供できます。しかし、ピーク時には6つのアプリケーションサーバーが必要であり、4つのReserved Instancesだけではカバーできないため、ピーク時の追加容量要件を満たすために2つのOn-Demand Instancesを使用することができます。これにより、企業がピーク時に必要な容量を保有し、可能な限りコストを最小化することができます。\n\nSpot Instancesを使用する場合、依存するアベイラビリティや競売のような要因から、コストもパフォーマンスも予測不可能になる可能性があります。6つのOn-Demand Instancesを使用するOption Bは、On-DemandとReserved Instancesの組み合わせに比べて高いコストになります。6つのReserved Instancesを使用するOption Cは、ピーク時にしか必要ない場合もあるため、コスト効率が良くないです。"
+        "ja": "コスト効率的な方法で企業の要件を満たすため、Dが最適な選択です。\n\nこのオプションは、予測可能なワークロードに対してReserved Instancesを活用し、ピーク時にはOn-Demand Instancesを使用することで、ほとんどの時間でReserved Instancesの低コストを利用しながら、ピーク時の負荷対応のための容量を確保できます。\n\nOption AのSpot InstancesとReserved Instancesの組み合わせは、中断や再スケジュールができない重要なワークロードには適していないため、効果が低いでしょう。\n\nOption BのOn-Demand Instancesのみでは、低ワークロード期間でもOn-Demand価格を支払う必要があるため、より高価になります。\n\nOption CのReserved Instancesのみだと、ピーク使用時以外にも6つのインスタンス分の支払いをしなければならず、未使用分が生じ、コストが増加する可能性があります。\n\nオプションDでは、通常の運用時には4つのアプリケーションサーバーで十分であり、Reserved Instancesを使用してコストを削減し、一貫したパフォーマンスを提供できます。\n\nしかし、ピーク時には6つのアプリケーションサーバーが必要であり、4つのReserved Instancesだけではカバーできないため、ピーク時の追加容量要件を満たすために2つのOn-Demand Instancesを使用することができます。\n\nこれにより、企業がピーク時に必要な容量を保有し、可能な限りコストを最小化することができます。\n\nSpot Instancesを使用する場合、依存するアベイラビリティや競売のような要因から、コストもパフォーマンスも予測不可能になる可能性があります。\n\n6つのOn-Demand Instancesを使用するOption Bは、On-DemandとReserved Instancesの組み合わせに比べて高いコストになります。\n\n6つのReserved Instancesを使用するOption Cは、ピーク時にしか必要ない場合もあるため、コスト効率が良くないです。"
       },
       "corrects": [4],
       "selects": []
