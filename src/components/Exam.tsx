@@ -65,6 +65,7 @@ export const ExamComponent = () => {
         exam.questions.forEach((question) => {
           question.statement.isTranslating = false;
           question.choices.forEach((choice) => (choice.isTranslating = false));
+          if (question.explanation) question.explanation.isTranslating = false;
           question.selects = [];
         });
         setExam(exam);
@@ -83,10 +84,23 @@ export const ExamComponent = () => {
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(() => resolve(1), ms));
 
-  const shouldTranslate = (jaEn: UIJaEn): boolean => {
-    const en = jaEn.en;
-    if (!en) return false;
-    if (jaEn.ja) return false;
+  const shouldTranslate = (jaEn?: UIJaEn): boolean => {
+    if (!jaEn) return false;
+    if (jaEn.isTranslating) return false;
+
+    if (typeof jaEn.en !== "string" && !Array.isArray(jaEn.en)) return false;
+    const en: string = typeof jaEn.en === "string" ? jaEn.en : jaEn.en.join("");
+    if (en === "") return false;
+
+    // if (typeof jaEn.ja !== "string" && !Array.isArray(jaEn.ja)) return false;
+    // const ja: string = typeof jaEn.ja === "string" ? jaEn.ja : jaEn.ja.join("");
+    const ja: string = (() => {
+      if (typeof jaEn.ja === "string") return jaEn.ja;
+      else if (Array.isArray(jaEn.ja)) return jaEn.ja.join("");
+      else return "";
+    })();
+    if (ja !== "") return false;
+
     return true;
   };
 
@@ -354,6 +368,7 @@ export const ExamComponent = () => {
           updateExam,
           setIsEditMode,
           translateJaEn,
+          shouldTranslate,
           addQuestion,
           removeQuestion,
           addChoice,

@@ -1,12 +1,13 @@
 import type { Exam, Language, TextType, UIJaEn } from "../interfaces/exam";
 
 import { ABC } from "../libs/abc";
-import type { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { FixedButtons } from "./FixedButtons";
 import { Header } from "./header";
 import { Heading } from "./Heading";
 import { dumpExam } from "../libs/dumpExam";
 import { sentences2Elements } from "../libs/sentences2Elements";
+import axios from "axios";
 
 type Props = {
   exam: Exam;
@@ -15,6 +16,7 @@ type Props = {
   initialized: boolean;
   saveMouseEnterQuestion: (questionIndex: number) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  shouldTranslate: (jaEn?: UIJaEn) => boolean;
   translateJaEn: (
     jaEnCallback: (exam: Exam) => UIJaEn | undefined
   ) => Promise<boolean>;
@@ -33,12 +35,85 @@ export const ExamEdit: FC<Props> = ({
   saveMouseEnterQuestion,
   setIsEditMode,
   translateJaEn,
+  shouldTranslate,
   addQuestion,
   removeQuestion,
   addChoice,
   removeChoice,
   toggleCorrect,
 }) => {
+  const [jsons, setJsons] = useState<
+    { jsonUrl: string; exam: Exam | null | false }[]
+  >([]);
+  const [jsonUrl, setJsonUrl] = useState<string>("");
+
+  const fetchJsons = async () => {
+    if (!jsons.find((json) => json.exam === null)) return;
+
+    const jsonsCopy: { jsonUrl: string; exam: Exam | null }[] = JSON.parse(
+      JSON.stringify(jsons)
+    );
+    const updatedJsons = await Promise.all(
+      jsonsCopy.map(async ({ jsonUrl, exam }) => {
+        if (exam) {
+          return { jsonUrl, exam };
+        }
+        try {
+          const { data } = await axios.get(jsonUrl, {
+            params: {
+              timestamp: Date.now(),
+            },
+          });
+          return { jsonUrl, exam: data };
+        } catch (e) {
+          return { jsonUrl, exam: false };
+        }
+      })
+    );
+    setJsons(updatedJsons);
+  };
+
+  const mergeJsons = () => {
+    const additionalExams = jsons.flatMap((json) =>
+      json.exam ? [json.exam] : []
+    );
+    if (
+      !confirm(
+        `${
+          additionalExams.flatMap((exam) => exam.questions).length
+        }問の設問を全て追加しますか？`
+      )
+    ) {
+      return;
+    }
+    updateExam((exam) => {
+      exam.questions = [
+        ...exam.questions,
+        ...additionalExams.flatMap(
+          (additionalExam) => additionalExam.questions
+        ),
+      ];
+      return exam;
+    });
+    setJsons([]);
+  };
+
+  const addMergeJsonUrl = (jsonUrl: string) => {
+    setJsons([...jsons, { jsonUrl, exam: null }]);
+  };
+
+  const removeMergeJsonUrl = (jsonUrlIndex: number) => {
+    const jsonsCopy: { jsonUrl: string; exam: Exam | null }[] = JSON.parse(
+      JSON.stringify(jsons)
+    );
+    jsonsCopy.splice(jsonUrlIndex, 1);
+    setJsons(jsonsCopy);
+  };
+
+  useEffect(() => {
+    fetchJsons();
+  }, [jsons]);
+
   return (
     <div className="pb-32 text-gray-600">
       <Header />
@@ -213,14 +288,12 @@ export const ExamEdit: FC<Props> = ({
                         question.statement.isTranslating &&
                         'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
                       } ${
-                        !question.statement.isTranslating &&
-                        question.statement.en &&
-                        !question.statement.ja
+                        shouldTranslate(question.statement)
                           ? "bg-main"
                           : "bg-slate-500 cursor-default"
                       }`}
                       onClick={() =>
-                        !question.statement.isTranslating &&
+                        shouldTranslate(question.statement) &&
                         translateJaEn(
                           (exam) => exam.questions[questionIndex]?.statement
                         )
@@ -262,6 +335,25 @@ export const ExamEdit: FC<Props> = ({
                         const arr = (["en", "ja"] as Language[]).map(
                           (lng, key) => (
                             <li className="flex-1" key={key}>
+                              <button
+                                onClick={() => {
+                                  const choice =
+                                    exam.questions[questionIndex]?.choices?.[
+                                      choiceIndex
+                                    ];
+                                  if (!choice) return null;
+                                  const nullableText = choice[lng];
+                                  if (!nullableText) return;
+                                  const text = Array.isArray(nullableText)
+                                    ? nullableText.join("")
+                                    : nullableText;
+                                  choice[lng] = text.replaceAll("\n", "");
+                                  return exam;
+                                }}
+                                className="bg-main text-white px-2 py-1 rounded"
+                              >
+                                one line
+                              </button>
                               <textarea
                                 onChange={(e) =>
                                   updateExam((exam) => {
@@ -298,12 +390,12 @@ export const ExamEdit: FC<Props> = ({
                                 choice.isTranslating &&
                                 'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
                               } ${
-                                !choice.isTranslating && choice.en && !choice.ja
+                                shouldTranslate(choice)
                                   ? "bg-main"
                                   : "bg-slate-500 cursor-default"
                               }`}
                               onClick={() =>
-                                !choice.isTranslating &&
+                                shouldTranslate(choice) &&
                                 translateJaEn(
                                   (exam) =>
                                     exam.questions[questionIndex]?.choices[
@@ -363,15 +455,20 @@ export const ExamEdit: FC<Props> = ({
                   const arr = (["en", "ja"] as Language[]).map((lng, key) => (
                     <li className="flex-1" key={key}>
                       <textarea
-                        onChange={(e) =>
+                        onChange={(e) => {
                           updateExam((exam) => {
-                            const explanation =
-                              exam.questions[questionIndex]?.explanation;
-                            if (!explanation) return null;
-                            explanation[lng] = e.target.value;
+                            console.log(exam);
+                            const question = exam.questions[questionIndex];
+                            if (!question) return null;
+                            if (!question.explanation) {
+                              question.explanation = {
+                                ja: "",
+                              };
+                            }
+                            question.explanation[lng] = e.target.value;
                             return exam;
-                          })
-                        }
+                          });
+                        }}
                         value={(() => {
                           const text =
                             exam.questions[questionIndex]?.explanation?.[lng];
@@ -391,14 +488,12 @@ export const ExamEdit: FC<Props> = ({
                         question.explanation?.isTranslating &&
                         'before:content-["翻訳中"] before:absolute before:-top-6 before:-left-1 before:text-sm before:text-black before:whitespace-nowrap'
                       } ${
-                        !question.explanation?.isTranslating &&
-                        question.explanation?.en &&
-                        !question.explanation?.ja
+                        shouldTranslate(question.explanation)
                           ? "bg-main"
                           : "bg-slate-500 cursor-default"
                       }`}
                       onClick={() =>
-                        !question.explanation?.isTranslating &&
+                        shouldTranslate(question.explanation) &&
                         translateJaEn(
                           (exam) => exam.questions[questionIndex]?.explanation
                         )
@@ -432,6 +527,64 @@ export const ExamEdit: FC<Props> = ({
               </button>
             </li>
           )}
+          <li className="mt-3">
+            <table>
+              <tbody>
+                {jsons.map((json, jsonIndex) => (
+                  <tr key={jsonIndex}>
+                    <td>
+                      <button
+                        onClick={() => {
+                          removeMergeJsonUrl(jsonIndex);
+                        }}
+                      >
+                        -
+                      </button>
+                    </td>
+                    <td>{json.jsonUrl}</td>
+                    {json.exam && (
+                      <td>{json.exam.meta?.title ?? "タイトルなし"}</td>
+                    )}
+                    <td>
+                      {json.exam === false && "取得失敗"}
+                      {json.exam === null && "取得中"}
+                      {json.exam &&
+                        `取得済(問題数:${json.exam.questions.length})`}
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>
+                    <button
+                      onClick={() => {
+                        addMergeJsonUrl(jsonUrl);
+                        setJsonUrl("");
+                      }}
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td>
+                    <input
+                      value={jsonUrl}
+                      onChange={(e) => setJsonUrl(e.target.value)}
+                      className="px-2 py-1"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      className="bg-main text-white px-2 py-0.5 rounded mt-5"
+                      onClick={() => mergeJsons()}
+                    >
+                      JSONをマージする
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
         </ul>
         <FixedButtons
           buttons={[
