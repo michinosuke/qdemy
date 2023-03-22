@@ -553,6 +553,13 @@ export const ExamComponent = () => {
               className: "bg-main text-white",
             },
             {
+              text: `翻訳にかかった料金: ${
+                Math.floor(
+                  (totalTranslateToken.total_tokens * 0.002 * 135) / 10
+                ) / 100
+              } 円`,
+            },
+            {
               onClick: async () => {
                 const { examUrl } = await remote.save(exam, examId);
                 updateExam((exam) => {
@@ -630,12 +637,6 @@ export const ExamComponent = () => {
             },
           ]}
         />
-      </div>
-      <div className="fixed bg-main px-3 py-1 rounded top-5 right-5 text-white">
-        翻訳にかかった料金:{" "}
-        {Math.floor((totalTranslateToken.total_tokens * 0.002 * 135) / 10) /
-          100}
-        円
       </div>
       <Footer />
     </div>
