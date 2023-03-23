@@ -37,4 +37,7 @@
   li {
     @apply list-disc ml-5 -my-1 text-gray-700;
   }
+  hr {
+    @apply border-t-2  border-main border-dashed my-5;
+  }
 }
