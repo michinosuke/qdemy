@@ -13,6 +13,7 @@ import { ls } from "../libs/localStorage";
 import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { GptUsage, translate } from "../libs/translate";
+import { ABC } from "../libs/abc";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -453,12 +454,12 @@ export const ExamComponent = () => {
               }
               className="bg-white pt-10 rounded-lg shadow overflow-hidden"
             >
-              <h2 className="text-lg font-bold px-5">
+              <h2 className="text-lg font-bold px-5 flex justify-between">
                 {isCacheMode ? (
-                  <>
+                  <div>
                     <span className="text-bold text-main">Q. </span>
                     {questionIndex + 1}
-                  </>
+                  </div>
                 ) : (
                   <a
                     href={
@@ -476,7 +477,26 @@ export const ExamComponent = () => {
                     {questionIndex + 1}
                   </a>
                 )}
+                <button
+                  className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs"
+                  onClick={() => {
+                    const prompt = [
+                      "以下の問題の解説を作成してください。",
+                      question.statement[preferLang],
+                      question.choices
+                        .map((choice, choiceIndex) => {
+                          const abc = ABC[choiceIndex];
+                          return `- ${abc} : ${choice[preferLang]}`;
+                        })
+                        .join("\n\n"),
+                    ].join("\n\n");
+                    navigator.clipboard.writeText(prompt);
+                  }}
+                >
+                  Copy Prompt
+                </button>
               </h2>
+
               {sentences2Elements({
                 sentences: question.statement,
                 textType: exam.meta?.text_type,
