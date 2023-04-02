@@ -40,4 +40,7 @@
   hr {
     @apply border-t-2  border-main border-dashed my-5;
   }
+  table {
+    @apply border-collapse border-spacing-0 w-full;
+  }
 }

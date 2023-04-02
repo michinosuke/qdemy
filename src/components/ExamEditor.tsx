@@ -1,5 +1,3 @@
-import type { Exam, Language, TextType, UIJaEn } from "../interfaces/exam";
-
 import { ABC } from "../libs/abc";
 import { FC, useEffect, useState } from "react";
 import { FixedButtons } from "./FixedButtons";
@@ -8,17 +6,23 @@ import { Heading } from "./Heading";
 import { dumpExam } from "../libs/dumpExam";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import axios from "axios";
+import type {
+  UIExam,
+  UIJaEn,
+  UILanguage,
+  UITextType,
+} from "../interfaces/uiExam";
 
 type Props = {
-  exam: Exam;
-  updateExam: (examPipe: (exam: Exam) => Exam | null) => void;
-  preferLang: Language;
+  exam: UIExam;
+  updateExam: (examPipe: (exam: UIExam) => UIExam | null) => void;
+  preferLang: UILanguage;
   initialized: boolean;
   saveMouseEnterQuestion: (questionIndex: number) => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   shouldTranslate: (jaEn?: UIJaEn) => boolean;
   translateJaEn: (
-    jaEnCallback: (exam: Exam) => UIJaEn | undefined
+    jaEnCallback: (exam: UIExam) => UIJaEn | undefined
   ) => Promise<boolean>;
   addQuestion: (newQuestionIndex: number) => Promise<void>;
   removeQuestion: (questionIndex: number) => Promise<void>;
@@ -43,14 +47,14 @@ export const ExamEdit: FC<Props> = ({
   toggleCorrect,
 }) => {
   const [jsons, setJsons] = useState<
-    { jsonUrl: string; exam: Exam | null | false }[]
+    { jsonUrl: string; exam: UIExam | null | false }[]
   >([]);
   const [jsonUrl, setJsonUrl] = useState<string>("");
 
   const fetchJsons = async () => {
     if (!jsons.find((json) => json.exam === null)) return;
 
-    const jsonsCopy: { jsonUrl: string; exam: Exam | null }[] = JSON.parse(
+    const jsonsCopy: { jsonUrl: string; exam: UIExam | null }[] = JSON.parse(
       JSON.stringify(jsons)
     );
     const updatedJsons = await Promise.all(
@@ -103,7 +107,7 @@ export const ExamEdit: FC<Props> = ({
   };
 
   const removeMergeJsonUrl = (jsonUrlIndex: number) => {
-    const jsonsCopy: { jsonUrl: string; exam: Exam | null }[] = JSON.parse(
+    const jsonsCopy: { jsonUrl: string; exam: UIExam | null }[] = JSON.parse(
       JSON.stringify(jsons)
     );
     jsonsCopy.splice(jsonUrlIndex, 1);
@@ -124,7 +128,6 @@ export const ExamEdit: FC<Props> = ({
             <input
               onChange={(e) =>
                 updateExam((exam) => {
-                  if (!exam.meta) exam.meta = {};
                   exam.meta.title = e.target.value;
                   return exam;
                 })
@@ -139,8 +142,7 @@ export const ExamEdit: FC<Props> = ({
             <select
               onChange={(e) => {
                 updateExam((exam) => {
-                  if (!exam.meta) exam.meta = {};
-                  exam.meta.text_type = e.target.value as TextType;
+                  exam.meta.text_type = e.target.value as UITextType;
                   return exam;
                 });
               }}
@@ -166,7 +168,6 @@ export const ExamEdit: FC<Props> = ({
               <textarea
                 onChange={(e) =>
                   updateExam((exam) => {
-                    if (!exam.meta) exam.meta = {};
                     exam.meta.description = e.target.value;
                     return exam;
                   })
@@ -202,8 +203,6 @@ export const ExamEdit: FC<Props> = ({
                   <input
                     onChange={(e) =>
                       updateExam((exam) => {
-                        if (!exam.meta) exam.meta = {};
-                        if (!exam.meta.author) exam.meta.author = {};
                         exam.meta.author.icon_url = e.target.value ?? null;
                         return exam;
                       })
@@ -221,8 +220,6 @@ export const ExamEdit: FC<Props> = ({
                   <input
                     onChange={(e) =>
                       updateExam((exam) => {
-                        if (!exam.meta) exam.meta = {};
-                        if (!exam.meta.author) exam.meta.author = {};
                         exam.meta.author.name = e.target.value ?? null;
                         return exam;
                       })
@@ -258,7 +255,7 @@ export const ExamEdit: FC<Props> = ({
               <h3 className="mt-7 border-b-2 font-bold text-lg">設問</h3>
               <ul className="flex gap-3 mt-3">
                 {(() => {
-                  const arr = (["en", "ja"] as Language[]).map((lng, key) => (
+                  const arr = (["en", "ja"] as UILanguage[]).map((lng, key) => (
                     <li className="flex-1" key={key}>
                       <textarea
                         onChange={(e) =>
@@ -332,7 +329,7 @@ export const ExamEdit: FC<Props> = ({
                     </div>
                     <ul className="flex gap-3 flex-auto items-center">
                       {(() => {
-                        const arr = (["en", "ja"] as Language[]).map(
+                        const arr = (["en", "ja"] as UILanguage[]).map(
                           (lng, key) => (
                             <li className="flex-1" key={key}>
                               <button
@@ -452,7 +449,7 @@ export const ExamEdit: FC<Props> = ({
                     : "NULL"}
                 </li> */}
                 {(() => {
-                  const arr = (["en", "ja"] as Language[]).map((lng, key) => (
+                  const arr = (["en", "ja"] as UILanguage[]).map((lng, key) => (
                     <li className="flex-1" key={key}>
                       <textarea
                         onChange={(e) => {
@@ -463,6 +460,8 @@ export const ExamEdit: FC<Props> = ({
                             if (!question.explanation) {
                               question.explanation = {
                                 ja: "",
+                                en: "",
+                                isTranslating: false,
                               };
                             }
                             question.explanation[lng] = e.target.value;

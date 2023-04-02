@@ -1,5 +1,4 @@
-import type { Exam, Language, Question, UIJaEn } from "../interfaces/exam";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Choice } from "./Choice";
 import { ExamEdit } from "./ExamEditor";
@@ -14,12 +13,21 @@ import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { GptUsage, translate } from "../libs/translate";
 import { ABC } from "../libs/abc";
+import { dumpExam } from "../libs/dumpExam";
+import type {
+  UIExam,
+  UIJaEn,
+  UILanguage,
+  UIQuestion,
+} from "../interfaces/uiExam";
+import type { Exam } from "../interfaces/exam";
+import { exam2ui } from "../libs/examConverter";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
-  const [exam, setExam] = useState<Exam | null>(null);
+  const [exam, setExam] = useState<UIExam | null>(null);
   const [initialized, setInitialized] = useState(false);
-  const [preferLang, setPreferLang] = useState<Language>("ja");
+  const [preferLang, setPreferLang] = useState<UILanguage>("ja");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isCacheMode, setIsCacheMode] = useState<boolean>(false);
   const [examId, setExamId] = useState<string | null>(null);
@@ -34,6 +42,34 @@ export const ExamComponent = () => {
     prompt_tokens: 0,
     total_tokens: 0,
   });
+
+  const [isHeaderShown, setIsHeaderShown] = useState(true);
+  const [lastPosition, setLastPosition] = useState(0);
+  const headerHeight = 40;
+
+  const scrollEvent = useCallback(() => {
+    const offset = window.pageYOffset;
+
+    if (offset > headerHeight) {
+      setIsHeaderShown(false);
+    } else {
+      setIsHeaderShown(true);
+    }
+
+    if (offset < lastPosition) {
+      setIsHeaderShown(true);
+    }
+
+    setLastPosition(offset);
+  }, [lastPosition]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, [scrollEvent]);
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
@@ -63,13 +99,8 @@ export const ExamComponent = () => {
           }
         })();
         if (!exam) throw new Error("パースエラー");
-        exam.questions.forEach((question) => {
-          question.statement.isTranslating = false;
-          question.choices.forEach((choice) => (choice.isTranslating = false));
-          if (question.explanation) question.explanation.isTranslating = false;
-          question.selects = [];
-        });
-        setExam(exam);
+        const uiExam = exam2ui(exam);
+        setExam(uiExam);
         setIsCacheMode(true);
       } else {
         console.log("exam in local storage is invalid.");
@@ -89,17 +120,9 @@ export const ExamComponent = () => {
     if (!jaEn) return false;
     if (jaEn.isTranslating) return false;
 
-    if (typeof jaEn.en !== "string" && !Array.isArray(jaEn.en)) return false;
-    const en: string = typeof jaEn.en === "string" ? jaEn.en : jaEn.en.join("");
-    if (en === "") return false;
+    if (!jaEn.en) return false;
 
-    // if (typeof jaEn.ja !== "string" && !Array.isArray(jaEn.ja)) return false;
-    // const ja: string = typeof jaEn.ja === "string" ? jaEn.ja : jaEn.ja.join("");
-    const ja: string = (() => {
-      if (typeof jaEn.ja === "string") return jaEn.ja;
-      else if (Array.isArray(jaEn.ja)) return jaEn.ja.join("");
-      else return "";
-    })();
+    const ja: string = typeof jaEn.ja === "string" ? jaEn.ja : "";
     if (ja !== "") return false;
 
     return true;
@@ -167,7 +190,7 @@ export const ExamComponent = () => {
   };
 
   const translateJaEn = async (
-    jaEnCallback: (exam: Exam) => UIJaEn | undefined
+    jaEnCallback: (exam: UIExam) => UIJaEn | undefined | null
   ): Promise<boolean> => {
     if (!examId) return false;
     if (!exam) return false;
@@ -182,7 +205,7 @@ export const ExamComponent = () => {
     jaEn.isTranslating = true;
     setExam(JSON.parse(JSON.stringify(exam)));
 
-    const res = await translate(typeof en === "string" ? en : en.join("\n"));
+    const res = await translate(en);
 
     jaEn.isTranslating = false;
     setExam(JSON.parse(JSON.stringify(exam)));
@@ -215,7 +238,7 @@ export const ExamComponent = () => {
     }
   };
 
-  const updateExam = async (examPipe: (exam: Exam) => Exam | null) => {
+  const updateExam = async (examPipe: (exam: UIExam) => UIExam | null) => {
     const examClone = JSON.parse(JSON.stringify(exam));
     const updatedExam = examPipe(examClone);
     if (JSON.stringify(exam) === JSON.stringify(updatedExam)) return;
@@ -225,19 +248,30 @@ export const ExamComponent = () => {
   };
 
   const addQuestion = async (newQuestionIndex: number) => {
-    const newQuestion: Question = {
+    const newQuestion: UIQuestion = {
       choices: [
         {
           ja: "",
+          en: "",
+          isTranslating: false,
         },
         {
           ja: "",
+          en: "",
+          isTranslating: false,
         },
       ],
       corrects: [],
       selects: [],
       statement: {
         ja: "",
+        en: "",
+        isTranslating: false,
+      },
+      explanation: {
+        ja: "",
+        en: "",
+        isTranslating: false,
       },
     };
     updateExam((exam) => {
@@ -257,6 +291,8 @@ export const ExamComponent = () => {
   const addChoice = async (questionIndex: number) => {
     const newChoice: UIJaEn = {
       ja: "",
+      en: "",
+      isTranslating: false,
     };
     updateExam((exam) => {
       const question = exam.questions[questionIndex];
@@ -316,8 +352,8 @@ export const ExamComponent = () => {
       },
     });
     const exam: Exam = json.data;
-    exam.questions.forEach((question) => (question.selects = []));
-    setExam(exam);
+    const uiExam: UIExam = exam2ui(exam);
+    setExam(uiExam);
   };
 
   useEffect(() => {
@@ -427,21 +463,19 @@ export const ExamComponent = () => {
           </div>
           <div>
             <Heading>作者</Heading>
-            <a href={exam.meta?.author?.url?.udemy}>
-              <div className="flex gap-3 items-center mt-2 hover:bg-[hsl(180,100%,97%)]">
-                {exam.meta?.author?.icon_url && (
-                  <div
-                    className="rounded-full bg-cover bg-center w-20 h-20"
-                    style={{
-                      backgroundImage: `url(${exam.meta.author.icon_url})`,
-                    }}
-                  />
-                )}
-                {exam.meta?.author?.name && (
-                  <span className="">{exam.meta.author.name}</span>
-                )}
-              </div>
-            </a>
+            <div className="flex gap-3 items-center mt-2 hover:bg-[hsl(180,100%,97%)]">
+              {exam.meta?.author?.icon_url && (
+                <div
+                  className="rounded-full bg-cover bg-center w-20 h-20"
+                  style={{
+                    backgroundImage: `url(${exam.meta.author.icon_url})`,
+                  }}
+                />
+              )}
+              {exam.meta?.author?.name && (
+                <span className="">{exam.meta.author.name}</span>
+              )}
+            </div>
           </div>
         </div>
         <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
@@ -481,7 +515,7 @@ export const ExamComponent = () => {
                   className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs"
                   onClick={() => {
                     const prompt = [
-                      "以下の問題の解説を作成してください。",
+                      "以下の問題の最高に丁寧な解説を作成してください。",
                       question.statement[preferLang],
                       question.choices
                         .map((choice, choiceIndex) => {
@@ -583,7 +617,6 @@ export const ExamComponent = () => {
               onClick: async () => {
                 const { examUrl } = await remote.save(exam, examId);
                 updateExam((exam) => {
-                  if (!exam.meta) exam.meta = {};
                   exam.meta.url = examUrl;
                   exam.meta.last_uploaded_at = new Date().toISOString();
                   return exam;
@@ -625,6 +658,10 @@ export const ExamComponent = () => {
                 }
               },
               text: "編集",
+            },
+            {
+              onClick: () => dumpExam(exam),
+              text: "ダウンロード",
             },
             {
               onClick: () => (location.href = "/caches"),
