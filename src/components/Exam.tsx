@@ -1,27 +1,28 @@
-import { useCallback, useEffect, useState } from "react";
-
-import { Choice } from "./Choice";
-import { ExamEdit } from "./ExamEditor";
-import { FixedButtons } from "./FixedButtons";
-import { Header } from "./header";
-import { Heading } from "./Heading";
-import axios from "axios";
-import { format } from "date-fns";
-import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
-import { ls } from "../libs/localStorage";
-import { remote } from "../libs/remote";
-import { sentences2Elements } from "../libs/sentences2Elements";
 import { GptUsage, translate } from "../libs/translate";
-import { ABC } from "../libs/abc";
-import { dumpExam } from "../libs/dumpExam";
 import type {
   UIExam,
   UIJaEn,
   UILanguage,
   UIQuestion,
 } from "../interfaces/uiExam";
+import { useCallback, useEffect, useState } from "react";
+
+import { ABC } from "../libs/abc";
+import { Choice } from "./Choice";
 import type { Exam } from "../interfaces/exam";
+import { ExamEdit } from "./ExamEditor";
+import { FixedButtons } from "./FixedButtons";
+import { Header } from "./header";
+import { Heading } from "./Heading";
+import axios from "axios";
+import { dumpExam } from "../libs/dumpExam";
+import { dumpUdemyCsv } from "../libs/dumpUdemyCsv";
 import { exam2ui } from "../libs/examConverter";
+import { format } from "date-fns";
+import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
+import { ls } from "../libs/localStorage";
+import { remote } from "../libs/remote";
+import { sentences2Elements } from "../libs/sentences2Elements";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -691,6 +692,10 @@ export const ExamComponent = () => {
                     currentTranslateIndex.questionIndex + 1
                   } - ${currentTranslateIndex.text})`
                 : "全て翻訳モード停止中",
+            },
+            {
+              text: "Export to Udemy",
+              onClick: () => console.log(dumpUdemyCsv({ exam, preferLang })),
             },
           ]}
         />
