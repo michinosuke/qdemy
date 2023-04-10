@@ -1,9 +1,10 @@
-import type { FC } from "react";
+import { Children, FC, ReactNode } from "react";
 
 type Button = {
   className?: string | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   text: string | null;
+  children?: ReactNode;
 };
 
 type Props = {
@@ -18,7 +19,7 @@ export const FixedButtons: FC<Props> = ({ buttons }) => {
         return [
           <li
             key={key}
-            className={`bg-white px-3 py-2 rounded-md shadow-lg text-gray-500 hover:text-gray-700 ${
+            className={`bg-white px-3 py-2 rounded-md shadow-lg text-gray-500 hover:text-gray-700 flex gap-3 ${
               button.className ?? ""
             }`}
           >
@@ -30,6 +31,7 @@ export const FixedButtons: FC<Props> = ({ buttons }) => {
             >
               {button.text}
             </button>
+            {button.children}
           </li>,
         ];
       })}

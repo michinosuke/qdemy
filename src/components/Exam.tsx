@@ -23,6 +23,7 @@ import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { ls } from "../libs/localStorage";
 import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
+import { breakUdemy } from "../libs/udemy";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -150,6 +151,7 @@ export const ExamComponent = () => {
 
     for (const [questionIndexStr, { choices }] of Object.entries(questions)) {
       const questionIndex = Number(questionIndexStr);
+      scrollByQuestionNum(questionIndex + 1);
       updateCurrentTranslateIndex(questionIndex, "問題文");
 
       if (
@@ -218,6 +220,15 @@ export const ExamComponent = () => {
     return true;
   };
 
+  const scrollByQuestionNum = (questionNum: number) => {
+    const questionId = `question-${questionNum}`;
+    const question = document.getElementById(questionId);
+    if (!question) return;
+    question.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   const saveMouseEnterQuestion = (questionIndex: number) => {
     localStorage.setItem(
       `focusedQuestionNum.${sourceUrl ?? examId}`,
@@ -230,13 +241,7 @@ export const ExamComponent = () => {
     const questionNum =
       q ?? localStorage.getItem(`focusedQuestionNum.${sourceUrl ?? examId}`);
     if (!questionNum) return;
-    const questionId = `question-${questionNum}`;
-    const question = document.getElementById(questionId);
-    if (question) {
-      question.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
+    scrollByQuestionNum(parseInt(questionNum, 10));
   };
 
   const updateExam = async (examPipe: (exam: UIExam) => UIExam | null) => {
@@ -695,7 +700,11 @@ export const ExamComponent = () => {
             },
             {
               text: "Export to Udemy",
-              onClick: () => console.log(dumpUdemyCsv({ exam, preferLang })),
+              onClick: () => dumpUdemyCsv({ exam, preferLang }),
+            },
+            {
+              text: "Break Udemy",
+              onClick: () => breakUdemy(),
             },
           ]}
         />
