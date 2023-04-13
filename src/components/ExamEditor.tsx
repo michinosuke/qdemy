@@ -50,6 +50,13 @@ export const ExamEdit: FC<Props> = ({
     { jsonUrl: string; exam: UIExam | null | false }[]
   >([]);
   const [jsonUrl, setJsonUrl] = useState<string>("");
+  const [replaceRegex, setReplaceRegex] = useState<string>("");
+  const [replaceString, setReplaceString] = useState<string>("");
+
+  const replaceText = (text: string): string => {
+    const reg = new RegExp(replaceRegex, "g");
+    return text.replaceAll(reg, replaceString);
+  };
 
   const fetchJsons = async () => {
     if (!jsons.find((json) => json.exam === null)) return;
@@ -257,6 +264,25 @@ export const ExamEdit: FC<Props> = ({
                 {(() => {
                   const arr = (["en", "ja"] as UILanguage[]).map((lng, key) => (
                     <li className="flex-1" key={key}>
+                      <li>
+                        {replaceRegex !== "" && (
+                          <button
+                            onClick={() => {
+                              updateExam((exam) => {
+                                const statement =
+                                  exam.questions[questionIndex]?.statement;
+                                if (!statement) return null;
+                                const text = statement[lng];
+                                statement[lng] = replaceText(text);
+                                return exam;
+                              });
+                            }}
+                            className="bg-main text-white px-2 py-1 rounded"
+                          >
+                            Replace
+                          </button>
+                        )}
+                      </li>
                       <textarea
                         onChange={(e) =>
                           updateExam((exam) => {
@@ -332,25 +358,50 @@ export const ExamEdit: FC<Props> = ({
                         const arr = (["en", "ja"] as UILanguage[]).map(
                           (lng, key) => (
                             <li className="flex-1" key={key}>
-                              <button
-                                onClick={() => {
-                                  const choice =
-                                    exam.questions[questionIndex]?.choices?.[
-                                      choiceIndex
-                                    ];
-                                  if (!choice) return null;
-                                  const nullableText = choice[lng];
-                                  if (!nullableText) return;
-                                  const text = Array.isArray(nullableText)
-                                    ? nullableText.join("")
-                                    : nullableText;
-                                  choice[lng] = text.replaceAll("\n", "");
-                                  return exam;
-                                }}
-                                className="bg-main text-white px-2 py-1 rounded"
-                              >
-                                one line
-                              </button>
+                              <li className="flex gap-3">
+                                <button
+                                  onClick={() => {
+                                    updateExam((exam) => {
+                                      const choice =
+                                        exam.questions[questionIndex]
+                                          ?.choices?.[choiceIndex];
+                                      if (!choice) return null;
+                                      const nullableText = choice[lng];
+                                      if (!nullableText) return null;
+                                      const text = Array.isArray(nullableText)
+                                        ? nullableText.join("")
+                                        : nullableText;
+                                      choice[lng] = text.replaceAll("\n", "");
+                                      return exam;
+                                    });
+                                  }}
+                                  className="bg-main text-white px-2 py-1 rounded"
+                                >
+                                  one line
+                                </button>
+                                {replaceRegex !== "" && (
+                                  <button
+                                    onClick={() => {
+                                      updateExam((exam) => {
+                                        const choice =
+                                          exam.questions[questionIndex]
+                                            ?.choices?.[choiceIndex];
+                                        if (!choice) return null;
+                                        const nullableText = choice[lng];
+                                        if (!nullableText) return null;
+                                        const text = Array.isArray(nullableText)
+                                          ? nullableText.join("")
+                                          : nullableText;
+                                        choice[lng] = replaceText(text);
+                                        return exam;
+                                      });
+                                    }}
+                                    className="bg-main text-white px-2 py-1 rounded"
+                                  >
+                                    Replace
+                                  </button>
+                                )}
+                              </li>
                               <textarea
                                 onChange={(e) =>
                                   updateExam((exam) => {
@@ -454,7 +505,6 @@ export const ExamEdit: FC<Props> = ({
                       <textarea
                         onChange={(e) => {
                           updateExam((exam) => {
-                            console.log(exam);
                             const question = exam.questions[questionIndex];
                             if (!question) return null;
                             if (!question.explanation) {
@@ -598,6 +648,24 @@ export const ExamEdit: FC<Props> = ({
             {
               onClick: () => (location.href = "/caches"),
               text: "編集中のコース一覧",
+            },
+            {
+              text: "regex",
+              children: (
+                <input
+                  onChange={(e) => setReplaceRegex(e.target.value)}
+                  className="px-2"
+                />
+              ),
+            },
+            {
+              text: "text",
+              children: (
+                <input
+                  onChange={(e) => setReplaceString(e.target.value)}
+                  className="px-2"
+                />
+              ),
             },
           ]}
         />
