@@ -261,6 +261,16 @@ export const ExamComponent = () => {
           en: "",
           isTranslating: false,
         },
+        {
+          ja: "",
+          en: "",
+          isTranslating: false,
+        },
+        {
+          ja: "",
+          en: "",
+          isTranslating: false,
+        },
       ],
       corrects: [],
       selects: [],
