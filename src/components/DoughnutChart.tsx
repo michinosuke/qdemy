@@ -66,7 +66,6 @@ export const DoughnutChart = () => {
   if (!isRegistered || !data) return <></>;
   return (
     <Doughnut
-      onLoad={() => console.log("loaded")}
       data={{
         labels: data.map((d) => d.label ?? ""),
         datasets: [
