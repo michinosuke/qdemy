@@ -5,6 +5,25 @@ export type Question = {
   choices: JaEn[];
   corrects: number[];
   explanation?: JaEn | null;
+  discussions?: Discussion[] | null;
+  votes?: Vote[];
+};
+
+export type DiscussionAuthor = {
+  name: string;
+};
+
+export type Discussion = {
+  created_at?: string | null;
+  author?: DiscussionAuthor | null;
+  comment: string;
+  selected_choices?: string[] | null;
+  replies?: Discussion[] | null;
+};
+
+export type Vote = {
+  label: string;
+  percent: number;
 };
 
 export type Language = "ja" | "en";
@@ -21,15 +40,17 @@ export type Author = {
   // url?: AuthorUrl | null | string;
 };
 
+export type PassCondition = {
+  count?: number | null;
+  percent?: number | null;
+};
+
 export type Meta = {
   url?: string | null;
   title?: string | null;
   description?: string | string[] | null;
   minutes?: number | null;
-  pass_condition?: {
-    count?: number | null;
-    percent?: number | null;
-  } | null;
+  pass_condition?: PassCondition | null;
   text_type?: TextType | null;
   language?: Language | null;
   author?: Author | null;
@@ -40,7 +61,7 @@ export type Exam = {
   questions: Question[];
 };
 
-export type JaEn =
-  | { ja: string | string[]; en: string | string[] }
-  | { ja: string | string[]; en?: null }
-  | { ja?: null; en: string | string[] };
+export type JaEn = {
+  ja?: string | string[] | null;
+  en?: string | string[] | null;
+};

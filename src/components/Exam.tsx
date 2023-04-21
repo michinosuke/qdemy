@@ -15,15 +15,15 @@ import { FixedButtons } from "./FixedButtons";
 import { Header } from "./header";
 import { Heading } from "./Heading";
 import axios from "axios";
+import { breakUdemy } from "../libs/udemy";
 import { dumpExam } from "../libs/dumpExam";
 import { dumpUdemyCsv } from "../libs/dumpUdemyCsv";
-import { exam2ui } from "../libs/examConverter";
 import { format } from "date-fns";
 import { isExamInLocalStorage } from "../interfaces/examInLocalStorage";
 import { ls } from "../libs/localStorage";
 import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
-import { breakUdemy } from "../libs/udemy";
+import { transformer } from "../libs/examConverter";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -101,7 +101,7 @@ export const ExamComponent = () => {
           }
         })();
         if (!exam) throw new Error("パースエラー");
-        const uiExam = exam2ui(exam);
+        const uiExam = transformer.exam.exam2ui(exam);
         setExam(uiExam);
         setIsCacheMode(true);
       } else {
@@ -289,6 +289,8 @@ export const ExamComponent = () => {
         en: "",
         isTranslating: false,
       },
+      discussions: [],
+      votes: [],
     };
     updateExam((exam) => {
       exam.questions.splice(newQuestionIndex, 0, newQuestion);
@@ -368,7 +370,7 @@ export const ExamComponent = () => {
       },
     });
     const exam: Exam = json.data;
-    const uiExam: UIExam = exam2ui(exam);
+    const uiExam: UIExam = transformer.exam.exam2ui(exam);
     setExam(uiExam);
   };
 
@@ -435,290 +437,302 @@ export const ExamComponent = () => {
   return (
     <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-[30rem]">
       <Header />
-      <div className="sm:px-3 py-3">
-        {exam.meta?.title && (
-          <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow">
-            <h1 className="text-xl font-extrabold">{exam.meta.title}</h1>
-          </div>
-        )}
-        <div className="flex flex-col gap-8 mt-10 bg-white px-5 py-10 rounded-lg shadow">
-          <div className="mt-2">
-            <Heading>概要</Heading>
-            {exam.meta?.description &&
-              sentences2Elements({
-                sentences: exam.meta.description,
-                textType: exam.meta.text_type,
-                language: preferLang,
-                className: "mt-2",
-              })}
-          </div>
-          <div className="mt-2">
-            <Heading>メタデータ</Heading>
-            <ul>
-              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5 pt-3">
-                問題数: {exam.questions.length}
-              </li>
-              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
-                解説の数:{" "}
-                {
-                  exam.questions.filter((question) => question.explanation?.ja)
-                    .length
-                }
-              </li>
-              <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
-                解説の充実率:{" "}
-                {Math.floor(
-                  (exam.questions.filter((question) => question.explanation?.ja)
-                    .length /
-                    exam.questions.length) *
-                    1000
-                ) / 10}
-                %
-              </li>
-            </ul>
-          </div>
-          <div>
-            <Heading>作者</Heading>
-            <div className="flex gap-3 items-center mt-2 hover:bg-[hsl(180,100%,97%)]">
-              {exam.meta?.author?.icon_url && (
-                <div
-                  className="rounded-full bg-cover bg-center w-20 h-20"
-                  style={{
-                    backgroundImage: `url(${exam.meta.author.icon_url})`,
-                  }}
-                />
-              )}
-              {exam.meta?.author?.name && (
-                <span className="">{exam.meta.author.name}</span>
-              )}
+      <div>
+        <div className="sm:px-3 py-3">
+          {exam.meta?.title && (
+            <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow">
+              <h1 className="text-xl font-extrabold">{exam.meta.title}</h1>
+            </div>
+          )}
+          <div className="flex flex-col gap-8 mt-10 bg-white px-5 py-10 rounded-lg shadow">
+            <div className="mt-2">
+              <Heading>概要</Heading>
+              {exam.meta?.description &&
+                sentences2Elements({
+                  sentences: exam.meta.description,
+                  textType: exam.meta.text_type,
+                  language: preferLang,
+                  className: "mt-2",
+                })}
+            </div>
+            <div className="mt-2">
+              <Heading>メタデータ</Heading>
+              <ul>
+                <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5 pt-3">
+                  問題数: {exam.questions.length}
+                </li>
+                <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
+                  解説の数:{" "}
+                  {
+                    exam.questions.filter(
+                      (question) => question.explanation?.ja
+                    ).length
+                  }
+                </li>
+                <li className="before:content-['-'] before:font-bold before:text-lg before:text-main flex items-center gap-2 pl-5">
+                  解説の充実率:{" "}
+                  {Math.floor(
+                    (exam.questions.filter(
+                      (question) => question.explanation?.ja
+                    ).length /
+                      exam.questions.length) *
+                      1000
+                  ) / 10}
+                  %
+                </li>
+              </ul>
+            </div>
+            <div>
+              <Heading>作者</Heading>
+              <div className="flex gap-3 items-center mt-2 hover:bg-[hsl(180,100%,97%)]">
+                {exam.meta?.author?.icon_url && (
+                  <div
+                    className="rounded-full bg-cover bg-center w-20 h-20"
+                    style={{
+                      backgroundImage: `url(${exam.meta.author.icon_url})`,
+                    }}
+                  />
+                )}
+                {exam.meta?.author?.name && (
+                  <span className="">{exam.meta.author.name}</span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
-          {exam.questions.map((question, questionIndex) => (
-            <li
-              key={questionIndex}
-              id={`question-${questionIndex + 1}`}
-              onMouseEnter={() =>
-                initialized && saveMouseEnterQuestion(questionIndex)
-              }
-              className="bg-white pt-10 rounded-lg shadow overflow-hidden"
-            >
-              <h2 className="text-lg font-bold px-5 flex justify-between">
-                {isCacheMode ? (
-                  <div>
-                    <span className="text-bold text-main">Q. </span>
-                    {questionIndex + 1}
-                  </div>
-                ) : (
-                  <a
-                    href={
-                      "./?" +
-                      new URLSearchParams([
-                        ...new URLSearchParams(
-                          window.location.search
-                        ).entries(),
-                        ["q", (questionIndex + 1).toString()],
-                      ])
-                    }
-                    className="hover:opacity-70"
-                  >
-                    <span className="text-bold text-main">Q. </span>
-                    {questionIndex + 1}
-                  </a>
-                )}
-                <button
-                  className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs"
-                  onClick={() => {
-                    const prompt = [
-                      "以下の問題の最高に丁寧な解説を作成してください。",
-                      question.statement[preferLang],
-                      question.choices
-                        .map((choice, choiceIndex) => {
-                          const abc = ABC[choiceIndex];
-                          return `- ${abc} : ${choice[preferLang]}`;
-                        })
-                        .join("\n\n"),
-                    ].join("\n\n");
-                    navigator.clipboard.writeText(prompt);
-                  }}
-                >
-                  Copy Prompt
-                </button>
-              </h2>
-
-              {sentences2Elements({
-                sentences: question.statement,
-                textType: exam.meta?.text_type,
-                language: preferLang,
-                className: "mt-2 px-5",
-              })}
-              {question.corrects.length > 1 && (
-                <span className="inline-block mx-5 px-3 py-0.5 bg-main text-white rounded">
-                  {question.corrects.length} つ選択
-                </span>
-              )}
-              <ul className="flex flex-col gap-4 my-5 px-3 pb-5">
-                {question.choices.map((choice, choiceIndex) => (
-                  <Choice
-                    choice={choice}
-                    status={(() => {
-                      if (question.selects.length >= question.corrects.length) {
-                        if (question.corrects.includes(choiceIndex + 1)) {
-                          return "correct";
-                        }
-                        return "incorrect";
+          <ul className="flex flex-col gap-24 mt-10 pt-10 border-t-4">
+            {exam.questions.map((question, questionIndex) => (
+              <li
+                key={questionIndex}
+                id={`question-${questionIndex + 1}`}
+                onMouseEnter={() =>
+                  initialized && saveMouseEnterQuestion(questionIndex)
+                }
+                className="bg-white pt-10 rounded-lg shadow overflow-hidden"
+              >
+                <h2 className="text-lg font-bold px-5 flex justify-between">
+                  {isCacheMode ? (
+                    <div>
+                      <span className="text-bold text-main">Q. </span>
+                      {questionIndex + 1}
+                    </div>
+                  ) : (
+                    <a
+                      href={
+                        "./?" +
+                        new URLSearchParams([
+                          ...new URLSearchParams(
+                            window.location.search
+                          ).entries(),
+                          ["q", (questionIndex + 1).toString()],
+                        ])
                       }
-                      return "default";
-                    })()}
-                    selected={question.selects.includes(choiceIndex)}
-                    key={choiceIndex}
-                    index={choiceIndex}
-                    preferLang={preferLang}
-                    textType={exam.meta?.text_type}
+                      className="hover:opacity-70"
+                    >
+                      <span className="text-bold text-main">Q. </span>
+                      {questionIndex + 1}
+                    </a>
+                  )}
+                  <button
+                    className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs"
                     onClick={() => {
-                      if (question.selects.length >= question.corrects.length) {
-                        updateExam((exam) => {
-                          const question = exam.questions[questionIndex];
-                          if (!question) return null;
-                          question.selects = [];
-                          return exam;
-                        });
-                      } else {
-                        selectChoice(questionIndex, choiceIndex);
-                      }
+                      const prompt = [
+                        "以下の問題の最高に丁寧な解説を作成してください。",
+                        question.statement[preferLang],
+                        question.choices
+                          .map((choice, choiceIndex) => {
+                            const abc = ABC[choiceIndex];
+                            return `- ${abc} : ${choice[preferLang]}`;
+                          })
+                          .join("\n\n"),
+                      ].join("\n\n");
+                      navigator.clipboard.writeText(prompt);
                     }}
-                    multiple={question.corrects.length > 1}
-                  />
-                ))}
-              </ul>
-              {question.explanation && (
-                <div
-                  className={`px-5 bg-[hsl(180,50%,96%)] ${
-                    question.selects &&
-                    question.selects.length >= question.corrects.length
-                      ? "display-active py-10"
-                      : "display-none"
-                  }`}
-                  style={{
-                    boxShadow: "0 20 20 0 #000 inset",
-                  }}
-                >
-                  <h3 className="text-lg font-bold text-gray-600">解説</h3>
-                  {sentences2Elements({
-                    sentences: question.explanation,
-                    textType: exam.meta?.text_type,
-                    language: preferLang,
-                    className: "mt-5",
-                  })}
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-        <FixedButtons
-          buttons={[
-            {
-              text: isCacheMode ? `ローカル編集モード` : null,
-              className: "bg-main text-white",
-            },
-            {
-              text: `翻訳にかかった料金: ${
-                Math.floor(
-                  (totalTranslateToken.total_tokens * 0.002 * 135) / 10
-                ) / 100
-              } 円`,
-            },
-            {
-              onClick: async () => {
-                const { examUrl } = await remote.save(exam, examId);
-                updateExam((exam) => {
-                  exam.meta.url = examUrl;
-                  exam.meta.last_uploaded_at = new Date().toISOString();
-                  return exam;
-                });
-              },
-              text: isCacheMode ? `クラウドに保存` : null,
-            },
-            {
-              text: exam.meta?.url
-                ? `クラウドに保存された模擬試験を開く(最終送信日時: ${
-                    exam.meta?.last_uploaded_at
-                      ? format(
-                          new Date(exam.meta.last_uploaded_at),
-                          "yyyy/MM/dd HH:mm:ss"
-                        )
-                      : "?"
-                  })`
-                : null,
-              onClick: () => {
-                if (exam.meta?.url) location.href = exam.meta.url;
-              },
-            },
-            {
-              onClick: () => setPreferLang(preferLang === "ja" ? "en" : "ja"),
-              text: `優先言語：${preferLang === "ja" ? "日本語" : "英語"}`,
-            },
-            {
-              onClick: () => {
-                if (isCacheMode) {
-                  setIsEditMode(!isEditMode);
-                  return;
-                }
-                if (
-                  confirm(
-                    `現在、インターネット上の模擬試験を表示しています。\n編集するには、この模擬試験をブラウザにコピーし、「ローカル編集モード」に移行する必要があります。\n「ローカル編集モード」に移行しますか？`
-                  )
-                ) {
-                  window.location.href = `?cache=${ls.saveExam(exam)}`;
-                }
-              },
-              text: "編集",
-            },
-            {
-              onClick: () => dumpExam(exam),
-              text: "ダウンロード",
-            },
-            {
-              onClick: () => (location.href = "/caches"),
-              text: "編集中のコース一覧",
-            },
-            {
-              onClick: () => {
-                if (shouldTranslateAll) {
-                  setShouldTranslateAll(false);
-                  return;
-                }
-                if (
-                  confirm(
-                    [
-                      "全て翻訳モードが有効化されている間、未翻訳の全ての設問の問題文、選択肢、解説を自動で翻訳します。",
-                      "翻訳には gpt-3.5-turbo を使用しています。",
-                      "利用料金がかかっているので、資格勉強以外の用途での使用はご遠慮ください。",
-                      "全て翻訳モードを有効化しますか？",
-                    ].join("\n\n")
-                  )
-                ) {
-                  setShouldTranslateAll(true);
-                }
-              },
-              text: shouldTranslateAll
-                ? `全て翻訳モード実行中(${
-                    currentTranslateIndex.questionIndex + 1
-                  } - ${currentTranslateIndex.text})`
-                : "全て翻訳モード停止中",
-            },
-            {
-              text: "Export to Udemy",
-              onClick: () => dumpUdemyCsv({ exam, preferLang }),
-            },
-            {
-              text: "Break Udemy",
-              onClick: () => breakUdemy(),
-            },
-          ]}
-        />
+                  >
+                    Copy Prompt
+                  </button>
+                </h2>
+
+                {sentences2Elements({
+                  sentences: question.statement,
+                  textType: exam.meta?.text_type,
+                  language: preferLang,
+                  className: "mt-2 px-5",
+                })}
+                {question.corrects.length > 1 && (
+                  <span className="inline-block mx-5 px-3 py-0.5 bg-main text-white rounded">
+                    {question.corrects.length} つ選択
+                  </span>
+                )}
+                <ul className="flex flex-col gap-4 my-5 px-3 pb-5">
+                  {question.choices.map((choice, choiceIndex) => (
+                    <Choice
+                      choice={choice}
+                      status={(() => {
+                        if (
+                          question.selects.length >= question.corrects.length
+                        ) {
+                          if (question.corrects.includes(choiceIndex + 1)) {
+                            return "correct";
+                          }
+                          return "incorrect";
+                        }
+                        return "default";
+                      })()}
+                      selected={question.selects.includes(choiceIndex)}
+                      key={choiceIndex}
+                      index={choiceIndex}
+                      preferLang={preferLang}
+                      textType={exam.meta?.text_type}
+                      onClick={() => {
+                        if (
+                          question.selects.length >= question.corrects.length
+                        ) {
+                          updateExam((exam) => {
+                            const question = exam.questions[questionIndex];
+                            if (!question) return null;
+                            question.selects = [];
+                            return exam;
+                          });
+                        } else {
+                          selectChoice(questionIndex, choiceIndex);
+                        }
+                      }}
+                      multiple={question.corrects.length > 1}
+                    />
+                  ))}
+                </ul>
+                {(question.explanation[preferLang] ||
+                  question.explanation["ja"] ||
+                  question.explanation["en"]) && (
+                  <div
+                    className={`px-5 bg-[hsl(180,50%,96%)] ${
+                      question.selects &&
+                      question.selects.length >= question.corrects.length
+                        ? "display-active py-10"
+                        : "display-none"
+                    }`}
+                    style={{
+                      boxShadow: "0 20 20 0 #000 inset",
+                    }}
+                  >
+                    <h3 className="text-lg font-bold text-gray-600">解説</h3>
+                    {sentences2Elements({
+                      sentences: question.explanation,
+                      textType: exam.meta?.text_type,
+                      language: preferLang,
+                      className: "mt-5",
+                    })}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div></div>
       </div>
+
+      <FixedButtons
+        buttons={[
+          {
+            text: isCacheMode ? `ローカル編集モード` : null,
+            className: "bg-main text-white",
+          },
+          {
+            text: `翻訳にかかった料金: ${
+              Math.floor(
+                (totalTranslateToken.total_tokens * 0.002 * 135) / 10
+              ) / 100
+            } 円`,
+          },
+          {
+            onClick: async () => {
+              const { examUrl } = await remote.save(exam, examId);
+              updateExam((exam) => {
+                exam.meta.url = examUrl;
+                exam.meta.last_uploaded_at = new Date().toISOString();
+                return exam;
+              });
+            },
+            text: isCacheMode ? `クラウドに保存` : null,
+          },
+          {
+            text: exam.meta?.url
+              ? `クラウドに保存された模擬試験を開く(最終送信日時: ${
+                  exam.meta?.last_uploaded_at
+                    ? format(
+                        new Date(exam.meta.last_uploaded_at),
+                        "yyyy/MM/dd HH:mm:ss"
+                      )
+                    : "?"
+                })`
+              : null,
+            onClick: () => {
+              if (exam.meta?.url) location.href = exam.meta.url;
+            },
+          },
+          {
+            onClick: () => setPreferLang(preferLang === "ja" ? "en" : "ja"),
+            text: `優先言語：${preferLang === "ja" ? "日本語" : "英語"}`,
+          },
+          {
+            onClick: () => {
+              if (isCacheMode) {
+                setIsEditMode(!isEditMode);
+                return;
+              }
+              if (
+                confirm(
+                  `現在、インターネット上の模擬試験を表示しています。\n編集するには、この模擬試験をブラウザにコピーし、「ローカル編集モード」に移行する必要があります。\n「ローカル編集モード」に移行しますか？`
+                )
+              ) {
+                window.location.href = `?cache=${ls.saveExam(exam)}`;
+              }
+            },
+            text: "編集",
+          },
+          {
+            onClick: () => dumpExam(exam),
+            text: "ダウンロード",
+          },
+          {
+            onClick: () => (location.href = "/caches"),
+            text: "編集中のコース一覧",
+          },
+          {
+            onClick: () => {
+              if (shouldTranslateAll) {
+                setShouldTranslateAll(false);
+                return;
+              }
+              if (
+                confirm(
+                  [
+                    "全て翻訳モードが有効化されている間、未翻訳の全ての設問の問題文、選択肢、解説を自動で翻訳します。",
+                    "翻訳には gpt-3.5-turbo を使用しています。",
+                    "利用料金がかかっているので、資格勉強以外の用途での使用はご遠慮ください。",
+                    "全て翻訳モードを有効化しますか？",
+                  ].join("\n\n")
+                )
+              ) {
+                setShouldTranslateAll(true);
+              }
+            },
+            text: shouldTranslateAll
+              ? `全て翻訳モード実行中(${
+                  currentTranslateIndex.questionIndex + 1
+                } - ${currentTranslateIndex.text})`
+              : "全て翻訳モード停止中",
+          },
+          {
+            text: "Export to Udemy",
+            onClick: () => dumpUdemyCsv({ exam, preferLang }),
+          },
+          {
+            text: "Break Udemy",
+            onClick: () => breakUdemy(),
+          },
+        ]}
+      />
       <Footer />
     </div>
   );

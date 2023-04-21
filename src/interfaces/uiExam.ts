@@ -6,6 +6,25 @@ export type UIQuestion = {
   corrects: number[];
   explanation: UIJaEn;
   selects: number[];
+  votes: UIVote[] | null;
+  discussions: UIDiscussion[];
+};
+
+export type UIDiscussionAuthor = {
+  name: string;
+};
+
+export type UIDiscussion = {
+  created_at: string | null;
+  author: UIDiscussionAuthor | null;
+  comment: string;
+  selected_choices: string[];
+  replies: UIDiscussion[];
+};
+
+export type UIVote = {
+  label: string;
+  percent: number;
 };
 
 export type UILanguage = "ja" | "en";
@@ -22,16 +41,18 @@ export type UIAuthor = {
   // url: string | UIAuthorUrl;
 };
 
+export type UIPassCondition = {
+  count: number;
+  percent: number;
+};
+
 export type UIMeta = {
   last_uploaded_at: string | null;
-  url: string;
+  url: string | null;
   title: string;
-  description: string | string[];
-  minutes: number | null;
-  pass_condition: {
-    count: number | null;
-    percent: number | null;
-  };
+  description: string;
+  minutes: number;
+  pass_condition: UIPassCondition;
   text_type: UITextType;
   language: UILanguage;
   author: UIAuthor;

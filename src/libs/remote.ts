@@ -1,12 +1,16 @@
 import { CREATE_EXAM_FUNCTION_URL, GET_EXAM_FUNCTION_URL } from "./constants";
 
 import type { Exam } from "../interfaces/exam";
+import type { UIExam } from "../interfaces/uiExam";
 import axios from "axios";
+import { transformer } from "./examConverter";
 
 const save = async (
-  exam: Exam,
+  uiExam: UIExam,
   examId?: string | undefined | null
 ): Promise<{ examId: string; examUrl: string }> => {
+  const exam = transformer.exam.ui2exam(uiExam);
+  if (!exam) throw new Error();
   const body: { exam: Exam; examId?: string } = {
     exam,
   };

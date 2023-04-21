@@ -1,7 +1,8 @@
 import type { Exam } from "../interfaces/exam";
 import type { ExamInLocalStorage } from "../interfaces/examInLocalStorage";
-import { customNanoId } from "./customNanoId";
 import type { GptUsage } from "./translate";
+import type { UIExam } from "../interfaces/uiExam";
+import { customNanoId } from "./customNanoId";
 
 const deleteExam = (examId: string) => {
   localStorage.removeItem(`exam.${examId}`);
@@ -31,7 +32,7 @@ const getExam = (
   }
 };
 
-const saveExam = (exam: Exam, examId?: string): string => {
+const saveExam = (exam: UIExam, examId?: string): string => {
   const strExam = JSON.stringify(exam, null, 4);
   const cachedExam = examId && getExam(examId);
   if (cachedExam) {
