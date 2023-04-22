@@ -23,28 +23,29 @@ export const Discussions: FC<Props> = ({
   <ul>
     {discussions
       .sort((a, b) => b.upvote_count - a.upvote_count)
-      .map((discussion) => (
+      .map((discussion, key) => (
         <li
           className={`rounded-md mt-3 px-3 pt-3 pb-3 border-l-4 border-main ${
             bgColorReverse ? "bg-[hsl(180,50%,96%)]" : "bg-white"
           }`}
+          key={key}
         >
           {discussion.guessed_choices.length > 0 && (
-            <p>
+            <span>
               正解だと思う選択肢:{" "}
               <span className="bg-main rounded-md px-2 py-1 text-white">
                 {discussion.guessed_choices}
               </span>
-            </p>
+            </span>
           )}
-          <p>
+          <span>
             {sentences2Elements({
               language: preferLang,
               sentences: discussion.comment,
               textType,
               mode: "prefer",
             })}
-          </p>
+          </span>
           <div className="flex justify-between items-end">
             {discussion.upvote_count > 0 && (
               <span>👍 {discussion.upvote_count}</span>

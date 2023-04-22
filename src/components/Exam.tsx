@@ -440,13 +440,23 @@ export const ExamComponent = () => {
   return (
     <div className="w-full max-w-3xl mx-auto min-h-screen relative pb-[30rem]">
       <Header />
+      {exam.meta?.title && (
+        <div className="mt-10 bg-white px-5 h-10 sticky top-0 z-30 grid content-center w-full">
+          <h1
+            className="text-lg font-bold text-slate-800 overflow-ellipsis whitespace-nowrap overflow-hidden"
+            title={exam.meta.title}
+          >
+            {exam.meta.title}
+          </h1>
+        </div>
+      )}
       <div>
-        <div className="sm:px-3 py-3">
-          {exam.meta?.title && (
-            <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow">
+        <div className="py-3">
+          {/* {exam.meta?.title && (
+            <div className="flex flex-col gap-5 mt-10 bg-white px-5 py-5 rounded-lg shadow sticky">
               <h1 className="text-xl font-extrabold">{exam.meta.title}</h1>
             </div>
-          )}
+          )} */}
           <div className="flex flex-col gap-8 mt-10 bg-white px-5 py-10 rounded-lg shadow">
             <div className="mt-2">
               <Heading>概要</Heading>
@@ -510,9 +520,9 @@ export const ExamComponent = () => {
                 onMouseEnter={() =>
                   initialized && saveMouseEnterQuestion(questionIndex)
                 }
-                className="bg-white pt-10 rounded-lg shadow overflow-hidden"
+                className="bg-white pt-10 rounded-lg shadow relative"
               >
-                <h2 className="text-lg font-bold px-5 flex justify-between">
+                <h2 className="text-lg font-bold px-5 flex justify-between sticky top-10 bg-white">
                   {isCacheMode ? (
                     <div>
                       <span className="text-bold text-main">Q. </span>
@@ -535,25 +545,26 @@ export const ExamComponent = () => {
                       {questionIndex + 1}
                     </a>
                   )}
-                  <button
-                    className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs"
-                    onClick={() => {
-                      const prompt = [
-                        "以下の問題の最高に丁寧な解説を作成してください。",
-                        question.statement[preferLang],
-                        question.choices
-                          .map((choice, choiceIndex) => {
-                            const abc = ABC[choiceIndex];
-                            return `- ${abc} : ${choice[preferLang]}`;
-                          })
-                          .join("\n\n"),
-                      ].join("\n\n");
-                      navigator.clipboard.writeText(prompt);
-                    }}
-                  >
-                    Copy Prompt
-                  </button>
                 </h2>
+
+                <button
+                  className="bg-slate-300 hover:bg-slate-400 active:scale-105 transition-all px-2 py-0.5 rounded text-white text-xs absolute top-5 right-5"
+                  onClick={() => {
+                    const prompt = [
+                      "以下の問題の最高に丁寧な解説を作成してください。",
+                      question.statement[preferLang],
+                      question.choices
+                        .map((choice, choiceIndex) => {
+                          const abc = ABC[choiceIndex];
+                          return `- ${abc} : ${choice[preferLang]}`;
+                        })
+                        .join("\n\n"),
+                    ].join("\n\n");
+                    navigator.clipboard.writeText(prompt);
+                  }}
+                >
+                  Copy Prompt
+                </button>
 
                 {sentences2Elements({
                   sentences: question.statement,

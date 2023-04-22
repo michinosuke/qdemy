@@ -27,3 +27,16 @@ code {
   opacity: 1;
   transition: max-height 3s ease, opacity 0.5s ease, padding 0.4s ease;
 }
+
+.menu-hidden {
+  max-height: 0;
+  overflow-y: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.4s ease;
+}
+.menu-active {
+  max-height: 100vh;
+  overflow-y: hidden;
+  opacity: 1;
+  transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.4s ease;
+}
