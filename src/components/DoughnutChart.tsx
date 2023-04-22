@@ -1,11 +1,5 @@
-import {
-  ArcElement,
-  ChartData,
-  Chart as ChartJS,
-  Legend,
-  Tooltip,
-} from "chart.js";
-import { useEffect, useState } from "react";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
+import { FC, useEffect, useState } from "react";
 
 import { Doughnut } from "react-chartjs-2";
 
@@ -38,29 +32,38 @@ import { Doughnut } from "react-chartjs-2";
 //   options: { responsive: false },
 // };
 
-export const DoughnutChart = () => {
+type Data = {
+  label: string | null;
+  percent: number;
+}[];
+
+type Props = {
+  data: Data;
+};
+
+export const DoughnutChart: FC<Props> = ({ data }) => {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [data, setData] = useState<
-    { label: string | null; percent: number }[] | null
-  >(null);
+  // const [data, setData] = useState<
+  //   { label: string | null; percent: number }[] | null
+  // >(null);
 
   useEffect(() => {
     ChartJS.register(ArcElement, Tooltip, Legend);
     setIsRegistered(true);
 
-    const search = new URLSearchParams(window.location.search);
-    const dataStr = search.get("data");
-    if (!dataStr) return;
-    const data: { label: string | null; percent: number }[] | null = (() => {
-      try {
-        return JSON.parse(dataStr);
-      } catch (e) {
-        console.log(e);
-        return null;
-      }
-    })();
-    if (!data) return;
-    setData(data);
+    // const search = new URLSearchParams(window.location.search);
+    // const dataStr = search.get("data");
+    // if (!dataStr) return;
+    // const data: { label: string | null; percent: number }[] | null = (() => {
+    //   try {
+    //     return JSON.parse(dataStr);
+    //   } catch (e) {
+    //     console.log(e);
+    //     return null;
+    //   }
+    // })();
+    // if (!data) return;
+    // setData(data);
   }, []);
 
   if (!isRegistered || !data) return <></>;

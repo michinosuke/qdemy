@@ -107,8 +107,9 @@ const discussion: Transformer<Discussion, UIDiscussion> = {
     comment: d.comment,
     author: d.author ? { name: d.author.name } : null,
     created_at: d.created_at ?? null,
-    selected_choices: d.selected_choices ?? [],
+    guessed_choices: d.guessed_choices ?? [],
     replies: d.replies?.map((reply) => discussion.exam2ui(reply)) ?? [],
+    upvote_count: d.upvote_count ?? 0,
   }),
   ui2exam: (ud) => {
     const d: Discussion = {
@@ -116,8 +117,9 @@ const discussion: Transformer<Discussion, UIDiscussion> = {
     };
     appendIf(d, ud, "author", (x) => !!x);
     appendIf(d, ud, "created_at", (x) => !!x);
-    appendIf(d, ud, "selected_choices", (x) => !!x && x.length > 0);
+    appendIf(d, ud, "guessed_choices", (x) => !!x && x.length > 0);
     appendIf(d, ud, "replies", (x) => !!x && x.length > 0);
+    appendIf(d, ud, "upvote_count", (x) => !!x && x > 0);
     return d;
   },
 };
@@ -132,12 +134,13 @@ const exam: Transformer<Exam, UIExam> = {
         explanation: jaEn.exam2ui(question.explanation ?? {}),
         corrects: question.corrects,
         selects: [],
-        votes: question.votes ?? null,
+        votes: question.votes ?? [],
         discussions:
           question.discussions?.flatMap((ud) => {
             const d = discussion.exam2ui(ud);
             return d ? [d] : [];
           }) ?? [],
+        isExpandedDiscussion: false,
       })),
     };
     return uiExam;
@@ -169,6 +172,7 @@ const exam: Transformer<Exam, UIExam> = {
           return d ? [d] : [];
         });
         if (discussions.length > 0) q.discussions = discussions;
+        appendIf(q, question, "votes", (x) => !!x && x.length > 0);
         return q;
       }),
     };

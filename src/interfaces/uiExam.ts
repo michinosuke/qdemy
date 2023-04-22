@@ -6,8 +6,9 @@ export type UIQuestion = {
   corrects: number[];
   explanation: UIJaEn;
   selects: number[];
-  votes: UIVote[] | null;
+  votes: UIVote[];
   discussions: UIDiscussion[];
+  isExpandedDiscussion: boolean;
 };
 
 export type UIDiscussionAuthor = {
@@ -18,8 +19,9 @@ export type UIDiscussion = {
   created_at: string | null;
   author: UIDiscussionAuthor | null;
   comment: string;
-  selected_choices: string[];
+  guessed_choices: string[];
   replies: UIDiscussion[];
+  upvote_count: number;
 };
 
 export type UIVote = {

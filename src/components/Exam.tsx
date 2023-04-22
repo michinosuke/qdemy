@@ -24,6 +24,8 @@ import { ls } from "../libs/localStorage";
 import { remote } from "../libs/remote";
 import { sentences2Elements } from "../libs/sentences2Elements";
 import { transformer } from "../libs/examConverter";
+import { DoughnutChart } from "./DoughnutChart";
+import { Discussions } from "./Discussion";
 
 export const ExamComponent = () => {
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
@@ -290,6 +292,7 @@ export const ExamComponent = () => {
         isTranslating: false,
       },
       discussions: [],
+      isExpandedDiscussion: false,
       votes: [],
     };
     updateExam((exam) => {
@@ -601,29 +604,78 @@ export const ExamComponent = () => {
                     />
                   ))}
                 </ul>
-                {(question.explanation[preferLang] ||
-                  question.explanation["ja"] ||
-                  question.explanation["en"]) && (
-                  <div
-                    className={`px-5 bg-[hsl(180,50%,96%)] ${
-                      question.selects &&
-                      question.selects.length >= question.corrects.length
-                        ? "display-active py-10"
-                        : "display-none"
-                    }`}
-                    style={{
-                      boxShadow: "0 20 20 0 #000 inset",
-                    }}
-                  >
-                    <h3 className="text-lg font-bold text-gray-600">解説</h3>
-                    {sentences2Elements({
-                      sentences: question.explanation,
-                      textType: exam.meta?.text_type,
-                      language: preferLang,
-                      className: "mt-5",
-                    })}
-                  </div>
-                )}
+                <div
+                  className={`px-5 bg-[hsl(180,50%,96%)] ${
+                    question.selects &&
+                    question.selects.length >= question.corrects.length
+                      ? "display-active py-10"
+                      : "display-none"
+                  }`}
+                  style={{
+                    boxShadow: "0 20 20 0 #000 inset",
+                  }}
+                >
+                  {(question.explanation["ja"] ||
+                    question.explanation["en"]) && (
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-600">解説</h3>
+                      {sentences2Elements({
+                        sentences: question.explanation,
+                        textType: exam.meta.text_type,
+                        language: preferLang,
+                        mode: "prefer",
+                        className: "mt-5",
+                      })}
+                    </div>
+                  )}
+                  {question.votes.length > 0 && (
+                    <div className="mt-10">
+                      <h3 className="text-lg font-bold text-gray-600 pb-3">
+                        ユーザの投票
+                      </h3>
+                      <DoughnutChart
+                        data={question.votes.map(({ label, percent }) => ({
+                          label: label || "その他",
+                          percent,
+                        }))}
+                      />
+                    </div>
+                  )}
+                  {question.discussions.length > 0 && (
+                    <div className="mt-10">
+                      <h3 className="text-lg font-bold text-gray-600 pb-3">
+                        コメント({question.discussions.length})
+                      </h3>
+                      <Discussions
+                        discussions={
+                          question.isExpandedDiscussion
+                            ? question.discussions
+                            : question.discussions.slice(0, 3)
+                        }
+                        preferLang={preferLang}
+                        textType={exam.meta.text_type}
+                      />
+                      {!question.isExpandedDiscussion && (
+                        <button
+                          className="bg-main rounded-md px-3 py-1 mt-3 text-white block mx-auto"
+                          onClick={() => {
+                            updateExam((exam) => {
+                              const question = exam.questions[questionIndex];
+                              if (!question) return null;
+                              question.isExpandedDiscussion =
+                                !question.isExpandedDiscussion;
+                              return exam;
+                            });
+                          }}
+                        >
+                          {question.isExpandedDiscussion
+                            ? "閉じる"
+                            : "もっとみる"}
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               </li>
             ))}
           </ul>

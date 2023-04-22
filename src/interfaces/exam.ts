@@ -17,8 +17,9 @@ export type Discussion = {
   created_at?: string | null;
   author?: DiscussionAuthor | null;
   comment: string;
-  selected_choices?: string[] | null;
+  guessed_choices?: string[] | null;
   replies?: Discussion[] | null;
+  upvote_count?: number | null;
 };
 
 export type Vote = {
