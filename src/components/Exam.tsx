@@ -650,7 +650,12 @@ export const ExamComponent = () => {
                         discussions={
                           question.isExpandedDiscussion
                             ? question.discussions
-                            : question.discussions.slice(0, 3)
+                            : question.discussions
+                                .slice(0, 3)
+                                .map((discussion) => ({
+                                  ...discussion,
+                                  replies: [],
+                                }))
                         }
                         preferLang={preferLang}
                         textType={exam.meta.text_type}
