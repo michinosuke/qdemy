@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import type { FC } from "react";
 import type {
   UIDiscussion as D,
@@ -44,11 +45,18 @@ export const Discussions: FC<Props> = ({
               mode: "prefer",
             })}
           </p>
-          {discussion.upvote_count > 0 && (
-            <span>👍 {discussion.upvote_count}</span>
-          )}
+          <div className="flex justify-between">
+            {discussion.upvote_count > 0 && (
+              <span>👍 {discussion.upvote_count}</span>
+            )}
+            {discussion.created_at && (
+              <span className="text-gray-400">
+                {format(new Date(discussion.created_at), "yyyy/MM/dd")}
+              </span>
+            )}
+          </div>
           {discussion.replies.length > 0 && (
-            <div className="pl-5">
+            <div>
               <Discussions
                 {...{
                   discussions: discussion.replies,
