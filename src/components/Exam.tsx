@@ -543,6 +543,9 @@ export const ExamComponent = () => {
                     >
                       <span className="text-bold text-main">Q. </span>
                       {questionIndex + 1}
+                      <span className="text-slate-500 font-normal pl-4">
+                        {question.heading}
+                      </span>
                     </a>
                   )}
                 </h2>
@@ -645,9 +648,9 @@ export const ExamComponent = () => {
                         ユーザの投票
                       </h3>
                       <DoughnutChart
-                        data={question.votes.map(({ label, percent }) => ({
+                        data={question.votes.map(({ label, count }) => ({
                           label: label || "その他",
-                          percent,
+                          count,
                         }))}
                       />
                     </div>

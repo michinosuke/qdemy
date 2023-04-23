@@ -34,7 +34,7 @@ import { Doughnut } from "react-chartjs-2";
 
 type Data = {
   label: string | null;
-  percent: number;
+  count: number;
 }[];
 
 type Props = {
@@ -73,7 +73,7 @@ export const DoughnutChart: FC<Props> = ({ data }) => {
         labels: data.map((d) => d.label ?? ""),
         datasets: [
           {
-            data: data.map((d) => d.percent),
+            data: data.map((d) => d.count),
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",

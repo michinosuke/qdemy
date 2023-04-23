@@ -141,6 +141,7 @@ const exam: Transformer<Exam, UIExam> = {
             return d ? [d] : [];
           }) ?? [],
         isExpandedDiscussion: false,
+        heading: question.heading ?? "",
       })),
     };
     return uiExam;
@@ -173,6 +174,7 @@ const exam: Transformer<Exam, UIExam> = {
         });
         if (discussions.length > 0) q.discussions = discussions;
         appendIf(q, question, "votes", (x) => !!x && x.length > 0);
+        appendIf(q, question, "heading", (x) => x !== "");
         return q;
       }),
     };

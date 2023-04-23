@@ -9,6 +9,7 @@ export type UIQuestion = {
   votes: UIVote[];
   discussions: UIDiscussion[];
   isExpandedDiscussion: boolean;
+  heading: string;
 };
 
 export type UIDiscussionAuthor = {
@@ -26,7 +27,7 @@ export type UIDiscussion = {
 
 export type UIVote = {
   label: string;
-  percent: number;
+  count: number;
 };
 
 export type UILanguage = "ja" | "en";

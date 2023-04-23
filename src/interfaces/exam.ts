@@ -7,6 +7,7 @@ export type Question = {
   explanation?: JaEn | null;
   discussions?: Discussion[] | null;
   votes?: Vote[];
+  heading?: string | null;
 };
 
 export type DiscussionAuthor = {
@@ -24,7 +25,7 @@ export type Discussion = {
 
 export type Vote = {
   label: string;
-  percent: number;
+  count: number;
 };
 
 export type Language = "ja" | "en";
